@@ -12,17 +12,17 @@ var dashboard = require('./routes/dashboard');
 var app = express();
 
 // View Maps
-import { Loader } from '@googlemaps/js-api-loader';
-const apiOptions = {
-	apiKey: "YOUR API KEY"
-  }
-
-const loader = new Loader(apiOptions);
-
-loader.load().then(() => {
-	console.log('Maps fue cargado exitosamente');
-	
-  });
+// import { Loader } from '@googlemaps/js-api-loader';
+// const apiOptions = {
+// 	apiKey: "YOUR API KEY"
+//   }
+// 
+// const loader = new Loader(apiOptions);
+// 
+// loader.load().then(() => {
+// 	console.log('Maps fue cargado exitosamente');
+// 	
+//   });
 
 // view engine setup jaddas
 app.set('views', path.join(__dirname, 'views'));
