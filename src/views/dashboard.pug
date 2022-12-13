@@ -1,9 +1,15 @@
 extends layout
 
 block content
-	.bg-primary.pt-3
+	
 		if user.type == 'ADMIN'
 			p.nameUser Admin Dashboard
+
+
+
+
+
+
 		else if user.type == 'DELIVER'
 			.row(data-masonry='{"percentPosition": true }' style='position: relative; height: 690px;')
 				.col-sm-6.col-lg-4.mb-4(style='position: absolute; left: 0%; top: 0px;')
@@ -12,81 +18,62 @@ block content
 							h5.card-title Ruta
 							p.card-text No tienes ninguna ruta asignada de momento.
 							p.card-text
-								small.text-muted Last updated 3 mins ago
+							small.text-muted Last updated 3 mins ago
 				
+
+
+
+
 		else if user.type == 'CLIENT'
-			p.nameUser  Bienvenido #{user.name}
+			.bg-primary.pt-3
+				p.nameUser  Bienvenido #{user.name}
+				.wrapper 
+					-
+						let pedingShipings = [
+							{
+							'stat_shpg': 'EN TRÁNSITO',
+							'trk_shpg': '202212150310001002'
+							},
+							{'stat_shpg': 'EN TRÁNSITO',
+							'trk_shpg': '121212121212121212'
+							},
+							{'stat_shpg': 'EN TRÁNSITO',
+							'trk_shpg': '121212121212121212'
+							},
+							{'stat_shpg': 'EN TRÁNSITO',
+							'trk_shpg': '121212121212121212'
+							},
+							{'stat_shpg': 'EN TRÁNSITO',
+							'trk_shpg': '121212121212121212'
+							},
+						]
+
+					each val in pedingShipings
+						a.text-decoration-none(href='/panel/envio/detalles/'+val.trk_shpg)
+							.item.row.d-flex.align-items-center.justify-content-center
+								.col-4.p-0
+									img.img-fluid.rounded-start(src='https://img.freepik.com/vector-premium/icono-vector-arte-linea-camion-entrega-envio-rapido-aplicaciones-sitios-web-transporte_652240-16.jpg')
+								.col-8.p-0
+									p.card-text.text-center.m-0.text-status= val.stat_shpg
+									h6.card-title.card-text.text-center.text-secondary= val.trk_shpg
+									small.text-muted Origen: 
+									br
+									small.text-muted Destino 
+									br
+									small.text-muted Última actualización:
+									br
+									small.text-muted 00:00 PM - 00/00/0000			
+
+			.container
+				a.text-decoration-none(href='/panel/envio/crearEnvio')
+					.d-grid.gap-2.col-6.mx-auto
+						button.btn.btn-secondary.btn-lg.rounded-5(type='button' style='width: 348px; height: 141px; border-radius: 20px; position: relative;')
+							.item.row.d-flex.align-items-center.justify-content-center
+								//- .col-4 Imagen
+								.col-8
+									p.text-start.fs-3.text-center.fw-bold(style='color:#FFFFFF') Crear envio
 		else
-			p.nameUser Usuario desconocido
-
-	.wrapper 
-		-
-			let pedingShipings = [
-				{
-				'stat_shpg': 'EN TRÁNSITO',
-				'trk_shpg': '202212150310001002'
-				},
-				{'stat_shpg': 'EN TRÁNSITO',
-				'trk_shpg': '121212121212121212'
-				},
-				{'stat_shpg': 'EN TRÁNSITO',
-				'trk_shpg': '121212121212121212'
-				},
-				{'stat_shpg': 'EN TRÁNSITO',
-				'trk_shpg': '121212121212121212'
-				},
-				{'stat_shpg': 'EN TRÁNSITO',
-				'trk_shpg': '121212121212121212'
-				},
-			]
-
-		each val in pedingShipings
-			a.text-decoration-none(href='/panel/envio/detalles/'+val.trk_shpg)
-				.item.row.d-flex.align-items-center.justify-content-center
-					.col-4.p-0
-						img.img-fluid.rounded-start(src='https://img.freepik.com/vector-premium/icono-vector-arte-linea-camion-entrega-envio-rapido-aplicaciones-sitios-web-transporte_652240-16.jpg')
-					.col-8.p-0
-						p.card-text.text-center.m-0.text-status= val.stat_shpg
-						h6.card-title.card-text.text-center.text-secondary= val.trk_shpg
-						small.text-muted Origen: 
-						br
-						small.text-muted Destino 
-						br
-						small.text-muted Última actualización:
-						br
-						small.text-muted 00:00 PM - 00/00/0000		
-
-	.container
-		a.text-decoration-none(href='/panel/envio/crearEnvio')
-			.d-grid.gap-2.col-6.mx-auto
-				button.btn.btn-primary.btn-lg.rounded-5(type='button' style='background-color: #212E46; width: 348px; height: 141px; border-radius: 20px; position: relative;')
-					.item.row.d-flex.align-items-center.justify-content-center
-						.col-4.p-0
-							img.img-fluid.rounded-start(src='https://img.freepik.com/vector-premium/icono-vector-arte-linea-camion-entrega-envio-rapido-aplicaciones-sitios-web-transporte_652240-16.jpg')
-						.col-8.p-0
-							p.card-text.text-center.m-0.text-status= val.stat_shpg
-							h6.card-title.card-text.text-center.text-secondary= val.trk_shpg
-							small.text-muted Origen: 
-							br
-							small.text-muted Destino 
-							br
-							small.text-muted Última actualización:
-							br
-							small.text-muted 00:00 PM - 00/00/0000		
-
-		.container
-			a.text-decoration-none(href='/panel/envio/crearEnvio')
-				.d-grid.gap-2.col-6.mx-auto
-					button.btn.btn-secondary.btn-lg.rounded-5(type='button' style='width: 348px; height: 141px; border-radius: 20px; position: relative;')
-						.item.row.d-flex.align-items-center.justify-content-center
-							//- .col-4 Imagen
-							.col-8
-								p.text-start.fs-3.text-center.fw-bold(style='color:#FFFFFF') Crear envio
-	else
-		| Usuario desconocido
-
-	
-
+			| Usuario desconocido
 
 
 block scripts
