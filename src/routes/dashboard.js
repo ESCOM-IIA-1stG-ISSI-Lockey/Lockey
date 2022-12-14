@@ -60,7 +60,7 @@ router.post('/envio/crearEnvio', (req,res,next) =>{
         if (results.affectedRows) {
             res.status(200).json({
                 response: "OK",
-                redirect: "ViewMaps" //modifiaciones prueba mapas
+                // redirect: "ViewMaps" //modifiaciones prueba mapas
             })
         }
         else {
