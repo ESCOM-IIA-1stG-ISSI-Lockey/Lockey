@@ -1,40 +1,41 @@
 extends layout
 
 block content
-    div.space
-        .bg-primary.d-flex.align-items-center(style="height: 70px;")
-            p.h1.title Detalles de envio
+    .container
+        .bg-primary.d-flex.p-2
+            h2.fw-bold.m-0 Detalles de envio
+        .row.mt-3.mb-3
+            div.detalles.col-sm-6.col-xs-12
+                p Número de guía: 
+                    small.text-muted #{shipping.trk_shpg}
+                p Remitente: 
+                    small.text-muted #{shipping.nm_contorg}
+                p Destinatario: 
+                    small.text-muted #{shipping.nm_contdst}
+                p Lugar de origen: 
+                    small.text-muted #{shipping.nm_lkrorg}
+                p Lugar de destino: 
+                    small.text-muted #{shipping.nm_lkrdst}
+                p Tipo de envío: 
+                    small.text-muted #{shipping.nm_shpgtype}
+                p Fecha de creación: 
+                    small.text-muted #{shipping.dts_shpg}
+            div.detalles.col-sm-6.col-xs-12
+                p Altura del paquete: 
+                    small.text-muted #{shipping.hgt_shpg} cm
+                p Ancho del paquete: 
+                    small.text-muted #{shipping.wd_shpg} cm
+                p Profundidad del paquete: 
+                    small.text-muted #{shipping.deep_shpg} cm
+                p Peso del paquete: 
+                    small.text-muted #{shipping.wt_shpg} kg
+                p Precio: 
+                    small.text-muted $ #{shipping.pr_shpg} mx
+                p Metodo de pago: 
+                    small.text-muted #{shipping.num_wal}
 
-        div.detalles
-            p Número de guía: 
-                small.text-muted #{shipping.trk_shpg}
-            p Remitente: 
-                small.text-muted #{shipping.nm_contorg}
-            p Destinatario: 
-                small.text-muted #{shipping.nm_contdst}
-            p Lugar de origen: 
-                small.text-muted #{shipping.nm_lkrorg}
-            p Lugar de destino: 
-                small.text-muted #{shipping.nm_lkrdst}
-            p Tipo de envío: 
-                small.text-muted #{shipping.nm_shpgtype}
-            p Fecha de creación: 
-                small.text-muted #{shipping.dts_shpg}
-            p Altura del paquete: 
-                small.text-muted #{shipping.hgt_shpg} cm
-            p Ancho del paquete: 
-                small.text-muted #{shipping.wd_shpg} cm
-            p Profundidad del paquete: 
-                small.text-muted #{shipping.deep_shpg} cm
-            p Peso del paquete: 
-                small.text-muted #{shipping.wt_shpg} kg
-            p Precio: 
-                small.text-muted $ #{shipping.pr_shpg} mx
-            p Metodo de pago: 
-                small.text-muted #{shipping.num_wal}
-
-        .bg-secondary.d-flex.align-items-center(style="height: 50px;")
-            p.h2.trayect Trayectoria
+        .d-flex.p-2.bg-secondary
+            h3.fw-bold.text-white.m-0 Trayectoria
 
         -let n = shipping.stat_shpg
         .process

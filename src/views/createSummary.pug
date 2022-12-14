@@ -2,6 +2,33 @@ extends layout
 
 block content
     .container.row.col-fluid-12.mt-3.mx-auto
+        h1.fw-bold Tamaño del paquete
+        p.m-0 Selecciona un tamaño de locker
+        .wrapper.Paquetes.p-0
+            input#option1.btn-check(type='radio' name='options' autocomplete='off')
+            label.btn.btn-secondary(class='TamañoPaquete' for='option1')
+                h3 Chico
+                img(src="")
+                p.fw-bold Medidas maximas
+                .row
+                    .col
+                        p.m-0.p-0.fw-bold1 Altura
+                        p.m-0.p-0 10 cm
+                    .col
+                        p.m-0.p-0.fw-bold1 Anchura
+                        p.m-0.p-0 40 cm
+                    .col
+                        p.m-0.p-0.fw-bold1 Profundidad
+                        p.m-0.p-0 60 cm
+                    //- .col
+                    //-     p.m-0.p-0 Peso
+                    //-     p.m-0.p-0 15 kg
+            input#option2.btn-check(type='radio' name='options' autocomplete='off')
+            label.btn.btn-secondary(class='TamañoPaquete' for='option2') Medio
+            input#option3.btn-check(type='radio' name='options' autocomplete='off')
+            label.btn.btn-secondary(class='TamañoPaquete' for='option3') Grande
+
+    .container.row.col-fluid-12.mt-3.mx-auto
         h1.fw-bold Informacion de pago
         p Agregar o seleccionar tarjeta de credito o debito
             //- button.btn.btn-primary.rounded-5.mt-3(type='button' style='background-color: #212E46;')

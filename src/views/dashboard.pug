@@ -5,11 +5,6 @@ block content
 		if user.type == 'ADMIN'
 			p.nameUser Admin Dashboard
 
-
-
-
-
-
 		else if user.type == 'DELIVER'
 			.row(data-masonry='{"percentPosition": true }' style='position: relative; height: 690px;')
 				.col-sm-6.col-lg-4.mb-4(style='position: absolute; left: 0%; top: 0px;')
@@ -20,58 +15,68 @@ block content
 							p.card-text
 							small.text-muted Last updated 3 mins ago
 				
-
-
-
-
 		else if user.type == 'CLIENT'
-			.bg-primary.pt-3
-				p.nameUser  Bienvenido #{user.name}
-				.wrapper 
-					-
-						let pedingShipings = [
-							{
-							'stat_shpg': 'EN TRÁNSITO',
-							'trk_shpg': '202212150310001002'
-							},
-							{'stat_shpg': 'EN TRÁNSITO',
-							'trk_shpg': '121212121212121212'
-							},
-							{'stat_shpg': 'EN TRÁNSITO',
-							'trk_shpg': '121212121212121212'
-							},
-							{'stat_shpg': 'EN TRÁNSITO',
-							'trk_shpg': '121212121212121212'
-							},
-							{'stat_shpg': 'EN TRÁNSITO',
-							'trk_shpg': '121212121212121212'
-							},
-						]
+			.bg-primary
+				.pt-3.container.pb-3
+					h1.nameUser Bienvenido #{user.name}
 
-					each val in pedingShipings
-						a.text-decoration-none(href='/panel/envio/detalles/'+val.trk_shpg)
-							.item.row.d-flex.align-items-center.justify-content-center
-								.col-4.p-0
-									img.img-fluid.rounded-start(src='https://img.freepik.com/vector-premium/icono-vector-arte-linea-camion-entrega-envio-rapido-aplicaciones-sitios-web-transporte_652240-16.jpg')
-								.col-8.p-0
-									p.card-text.text-center.m-0.text-status= val.stat_shpg
-									h6.card-title.card-text.text-center.text-secondary= val.trk_shpg
-									small.text-muted Origen: 
-									br
-									small.text-muted Destino 
-									br
-									small.text-muted Última actualización:
-									br
-									small.text-muted 00:00 PM - 00/00/0000			
+					.form-group
+						label Rastrear envío
+						input#exampleInputEmail1.form-control(type='text' placeholder='Ingrese número de guía')
+						small#emailHelp.form-text.text-muted Podemos poner algo interesante aquí
+			
+			-
+				let pedingShipings = [
+					{
+					'stat_shpg': 'EN TRÁNSITO',
+					'trk_shpg': '202212150310001002'
+					},
+					{'stat_shpg': 'EN TRÁNSITO',
+					'trk_shpg': '121212121212121212'
+					},
+					{'stat_shpg': 'EN TRÁNSITO',
+					'trk_shpg': '121212121212121212'
+					},
+					{'stat_shpg': 'EN TRÁNSITO',
+					'trk_shpg': '121212121212121212'
+					},
+					{'stat_shpg': 'EN TRÁNSITO',
+					'trk_shpg': '121212121212121212'
+					},
+				]
+
+			h4.pt-3.container Enviós en curso
+			.wrapper.container 
+				each val in pedingShipings 
+					a.text-decoration-none(href='/panel/envio/detalles/'+val.trk_shpg)
+						.item.row.d-flex.align-items-center.justify-content-center(style='min-width: 380px;')
+							.col-4.p-0
+								img(style='max-height: 120px;')(src='https://img.freepik.com/vector-premium/icono-vector-arte-linea-camion-entrega-envio-rapido-aplicaciones-sitios-web-transporte_652240-16.jpg')
+							.col-8.p-0
+								p.card-text.text-center.m-0.text-status= val.stat_shpg
+								h6.card-title.card-text.text-center.text-secondary= val.trk_shpg
+								small.text-muted Origen: 
+								br
+								small.text-muted Destino 
+								br
+								small.text-muted Última actualización:
+								br
+								small.text-muted 00:00 PM - 00/00/0000
+				
+				else 
+					h4.pt-2.pb-2.container No hay envios en curso :(
+
 
 			.container
 				a.text-decoration-none(href='/panel/envio/crearEnvio')
-					.d-grid.gap-2.col-6.mx-auto
-						button.btn.btn-secondary.btn-lg.rounded-5(type='button' style='width: 348px; height: 141px; border-radius: 20px; position: relative;')
-							.item.row.d-flex.align-items-center.justify-content-center
-								//- .col-4 Imagen
-								.col-8
-									p.text-start.fs-3.text-center.fw-bold(style='color:#FFFFFF') Crear envio
+					.item.row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.m-3
+						p.text-start.fs-3.text-center.fw-bold(style='color:#FFFFFF') Crear envio
+				a.text-decoration-none(href='/panel/envio/crearEnvio')
+					.item.row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.m-3
+						p.text-start.fs-3.text-center.fw-bold(style='color:#FFFFFF') Historial de envíos
+				a.text-decoration-none(href='/panel/envio/crearEnvio')
+					.item.row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.m-3
+						p.text-start.fs-3.text-center.fw-bold(style='color:#FFFFFF') ¿Cómo funciona?
 		else
 			| Usuario desconocido
 

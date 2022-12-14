@@ -75,6 +75,13 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 	.flex-md-equal > * {
 		flex: 1;
 	}
+	.TamañoPaquete{
+		width:470px;
+	}
+	.wrapper .item{
+		min-width: 300px;
+		height: 180px;
+	}
 }
 
 .nameUser{
@@ -82,19 +89,11 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 	margin: 0;
 	padding: 0;
 	font-weight: bolder;
-	margin-left: 2.5rem;
 }
 
 .space{
 	margin-left: 5%;
 	margin-right: 5%;
-}
-
-.title{
-	margin-top: 0;
-	margin-left: 20px;
-	margin-right: 0;
-	font-weight: bolder;
 }
 
 .bg-cover1 {
@@ -124,7 +123,7 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 	display: flex;
 	overflow: auto;
 	padding: 30px;
-	background-color: $primary;
+	// background-color: $primary;
 }
 
 .wrapper::-webkit-scrollbar{
@@ -132,9 +131,8 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 }
 
 .wrapper .item{
-	min-width: 300px;
-	height: 180px;
-	// line-height: 120px;
+	min-width: 160px;
+	height: 164px;
 	text-align: left;
 	background-color: #ffffff;
 	margin-right: 30px;
@@ -143,7 +141,7 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 }
 
 .wrapper .item:hover {
-	box-shadow: 0 0 20px #785200;
+	box-shadow: 0 0 10px #0145c5;
 }
 
 .text-status{color: #0145c5; font-weight: bolder; font-size: 16px;}
@@ -237,15 +235,26 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 .detalles{
 	padding-left: 1rem;
 	font-weight: bolder;
-	margin-top: 1rem;
-	margin-bottom: 1rem;
 }
 
-.trayect{
-	padding-left: 2rem;
-	font-weight: bolder;
-	background-color: #212e46;
-	color: white;
+.TamañoPaquete{
+	min-width:270px;
+	margin: 20px;
+	height: 380px;
+	box-shadow: 10px 5px 15px #0000003b;
+    --bs-btn-color: #212e46;
+    --bs-btn-bg: #d3d5da;
+    --bs-btn-border-color: #d3d5da;
+
+    --bs-btn-active-color: #212e46;
+    --bs-btn-active-bg:  #f9d950;
+    --bs-btn-active-border-color:  #e7c010;
+   
 }
+.fw-bold1{
+	
+}
+.Paquetes{max-height: 500px;}
 
 .b-line::before{border-left: 0px!important}
+
