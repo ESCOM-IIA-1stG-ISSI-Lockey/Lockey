@@ -43,8 +43,21 @@ block content
                 p.fw-bold.my-0.px-4 Juanito Juarez
                 p.px-2.my-0.px-4 JuanitoJuarez@gmail.com
             .col-12.rounded.px-3.mb-3
-                button.btn.btn-primary.btn-sm.mt-3.rounded-pill(type='submit' style='background-color: #212E46;')
-                    .fw-bold.my-0.px-4(style='color: #ffffff;') Ver todos
+                p(align='right')
+                button.btn.btn-primary(type='button' data-bs-toggle='modal' data-bs-target='#exampleModal' style='background-color: #212E46;')
+                    .modal-dialog.modal-dialog-centered.modal-dialog-scrollable.fw-bold.my-0.px-4(style='color: #ffffff;') Ver todos
+                    // Modal
+                #exampleModal.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
+                    .modal-dialog.modal-dialog-scrollable
+                        .modal-content
+                            .modal-header
+                                h1#exampleModalLabel.modal-title.fs-5 Modal title
+                                button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                            .modal-body
+                                | ...
+                            .modal-footer
+                                button.btn.btn-secondary(type='button' data-bs-dismiss='modal') Close
+                                button.btn.btn-primary(type='button') Save changes
 
 
         .d-grid.gap-4

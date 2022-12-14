@@ -5,7 +5,7 @@ block content
         h1.fw-bold Informacion de pago
         p Agregar o seleccionar tarjeta de credito o debito
             //- button.btn.btn-primary.rounded-5.mt-3(type='button' style='background-color: #212E46;')
-            a.fw-bold.end-0(style='color: secondary') Ver todos
+            //-a.fw-bold.end-0(style='color: secondary') Ver todos
         .col-12.bg-secondary.p-2.rounded-4.mx-1(style='--bs-bg-opacity: 0.2')
             .row
                 .col-4
@@ -27,8 +27,24 @@ block content
                             path(d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z')
                             path(d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z')
                     .col-8.fw-bold.rounded-pill.btn-lg.fs-5.text-start Agregar tarjeta
-        //- p(align='right')
-        
+        p(align='right')
+        .col-lg-1
+            button.btn.btn-primary(type='button' data-bs-toggle='modal' data-bs-target='#exampleModal' style='background-color: #212E46;')
+                .modal-dialog.modal-dialog-centered.modal-dialog-scrollable.fw-bold.my-0.px-4(style='color: #ffffff;') Ver todos
+                // Modal
+            #exampleModal.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
+                .modal-dialog.modal-dialog-scrollable
+                    .modal-content
+                        .modal-header
+                            h1#exampleModalLabel.modal-title.fs-5 Modal title
+                            button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                        .modal-body
+                            | ...
+                        .modal-footer
+                            button.btn.btn-secondary(type='button' data-bs-dismiss='modal') Close
+                            button.btn.btn-primary(type='button') Save changes
+
+
     //- .container.py-5
     //-     h1.fw-bold Resumen del env&iacute;o
     //-     .row.d-flex.justify-content-center
@@ -38,23 +54,26 @@ block content
     //-                     .card-body
     //-                         .row
     //-                             .col-5.form-outline.mb-3
-    //-                                 a.text-decoration-none.mb-1.px-1.mt-3.fw-bold(href='#' style='color: #212E46;' onclick='redirectRemi()') Remitente:
+    //-                                 a.text-decoration-none.mb-1.px-1.mt-3.fw-bold(href='#' style='color: #212E46;' 
+    //-                                 onclick="location.href = '/panel/envio/crearEnvio/createSender';") Remitente:
     //-                             .col.form-outline.mb-3(style='text-align: left;') Juan Daniel Del Valle
     //-                         .row
     //-                             .col-5.form-outline.mb-3
-    //-                                 a.text-decoration-none.mb-1.px-1.mt-3.fw-bold(href='#' style='color: #212E46;' onclick='redirectDest()') Destinatario:
+    //-                                 a.text-decoration-none.mb-1.px-1.mt-3.fw-bold(href='#' style='color: #212E46;'
+    //-                                 onclick="location.href = '/panel/envio/crearEnvio/createAddresse';") Destinatario:
     //-                             .col.form-outline.mb-3(style='text-align: left;') Jose Rios Perez
     //-                         .row
     //-                             .col-5.form-outline.mb-3
-    //-                                 a.text-decoration-none.mb-1.px-1.mt-3.fw-bold(href='#' style='color: #212E46;' onclick='redirectSize()') Tama&ntilde;o del locker:
+    //-                                 a.text-decoration-none.mb-1.px-1.mt-3.fw-bold(href='#' style='color: #212E46;' 
+    //-                                 onclick="location.href = '/panel/envio/crearEnvio/createSize';") Tama&ntilde;o del locker:
     //-                             .col.form-outline.mb-3(style='text-align: left;') Mediano
     //-                         .row
     //-                             .col-5.form-outline.mb-3
-    //-                                 a.text-decoration-none.mb-1.px-1.mt-3.fw-bold(href='#' style='color: #212E46;' onclick='redirectPlace()') Lugar de origen:
+    //-                                 a.text-decoration-none.mb-1.px-1.mt-3.fw-bold(href='#' style='color: #212E46;' onclick='') Lugar de origen:
     //-                             .col.form-outline.mb-3(style='text-align: left;') Plaza Antenas
     //-                         .row
     //-                             .col-5.form-outline.mb-3
-    //-                                 a.text-decoration-none.mb-1.px-1.mt-3.fw-bold(href='#' style='color: #212E46;' onclick='redirectPlace()') Lugar de destino:
+    //-                                 a.text-decoration-none.mb-1.px-1.mt-3.fw-bold(href='#' style='color: #212E46;' onclick='') Lugar de destino:
     //-                             .col.form-outline.mb-3(style='text-align: left;') Plaza Garden
     //-                         .row
     //-                             .col-4.form-outline.mb-3
