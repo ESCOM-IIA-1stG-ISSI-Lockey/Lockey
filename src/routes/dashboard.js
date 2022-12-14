@@ -55,11 +55,12 @@ router.get('/envio/crearEnvio', (req,res,next) =>{
 router.post('/envio/crearEnvio', (req,res,next) =>{
 	console.log(req.body)
     let {name, email, tel} = req.body;
-    db.createContact(req.session.user.id,name, email, tel).then((results)=>{ //checar
+    db.createContact(req.session.user.id, name, email, tel).then((results)=>{ //checar
         debug('results', results);
         if (results.affectedRows) {
             res.status(200).json({
                 response: "OK",
+                message: "Contacto guardado con éxito",
                 // redirect: "ViewMaps" //modifiaciones prueba mapas
             })
         }

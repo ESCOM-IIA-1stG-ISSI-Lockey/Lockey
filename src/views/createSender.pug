@@ -4,7 +4,7 @@ block content
     .container-fluid
         h6.container.text-center.fs-4 Datos del remitente
         .row.col-fluid-12.rounded-4
-            form.needs-validation.col-12.rounded.px-3.mb-3.needs-validation(novalidate method='post' action='/panel/envio/crearEnvio')
+            form.needs-validation.col-12.rounded.px-3.mb-3.needs-validation(method='post' action='/panel/envio/crearEnvio' novalidate)
                 div
                     label.form-label.mb-1.px-1.mt-3.fw-bold(for='NombreDestinatario') Nombre del remitente
                     input#NombreDestinatario.form-control.rounded-4(type='text' placeholder='Juan Daniel...' required name="name")
@@ -20,7 +20,7 @@ block content
                         | Es necesario un numero telefonico
                     .col-12.rounded.px-3.mb-3.mt-3
                         .form-check
-                            input#flexCheckDefault.form-check-input(role='button' type='checkbox' value='')
+                            input#flexCheckDefault.form-check-input(role='button' type='checkbox')
                             label.form-check-label.fw-bold(role='button' for='flexCheckDefault')
                             | Guardar destinatario
                     .row.col-fluid.mt-1.mx-1
