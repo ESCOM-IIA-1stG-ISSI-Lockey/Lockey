@@ -12,9 +12,10 @@ var dashboard = require('./routes/dashboard');
 var app = express();
 
 // View Maps
+// var GoMaps = require('@googlemaps/js-api-loader');
 // import { Loader } from '@googlemaps/js-api-loader';
 // const apiOptions = {
-// 	apiKey: "YOUR API KEY"
+// 	apiKey: "AIzaSyBDaeWicvigtP9xPv919E-RNoxfvC-Hqik"
 //   }
 // 
 // const loader = new Loader(apiOptions);
