@@ -11,25 +11,25 @@ block content
                             form.row.g-3.needs-validation(novalidate='')
                                 .form-outline.mb-3
                                     label.form-label.mb-1.px-1.mt-3.fw-bold(for='validationNumber') Numero de tarjeta
-                                    input#validationNumber.form-control.rounded-4(type='number' name='cardNumber' placeholder='XXXX-XXXX-XX12-3456' required='')
+                                    input#validationNumber.form-control.rounded-4(type='number' name='card' placeholder='XXXX-XXXX-XX12-3456' required='')
                                     .invalid-feedback
                                         | Es necesario ingresar un numero de trajeta valido
                                 .form-outline.mb-3
                                     label.form-label.mb-1.px-1.mt-3.fw-bold(for='validationName') Nombre y Apellido
-                                    input#validationName.form-control(type='text' name='cardName' placeholder='Juan Daniel' required='')
+                                    input#validationName.form-control(type='text' name='name' placeholder='Juan Daniel' required='')
                                     .invalid-feedback
                                         | Es necesario ingresar un nombre valido
                                 .row.mb-3
                                     .col-7
                                         .form-outline
                                             label.form-label.mb-1.px-1.mt-3.fw-bold(for='validationDate') Fecha de vencimiento
-                                            input#validationDate.form-control(type='text' name='cardDate' placeholder='MM/YYYY' required='')
+                                            input#validationDate.form-control(type='text' name='date' placeholder='MM/YYYY' required='')
                                             .invalid-feedback
                                                 | Es necesario ingresar una fecha valida
                                     .col-3
                                         .form-outline
                                             label.form-label.mb-1.px-1.mt-3.fw-bold(for='validationCVV') CVV
-                                            input#validationCVV.form-control(type='text' name='cardCode' placeholder='CVV' required='' maxlength='3)
+                                            input#validationCVV.form-control(type='text' name='cvv' placeholder='CVV' required='' maxlength='3)
                                             .invalid-feedback
                                                 | Es necesario ingresar un codigo valido
                                 .d-grid.gap-4
