@@ -44,7 +44,6 @@ router.get('/envio/detalles/[0-9]{18}', (req,res,next) =>{
 });
 
 router.get('/envio/crearEnvio', (req,res,next) =>{
-	res.render("createSummary") 
 	if (req.session.user) {
 		res.render('createSummary' , { title: 'sendiit - panel', path: req.path, user: req.session.user });
 	} else {
@@ -100,7 +99,7 @@ router.post('/envio/crearEnvio/createSender', (req,res,next) =>{
 });
 
 router.get('/envio/crearEnvio/createSender', (req,res,next) =>{
-    res.render("createSender") 
+    // res.render("createSender") 
     if (req.session.user) {
         res.render('createSender' , { title: 'sendiit - panel', path: req.path, user: req.session.user });
     } else {
@@ -109,7 +108,7 @@ router.get('/envio/crearEnvio/createSender', (req,res,next) =>{
 });
 
 router.get('/envio/crearEnvio/createAddresse', (req,res,next) =>{
-    res.render("createAddresse") 
+    // res.render("createAddresse") 
     if (req.session.user) {
         res.render('createAddresse' , { title: 'sendiit - panel', path: req.path, user: req.session.user });
     } else {
@@ -118,15 +117,12 @@ router.get('/envio/crearEnvio/createAddresse', (req,res,next) =>{
 });
 
 router.get('/envio/crearEnvio/createSize', (req,res,next) =>{
-    res.render("createSize") 
+    // res.render("createSize") 
     if (req.session.user) {
         res.render('createSize' , { title: 'sendiit - panel', path: req.path, user: req.session.user });
     } else {
         res.redirect('/');
     }
 });
-
-
-
 
 module.exports = router;
