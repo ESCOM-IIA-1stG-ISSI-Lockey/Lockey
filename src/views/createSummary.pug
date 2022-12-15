@@ -72,6 +72,8 @@ block content
         .col-12.bg-primary.p-2.rounded-4.mx-1
             p.fw-bold.my-0.px-4.mt-2.text-center Cambiar destino
 
+        #map.vw-100.rounded.shadow(style="height:75vh")
+
     .container.row.col-fluid-12.mt-3.mx-auto
         h1.fw-bold Informacion de pago
         p Agregar o seleccionar tarjeta de credito o debito
@@ -167,4 +169,6 @@ block content
 
 
 block scripts
+    script(src='/javascripts/googleMaps.js')
     script(src='/javascripts/validation.js')
+    script(async src="https://maps.googleapis.com/maps/api/js?libraries=places,visualization&key=AIzaSyAEErsjNBLnxa3y-N2LFDpENunDEE8SDAs&v=weekly&callback=initMap")
