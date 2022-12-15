@@ -379,7 +379,7 @@ START TRANSACTION;
 USE `lockey_db`;
 INSERT INTO `lockey_db`.`Locker` (`id_lkr`, `nm_lkr`, `dir_lkr`) VALUES (DEFAULT, 'Plaza torres', 'Av. Miguel Othón de Mendizábal Ote. 343, Nueva Industrial Vallejo, Gustavo A. Madero, 07700 Ciudad de México, CDMX');
 INSERT INTO `lockey_db`.`Locker` (`id_lkr`, `nm_lkr`, `dir_lkr`) VALUES (DEFAULT, 'Santa Fe', 'Vasco de Quiroga 3800, Santa Fe, Contadero, Cuajimalpa de Morelos, 05348 Ciudad de México, CDMX');
-INSERT INTO `lockey_db`.`Locker` (`id_lkr`, `nm_lkr`, `dir_lkr`) VALUES (DEFAULT, 'Fórum Buenavista', 'Eje 1 Nte. 259, Buenavista, Cuauhtémoc, 06350 Ciudad de México, CDMX');
+INSERT INTO `lockey_db`.`Locker` (`id_lkr`, `nm_lkr`, `dir_lkr`) VALUES (DEFAULT, 'Forum Buenavista', 'Eje 1 Nte. 259, Buenavista, Cuauhtémoc, 06350 Ciudad de México, CDMX');
 INSERT INTO `lockey_db`.`Locker` (`id_lkr`, `nm_lkr`, `dir_lkr`) VALUES (DEFAULT, 'Plaza Antenas', 'Av. Canal de Garay 3278-3er piso, Tulyehualco Canal de Garay, Iztapalapa, 09910 Ciudad de México, CDMX');
 
 
@@ -437,8 +437,8 @@ INSERT INTO `lockey_db`.`ShippingDoor` (`id_shpgdr`, `id_door`, `trk_shpg`, `id_
 INSERT INTO `lockey_db`.`ShippingDoor` (`id_shpgdr`, `id_door`, `trk_shpg`, `id_cont`, `edge_shpgdr`, `busy_shpgdr`, `qr_shpgdr`) VALUES (DEFAULT, 2, '202212130530002001', 2, 1, 1, Null);
 INSERT INTO `lockey_db`.`ShippingDoor` (`id_shpgdr`, `id_door`, `trk_shpg`, `id_cont`, `edge_shpgdr`, `busy_shpgdr`, `qr_shpgdr`) VALUES (DEFAULT, 7, '202212130530002001', 1, 2, 1, 892789);
 INSERT INTO `lockey_db`.`ShippingDoor` (`id_shpgdr`, `id_door`, `trk_shpg`, `id_cont`, `edge_shpgdr`, `busy_shpgdr`, `qr_shpgdr`) VALUES (DEFAULT, 3, '202212140630003003', 2, 1, 1, Null);
-INSERT INTO `lockey_db`.`ShippingDoor` (`id_shpgdr`, `id_door`, `trk_shpg`, `id_cont`, `edge_shpgdr`, `busy_shpgdr`, `qr_shpgdr`) VALUES (DEFAULT, 12, '202212140630003003', 2, 2, 1, 347883);
-INSERT INTO `lockey_db`.`ShippingDoor` (`id_shpgdr`, `id_door`, `trk_shpg`, `id_cont`, `edge_shpgdr`, `busy_shpgdr`, `qr_shpgdr`) VALUES (DEFAULT, 10, '202212080735001002', 3, 1, 1, Null);
+INSERT INTO `lockey_db`.`ShippingDoor` (`id_shpgdr`, `id_door`, `trk_shpg`, `id_cont`, `edge_shpgdr`, `busy_shpgdr`, `qr_shpgdr`) VALUES (DEFAULT, 12,'202212140630003003', 2, 2, 1, 347883);
+INSERT INTO `lockey_db`.`ShippingDoor` (`id_shpgdr`, `id_door`, `trk_shpg`, `id_cont`, `edge_shpgdr`, `busy_shpgdr`, `qr_shpgdr`) VALUES (DEFAULT, 10,'202212080735001002', 3, 1, 1, Null);
 INSERT INTO `lockey_db`.`ShippingDoor` (`id_shpgdr`, `id_door`, `trk_shpg`, `id_cont`, `edge_shpgdr`, `busy_shpgdr`, `qr_shpgdr`) VALUES (DEFAULT, 1, '202212080735001002', 3, 2, 1, 780192);
 INSERT INTO `lockey_db`.`ShippingDoor` (`id_shpgdr`, `id_door`, `trk_shpg`, `id_cont`, `edge_shpgdr`, `busy_shpgdr`, `qr_shpgdr`) VALUES (DEFAULT, 5, '202212190127001003', 1, 1, 1, Null);
 INSERT INTO `lockey_db`.`ShippingDoor` (`id_shpgdr`, `id_door`, `trk_shpg`, `id_cont`, `edge_shpgdr`, `busy_shpgdr`, `qr_shpgdr`) VALUES (DEFAULT, 3, '202212190127001003', 1, 2, 1, 493435);
@@ -452,7 +452,7 @@ USE `lockey_db`;
 INSERT INTO `lockey_db`.`Report` (`id_rpt`, `id_usr`, `id_door`, `trk_shpg`, `tit_rpt`, `msg_rpt`) VALUES (DEFAULT, 1, 1, '202212150310001002', 'Puerta aberiada', 'La puerta del casillero 03 del locker Santa fe esta atorada y no abre');
 INSERT INTO `lockey_db`.`Report` (`id_rpt`, `id_usr`, `id_door`, `trk_shpg`, `tit_rpt`, `msg_rpt`) VALUES (DEFAULT, 2, 2, '202212130530002001', 'Casillero Sucio', 'El casillero 01 del locker de Plaza torres esta sucio, necesita limpieza');
 INSERT INTO `lockey_db`.`Report` (`id_rpt`, `id_usr`, `id_door`, `trk_shpg`, `tit_rpt`, `msg_rpt`) VALUES (DEFAULT, 2, 3, '202212140630003003', 'Paquete abierto', 'El paquete que recibi en el locker esta abierto');
-INSERT INTO `lockey_db`.`Report` (`id_rpt`, `id_usr`, `id_door`, `trk_shpg`, `tit_rpt`, `msg_rpt`) VALUES (DEFAULT, 1, 10, '202212080735001002', ' ', ' ');
+INSERT INTO `lockey_db`.`Report` (`id_rpt`, `id_usr`, `id_door`, `trk_shpg`, `tit_rpt`, `msg_rpt`) VALUES (DEFAULT, 1, 10,'202212080735001002', ' ', ' ');
 INSERT INTO `lockey_db`.`Report` (`id_rpt`, `id_usr`, `id_door`, `trk_shpg`, `tit_rpt`, `msg_rpt`) VALUES (DEFAULT, 2, 5, '202212190127001003', ' ', ' ');
 
 COMMIT;
