@@ -252,10 +252,11 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
    
 }
 .fw-bold1{
- font-weight: 600px !important;
+ font-weight: 600 !important;
 }
 
-.Paquetes{max-height: 500px;}
+.Paquetes{max-height: 500px;
+		}
 
 .b-line::before{border-left: 0px!important}
 
