@@ -1,0 +1,10 @@
+extends createSummary
+
+block content
+    #map.vw-100.rounded.shadow.container(style="height:75vh")
+    
+
+block scripts
+    script(src='/javascripts/googleMaps.js')
+    script(src='/javascripts/validation.js')
+    script(async src="https://maps.googleapis.com/maps/api/js?libraries=places,visualization&key=AIzaSyAEErsjNBLnxa3y-N2LFDpENunDEE8SDAs&v=weekly&callback=initMap")

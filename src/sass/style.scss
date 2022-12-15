@@ -251,12 +251,30 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
     --bs-btn-active-border-color:  #e7c010;
    
 }
+
+.place{
+	width: 90%;
+	height: 150px;
+	margin: 5%;
+	box-shadow: 10px 5px 15px #0000003b;
+    --bs-btn-color: #212e46;
+    --bs-btn-bg: #d3d5da;
+    --bs-btn-border-color: #d3d5da;
+
+    --bs-btn-active-color: #212e46;
+    --bs-btn-active-bg:  #f9d950;
+    --bs-btn-active-border-color:  #e7c010;
+   
+}
 .fw-bold1{
  font-weight: 600 !important;
 }
 
-.Paquetes{max-height: 500px;
-		}
+.Paquetes{max-height: 500px;}
 
 .b-line::before{border-left: 0px!important}
+
+.boxSize{
+	width: 70%;
+}
 

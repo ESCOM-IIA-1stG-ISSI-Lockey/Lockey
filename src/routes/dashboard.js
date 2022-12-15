@@ -51,6 +51,22 @@ router.get('/envio/crearEnvio', (req,res,next) =>{
 	}
 });
 
+router.get('/envio/crearEnvio/origen', (req,res,next) =>{
+	if (req.session.user) {
+		res.render('chooseOrigen' , { title: 'sendiit - panel', path: req.path, user: req.session.user });
+	} else {
+		res.redirect('/');
+	}
+});
+
+router.get('/envio/crearEnvio/destino', (req,res,next) =>{
+	if (req.session.user) {
+		res.render('chooseDestination' , { title: 'sendiit - panel', path: req.path, user: req.session.user });
+	} else {
+		res.redirect('/');
+	}
+});
+
 router.post('/envio/crearEnvio', (req,res,next) =>{
 	console.log(req.body)
     let {name, email, tel} = req.body;
