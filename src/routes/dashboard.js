@@ -125,4 +125,13 @@ router.get('/envio/crearEnvio/createSize', (req,res,next) =>{
     }
 });
 
+router.get('/envio/crearEnvio/payment', (req,res,next) =>{
+    // res.render("createSize") 
+    if (req.session.user) {
+        res.render('payment' , { title: 'sendiit - panel', path: req.path, user: req.session.user });
+    } else {
+        res.redirect('/');
+    }
+});
+
 module.exports = router;
