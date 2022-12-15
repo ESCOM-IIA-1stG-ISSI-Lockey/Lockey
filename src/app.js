@@ -11,20 +11,6 @@ var dashboard = require('./routes/dashboard');
 
 var app = express();
 
-// View Maps
-// var GoMaps = require('@googlemaps/js-api-loader');
-// import { Loader } from '@googlemaps/js-api-loader';
-// const apiOptions = {
-// 	apiKey: "AIzaSyBDaeWicvigtP9xPv919E-RNoxfvC-Hqik"
-//   }
-// 
-// const loader = new Loader(apiOptions);
-// 
-// loader.load().then(() => {
-// 	console.log('Maps fue cargado exitosamente');
-// 	
-//   });
-
 // view engine setup jaddas
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
