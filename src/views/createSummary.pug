@@ -7,7 +7,7 @@ block content
         .wrapper.Paquetes.p-0
             input#option1.btn-check(type='radio' name='options' autocomplete='off')
             label.btn.btn-secondary(class='TamañoPaquete' for='option1')
-                h3 Chico
+                h3.fw-bold Chico
                 img(src="")
                 p.fw-bold Medidas maximas
                 .row
@@ -24,9 +24,55 @@ block content
                     //-     p.m-0.p-0 Peso
                     //-     p.m-0.p-0 15 kg
             input#option2.btn-check(type='radio' name='options' autocomplete='off')
-            label.btn.btn-secondary(class='TamañoPaquete' for='option2') Medio
+            label.btn.btn-secondary(class='TamañoPaquete' for='option2') 
+                h3.fw-bold Mediano 
+                img(src="")
+                p.fw-bold Medidas maximas
+                .row
+                    .col
+                        p.m-0.p-0.fw-bold1 Altura
+                        p.m-0.p-0 10 cm
+                    .col
+                        p.m-0.p-0.fw-bold1 Anchura
+                        p.m-0.p-0 40 cm
+                    .col
+                        p.m-0.p-0.fw-bold1 Profundidad
+                        p.m-0.p-0 60 cm
+                    //- .col
+                    //-     p.m-0.p-0 Peso
+                    //-     p.m-0.p-0 15 kg
             input#option3.btn-check(type='radio' name='options' autocomplete='off')
-            label.btn.btn-secondary(class='TamañoPaquete' for='option3') Grande
+            label.btn.btn-secondary(class='TamañoPaquete' for='option3') 
+                h3.fw-bold Grande 
+                img(src="")
+                p.fw-bold Medidas maximas
+                .row
+                    .col
+                        p.m-0.p-0.fw-bold1 Altura
+                        p.m-0.p-0 10 cm
+                    .col
+                        p.m-0.p-0.fw-bold1 Anchura
+                        p.m-0.p-0 40 cm
+                    .col
+                        p.m-0.p-0.fw-bold1 Profundidad
+                        p.m-0.p-0 60 cm
+                    //- .col
+                    //-     p.m-0.p-0 Peso
+                    //-     p.m-0.p-0 15 kg
+    .container.row.col-fluid-12.mt-3.mx-auto
+        h1.fw-bold Lugar de origen
+        p.m-0 Selecciona o elige un lugar de origen
+        .col-12.bg-primary.p-2.rounded-4.mx-1
+            p.fw-bold.my-0.px-4.mt-2.text-center Cambiar origen
+
+    .container.row.col-fluid-12.mt-3.mx-auto
+        h1.fw-bold Lugar de destino
+        p.m-0 Selecciona o elige un lugar de destino
+
+        .col-12.bg-primary.p-2.rounded-4.mx-1
+            p.fw-bold.my-0.px-4.mt-2.text-center Cambiar destino
+
+        #map.vw-100.rounded.shadow(style="height:75vh")
 
     .container.row.col-fluid-12.mt-3.mx-auto
         h1.fw-bold Informacion de pago
@@ -123,4 +169,6 @@ block content
 
 
 block scripts
+    script(src='/javascripts/googleMaps.js')
     script(src='/javascripts/validation.js')
+    script(async src="https://maps.googleapis.com/maps/api/js?libraries=places,visualization&key=AIzaSyAEErsjNBLnxa3y-N2LFDpENunDEE8SDAs&v=weekly&callback=initMap")
