@@ -8,7 +8,7 @@
 // 2. Include any default variable overrides here
 $primary: #f9d950;
 $secondary: #212e46;
-$tertiary: #dddddd; 
+$tertiary: #d4d4d4; 
 
 // 3. Include remainder of required Bootstrap stylesheets
 @import "../../node_modules/bootstrap/scss/variables";
@@ -84,6 +84,10 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 	}
 }
 
+.lupa{
+	font-size: 20px;
+	font-weight: bolder;
+}
 .nameUser{
 	font-size: 20px;
 	margin: 0;
@@ -208,6 +212,28 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 		  background-color: $primary;
 		}
 	  }
+
+	  &.is-cancel {
+		&::after {
+		//   content: "✔";
+		  font-size: 20px;
+		  color: #FFF;
+		  text-align: center;
+		  border: 20px solid #db2e32;
+		  background-color: #db2e32;
+		}
+	  }
+	  
+	  &.is-store {
+		&::after {
+		//   content: "✔";
+		  font-size: 20px;
+		  color: #FFF;
+		  text-align: center;
+		  border: 20px solid #2e7cdb;
+		  background-color: #2e7cdb;
+		}
+	  }
 	  
 	  &.current {
 		&::before {
@@ -228,13 +254,18 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 		}
 	  }
 	}
-	strong {display: block; padding-left: 20px;}
-	p {display: block; padding-left: 20px; margin: 0;}
+	strong {display: block; padding-left: 20px; font-size: 20px;}
+	p {display: block; padding-left: 20px; margin: 0; font-weight: bold; color: $primary; font-size: 18px;}
   }
+
+.update{
+	font-weight: normal !important;
+	font-size: 15px !important;
+	color: $secondary !important;
+}
 
 .detalles{
 	padding-left: 1rem;
-	font-weight: bolder;
 }
 
 .TamañoPaquete{
@@ -278,3 +309,15 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 	width: 70%;
 }
 
+.detalles p{
+	font-size: 1em;
+	padding-bottom: 0px;
+	margin-bottom: 5px;
+	font-weight: bold;
+	border-bottom: rgb(94, 94, 94);
+}
+
+.detalles p small{
+	font-size: 15px;
+	font-weight: normal;
+}
