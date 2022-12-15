@@ -5,7 +5,7 @@ function initMap() {
     const Ant = { lat: 19.3138125, lng: -99.0784336};
 
     const map = new google.maps.Map(document.getElementById("map"), {
-      zoom: 12,
+      zoom: 11.3,
       center: { lat:19.3911668 , lng:   -99.1466907 },
     });
     new google.maps.Marker({
