@@ -28,6 +28,8 @@ block content
             input#option3.btn-check(type='radio' name='options' autocomplete='off')
             label.btn.btn-secondary(class='TamañoPaquete' for='option3') Grande
 
+        #map.vw-100.rounded
+
     .container.row.col-fluid-12.mt-3.mx-auto
         h1.fw-bold Informacion de pago
         p Agregar o seleccionar tarjeta de credito o debito
@@ -123,4 +125,6 @@ block content
 
 
 block scripts
+    script(src='/javascripts/googleMaps.js')
     script(src='/javascripts/validation.js')
+    script(async src="https://maps.googleapis.com/maps/api/js?libraries=places,visualization&key=AIzaSyAEErsjNBLnxa3y-N2LFDpENunDEE8SDAs&v=weekly&callback=initMap")
