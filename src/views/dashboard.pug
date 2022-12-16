@@ -1,6 +1,9 @@
 extends layout
 
 block content
+
+
+	.pt-3.container.pb-3
 	
 		if user.type == 'ADMIN'
 			p.nameUser Admin Dashboard
@@ -16,27 +19,33 @@ block content
 								p.card-text
 									small.text-muted Last updated 3 mins ago 
 			else
-				p Rutas a realizar
+
+
+				.bg-primary.d-flex.p-2.rounded.justify-content-center
+					h2.fw-bold.m-0 Ruta De Hoy
+					
 				- let lockerc = 0
-				ul.StepProgress
+
+				
+				ul.pt-3.StepProgress.align-items-centerpb-3
+	
 					each locker, i in stateRoute 
 						if i + 1 >= stateRoute.length
 							if locker.stat_rte == 1
 								.StepProgress-item.is-done.b-line
 									a.strong(href='/panel/repartidor/lockersnm/'+locker.nm_lkr) 
-										p.text-status=locker.nm_lkr
-								 
-									
+										p.text-ruta=locker.nm_lkr
+								 			
 							else
 								.StepProgress-item.current.b-line
 									a.strong(href='/panel/repartidor/lockersnm/'+locker.nm_lkr) 
-										p.text-status=locker.nm_lkr
+										p.text-ruta=locker.nm_lkr
 
 
 						else if locker.stat_rte == 1
 							.StepProgress-item.is-done
 								a.strong(href='/panel/repartidor/lockersnm/'+locker.nm_lkr) 
-									p.text-status=locker.nm_lkr
+									p.text-ruta=locker.nm_lkr
 						else
 							.StepProgress-item.current.d-none
 								strong.d-none= locker.nm_lkr
@@ -59,13 +68,16 @@ block content
 
 			h4.pt-3.container Enviós en curso
 			.wrapper.container 
-				each val in pedingShipings 
+				each val in pedingShipings
+				
 					a.text-decoration-none(href='/panel/envio/detalles/'+val.trk_shpg)
 						.item.row.d-flex.align-items-center.justify-content-center(style='min-width: 380px;')
 							.col-4.p-0
 								img(style='max-height: 120px;')(src='https://img.freepik.com/vector-premium/icono-vector-arte-linea-camion-entrega-envio-rapido-aplicaciones-sitios-web-transporte_652240-16.jpg')
 							.col-8.p-0
-								p.card-text.text-center.m-0.text-status= val.stat_shpg
+								each num, key in  {1 : 'En espera de entrega para recolección', 2 : 'En espera de recolección', 3 : 'En tránsito', 4 : 'En espera de recepción del destinatario', 5 : 'Completado', 6 : 'Almacén', 7 : 'Cancelado'}
+									if key == val.stat_shpg
+										p.card-text.text-center.m-0.text-status= num
 								h6.card-title.card-text.text-center.text-secondary= val.trk_shpg
 								small.text-muted Origen: #{val.nm_lkrorg}
 								br

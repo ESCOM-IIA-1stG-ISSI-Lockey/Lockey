@@ -314,17 +314,19 @@ const db = {
 		});
 	},
 
-	getshippingdeliver: (nm_lkr) => {
-		return new Promise((resolve, reject) => {
-			con.query('SELECT *, Route.id_usr as id_dlvr FROM ShippingDetail NATURAL JOIN RouteDetail NATURAL JOIN Route WHERE nm_lkrdst = ? ', [nm_lkr], (err, results) => {
-				if (err) reject(err);
 
+	getShippingdetailByUserId: (userId, lockerDestino) => {
+		return new Promise((resolve, reject) => {
+			con.query('SELECT * FROM ShippingDetail WHERE nm_lkrdst = ?', [ lockerDestino], (err, results) => {
+				if (err) reject(err);
 				else resolve(results);
 			});
 		});
 	},
 
 };
+
+
 
 
 

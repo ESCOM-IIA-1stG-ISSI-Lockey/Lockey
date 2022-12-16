@@ -115,9 +115,11 @@ router.get('/envio/crearEnvio/destino', (req,res,next) =>{
 	}
 });
 
-router.get('/envio/crearEnvio/sender', (req,res,next) =>{
+router.get('/envio/crearEnvio/sender',async (req,res,next) =>{
 	if (req.session.user) {
-		res.render('createSender', { title: 'sendiit - panel', path: req.path, user: req.session.user });
+		let contacts = await db.getContactsByUserId(req.session.user.id);
+		console.log('contacts', contacts)
+		res.render('createSender', { title: 'sendiit - panel', path: req.path, user: req.session.user, contacts: contacts});
 	} else {
 		res.redirect('/');
 	}
@@ -148,6 +150,24 @@ router.route('/envio/crearEnvio')
 			res.status(402).json({response:'ERROR', message:err});
 		});
 	});
+
+router.route('/nuevo/resumen')
+	.get(async (req,res,next) => {
+		if (req.session.user) {
+			let wallet = await db.getWalletsByUserId(req.session.user.id);
+			let contacts = await db.getContactsByUserId(req.session.user.id);
+			console.log('contacts', contacts)
+			res.render('createSender' , { 
+				title: 'sendiit - panel', 
+				path: req.path, 
+				user: req.session.user, 
+				wallet: wallet,
+				contacts: contacts
+			});
+		} else {
+			res.redirect('/');
+		}
+	})
 
 // router.post('/envio/crearEnvio/createSender', (req,res,next) =>{
 // 	console.log(req.body)
@@ -211,16 +231,16 @@ router.get('/repartidor/lockersnm/[a-z ^A-Z 0-9&,%.]{1,}', (req,res,next) =>{
 		traking = traking.replace('%20', ' ');
 		
 		
-		db.getshippingdeliver(traking).then((results)=>{
+		db.getShippingdetailByUserId(req.session.user.id, traking).then((results)=>{
 			debug('results', results);
 			if (results.length) {
-				res.render('lockers' , { title: 'sendiit - panel', path: req.path, user: req.session.user, route:results[0]});
+				res.render('lockers' , { title: 'sendiit - panel', path: req.path, traking:traking, shippingDetails:results});
 			}
 			else {
 				res.status(401).json({response:'ERROR', message:'Rutas completadas no encontradas'});
 			}
 		});
-		res.render("lockers")
+		
 
 	} else {
 		res.redirect('/');

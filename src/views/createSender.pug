@@ -26,7 +26,7 @@ block content
                         .modal-dialog.modal-dialog-scrollable
                             .modal-content
                                 .modal-header
-                                    h1#exampleModalLabel.modal-title.fs-5 Modal title
+                                    h1#exampleModalLabel.modal-title.fs-5 Contactos
                                     button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
                                 .modal-body
                                     each contact in contacts
@@ -61,6 +61,7 @@ block content
                                     h1#exampleModalLabel.modal-title.fs-5 Modal title
                                     button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
                                 .modal-body
+                                    p=!{contacts}
                                     each contact in contacts
                                         a.text-decoration-none(href='/panel/envio/crearEnvio/'+contact.id_cont style="color: black")
                                             h6.col-12.bg-secondary.p-2.rounded-4.fw-bold(style='--bs-bg-opacity: 0.3')= contact.nm_cont
