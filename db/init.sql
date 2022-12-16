@@ -319,7 +319,7 @@ CREATE OR REPLACE VIEW `ShippingDetail` AS
 			WHEN 1 THEN 'En Espera de Entrega del Remitente'
 			WHEN 2 THEN 'En Espera de Recoleccion del Repartidor'
 			WHEN 3 THEN 'En Transito'
-			WHEN 4 THEN 'En Espera de Recepción del Destinatario'
+			WHEN 4 THEN 'En Espera de Recepcion del Destinatario'
 			WHEN 5 THEN 'Completado'
 			WHEN 6 THEN 'En Almacen'
 			WHEN 7 THEN 'Cancelado'
