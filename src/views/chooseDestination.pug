@@ -10,8 +10,8 @@ block content
             form.col-md-5.col-lg-5.m-0.p-0.slide_ver
                 each val in address  
                     input(id=val.id_lkr).btn-check(type='radio' name='options3' autocomplete='off')
-                    label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center.ms-3.me-3.m-0(for=val.id_lkr)
-                        p.fw-bold=val.nm_lkr
+                    label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center.ms-3.me-3.m-0.mt-3(for="") (for=val.id_lkr)
+                        h4.fw-bold=val.nm_lkr
                         small=val.dir_lkr           
         form.row.mt-3.float-right.ms-3(action='/panel/envio/crearEnvio' method='Get')
             .form-check
