@@ -11,7 +11,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema lockey_db
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `lockey_db` DEFAULT CHARACTER SET utf8mb4;
+CREATE SCHEMA IF NOT EXISTS `lockey_db` DEFAULT CHARACTER SET utf8;
 USE `lockey_db` ;
 
 -- -----------------------------------------------------
@@ -20,10 +20,10 @@ USE `lockey_db` ;
 CREATE TABLE IF NOT EXISTS `lockey_db`.`User` (
   `id_usr` INT NOT NULL AUTO_INCREMENT,
   `act_usr` INT NOT NULL DEFAULT 0,
-  `nm_usr` VARCHAR(45) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci' NOT NULL,
-  `em_usr` VARCHAR(45) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci' NOT NULL,
-  `tel_usr` VARCHAR(10) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci' NOT NULL,
-  `pwd_usr` VARCHAR(64) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci' NOT NULL,
+  `nm_usr` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL,
+  `em_usr` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL,
+  `tel_usr` VARCHAR(10) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL,
+  `pwd_usr` VARCHAR(64) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL,
   `type_usr` INT NOT NULL DEFAULT 3,
   `tk_usr` INT(6) NULL,
   PRIMARY KEY (`id_usr`),
@@ -37,9 +37,9 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `lockey_db`.`Wallet` (
   `id_wal` INT NOT NULL AUTO_INCREMENT,
   `id_usr` INT NOT NULL,
-  `nknm_wal` VARCHAR(10) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci' NOT NULL,
-  `nm_wal` VARCHAR(45) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci' NOT NULL,
-  `num_wal` VARCHAR(16) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci' NOT NULL,
+  `nknm_wal` VARCHAR(10) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL,
+  `nm_wal` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL,
+  `num_wal` VARCHAR(16) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL,
   `date_wal` DATE NOT NULL,
   PRIMARY KEY (`id_wal`),
   INDEX `fk_wallet_user_idx` (`id_usr` ASC) VISIBLE,
@@ -56,7 +56,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `lockey_db`.`ShippingType` (
   `id_shpgtype` INT NOT NULL AUTO_INCREMENT,
-  `nm_shpgtype` VARCHAR(16) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci' NOT NULL,
+  `nm_shpgtype` VARCHAR(16) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL,
   `time_shpgtype` TIME NOT NULL,
   PRIMARY KEY (`id_shpgtype`))
 ENGINE = InnoDB;
@@ -66,7 +66,7 @@ ENGINE = InnoDB;
 -- Table `lockey_db`.`Shipping`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `lockey_db`.`Shipping` (
-  `trk_shpg` VARCHAR(18) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci' NOT NULL,
+  `trk_shpg` VARCHAR(18) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL,
   `id_usr` INT NOT NULL,
   `id_shpgtype` INT NOT NULL,
   `stat_shpg` INT NOT NULL,
@@ -107,8 +107,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `lockey_db`.`Locker` (
   `id_lkr` INT NOT NULL AUTO_INCREMENT,
-  `nm_lkr` VARCHAR(45) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci' NOT NULL,
-  `dir_lkr` VARCHAR(150) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci' NOT NULL,
+  `nm_lkr` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL,
+  `dir_lkr` VARCHAR(150) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL,
   PRIMARY KEY (`id_lkr`))
 ENGINE = InnoDB;
 
@@ -118,7 +118,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `lockey_db`.`DoorType` (
   `id_drtype` INT NOT NULL AUTO_INCREMENT,
-  `nm_drtype` VARCHAR(16) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci' NOT NULL,
+  `nm_drtype` VARCHAR(16) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL,
   `hgt_drtype` DOUBLE NOT NULL,
   `wd_drtype` DOUBLE NOT NULL,
   `deep_drtype` DOUBLE NOT NULL,
@@ -158,9 +158,9 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `lockey_db`.`Contact` (
   `id_cont` INT NOT NULL AUTO_INCREMENT,
   `id_usr` INT NOT NULL,
-  `nm_cont` VARCHAR(45) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci' NOT NULL,
-  `em_cont` VARCHAR(45) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci' NOT NULL,
-  `tel_cont` VARCHAR(10) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci' NOT NULL,
+  `nm_cont` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL,
+  `em_cont` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL,
+  `tel_cont` VARCHAR(10) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL,
   PRIMARY KEY (`id_cont`),
   INDEX `fk_Contact_User_idx` (`id_usr` ASC) VISIBLE,
   CONSTRAINT `fk_Contact_User`
@@ -177,7 +177,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `lockey_db`.`ShippingDoor` (
   `id_shpgdr` INT NOT NULL AUTO_INCREMENT,
   `id_door` INT NOT NULL,
-  `trk_shpg` VARCHAR(18) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci' NOT NULL,
+  `trk_shpg` VARCHAR(18) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL,
   `id_cont` INT NOT NULL,
   `edge_shpgdr` INT(1) NOT NULL,
   `busy_shpgdr` INT(1) NOT NULL DEFAULT 0,
@@ -211,9 +211,9 @@ CREATE TABLE IF NOT EXISTS `lockey_db`.`Report` (
   `id_rpt` INT NOT NULL AUTO_INCREMENT,
   `id_usr` INT NOT NULL,
   `id_door` INT NOT NULL,
-  `trk_shpg` VARCHAR(18) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci' NULL,
-  `tit_rpt` VARCHAR(45) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci' NOT NULL,
-  `msg_rpt` VARCHAR(256) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci' NULL,
+  `trk_shpg` VARCHAR(18) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NULL,
+  `tit_rpt` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL,
+  `msg_rpt` VARCHAR(256) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NULL,
   PRIMARY KEY (`id_rpt`),
   INDEX `fk_report_user_idx` (`id_usr` ASC) VISIBLE,
   INDEX `fk_report_door_idx` (`id_door` ASC) VISIBLE,
@@ -390,10 +390,10 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `lockey_db`;
-INSERT INTO `lockey_db`.`Locker` (`id_lkr`, `nm_lkr`, `dir_lkr`) VALUES (DEFAULT, 'Plaza torres', 'Av. Miguel Othón de Mendizábal Ote. 343, Nueva Industrial Vallejo, Gustavo A. Madero, 07700 Ciudad de México, CDMX');
-INSERT INTO `lockey_db`.`Locker` (`id_lkr`, `nm_lkr`, `dir_lkr`) VALUES (DEFAULT, 'Santa Fe', 'Vasco de Quiroga 3800, Santa Fe, Contadero, Cuajimalpa de Morelos, 05348 Ciudad de México, CDMX');
-INSERT INTO `lockey_db`.`Locker` (`id_lkr`, `nm_lkr`, `dir_lkr`) VALUES (DEFAULT, 'Fórum Buenavista', 'Eje 1 Nte. 259, Buenavista, Cuauhtémoc, 06350 Ciudad de México, CDMX');
-INSERT INTO `lockey_db`.`Locker` (`id_lkr`, `nm_lkr`, `dir_lkr`) VALUES (DEFAULT, 'Plaza Antenas', 'Av. Canal de Garay 3278-3er piso, Tulyehualco Canal de Garay, Iztapalapa, 09910 Ciudad de México, CDMX');
+INSERT INTO `lockey_db`.`Locker` (`id_lkr`, `nm_lkr`, `dir_lkr`) VALUES (DEFAULT, 'Plaza torres', 'Av. Miguel Othon de Mendizabal Ote. 343, Nueva Industrial Vallejo, Gustavo A. Madero, 07700 Ciudad de Mexico, CDMX');
+INSERT INTO `lockey_db`.`Locker` (`id_lkr`, `nm_lkr`, `dir_lkr`) VALUES (DEFAULT, 'Santa Fe', 'Vasco de Quiroga 3800, Santa Fe, Contadero, Cuajimalpa de Morelos, 05348 Ciudad de Mexico, CDMX');
+INSERT INTO `lockey_db`.`Locker` (`id_lkr`, `nm_lkr`, `dir_lkr`) VALUES (DEFAULT, 'Forum Buenavista', 'Eje 1 Nte. 259, Buenavista, Cuauhtemoc, 06350 Ciudad de Mexico, CDMX');
+INSERT INTO `lockey_db`.`Locker` (`id_lkr`, `nm_lkr`, `dir_lkr`) VALUES (DEFAULT, 'Plaza Antenas', 'Av. Canal de Garay 3278-3er piso, Tulyehualco Canal de Garay, Iztapalapa, 09910 Ciudad de Mexico, CDMX');
 
 
 COMMIT;
