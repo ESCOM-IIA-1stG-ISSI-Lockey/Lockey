@@ -124,6 +124,24 @@ router.route('/envio/crearEnvio')
 		});
 	});
 
+router.route('/nuevo/resumen')
+	.get(async (req,res,next) => {
+		if (req.session.user) {
+			let wallet = await db.getWalletsByUserId(req.session.user.id);
+			let contacts = await db.getContactsByUserId(req.session.user.id);
+			console.log('contacts', contacts)
+			res.render('createSender' , { 
+				title: 'sendiit - panel', 
+				path: req.path, 
+				user: req.session.user, 
+				wallet: wallet,
+				contacts: contacts
+			});
+		} else {
+			res.redirect('/');
+		}
+	})
+
 // router.post('/envio/crearEnvio/createSender', (req,res,next) =>{
 // 	console.log(req.body)
 //     let {name, email, tel} = req.body;
