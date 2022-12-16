@@ -6,7 +6,7 @@ block content
         p.mb-3 Selecciona un lugar de destino
         .row
             .col-md-7.col-lg-7.m-0.p-0
-                #map1.rounded.sizemap
+                #map.rounded.sizemap
             form.col-md-5.col-lg-5.m-0.p-0.slide_ver
                 input#locker_origen1.btn-check(type='radio' name='options3' autocomplete='off')
                 label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center.ms-3.me-3.m-0(for='locker_origen1')
@@ -24,7 +24,7 @@ block content
                 label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center.ms-3.me-3.m-0(for='locker_origen4')
                     p.fw-bold Nombre del lugar
                     p Dirección
-        form.row.mt-3.float-right
+        form.row.mt-3.float-right.ms-3
             .form-check
                 input#exampleCheck1.form-check-input(type='checkbox')
                 label.form-check-label(for='exampleCheck1') Recordar lugar de destino
@@ -34,7 +34,7 @@ block content
                     .row.d-flex.align-items-center.justify-content-center.btn.btn-warning.p-3.ms-3.me-3.shadow.rounded-pill.m-5.mt-4
                         h5.fw-bold.text-white.m-0.p-0 CANCELAR
             .col-6
-                a.text-decoration-none(href='/panel/envio/crearEnvio/origen')
+                a.text-decoration-none(href='/panel/envio/crearEnvio')
                     .row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.p-3.ms-3.me-3.shadow.rounded-pill.m-5.mt-4
                         h5.fw-bold.text-white.m-0.p-0 CONTINUAR
     
