@@ -76,7 +76,7 @@ router.post('/envio/crearEnvio', (req,res,next) =>{
         let {MapaOrigen} = req.body
         console.log('hola aqui estoy')
         console.log(req.body)
-        req.session.createShipping.origin = MapaOrigen
+        req.session.createShipping = MapaOrigen
         console.log(req.session.createShipping)
 		res.redirect('/panel/envio/crearEnvio');
 	} else {
