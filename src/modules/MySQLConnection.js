@@ -153,6 +153,14 @@ const db = {
 		});
 	},
 
+	getContactsByUserId: (id_usr) => {
+		return new Promise((resolve, reject) => {
+			con.query('SELECT * FROM Contact WHERE id_usr= ?', [id_usr], (err, results) => {
+				if (err) reject(err);
+				else resolve(results);
+			});
+		});
+	},
 	getShippings: (id_usr) => {
 		return new Promise((resolve, reject) => {
 			con.query('SELECT * FROM ShippingDetail  WHERE id_usr= ?', [id_usr], (err, results) => {
@@ -162,7 +170,7 @@ const db = {
 		});
 	},
 
-	getContact:(id_usr,email,tel) =>{ //modifique
+	getContact:(id_usr,email,tel) =>{
 		return new Promise((resolve, reject) => {
 			con.query('SELECT * FROM Contact  WHERE id_usr= ? and em_cont= ? and tel_cont= ?', [id_usr, email, tel], (err, results) => {
 				if (err) reject(err);
@@ -172,7 +180,7 @@ const db = {
 	},
 
 
-	createContact: (idUser,name, email, tel) => { //modifique
+	createContact: (idUser,name, email, tel) => {
 		return new Promise((resolve, reject) => {			
 			// check if email is already in use			
 			db.getContact(idUser,email,tel).then((results) => {
@@ -260,6 +268,18 @@ const db = {
 			});
 		});
 	},
+
+	// Get wallets by id_usr
+	getWalletsByUserId:(idUser) =>{ 
+		return new Promise((resolve, reject) => {
+			con.query('SELECT * FROM Wallet WHERE id_usr = ?', [idUser], (err, results) => {
+				if (err) reject(err);
+				else resolve(results);
+			});
+		});
+	},
+
+	// Deliver Methods
 
 	getStateRoute:(idUser) =>{ //
 		return new Promise((resolve, reject) => {
