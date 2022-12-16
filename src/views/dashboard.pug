@@ -5,15 +5,54 @@ block content
 		if user.type == 'ADMIN'
 			| Admin Dashboard
 		else if user.type == 'DELIVER'
-			.row(data-masonry='{"percentPosition": true }' style='position: relative; height: 690px;')
-				.col-sm-6.col-lg-4.mb-4(style='position: absolute; left: 0%; top: 0px;')
-					.card.text-bg-warning.text-center
-						.card-body
-							h5.card-title Ruta
-							p.card-text No tienes ninguna ruta asignada de momento.
-							p.card-text
-								small.text-muted Last updated 3 mins ago
-				
+			if stateRoute.length == 0   
+				.row(data-masonry='{"percentPosition": true }' style='position: relative; height: 690px;')
+					.col-sm-6.col-lg-4.mb-4(style='position: absolute; left: 0%; top: 0px;')
+						.card.text-bg-warning.text-center
+							.card-body
+								h5.card-title Ruta
+								p.card-text No tienes ninguna ruta asignada de momento.
+								p.card-text
+									small.text-muted Last updated 3 mins ago 
+			else
+				p Rutas a realizar
+				- let lockerc = 0
+				ul.StepProgress
+					each locker, i in stateRoute 
+						if i + 1 >= stateRoute.length
+							if locker.stat_rte == 1
+								.StepProgress-item.is-done.b-line
+									a.strong(href='/panel/repartidor/lockersnm/'+locker.nm_lkr) 
+										p.text-status=locker.nm_lkr
+								 
+									
+							else
+								.StepProgress-item.current.b-line
+									a.strong(href='/panel/repartidor/lockersnm/'+locker.nm_lkr) 
+										p.text-status=locker.nm_lkr
+
+
+						else if locker.stat_rte == 1
+							.StepProgress-item.is-done
+								a.strong(href='/panel/repartidor/lockersnm/'+locker.nm_lkr) 
+									p.text-status=locker.nm_lkr
+						else
+							.StepProgress-item.current.d-none
+								strong.d-none= locker.nm_lkr
+							.StepProgress-item.current
+								strong=locker.nm_lk
+								
+
+							- lockerc++
+
+						
+
+							
+
+
+					
+							
+												
 		else if user.type == 'CLIENT'
 			| hola
 		else
