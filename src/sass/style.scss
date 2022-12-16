@@ -113,6 +113,17 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 	display: block;
 }  
 
+.slide_ver{
+	display: flex;
+	flex-wrap: wrap;
+	max-height: 75vh;
+	overflow: auto;
+}
+
+.slide_ver::-webkit-scrollbar{
+	width: 0;
+}
+
 .wrapper{
 	max-height: 240px;
 	// border: 1px solid #dddddd;
@@ -273,6 +284,10 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
     --bs-btn-active-bg:  #f9d950;
     --bs-btn-active-border-color:  #e7c010;
 	
+}
+
+.icons{
+	font-size: 70px;
 }
 
 .place{

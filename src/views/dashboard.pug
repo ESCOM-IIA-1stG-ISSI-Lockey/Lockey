@@ -24,15 +24,11 @@ block content
 							if locker.stat_rte == 1
 								.StepProgress-item.is-done.b-line
 									a.strong(href='/panel/repartidor/lockersnm/'+locker.nm_lkr) 
-										p.text-status=locker.nm_lkr
-								 
-									
+										p.text-status=locker.nm_lkr		
 							else
 								.StepProgress-item.current.b-line
 									a.strong(href='/panel/repartidor/lockersnm/'+locker.nm_lkr) 
 										p.text-status=locker.nm_lkr
-
-
 						else if locker.stat_rte == 1
 							.StepProgress-item.is-done
 								a.strong(href='/panel/repartidor/lockersnm/'+locker.nm_lkr) 
@@ -45,15 +41,7 @@ block content
 								
 
 							- lockerc++
-
-						
-
 							
-
-
-					
-							
-												
 		else if user.type == 'CLIENT'
 			.bg-primary
 				.pt-3.container.pb-3
@@ -103,26 +91,26 @@ block content
 								small.text-muted 00:00 PM - 00/00/0000
 				
 				else 
-					h4.pt-2.pb-2.container No hay envios en curso :
+					h4.pt-2.pb-2.container No hay envios en curso :(
 
 
 			.container.align-items-center.justify-content-center
 				a.text-decoration-none(href='/panel/envio/crearEnvio')
-					.item.row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.m-3.text-primary.p-5
+					.item.row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.m-3.text-primary.p-3
 						.col-4
-							i.h1.bi.bi-box-seam-fill
+							i.h1.bi.bi-box-seam-fill.icons
 						.col-8
 							h5.fw-bold.m-0.p-0 CREAR ENVÍO
 				a.text-decoration-none(href='/panel/envio/crearEnvio')
-					.item.row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.m-3.text-primary.p-5
+					.item.row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.m-3.text-primary.p-3
 						.col-4
-							i.h1.bi.bi-clock-history
+							i.h1.bi.bi-clock-history.icons
 						.col-8
 							h5.fw-bold.m-0.p-0 HISTORIAL DE ENVÍOS
 				a.text-decoration-none(href='/panel/envio/crearEnvio')
-					.item.row.d-flex.align-items-center.justify-content-center.btn.btn-primary.m-3.p-5
+					.item.row.d-flex.align-items-center.justify-content-center.btn.btn-primary.m-3.p-3
 						.col-4
-							i.h1.bi.bi-emoji-smile-fill
+							i.h1.bi.bi-emoji-smile-fill.icons
 						.col-8
 							h5.fw-bold.text-secondary.m-0.p-0 ¿CÓMO FUNCIONA?
 
