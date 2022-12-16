@@ -60,7 +60,25 @@ router.get('/envio/detalles/[0-9]{18}', (req,res,next) =>{
 
 router.get('/envio/crearEnvio', (req,res,next) =>{
 	if (req.session.user) {
+
 		res.render('createSummary' , { title: 'sendiit - panel', path: req.path, user: req.session.user });
+	} else {
+		res.redirect('/');
+	}
+});
+
+
+router.post('/envio/crearEnvio', (req,res,next) =>{
+	if (req.session.user) {
+        if(!req.session.createShipping){
+            req.session.createShipping = {}
+        }
+        let {MapaOrigen} = req.body
+        console.log('hola aqui estoy')
+        console.log(req.body)
+        req.session.createShipping.origin = MapaOrigen
+        console.log(req.session.createShipping)
+		res.redirect('/panel/envio/crearEnvio');
 	} else {
 		res.redirect('/');
 	}
@@ -83,8 +101,16 @@ router.get('/envio/crearEnvio/origen', (req,res,next) =>{
 });
 
 router.get('/envio/crearEnvio/destino', (req,res,next) =>{
-	if (req.session.user) {
-		res.render('chooseDestination' , { title: 'sendiit - panel', path: req.path, user: req.session.user });
+    if (req.session.user) {
+        db.getlocations().then((results)=>{
+			debug('results', results);
+			if (results.length) {
+                res.render('chooseDestination' , { title: 'sendiit - panel', path: req.path, user: req.session.user, address:results });
+			}
+			else {
+				res.status(401).json({response:'ERROR', message:'Envío no encontrado'});
+			}
+		});
 	} else {
 		res.redirect('/');
 	}

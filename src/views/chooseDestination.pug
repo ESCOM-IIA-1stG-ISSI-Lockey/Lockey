@@ -8,37 +8,30 @@ block content
             .col-md-7.col-lg-7.m-0.p-0
                 #map.rounded.sizemap
             form.col-md-5.col-lg-5.m-0.p-0.slide_ver
-                input#locker_origen1.btn-check(type='radio' name='options3' autocomplete='off')
-                label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center.ms-3.me-3.m-0(for='locker_origen1')
-                    p.fw-bold Nombre del lugar
-                    p Dirección
-                input#locker_origen2.btn-check(type='radio' name='options3' autocomplete='off')
-                label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center.ms-3.me-3.m-0(for='locker_origen2')
-                    p.fw-bold Nombre del lugar
-                    p Dirección
-                input#locker_origen3.btn-check(type='radio' name='options3' autocomplete='off')
-                label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center.ms-3.me-3.m-0(for='locker_origen3')
-                    p.fw-bold Nombre del lugar
-                    p Dirección
-                input#locker_origen4.btn-check(type='radio' name='options3' autocomplete='off')
-                label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center.ms-3.me-3.m-0(for='locker_origen4')
-                    p.fw-bold Nombre del lugar
-                    p Dirección
-        form.row.mt-3.float-right.ms-3
+                each val in address  
+                    input(id=val.id_lkr).btn-check(type='radio' name='options3' autocomplete='off')
+                    label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center.ms-3.me-3.m-0(for=val.id_lkr)
+                        p.fw-bold=val.nm_lkr
+                        small=val.dir_lkr           
+        form.row.mt-3.float-right.ms-3(action='/panel/envio/crearEnvio' method='Get')
             .form-check
                 input#exampleCheck1.form-check-input(type='checkbox')
-                label.form-check-label(for='exampleCheck1') Recordar lugar de destino
+                label.form-check-label(for='exampleCheck1') Recordar lugar de origen
+
         .row
             .col-6
                 a.text-decoration-none(href='/panel/envio/crearEnvio')
-                    .row.d-flex.align-items-center.justify-content-center.btn.btn-warning.p-3.ms-3.me-3.shadow.rounded-pill.m-5.mt-4
+                    .row.d-flex.align-items-center.justify-content-center.btn.btn-warning.p-3.ms-1.me-1.shadow.rounded-pill.m-5.mt-4
                         h5.fw-bold.text-white.m-0.p-0 CANCELAR
             .col-6
+                
                 a.text-decoration-none(href='/panel/envio/crearEnvio')
-                    .row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.p-3.ms-3.me-3.shadow.rounded-pill.m-5.mt-4
+                    .row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.p-3.ms-1.me-1.shadow.rounded-pill.m-5.mt-4
                         h5.fw-bold.text-white.m-0.p-0 CONTINUAR
-    
+
+
 block scripts
+    script const addres = !{JSON.stringify(address)} 
     script(src='/javascripts/googleMaps.js')
     script(src='/javascripts/validation.js')
     script(async src="https://maps.googleapis.com/maps/api/js?libraries=places,visualization&key=AIzaSyAEErsjNBLnxa3y-N2LFDpENunDEE8SDAs&v=weekly&callback=initMap")
