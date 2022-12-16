@@ -5,11 +5,17 @@ var db = require('../modules/MySQLConnection');
 
 router.get('/', (req, res, next) => {
 	debug('session.user:', req.session.user);
-	if (req.session.user) {
-		res.render('dashboard', { title: 'sendiit - panel', path: req.path, user: req.session.user });
-	} else {
-		res.redirect('/');
-	}
+	
+	db.getLockersByUserId(req.session.user.id)
+	.then(results =>{
+		debug('results', results);
+		if (req.session.user) {
+			res.render('dashboard', { title: 'sendiit - panel', path: req.path, user: req.session.user, stateRoute: results });
+		} else {
+			res.redirect('/');
+		}
+	})
+	
 });
 
 router.get('/cerrarsesion', (req, res, next) => {
@@ -26,7 +32,7 @@ router.get('/envio');//envios historicos (esto de momento no)
 router.get('/envio/detalles/[0-9]{18}', (req,res,next) =>{
 	// res.render("shippingdetails") 
 	if (req.session.user) {
-		let traking=req.path.match(/\d{18}/)[0]
+		let traking=req.path.match(/\d{18}/)[0] 
 		console.log (traking)
 		db.getshippingdetails(traking).then((results)=>{
 			debug('results', results);
@@ -149,5 +155,28 @@ router.get('/envio/crearEnvio/payment', (req,res,next) =>{
         res.redirect('/');
     }
 });
+router.get('/repartidor/lockersnm/[a-z ^A-Z 0-9&,%.]{1,}', (req,res,next) =>{
+	 
+	if (req.session.user) {
+		const regex = /[a-z ^A-Z 0-9&,%.]{1,}/g;
+		let traking=req.path.match(regex)[2]
 
+		traking = traking.replace('%20', ' ');
+		
+		
+		db.getshippingdeliver(traking).then((results)=>{
+			debug('results', results);
+			if (results.length) {
+				res.render('lockers' , { title: 'sendiit - panel', path: req.path, user: req.session.user, route:results[0]});
+			}
+			else {
+				res.status(401).json({response:'ERROR', message:'Rutas completadas no encontradas'});
+			}
+		});
+		res.render("lockers")
+
+	} else {
+		res.redirect('/');
+	}
+});
 module.exports = router;

@@ -1,0 +1,21 @@
+extends layout
+
+block content
+    div.space
+        .bg-primary.d-flex.align-items-center(style="height: 70px;")
+            p.h1.title #{route.nm_lkrdst}
+
+        div.detalles
+
+
+            p Número de guía 
+                small.text-muted #{route.trk_shpg}              
+
+            p Origen:
+                small.text-muted #{route.nm_lkrorg}
+
+            p Destino:
+                small.text-muted #{route.nm_lkrdst}
+
+        
+

@@ -210,7 +210,43 @@ const db = {
 		});
 	},
 
+	getStateRoute:(idUser) =>{ //
+		return new Promise((resolve, reject) => {
+			con.query('SELECT id_rte, date_rte, stat_rte FROM route WHERE id_usr = ?', [idUser], (err, results) => {
+				if (err) reject(err);
+				else resolve(results);
+			});
+		});
+	},
+
+	getLockersByUserId:(idUser, stat) =>{
+		return new Promise((resolve, reject) => {
+			con.query(`SELECT * 
+			FROM Route 
+			INNER JOIN RouteDetail
+			ON Route.id_rte = RouteDetail.id_rte
+			INNER JOIN Locker
+			ON RouteDetail.id_lkr = Locker.id_lkr
+			WHERE id_usr = ? 
+			ORDER BY stat_rte, date_rte `, [idUser], (err, results) => {
+				if (err) reject(err);
+				else resolve(results);
+			});
+		});
+	},
+
+	getshippingdeliver: (nm_lkr) => {
+		return new Promise((resolve, reject) => {
+			con.query('SELECT *, Route.id_usr as id_dlvr FROM ShippingDetail NATURAL JOIN RouteDetail NATURAL JOIN Route WHERE nm_lkrdst = ? ', [nm_lkr], (err, results) => {
+				if (err) reject(err);
+
+				else resolve(results);
+			});
+		});
+	},
+
 };
+
 
 
 // End of queries
