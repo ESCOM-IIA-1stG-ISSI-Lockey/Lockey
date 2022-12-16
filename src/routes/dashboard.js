@@ -150,4 +150,24 @@ router.get('/envio/crearEnvio/payment', (req,res,next) =>{
     }
 });
 
+
+router.get('envio/crearEnvio/origen', (req,res,next) =>{
+	if (req.session.user) {
+		db.getlocations().then((results)=>{
+			debug('results', results);
+			if (results.length) {
+                
+				res.render('choseeOrigen' , {address:results});
+			}
+			else {
+            
+				res.status(401).json({response:'ERROR', message:'Envío no encontrado'});
+			}
+		});
+	
+	} else {
+		res.redirect('/');
+	}
+});
+
 module.exports = router;
