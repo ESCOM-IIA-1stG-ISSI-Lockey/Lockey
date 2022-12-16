@@ -67,16 +67,29 @@ block content
 					h4.pt-2.pb-2.container No hay envios en curso :
 
 
-			.container
+			.container.align-items-center.justify-content-center
 				a.text-decoration-none(href='/panel/envio/crearEnvio')
-					.item.row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.m-3
-						p.text-start.fs-3.text-center.fw-bold(style='color:#FFFFFF') Crear envio
+					.item.row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.m-3.text-primary.p-5
+						.col-4
+							i.h1.bi.bi-box-seam-fill
+						.col-8
+							h5.fw-bold.m-0.p-0 CREAR ENVÍO
 				a.text-decoration-none(href='/panel/envio/crearEnvio')
-					.item.row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.m-3
-						p.text-start.fs-3.text-center.fw-bold(style='color:#FFFFFF') Historial de envíos
+					.item.row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.m-3.text-primary.p-5
+						.col-4
+							i.h1.bi.bi-clock-history
+						.col-8
+							h5.fw-bold.m-0.p-0 HISTORIAL DE ENVÍOS
 				a.text-decoration-none(href='/panel/envio/crearEnvio')
-					.item.row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.m-3
-						p.text-start.fs-3.text-center.fw-bold(style='color:#FFFFFF') ¿Cómo funciona?
+					.item.row.d-flex.align-items-center.justify-content-center.btn.btn-primary.m-3.p-5
+						.col-4
+							i.h1.bi.bi-emoji-smile-fill
+						.col-8
+							h5.fw-bold.text-secondary.m-0.p-0 ¿CÓMO FUNCIONA?
+
+				//- a.text-decoration-none(href='/panel/envio/crearEnvio')
+				//- 	.item.row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.m-5.p-3.shadow.rounded-pill
+				//- 		h5.fw-bold.text-white.m-0.p-0 CONTINUAR
 		else
 			| Usuario desconocido
 
