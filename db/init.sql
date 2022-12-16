@@ -11,7 +11,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema lockey_db
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `lockey_db` DEFAULT CHARACTER SET latin1 ;
+CREATE SCHEMA IF NOT EXISTS `lockey_db` DEFAULT CHARACTER SET utf8;
 USE `lockey_db` ;
 
 -- -----------------------------------------------------
