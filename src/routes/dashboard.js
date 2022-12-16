@@ -116,9 +116,11 @@ router.get('/envio/crearEnvio/destino', (req,res,next) =>{
 	}
 });
 
-router.get('/envio/crearEnvio/sender', (req,res,next) =>{
+router.get('/envio/crearEnvio/sender',async (req,res,next) =>{
 	if (req.session.user) {
-		res.render('createSender', { title: 'sendiit - panel', path: req.path, user: req.session.user });
+		let contacts = await db.getContactsByUserId(req.session.user.id);
+		console.log('contacts', contacts)
+		res.render('createSender', { title: 'sendiit - panel', path: req.path, user: req.session.user, contacts: contacts});
 	} else {
 		res.redirect('/');
 	}
