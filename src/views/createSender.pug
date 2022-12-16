@@ -18,27 +18,9 @@ block content
                     input#Numtelefono.form-control.rounded-4(type='tel' placeholder='Ingrese un numero' required name="tel")
                     .invalid-feedback
                         | Es necesario un numero telefonico
-                    .col-12.rounded.px-3.mb-3.mt-3
-                        .form-check
-                            input#flexCheckDefault.form-check-input(role='button' type='checkbox')
-                            label.form-check-label.fw-bold(role='button' for='flexCheckDefault')
-                            | Guardar remitente
-                    .row.col-fluid.mt-1.mx-1
-                        button.btn.btn-primary.btn-lg.rounded-5.mt-3(type='submit' style='background-color: #F9D950;' data-bs-toggle='modal')
-                            .fw-bold(style='color:#212E46') Continuar
-                            
-            .row.col-fluid-12.mt-3
-                h4 Recientemente
-                .col-12.bg-secondary.p-2.rounded-4(style='--bs-bg-opacity: 0.3')
-                    p.fw-bold.my-0.px-4 Juanito Juarez
-                    p.px-2.my-0.px-4 JuanitoJuarez@gmail.com
-                .col-12.bg-secondary.p-2.rounded-4.mt-2(style='--bs-bg-opacity: 0.3')
-                    p.fw-bold.my-0.px-4 Juanito Juarez
-                    p.px-2.my-0.px-4 JuanitoJuarez@gmail.com
-                .col-12.rounded.px-3.mb-3
-                    p(align='right')
-                    button.btn.btn-primary(type='button' data-bs-toggle='modal' data-bs-target='#exampleModal' style='background-color: #212E46;')
-                        .modal-dialog.modal-dialog-centered.modal-dialog-scrollable.fw-bold.my-0.px-4(style='color: #ffffff;') Ver todos
+
+                    button.btn.btn-primary.mt-3(type='button' data-bs-toggle='modal' data-bs-target='#exampleModal' style='background-color: #212E46;')
+                        .modal-dialog.modal-dialog-centered.modal-dialog-scrollable.fw-bold.px-4(style='color: #ffffff;') Ver todos
                         // Modal
                     #exampleModal.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
                         .modal-dialog.modal-dialog-scrollable
@@ -47,14 +29,77 @@ block content
                                     h1#exampleModalLabel.modal-title.fs-5 Modal title
                                     button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
                                 .modal-body
-                                    | ...
-                                .modal-footer
-                                    button.btn.btn-secondary(type='button' data-bs-dismiss='modal') Close
-                                    button.btn.btn-primary(type='button') Save changes
-                        .d-grid.gap-4
+                                    each contact in contacts
+                                        a.text-decoration-none(href='/panel/envio/crearEnvio/'+contact.id_cont style="color: black")
+                                            h6.col-12.bg-secondary.p-2.rounded-4.fw-bold(style='--bs-bg-opacity: 0.3')= contact.nm_cont
+                                                p.my-0.px-4.fw-normal=contact.em_cont
+                                                p.my-0.px-4.fw-normal=contact.tel_cont
+                    .container-fluid
+                        h6.container.text-center.fs-4.my-3 Datos del destinatario
+                    label.form-label.mb-1.px-1.mt-3.fw-bold(for='NombreDestinatario') Nombre del destinatario
+                    input#NombreDestinatario.form-control.rounded-4(type='text' placeholder='José Octavio...' required name="name")
+                    .invalid-feedback
+                        | Es necesario un nombre
+                
+                    label.form-label.mb-1.px-1.mt-0.fw-bold(for='Correo') Correo
+                    input#Correo.form-control.rounded-4(type='email' placeholder='name@example.com...' required name="email")
+                    .invalid-feedback
+                        | Es necesario un nombre
+                
+                    label.form-label.mb-1.px-1.mt-0.fw-bold(for='telefono') Telefono
+                    input#telefono.form-control.rounded-4(type='tel' placeholder='+52 55...' required name="tel")
+                    .invalid-feedback
+                        | Es necesario un nombre
+                    
+                    button.btn.btn-primary.mt-3(type='button' data-bs-toggle='modal' data-bs-target='#exampleModal' style='background-color: #212E46;')
+                        .modal-dialog.modal-dialog-centered.modal-dialog-scrollable.fw-bold.px-4(style='color: #ffffff;') Ver todos
+                        // Modal
+                    #exampleModal.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
+                        .modal-dialog.modal-dialog-scrollable
+                            .modal-content
+                                .modal-header
+                                    h1#exampleModalLabel.modal-title.fs-5 Modal title
+                                    button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                                .modal-body
+                                    each contact in contacts
+                                        a.text-decoration-none(href='/panel/envio/crearEnvio/'+contact.id_cont style="color: black")
+                                            h6.col-12.bg-secondary.p-2.rounded-4.fw-bold(style='--bs-bg-opacity: 0.3')= contact.nm_cont
+                                                p.my-0.px-4.fw-normal=contact.em_cont
+                                                p.my-0.px-4.fw-normal=contact.tel_cont
+
+
                     .row.col-fluid.mt-1.mx-1
-                    button.btn.btn-primary.btn-lg.rounded-5.mt-3(type='submit' style='background-color: #F9D950;' data-bs-toggle='modal')
-                        .fw-bold(style='color:#212E46') Continuar
+                        button.btn.btn-primary.btn-lg.rounded-5.mt-3(type='submit' style='background-color: #F9D950;' data-bs-toggle='modal')
+                            .fw-bold(style='color:#212E46') Continuar
+                            
+            //- .row.col-fluid-12.mt-3
+            //-     h4 Recientemente
+            //-     .col-12.bg-secondary.p-2.rounded-4(style='--bs-bg-opacity: 0.3')
+            //-         p.fw-bold.my-0.px-4 Juanito Juarez
+            //-         p.px-2.my-0.px-4 JuanitoJuarez@gmail.com
+            //-     .col-12.bg-secondary.p-2.rounded-4.mt-2(style='--bs-bg-opacity: 0.3')
+            //-         p.fw-bold.my-0.px-4 Juanito Juarez
+            //-         p.px-2.my-0.px-4 JuanitoJuarez@gmail.com
+            //-     .col-12.rounded.px-3.mb-3
+            //-         p(align='right')
+            //-         button.btn.btn-primary(type='button' data-bs-toggle='modal' data-bs-target='#exampleModal' style='background-color: #212E46;')
+            //-             .modal-dialog.modal-dialog-centered.modal-dialog-scrollable.fw-bold.my-0.px-4(style='color: #ffffff;') Ver todos
+            //-             // Modal
+            //-         #exampleModal.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
+            //-             .modal-dialog.modal-dialog-scrollable
+            //-                 .modal-content
+            //-                     .modal-header
+            //-                         h1#exampleModalLabel.modal-title.fs-5 Modal title
+            //-                         button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+            //-                     .modal-body
+            //-                         | ...
+            //-                     .modal-footer
+            //-                         button.btn.btn-secondary(type='button' data-bs-dismiss='modal') Close
+            //-                         button.btn.btn-primary(type='button') Save changes
+            //-             .d-grid.gap-4
+            //-         .row.col-fluid.mt-1.mx-1
+            //-         button.btn.btn-primary.btn-lg.rounded-5.mt-3(type='submit' style='background-color: #F9D950;' data-bs-toggle='modal')
+            //-             .fw-bold(style='color:#212E46') Continuar
 
 
 block scripts
