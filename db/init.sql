@@ -314,7 +314,7 @@ CREATE OR REPLACE VIEW `vUser` AS
 DROP TABLE IF EXISTS `lockey_db`.`ShippingDetail`;
 USE `lockey_db`;
 CREATE OR REPLACE VIEW `ShippingDetail` AS
-    SELECT     Shipping.*, nm_shpgtype, dtu_shpg, nm_wal, num_wal, OriginContact.nm_cont as nm_contorg, Origin.qr_shpgdr as qr_org, OriginDoor.nm_door as nm_drorg, OriginLocker.nm_lkr as nm_lkrorg, DestinationContact.nm_cont as nm_contdst, Destination.qr_shpgdr as qr_dst, DestinationDoor.nm_door as nm_drdst, DestinationLocker.nm_lkr as nm_lkrdst
+    SELECT     Shipping.*, nm_shpgtype, nm_wal, num_wal, OriginContact.nm_cont as nm_contorg, Origin.qr_shpgdr as qr_org, OriginDoor.nm_door as nm_drorg, OriginLocker.nm_lkr as nm_lkrorg, DestinationContact.nm_cont as nm_contdst, Destination.qr_shpgdr as qr_dst, DestinationDoor.nm_door as nm_drdst, DestinationLocker.nm_lkr as nm_lkrdst
 		FROM       Shipping
 		NATURAL JOIN Wallet
 		NATURAL JOIN ShippingType
