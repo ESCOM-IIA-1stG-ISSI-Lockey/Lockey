@@ -269,8 +269,6 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 	color: $secondary !important;
 }
 
-.text-ruta{color: #0145c5 !important; font-weight: bolder; font-size: 25px !important ;}
-
 .detalles{
 	padding-left: 1rem;
 }
@@ -333,17 +331,7 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 	font-weight: normal;
 }
 
-.abs-center {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	min-height: 100vh;
-  }
-  
-  .form {
-	width: 450px;
-  }
-
+.text-ruta{color: #0145c5 !important; font-weight: bolder; font-size: 25px !important ;}
 
 @media (min-width: 768px) {
 	.flex-md-equal > * {
@@ -359,4 +347,5 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 	.sizemap{
 		height: 75vh;
 	}
+
 }
