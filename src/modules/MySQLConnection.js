@@ -153,6 +153,15 @@ const db = {
 		});
 	},
 
+	getShippings: (id_usr) => {
+		return new Promise((resolve, reject) => {
+			con.query('SELECT * FROM ShippingDetail  WHERE id_usr= ?', [id_usr], (err, results) => {
+				if (err) reject(err);
+				else resolve(results);
+			});
+		});
+	},
+
 	getContact:(id_usr,email,tel) =>{ //modifique
 		return new Promise((resolve, reject) => {
 			con.query('SELECT * FROM Contact  WHERE id_usr= ? and em_cont= ? and tel_cont= ?', [id_usr, email, tel], (err, results) => {
@@ -190,6 +199,15 @@ const db = {
 		});
 	},
 
+	getlocations:() =>{ //modifique
+		return new Promise((resolve, reject) => {
+			con.query('SELECT * FROM Locker', [], (err, results) => {
+				if(err)reject(err);
+				else resolve(results);
+			});
+		});
+	},
+
 	createAddresse: (idUser,name, email, tel) => { //modifique
 		return new Promise((resolve, reject) => {
 			
@@ -207,6 +225,9 @@ const db = {
 			}).catch((err) => {
 				reject(err);
 			});
+
+
+	
 		});
 	},
 

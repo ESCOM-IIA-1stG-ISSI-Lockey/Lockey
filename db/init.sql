@@ -11,7 +11,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema lockey_db
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `lockey_db` DEFAULT CHARACTER SET utf8 ;
+CREATE SCHEMA IF NOT EXISTS `lockey_db` DEFAULT CHARACTER SET latin1 ;
 USE `lockey_db` ;
 
 -- -----------------------------------------------------
@@ -314,7 +314,18 @@ CREATE OR REPLACE VIEW `vUser` AS
 DROP TABLE IF EXISTS `lockey_db`.`ShippingDetail`;
 USE `lockey_db`;
 CREATE OR REPLACE VIEW `ShippingDetail` AS
-    SELECT     Shipping.*, nm_shpgtype, nm_wal, num_wal, OriginContact.nm_cont as nm_contorg, Origin.qr_shpgdr as qr_org, OriginDoor.nm_door as nm_drorg, OriginLocker.nm_lkr as nm_lkrorg, DestinationContact.nm_cont as nm_contdst, Destination.qr_shpgdr as qr_dst, DestinationDoor.nm_door as nm_drdst, DestinationLocker.nm_lkr as nm_lkrdst
+    SELECT     Shipping.*, 
+		CASE Shipping.stat_shpg
+			WHEN 1 THEN 'En Espera de Entrega del Remitente'
+			WHEN 2 THEN 'En Espera de Recolección del Repartidor'
+			WHEN 3 THEN 'En Tránsito'
+			WHEN 4 THEN 'En Espera de Recepción del Destinatario'
+			WHEN 5 THEN 'Completado'
+			WHEN 6 THEN 'En Almacén'
+			WHEN 7 THEN 'Cancelado'
+			ELSE 'Desconocido'
+		END AS stat_shpg,
+		nm_shpgtype, nm_wal, num_wal, OriginContact.nm_cont as nm_contorg, Origin.qr_shpgdr as qr_org, OriginDoor.nm_door as nm_drorg, OriginLocker.nm_lkr as nm_lkrorg, DestinationContact.nm_cont as nm_contdst, Destination.qr_shpgdr as qr_dst, DestinationDoor.nm_door as nm_drdst, DestinationLocker.nm_lkr as nm_lkrdst
 		FROM       Shipping
 		NATURAL JOIN Wallet
 		NATURAL JOIN ShippingType
@@ -366,12 +377,12 @@ COMMIT;
 START TRANSACTION;
 USE `lockey_db`;
 INSERT INTO `lockey_db`.`Shipping` (`trk_shpg`, `id_usr`, `id_shpgtype`, `stat_shpg`, `dts_shpg`, `dtu_shpg`, `dte_shpg`, `pr_shpg`, `hgt_shpg`, `wd_shpg`, `deep_shpg`, `wt_shpg`, `id_wal`) VALUES ('202212150310001002', 1, 1, 1, '2022-12-15 03:10:00', '2022-12-15 15:10:00', NULL, 78.50, 63.5, 26.75, 12.00, 2.35, 1);
-INSERT INTO `lockey_db`.`Shipping` (`trk_shpg`, `id_usr`,`id_shpgtype`, `stat_shpg`, `dts_shpg`, `dtu_shpg`, `dte_shpg`, `pr_shpg`, `hgt_shpg`, `wd_shpg`, `deep_shpg`, `wt_shpg`, `id_wal`) VALUES ('202212130530002001', 2, 2, 3, '2022-12-13 05:30:00', '2022-12-13 05:30:00', NULL, 112.99, 14.5, 7.23, 15.23, 4.56, 1);
-INSERT INTO `lockey_db`.`Shipping` (`trk_shpg`, `id_usr`,`id_shpgtype`, `stat_shpg`, `dts_shpg`, `dtu_shpg`, `dte_shpg`, `pr_shpg`, `hgt_shpg`, `wd_shpg`, `deep_shpg`, `wt_shpg`, `id_wal`) VALUES ('202212140630003003', 1, 2, 4, '2022-12-14 06:25:00', '2022-12-14 06:25:00', NULL, 135.01, 40.64, 33.30, 63.5, 18.00, 2);
+INSERT INTO `lockey_db`.`Shipping` (`trk_shpg`, `id_usr`,`id_shpgtype`, `stat_shpg`, `dts_shpg`, `dtu_shpg`, `dte_shpg`, `pr_shpg`, `hgt_shpg`, `wd_shpg`, `deep_shpg`, `wt_shpg`, `id_wal`) VALUES ('202212130530002001', 2, 2, 3, '2022-12-13 05:30:00', '2022-12-13 05:30:00', NULL, 112.99, 14.5, 7.23, 15.23, 4.56, 2);
+INSERT INTO `lockey_db`.`Shipping` (`trk_shpg`, `id_usr`,`id_shpgtype`, `stat_shpg`, `dts_shpg`, `dtu_shpg`, `dte_shpg`, `pr_shpg`, `hgt_shpg`, `wd_shpg`, `deep_shpg`, `wt_shpg`, `id_wal`) VALUES ('202212140630003003', 1, 2, 4, '2022-12-14 06:25:00', '2022-12-14 06:25:00', NULL, 135.01, 40.64, 33.30, 63.5, 18.00, 1);
 INSERT INTO `lockey_db`.`Shipping` (`trk_shpg`, `id_usr`,`id_shpgtype`, `stat_shpg`, `dts_shpg`, `dtu_shpg`, `dte_shpg`, `pr_shpg`, `hgt_shpg`, `wd_shpg`, `deep_shpg`, `wt_shpg`, `id_wal`) VALUES ('202212080735001002', 2, 1, 2, '2022-12-08 07:35:00', '2022-12-08 07:35:00', NULL, 90.99, 10.5, 5.23, 10.23, 7.56, 2);
 INSERT INTO `lockey_db`.`Shipping` (`trk_shpg`, `id_usr`,`id_shpgtype`, `stat_shpg`, `dts_shpg`, `dtu_shpg`, `dte_shpg`, `pr_shpg`, `hgt_shpg`, `wd_shpg`, `deep_shpg`, `wt_shpg`, `id_wal`) VALUES ('202212190127001003', 1, 1, 5, '2022-12-19 01:27:00', '2022-12-19 01:27:00', '2022-12-20 01:27:00', 150.00, 20.64, 23.30, 34.5, 15.00, 1);
-INSERT INTO `lockey_db`.`Shipping` (`trk_shpg`, `id_usr`,`id_shpgtype`, `stat_shpg`, `dts_shpg`, `dtu_shpg`, `dte_shpg`, `pr_shpg`, `hgt_shpg`, `wd_shpg`, `deep_shpg`, `wt_shpg`, `id_wal`) VALUES ('202212010240002003', 1, 2, 3, '2022-12-01 02:24:00', '2022-12-01 02:24:00', NULL, 87.39, 10.5, 5.23, 10.23, 7.56, 2);
-INSERT INTO `lockey_db`.`Shipping` (`trk_shpg`, `id_usr`,`id_shpgtype`, `stat_shpg`, `dts_shpg`, `dtu_shpg`, `dte_shpg`, `pr_shpg`, `hgt_shpg`, `wd_shpg`, `deep_shpg`, `wt_shpg`, `id_wal`) VALUES ('202212221045001003', 2, 2, 4, '2022-12-22 10:45:00', '2022-12-22 10:45:00', NULL, 54.50, 20.64, 23.30, 34.5, 15.00, 1);
+INSERT INTO `lockey_db`.`Shipping` (`trk_shpg`, `id_usr`,`id_shpgtype`, `stat_shpg`, `dts_shpg`, `dtu_shpg`, `dte_shpg`, `pr_shpg`, `hgt_shpg`, `wd_shpg`, `deep_shpg`, `wt_shpg`, `id_wal`) VALUES ('202212010240002003', 1, 2, 3, '2022-12-01 02:24:00', '2022-12-01 02:24:00', NULL, 87.39, 10.5, 5.23, 10.23, 7.56, 1);
+INSERT INTO `lockey_db`.`Shipping` (`trk_shpg`, `id_usr`,`id_shpgtype`, `stat_shpg`, `dts_shpg`, `dtu_shpg`, `dte_shpg`, `pr_shpg`, `hgt_shpg`, `wd_shpg`, `deep_shpg`, `wt_shpg`, `id_wal`) VALUES ('202212221045001003', 2, 2, 4, '2022-12-22 10:45:00', '2022-12-22 10:45:00', NULL, 54.50, 20.64, 23.30, 34.5, 15.00, 2);
 COMMIT;
 
 -- -----------------------------------------------------
@@ -381,7 +392,7 @@ START TRANSACTION;
 USE `lockey_db`;
 INSERT INTO `lockey_db`.`Locker` (`id_lkr`, `nm_lkr`, `dir_lkr`) VALUES (DEFAULT, 'Plaza torres', 'Av. Miguel Othón de Mendizábal Ote. 343, Nueva Industrial Vallejo, Gustavo A. Madero, 07700 Ciudad de México, CDMX');
 INSERT INTO `lockey_db`.`Locker` (`id_lkr`, `nm_lkr`, `dir_lkr`) VALUES (DEFAULT, 'Santa Fe', 'Vasco de Quiroga 3800, Santa Fe, Contadero, Cuajimalpa de Morelos, 05348 Ciudad de México, CDMX');
-INSERT INTO `lockey_db`.`Locker` (`id_lkr`, `nm_lkr`, `dir_lkr`) VALUES (DEFAULT, 'Forum Buenavista', 'Eje 1 Nte. 259, Buenavista, Cuauhtémoc, 06350 Ciudad de México, CDMX');
+INSERT INTO `lockey_db`.`Locker` (`id_lkr`, `nm_lkr`, `dir_lkr`) VALUES (DEFAULT, 'Fórum Buenavista', 'Eje 1 Nte. 259, Buenavista, Cuauhtémoc, 06350 Ciudad de México, CDMX');
 INSERT INTO `lockey_db`.`Locker` (`id_lkr`, `nm_lkr`, `dir_lkr`) VALUES (DEFAULT, 'Plaza Antenas', 'Av. Canal de Garay 3278-3er piso, Tulyehualco Canal de Garay, Iztapalapa, 09910 Ciudad de México, CDMX');
 
 
