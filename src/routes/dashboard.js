@@ -120,6 +120,30 @@ router.post('/envio/crearEnvio/createSender', (req,res,next) =>{
     });
 });
 
+router.post('/envio/crearEnvio/payment', (req,res,next) =>{
+	console.log(req.body)
+    let {nick,name,card,date} = req.body;
+	date = "30/"+date
+    db.createPayment(req.session.user.id, nick, name, card, date).then((results)=>{
+        debug('results', results);
+        if (results.affectedRows) {
+            res.status(200).json({
+                response: "OK",
+                message: "Metodo de pago guardado con éxito",
+            })
+        }
+        else {
+            res.status(401).json({
+                response: "ERROR",
+                message: "problemas en el servidor"
+            })
+        }
+    }).catch((err) => {
+        console.log("ERROR", err)
+        res.status(402).json({response:'ERROR', message:err});
+    });
+});
+
 router.get('/envio/crearEnvio/createSender', (req,res,next) =>{
     // res.render("createSender") 
     if (req.session.user) {
@@ -148,15 +172,14 @@ router.get('/envio/crearEnvio/createSize', (req,res,next) =>{
 });
 
 router.get('/envio/crearEnvio/payment', (req,res,next) =>{
-    // res.render("createSize") 
     if (req.session.user) {
         res.render('payment' , { title: 'sendiit - panel', path: req.path, user: req.session.user });
     } else {
         res.redirect('/');
     }
 });
+
 router.get('/repartidor/lockersnm/[a-z ^A-Z 0-9&,%.]{1,}', (req,res,next) =>{
-	 
 	if (req.session.user) {
 		const regex = /[a-z ^A-Z 0-9&,%.]{1,}/g;
 		let traking=req.path.match(regex)[2]
