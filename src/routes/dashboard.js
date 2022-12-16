@@ -3,19 +3,28 @@ var express = require('express');
 var router = express.Router();
 var db = require('../modules/MySQLConnection');
 
-router.get('/', (req, res, next) => {
-	debug('session.user:', req.session.user);
-	
-	db.getLockersByUserId(req.session.user.id)
-	.then(results =>{
-		debug('results', results);
+router.get('/', async(req, res, next) => {
 		if (req.session.user) {
-			res.render('dashboard', { title: 'sendiit - panel', path: req.path, user: req.session.user, stateRoute: results });
-		} else {
-			res.redirect('/');
+			debug('session.user:', req.session.user);
+			let params = {}
+			if(req.session.user.type=='DELIVER')
+			{
+				params.stateRoute = await db.getLockersByUserId(req.session.user.id)
+			}else if(req.session.user.type=='CLIENT')
+			{
+				params.pedingShipings = await db.getShippings(req.session.user.id)
+			}
+			console.log.params
+			res.render('dashboard', {
+				 title: 'sendiit - panel', 
+				 path: req.path, 
+				 user: req.session.user, 
+				 ...params
+				});
 		}
-	})
-	
+		else {
+			res.redirect('/');
+			}
 });
 
 router.get('/cerrarsesion', (req, res, next) => {
@@ -128,6 +137,30 @@ router.post('/envio/crearEnvio/createSender', (req,res,next) =>{
     });
 });
 
+router.post('/envio/crearEnvio/payment', (req,res,next) =>{
+	console.log(req.body)
+    let {nick,name,card,date} = req.body;
+	date = "30/"+date
+    db.createPayment(req.session.user.id, nick, name, card, date).then((results)=>{
+        debug('results', results);
+        if (results.affectedRows) {
+            res.status(200).json({
+                response: "OK",
+                message: "Metodo de pago guardado con éxito",
+            })
+        }
+        else {
+            res.status(401).json({
+                response: "ERROR",
+                message: "problemas en el servidor"
+            })
+        }
+    }).catch((err) => {
+        console.log("ERROR", err)
+        res.status(402).json({response:'ERROR', message:err});
+    });
+});
+
 router.get('/envio/crearEnvio/createSender', (req,res,next) =>{
     // res.render("createSender") 
     if (req.session.user) {
@@ -156,7 +189,6 @@ router.get('/envio/crearEnvio/createSize', (req,res,next) =>{
 });
 
 router.get('/envio/crearEnvio/payment', (req,res,next) =>{
-    // res.render("createSize") 
     if (req.session.user) {
         db.getmetodosDePagos(req.session.user).then((results)=>{
 			debug('results', results);
@@ -173,8 +205,8 @@ router.get('/envio/crearEnvio/payment', (req,res,next) =>{
         res.redirect('/');
     }
 });
+
 router.get('/repartidor/lockersnm/[a-z ^A-Z 0-9&,%.]{1,}', (req,res,next) =>{
-	 
 	if (req.session.user) {
 		const regex = /[a-z ^A-Z 0-9&,%.]{1,}/g;
 		let traking=req.path.match(regex)[2]
