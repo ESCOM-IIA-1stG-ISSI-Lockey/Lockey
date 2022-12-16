@@ -314,7 +314,7 @@ CREATE OR REPLACE VIEW `vUser` AS
 DROP TABLE IF EXISTS `lockey_db`.`ShippingDetail`;
 USE `lockey_db`;
 CREATE OR REPLACE VIEW `ShippingDetail` AS
-    SELECT     Shipping.*, 
+    SELECT Shipping.trk_shpg, Shipping.id_usr, Shipping.id_shpgtype, Shipping.dts_shpg, Shipping.dte_shpg, Shipping.dtu_shpg, Shipping.pr_shpg, Shipping.hgt_shpg, Shipping.wd_shpg, Shipping.deep_shpg, Shipping.wt_shpg, Shipping.id_wal, 
 		CASE Shipping.stat_shpg
 			WHEN 1 THEN 'En Espera de Entrega del Remitente'
 			WHEN 2 THEN 'En Espera de Recolección del Repartidor'
