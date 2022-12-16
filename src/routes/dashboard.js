@@ -62,8 +62,12 @@ router.get('/envio/crearEnvio', async(req,res,next) =>{
 	
 	if (req.session.user) {
 		let locker = await db.getloker(req.session.createShipping)
-		res.render('createSummary' , { title: 'sendiit - panel', path: req.path, user: req.session.user,datosOrigin:locker});
+		let locker1 = await db.getloker(req.session.createShippingDestino)
+		console.log('dedwedewdwe')
+		console.log(locker)
+		res.render('createSummary' , { title: 'sendiit - panel', path: req.path, user: req.session.user,datosOrigin:locker[0]||{},DatosDestino:locker1[0]||{}});
 	} else {
+
 		res.redirect('/');
 	}
 });
@@ -74,8 +78,11 @@ router.post('/envio/crearEnvio', (req,res,next) =>{
         if(!req.session.createShipping){
             req.session.createShipping = {}
         }
-        let {NameOrigen} = req.body
-        req.session.createShipping = NameOrigen
+        let {NameOrigen,NameDestino} = req.body
+		if(NameOrigen)
+        	req.session.createShipping = NameOrigen
+		if(NameDestino)
+			req.session.createShippingDestino = NameDestino
         console.log(req.session.createShipping)
 		res.redirect('/panel/envio/crearEnvio');
 	} else {
