@@ -3,19 +3,28 @@ var express = require('express');
 var router = express.Router();
 var db = require('../modules/MySQLConnection');
 
-router.get('/', (req, res, next) => {
-	debug('session.user:', req.session.user);
-	
-	db.getLockersByUserId(req.session.user.id)
-	.then(results =>{
-		debug('results', results);
+router.get('/', async(req, res, next) => {
 		if (req.session.user) {
-			res.render('dashboard', { title: 'sendiit - panel', path: req.path, user: req.session.user, stateRoute: results });
-		} else {
-			res.redirect('/');
+			debug('session.user:', req.session.user);
+			let params = {}
+			if(req.session.user.type=='DELIVER')
+			{
+				params.stateRoute = await db.getLockersByUserId(req.session.user.id)
+			}else if(req.session.user.type=='CLIENT')
+			{
+				params.pedingShipings = await db.getShippings(req.session.user.id)
+			}
+			console.log.params
+			res.render('dashboard', {
+				 title: 'sendiit - panel', 
+				 path: req.path, 
+				 user: req.session.user, 
+				 ...params
+				});
 		}
-	})
-	
+		else {
+			res.redirect('/');
+			}
 });
 
 router.get('/cerrarsesion', (req, res, next) => {
