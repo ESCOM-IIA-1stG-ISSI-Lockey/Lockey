@@ -9,6 +9,8 @@
 $primary: #f9d950;
 $secondary: #212e46;
 $tertiary: #d4d4d4; 
+$warning: #db2e32;
+
 
 // 3. Include remainder of required Bootstrap stylesheets
 @import "../../node_modules/bootstrap/scss/variables";
@@ -70,19 +72,11 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 // scss-docs-end import-stack
 
 // 8. Add additional custom code here
-.flex-equal > * {flex: 1;}
-@media (min-width: 768px) {
-	.flex-md-equal > * {
-		flex: 1;
-	}
-	.TamañoPaquete{
-		width:470px;
-	}
-	.wrapper .item{
-		min-width: 300px;
-		height: 180px;
-	}
+.sizemap{
+	height: 25vh;
 }
+.flex-equal > * {flex: 1;}
+
 
 .lupa{
 	font-size: 20px;
@@ -121,6 +115,17 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 	display: block;
 }  
 
+.slide_ver{
+	display: flex;
+	flex-wrap: wrap;
+	max-height: 75vh;
+	overflow: auto;
+}
+
+.slide_ver::-webkit-scrollbar{
+	width: 0;
+}
+
 .wrapper{
 	max-height: 240px;
 	// border: 1px solid #dddddd;
@@ -149,7 +154,7 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 }
 
 .text-status{color: #0145c5; font-weight: bolder; font-size: 16px;}
-  
+
 .process {
 	font-size: 24px;
 	margin-top: 2rem;
@@ -161,102 +166,102 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 	list-style: none;
 	
 	&::before {
-	  display: inline-block;
-	  content: '';
-	  position: absolute;
-	  top: 0;
-	  left: 15px;
-	  width: 0px;
-	  height: 100%;
+		display: inline-block;
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 15px;
+		width: 0px;
+		height: 100%;
 	}
 	
 	&-item {
-	  position: relative;
-	  counter-increment: list;
-	  
-	  &:not(:last-child) {
-		padding-bottom: 40px;
-	  }
-	  
-	  &::before {
-		display: inline-block;
-		content: '';
-		position: absolute;
-		left: -20px;
-		height: 100%;
-		width: 10px;
-	  }
-	  
-	  &::after {
-		content: '';
-		display: inline-block;
-		position: absolute;
-		top: 0;
-		left: -37px;
-		width: 12px;
-		height: 12px;
-		border-radius: 50%;
-		// background-color: #FFF;
-	  }
-	  
-	  &.is-done {
+		position: relative;
+		counter-increment: list;
+		
+		&:not(:last-child) {
+			padding-bottom: 40px;
+		}
+		
 		&::before {
-		  border-left: 10px solid $primary;
+			display: inline-block;
+			content: '';
+			position: absolute;
+			left: -20px;
+			height: 100%;
+			width: 10px;
 		}
+		
 		&::after {
-		//   content: "✔";
-		  font-size: 20px;
-		  color: #FFF;
-		  text-align: center;
-		  border: 20px solid $primary;
-		  background-color: $primary;
+			content: '';
+			display: inline-block;
+			position: absolute;
+			top: 0;
+			left: -37px;
+			width: 12px;
+			height: 12px;
+			border-radius: 50%;
+			// background-color: #FFF;
 		}
-	  }
-
-	  &.is-cancel {
-		&::after {
-		//   content: "✔";
-		  font-size: 20px;
-		  color: #FFF;
-		  text-align: center;
-		  border: 20px solid #db2e32;
-		  background-color: #db2e32;
+		
+		&.is-done {
+			&::before {
+				border-left: 10px solid $primary;
+			}
+			&::after {
+				//   content: "✔";
+				font-size: 20px;
+				color: #FFF;
+				text-align: center;
+				border: 20px solid $primary;
+				background-color: $primary;
+			}
 		}
-	  }
-	  
-	  &.is-store {
-		&::after {
-		//   content: "✔";
-		  font-size: 20px;
-		  color: #FFF;
+		
+		&.is-cancel {
+			&::after {
+				//   content: "✔";
+				font-size: 20px;
+				color: #FFF;
+				text-align: center;
+				border: 20px solid #db2e32;
+				background-color: #db2e32;
+			}
+		}
+		
+		&.is-store {
+			&::after {
+				//   content: "✔";
+				font-size: 20px;
+				color: #FFF;
 		  text-align: center;
 		  border: 20px solid #2e7cdb;
 		  background-color: #2e7cdb;
 		}
-	  }
-	  
-	  &.current {
+	}
+	
+	&.current {
 		&::before {
-		  border-left: 10px solid rgb(186, 186, 186);
+			border-left: 10px solid rgb(186, 186, 186);
 		}
 		
 		&::after {
-		//   content: counter(list);
-		  padding-top: 1px;
-		  width: 12px;
-		  height: 12px;
-		  top: 0px;
-		  left: -37px;
-		  font-size: 14px;
-		  text-align: center;
+			//   content: counter(list);
+			padding-top: 1px;
+			width: 12px;
+			height: 12px;
+			top: 0px;
+			left: -37px;
+			font-size: 14px;
+			text-align: center;
 		  border: 20px solid rgb(182, 182, 182);
 		  background-color: white;
 		}
-	  }
 	}
+}
 	strong {display: block; padding-left: 20px; font-size: 20px;}
 	p {display: block; padding-left: 20px; margin: 0; font-weight: bold; color: $primary; font-size: 18px;}
-  }
+}
 
 .update{
 	font-weight: normal !important;
@@ -276,29 +281,33 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
     --bs-btn-color: #212e46;
     --bs-btn-bg: #d3d5da;
     --bs-btn-border-color: #d3d5da;
-
+	
     --bs-btn-active-color: #212e46;
     --bs-btn-active-bg:  #f9d950;
     --bs-btn-active-border-color:  #e7c010;
-   
+	
+}
+
+.icons{
+	font-size: 70px;
 }
 
 .place{
 	width: 90%;
 	height: 150px;
 	margin: 5%;
-	box-shadow: 10px 5px 15px #0000003b;
+	box-shadow: 0px 5px 15px #00000027;
     --bs-btn-color: #212e46;
     --bs-btn-bg: #d3d5da;
     --bs-btn-border-color: #d3d5da;
-
+	
     --bs-btn-active-color: #212e46;
     --bs-btn-active-bg:  #f9d950;
     --bs-btn-active-border-color:  #e7c010;
-   
+	
 }
 .fw-bold1{
- font-weight: 600 !important;
+	font-weight: 600 !important;
 }
 
 .Paquetes{max-height: 500px;}
@@ -320,4 +329,20 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 .detalles p small{
 	font-size: 15px;
 	font-weight: normal;
+}
+
+@media (min-width: 768px) {
+	.flex-md-equal > * {
+		flex: 1;
+	}
+	.TamañoPaquete{
+		width:470px;
+	}
+	.wrapper .item{
+		min-width: 300px;
+		height: 180px;
+	}
+	.sizemap{
+		height: 75vh;
+	}
 }
