@@ -9,6 +9,8 @@
 $primary: #f9d950;
 $secondary: #212e46;
 $tertiary: #d4d4d4; 
+$warning: #db2e32;
+
 
 // 3. Include remainder of required Bootstrap stylesheets
 @import "../../node_modules/bootstrap/scss/variables";
@@ -112,6 +114,17 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 .error-activo{
 	display: block;
 }  
+
+.slide_ver{
+	display: flex;
+	flex-wrap: wrap;
+	max-height: 75vh;
+	overflow: auto;
+}
+
+.slide_ver::-webkit-scrollbar{
+	width: 0;
+}
 
 .wrapper{
 	max-height: 240px;
@@ -273,6 +286,10 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
     --bs-btn-active-bg:  #f9d950;
     --bs-btn-active-border-color:  #e7c010;
 	
+}
+
+.icons{
+	font-size: 70px;
 }
 
 .place{

@@ -83,10 +83,16 @@ block content
                     //- .col
                     //-     p.m-0.p-0 Peso
                     //-     p.m-0.p-0 15 kg  
-            a.text-decoration-none(href='/panel/nuevo/resumen')
-                    .row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.p-3.ms-3.me-3.shadow.rounded-pill.m-5.mt-4
-                        h5.fw-bold.text-white.m-0.p-0 CONTINUAR
 
+            .row
+                .col-6
+                    a.text-decoration-none(href='/panel')
+                        .row.d-flex.align-items-center.justify-content-center.btn.btn-warning.p-3.ms-0.me-0.shadow.rounded-pill.m-5.mt-4
+                            h5.fw-bold.text-white.m-0.p-0 CANCELAR
+                .col-6
+                    a.text-decoration-none(href='/panel/nuevo/resumen')
+                        .row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.p-3.ms-3.me-3.shadow.rounded-pill.m-5.mt-4
+                            h5.fw-bold.text-white.m-0.p-0 CONTINUAR
 
 
     //- .container.py-5
@@ -142,4 +148,5 @@ block content
 block scripts
     script(src='/javascripts/googleMaps.js')
     script(src='/javascripts/validation.js')
-    script(async src="https://maps.googleapis.com/maps/api/js?libraries=places,visualization&key=AIzaSyAEErsjNBLnxa3y-N2LFDpENunDEE8SDAs&v=weekly&callback=initMap")
+    script(async src="https://maps.googleapis.com/maps/api/js?libraries=places,visualization&key=&v=weekly&callback=initMap")
+    script(async src ="https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyAEErsjNBLnxa3y-N2LFDpENunDEE8SDAs")
