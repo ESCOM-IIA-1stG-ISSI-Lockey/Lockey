@@ -317,11 +317,11 @@ CREATE OR REPLACE VIEW `ShippingDetail` AS
     SELECT Shipping.trk_shpg, Shipping.id_usr, Shipping.id_shpgtype, Shipping.dts_shpg, Shipping.dte_shpg, Shipping.dtu_shpg, Shipping.pr_shpg, Shipping.hgt_shpg, Shipping.wd_shpg, Shipping.deep_shpg, Shipping.wt_shpg, Shipping.id_wal, 
 		CASE Shipping.stat_shpg
 			WHEN 1 THEN 'En Espera de Entrega del Remitente'
-			WHEN 2 THEN 'En Espera de Recolección del Repartidor'
-			WHEN 3 THEN 'En Tránsito'
+			WHEN 2 THEN 'En Espera de Recoleccion del Repartidor'
+			WHEN 3 THEN 'En Transito'
 			WHEN 4 THEN 'En Espera de Recepción del Destinatario'
 			WHEN 5 THEN 'Completado'
-			WHEN 6 THEN 'En Almacén'
+			WHEN 6 THEN 'En Almacen'
 			WHEN 7 THEN 'Cancelado'
 			ELSE 'Desconocido'
 		END AS stat_shpg,
@@ -390,10 +390,10 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `lockey_db`;
-INSERT INTO `lockey_db`.`Locker` (`id_lkr`, `nm_lkr`, `dir_lkr`) VALUES (DEFAULT, 'Plaza torres', 'Av. Miguel Othón de Mendizábal Ote. 343, Nueva Industrial Vallejo, Gustavo A. Madero, 07700 Ciudad de México, CDMX');
-INSERT INTO `lockey_db`.`Locker` (`id_lkr`, `nm_lkr`, `dir_lkr`) VALUES (DEFAULT, 'Santa Fe', 'Vasco de Quiroga 3800, Santa Fe, Contadero, Cuajimalpa de Morelos, 05348 Ciudad de México, CDMX');
-INSERT INTO `lockey_db`.`Locker` (`id_lkr`, `nm_lkr`, `dir_lkr`) VALUES (DEFAULT, 'Fórum Buenavista', 'Eje 1 Nte. 259, Buenavista, Cuauhtémoc, 06350 Ciudad de México, CDMX');
-INSERT INTO `lockey_db`.`Locker` (`id_lkr`, `nm_lkr`, `dir_lkr`) VALUES (DEFAULT, 'Plaza Antenas', 'Av. Canal de Garay 3278-3er piso, Tulyehualco Canal de Garay, Iztapalapa, 09910 Ciudad de México, CDMX');
+INSERT INTO `lockey_db`.`Locker` (`id_lkr`, `nm_lkr`, `dir_lkr`) VALUES (DEFAULT, 'Plaza torres', 'Av. Miguel Othon de Mendizabal Ote. 343, Nueva Industrial Vallejo, Gustavo A. Madero, 07700 Ciudad de Mexico, CDMX');
+INSERT INTO `lockey_db`.`Locker` (`id_lkr`, `nm_lkr`, `dir_lkr`) VALUES (DEFAULT, 'Santa Fe', 'Vasco de Quiroga 3800, Santa Fe, Contadero, Cuajimalpa de Morelos, 05348 Ciudad de Mexico, CDMX');
+INSERT INTO `lockey_db`.`Locker` (`id_lkr`, `nm_lkr`, `dir_lkr`) VALUES (DEFAULT, 'Forum Buenavista', 'Eje 1 Nte. 259, Buenavista, Cuauhtemoc, 06350 Ciudad de Mexico, CDMX');
+INSERT INTO `lockey_db`.`Locker` (`id_lkr`, `nm_lkr`, `dir_lkr`) VALUES (DEFAULT, 'Plaza Antenas', 'Av. Canal de Garay 3278-3er piso, Tulyehualco Canal de Garay, Iztapalapa, 09910 Ciudad de Mexico, CDMX');
 
 
 COMMIT;
