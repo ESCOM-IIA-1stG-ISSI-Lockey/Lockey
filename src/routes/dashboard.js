@@ -155,5 +155,28 @@ router.get('/envio/crearEnvio/payment', (req,res,next) =>{
         res.redirect('/');
     }
 });
+router.get('/repartidor/lockersnm/[a-z ^A-Z 0-9&,%.]{1,}', (req,res,next) =>{
+	 
+	if (req.session.user) {
+		const regex = /[a-z ^A-Z 0-9&,%.]{1,}/g;
+		let traking=req.path.match(regex)[2]
 
+		traking = traking.replace('%20', ' ');
+		
+		
+		db.getshippingdeliver(traking).then((results)=>{
+			debug('results', results);
+			if (results.length) {
+				res.render('lockers' , { title: 'sendiit - panel', path: req.path, user: req.session.user, route:results[0]});
+			}
+			else {
+				res.status(401).json({response:'ERROR', message:'Rutas completadas no encontradas'});
+			}
+		});
+		res.render("lockers")
+
+	} else {
+		res.redirect('/');
+	}
+});
 module.exports = router;
