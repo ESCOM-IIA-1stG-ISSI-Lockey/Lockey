@@ -1,21 +1,28 @@
 extends layout
 
 block content
-    div.space
-        .bg-primary.d-flex.align-items-center(style="height: 70px;")
-            p.h1.title #{route.nm_lkrdst}
 
-        div.detalles
+    .container
 
+        div.space
 
-            p Número de guía 
-                small.text-muted #{route.trk_shpg}              
+            .bg-primary.d-flex.p-2.pb-4.rounded.justify-content-center(style="height: 70px;")
+                h1.title.text-center.fw-bold.m-0.pb-4.pt-2=traking
 
-            p Origen:
-                small.text-muted #{route.nm_lkrorg}
+            div.detalles
+                each detail, index in shippingDetails
+                    .card(style='width: 24rem;')
+                        .card-body
+                            .item.row.d-flex.align-items-center.-content-center(style='min-width: 40px;')
+                                .col-4.p-0
+                                    img(style='max-height: 100px;',src='/images/package-m.svg')
+                                .col-8.p-0
+                                    p Número de guía 
+                                        small.text-muted #{detail.trk_shpg}              
 
-            p Destino:
-                small.text-muted #{route.nm_lkrdst}
+                                    p Origen:
+                                        small.text-muted #{detail.nm_lkrorg}
 
-        
+                                    p Destino:
+                                        small.text-muted #{detail.nm_lkrdst}
 

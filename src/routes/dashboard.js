@@ -5,7 +5,6 @@ var db = require('../modules/MySQLConnection');
 
 router.get('/', (req, res, next) => {
 	debug('session.user:', req.session.user);
-	
 	db.getLockersByUserId(req.session.user.id)
 	.then(results =>{
 		debug('results', results);
@@ -164,19 +163,21 @@ router.get('/repartidor/lockersnm/[a-z ^A-Z 0-9&,%.]{1,}', (req,res,next) =>{
 		traking = traking.replace('%20', ' ');
 		
 		
-		db.getshippingdeliver(traking).then((results)=>{
+		db.getShippingdetailByUserId(req.session.user.id, traking).then((results)=>{
 			debug('results', results);
 			if (results.length) {
-				res.render('lockers' , { title: 'sendiit - panel', path: req.path, user: req.session.user, route:results[0]});
+				res.render('lockers' , { title: 'sendiit - panel', path: req.path, traking:traking, shippingDetails:results});
 			}
 			else {
 				res.status(401).json({response:'ERROR', message:'Rutas completadas no encontradas'});
 			}
 		});
-		res.render("lockers")
+		
 
 	} else {
 		res.redirect('/');
 	}
 });
+
+
 module.exports = router;
