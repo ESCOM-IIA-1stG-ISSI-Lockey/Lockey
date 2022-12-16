@@ -3,6 +3,9 @@ const patterns = {
 	tel: /[0-9]{10}/,
 	email: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/,
 	password: /(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^a-zA-Z0-9\s:])([^\s]){8,16}/,
+	card: /\d{15,16}/,
+	date: /\d{1,2}\/\d{2,4}/,  //mm/yy or mm/yyyy formmat "/" required
+	cvv: /[0-9]{3,3}/ 
 }
 
 function validateForm(form) {

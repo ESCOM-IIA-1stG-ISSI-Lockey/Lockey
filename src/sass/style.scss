@@ -8,7 +8,7 @@
 // 2. Include any default variable overrides here
 $primary: #f9d950;
 $secondary: #212e46;
-$tertiary: #dddddd; 
+$tertiary: #d4d4d4; 
 
 // 3. Include remainder of required Bootstrap stylesheets
 @import "../../node_modules/bootstrap/scss/variables";
@@ -70,25 +70,34 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 // scss-docs-end import-stack
 
 // 8. Add additional custom code here
-.flex-equal > * {
-	flex: 1;
-}
+.flex-equal > * {flex: 1;}
 @media (min-width: 768px) {
 	.flex-md-equal > * {
 		flex: 1;
 	}
+	.TamañoPaquete{
+		width:470px;
+	}
+	.wrapper .item{
+		min-width: 300px;
+		height: 180px;
+	}
+}
+
+.lupa{
+	font-size: 20px;
+	font-weight: bolder;
+}
+.nameUser{
+	font-size: 20px;
+	margin: 0;
+	padding: 0;
+	font-weight: bolder;
 }
 
 .space{
 	margin-left: 5%;
 	margin-right: 5%;
-}
-
-.title{
-	margin-top: 0;
-	margin-left: 20px;
-	margin-right: 0;
-	font-weight: bolder;
 }
 
 .bg-cover1 {
@@ -118,7 +127,7 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 	display: flex;
 	overflow: auto;
 	padding: 30px;
-	background-color: $primary;
+	// background-color: $primary;
 }
 
 .wrapper::-webkit-scrollbar{
@@ -126,9 +135,8 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 }
 
 .wrapper .item{
-	min-width: 300px;
-	height: 180px;
-	// line-height: 120px;
+	min-width: 160px;
+	height: 164px;
 	text-align: left;
 	background-color: #ffffff;
 	margin-right: 30px;
@@ -137,7 +145,7 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 }
 
 .wrapper .item:hover {
-	box-shadow: 0 0 20px #0145c5;
+	box-shadow: 0 0 10px #0145c5;
 }
 
 .text-status{color: #0145c5; font-weight: bolder; font-size: 16px;}
@@ -204,6 +212,28 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 		  background-color: $primary;
 		}
 	  }
+
+	  &.is-cancel {
+		&::after {
+		//   content: "✔";
+		  font-size: 20px;
+		  color: #FFF;
+		  text-align: center;
+		  border: 20px solid #db2e32;
+		  background-color: #db2e32;
+		}
+	  }
+	  
+	  &.is-store {
+		&::after {
+		//   content: "✔";
+		  font-size: 20px;
+		  color: #FFF;
+		  text-align: center;
+		  border: 20px solid #2e7cdb;
+		  background-color: #2e7cdb;
+		}
+	  }
 	  
 	  &.current {
 		&::before {
@@ -224,22 +254,70 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 		}
 	  }
 	}
-	strong {display: block; padding-left: 20px;}
-	p {display: block; padding-left: 20px; margin: 0;}
+	strong {display: block; padding-left: 20px; font-size: 20px;}
+	p {display: block; padding-left: 20px; margin: 0; font-weight: bold; color: $primary; font-size: 18px;}
   }
+
+.update{
+	font-weight: normal !important;
+	font-size: 15px !important;
+	color: $secondary !important;
+}
 
 .detalles{
 	padding-left: 1rem;
-	font-weight: bolder;
-	margin-top: 1rem;
-	margin-bottom: 1rem;
 }
 
-.trayect{
-	padding-left: 2rem;
-	font-weight: bolder;
-	background-color: #212e46;
-	color: white;
+.TamañoPaquete{
+	min-width:270px;
+	margin: 20px;
+	height: 380px;
+	box-shadow: 10px 5px 15px #0000003b;
+    --bs-btn-color: #212e46;
+    --bs-btn-bg: #d3d5da;
+    --bs-btn-border-color: #d3d5da;
+
+    --bs-btn-active-color: #212e46;
+    --bs-btn-active-bg:  #f9d950;
+    --bs-btn-active-border-color:  #e7c010;
+   
 }
+
+.place{
+	width: 90%;
+	height: 150px;
+	margin: 5%;
+	box-shadow: 10px 5px 15px #0000003b;
+    --bs-btn-color: #212e46;
+    --bs-btn-bg: #d3d5da;
+    --bs-btn-border-color: #d3d5da;
+
+    --bs-btn-active-color: #212e46;
+    --bs-btn-active-bg:  #f9d950;
+    --bs-btn-active-border-color:  #e7c010;
+   
+}
+.fw-bold1{
+ font-weight: 600 !important;
+}
+
+.Paquetes{max-height: 500px;}
 
 .b-line::before{border-left: 0px!important}
+
+.boxSize{
+	width: 70%;
+}
+
+.detalles p{
+	font-size: 1em;
+	padding-bottom: 0px;
+	margin-bottom: 5px;
+	font-weight: bold;
+	border-bottom: rgb(94, 94, 94);
+}
+
+.detalles p small{
+	font-size: 15px;
+	font-weight: normal;
+}
