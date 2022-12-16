@@ -150,7 +150,17 @@ router.get('/envio/crearEnvio/createSize', (req,res,next) =>{
 router.get('/envio/crearEnvio/payment', (req,res,next) =>{
     // res.render("createSize") 
     if (req.session.user) {
-        res.render('payment' , { title: 'sendiit - panel', path: req.path, user: req.session.user });
+        db.getmetodosDePagos(req.session.user).then((results)=>{
+			debug('results', results);
+			if (results.length) {
+				res.render('payment' , { title: 'sendiit - panel', path: req.path, user: req.session.user, metodosDePagos:results});
+			}
+			else {
+				res.status(401).json({response:'ERROR', message:'Rutas completadas no encontradas'});
+			}
+		});
+        //res.render('payment' , { title: 'sendiit - panel', path: req.path, user: req.session.user, metodosDePagos: metodosDePagos });
+
     } else {
         res.redirect('/');
     }
@@ -179,4 +189,26 @@ router.get('/repartidor/lockersnm/[a-z ^A-Z 0-9&,%.]{1,}', (req,res,next) =>{
 		res.redirect('/');
 	}
 });
+
+router.get('envio/crearEnvio/origen', (req,res,next) =>{
+	if (req.session.user) {
+		db.getlocations().then((results)=>{
+			debug('results', results);
+			if (results.length) {
+                
+				res.render('choseeOrigen' , {address:results});
+			}
+			else {
+            
+				res.status(401).json({response:'ERROR', message:'Envío no encontrado'});
+			}
+		});		
+    res.render("lockers")
+
+	} else {
+		res.redirect('/');
+	}
+});
+	
+
 module.exports = router;

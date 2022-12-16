@@ -190,6 +190,15 @@ const db = {
 		});
 	},
 
+	getlocations:() =>{ //modifique
+		return new Promise((resolve, reject) => {
+			con.query('SELECT * FROM Locker', (err, results) => {
+				if(err)reject(err);
+				else resolve(results);
+			});
+		});
+	},
+
 	createAddresse: (idUser,name, email, tel) => { //modifique
 		return new Promise((resolve, reject) => {
 			
@@ -207,6 +216,9 @@ const db = {
 			}).catch((err) => {
 				reject(err);
 			});
+
+
+	
 		});
 	},
 
