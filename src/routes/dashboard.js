@@ -58,10 +58,11 @@ router.get('/envio/detalles/[0-9]{18}', (req,res,next) =>{
 	}
 });
 
-router.get('/envio/crearEnvio', (req,res,next) =>{
+router.get('/envio/crearEnvio', async(req,res,next) =>{
+	
 	if (req.session.user) {
-
-		res.render('createSummary' , { title: 'sendiit - panel', path: req.path, user: req.session.user });
+		let locker = await db.getloker(req.session.createShipping)
+		res.render('createSummary' , { title: 'sendiit - panel', path: req.path, user: req.session.user,datosOrigin:locker});
 	} else {
 		res.redirect('/');
 	}
@@ -73,10 +74,8 @@ router.post('/envio/crearEnvio', (req,res,next) =>{
         if(!req.session.createShipping){
             req.session.createShipping = {}
         }
-        let {MapaOrigen} = req.body
-        console.log('hola aqui estoy')
-        console.log(req.body)
-        req.session.createShipping = MapaOrigen
+        let {NameOrigen} = req.body
+        req.session.createShipping = NameOrigen
         console.log(req.session.createShipping)
 		res.redirect('/panel/envio/crearEnvio');
 	} else {

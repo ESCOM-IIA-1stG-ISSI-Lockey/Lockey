@@ -215,6 +215,14 @@ const db = {
 			});
 		});
 	},
+	getloker:(id) =>{ //modifique
+		return new Promise((resolve, reject) => {
+			con.query('SELECT * FROM Locker WHERE id_lkr = ? ', [id], (err, results) => {
+				if(err)reject(err);
+				else resolve(results);
+			});
+		});
+	},
 
 	createAddresse: (idUser,name, email, tel) => { //modifique
 		return new Promise((resolve, reject) => {

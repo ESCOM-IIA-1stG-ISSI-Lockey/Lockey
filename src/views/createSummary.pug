@@ -8,8 +8,8 @@ block content
                 p.m-0 Selecciona o elige un lugar de origen
                 input#origen.btn-check(type='radio' name='options2' autocomplete='off')
                 label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center(for='origen')
-                    p.fw-bold Nombre del lugar
-                    p Dirección
+                    p.fw-bold #{datosOrigin.nm_lkr} 
+                     p #{datosOrigin.dir_lkr} 
                 a.text-decoration-none(href='/panel/envio/crearEnvio/origen')
                     .row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.p-3.ms-3.me-3.shadow.rounded-pill
                         h5.fw-bold.text-white.m-0.p-0 CAMBIAR ORIGEN
