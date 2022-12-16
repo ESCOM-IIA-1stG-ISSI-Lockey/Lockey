@@ -7,11 +7,11 @@ block content
                 .card
                     .rounded-bottom
                         .card-body
-                            p.mb-4 Your payment details
-                            form.row.g-3.needs-validation(novalidate='')
+                            h5.container.text-center.fs-4 Agregar Tarjeta
+                            form.row.g-3.needs-validation(method='post' action='/panel/envio/crearEnvio/payment' novalidate)
                                 .form-outline.mb-3
                                     label.form-label.mb-1.px-1.mt-3.fw-bold(for='validationNumber') Numero de tarjeta
-                                    input#validationNumber.form-control.rounded-4(type='number' name='card' placeholder='XXXX-XXXX-XX12-3456' required='')
+                                    input#validationNumber.form-control(type='text' name='card' placeholder='XXXXXXXXXX123456' required='' maxlength='16')
                                     .invalid-feedback
                                         | Es necesario ingresar un numero de trajeta valido
                                 .form-outline.mb-3
@@ -23,7 +23,7 @@ block content
                                     .col-7
                                         .form-outline
                                             label.form-label.mb-1.px-1.mt-3.fw-bold(for='validationDate') Fecha de vencimiento
-                                            input#validationDate.form-control(type='text' name='date' placeholder='MM/YYYY' required='')
+                                            input#validationDate.form-control(type='text' name='date' placeholder='MM/YYYY' required='' maxlength='7')
                                             .invalid-feedback
                                                 | Es necesario ingresar una fecha valida
                                     .col-3
@@ -32,9 +32,15 @@ block content
                                             input#validationCVV.form-control(type='text' name='cvv' placeholder='CVV' required='' maxlength='3')
                                             .invalid-feedback
                                                 | Es necesario ingresar un codigo valido
+                                .form-outline.mb-3
+                                    label.form-label.mb-1.px-1.mt-3.fw-bold(for='validationName') Alias de la tarjeta
+                                    input#validationName.form-control(type='text' name='nick' placeholder='Mauricio Velazquez' required='')
+                                    .invalid-feedback
+                                        | Es necesario ingresar un alias valido
+
                                 .d-grid.gap-4
                                     .row.col-fluid.mt-1.mx-1
-                                        button.btn.btn-primary.btn-lg.rounded-5.mt-3(type='submit' style='background-color: #212E46;')
+                                        button.btn.btn-primary.btn-lg.rounded-5.mt-3(type='submit' style='background-color: #212E46; color: #FFFFFF')
                                             .fw-bold Continuar
 
 block scripts

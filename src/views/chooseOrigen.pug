@@ -1,10 +1,38 @@
 extends createSummary
 
 block content
-    #map1.vw-100.rounded.shadow.container(style="height:75vh")
-    //- #map.vw-100.rounded.shadow.container(style="height:75vh")
+    .container
+        h1.fw-bold Lugar de origen
+        p.mb-3 Selecciona un lugar de origen
+        .row
+            .col-md-7.col-lg-7.m-0.p-0
+                #map.rounded.sizemap
+            form.col-md-5.col-lg-5.m-0.p-0.slide_ver(action='/panel/envio/crearEnvio' method='Post')
+                each val in address  
+                    input(id=val.id_lkr).btn-check(type='radio' value=2 name='options3' autocomplete='off')
+                    label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center.ms-3.me-3.m-0(for=val.id_lkr)
+                        p.fw-bold=val.nm_lkr
+                        small=val.dir_lkr    
+                button.btn.btn-primary(type='submit') CONTINUAR         
+        form.row.mt-3.float-right.ms-3
+            .form-check
+                input#exampleCheck1.form-check-input(type='checkbox')
+                label.form-check-label(for='exampleCheck1') Recordar lugar de origen
+
+        .row
+            .col-6
+                a.text-decoration-none(href='/panel/envio/crearEnvio')
+                    .row.d-flex.align-items-center.justify-content-center.btn.btn-warning.p-3.ms-1.me-1.shadow.rounded-pill.m-5.mt-4
+                        h5.fw-bold.text-white.m-0.p-0 CANCELAR
+            .col-6
+                
+                a.text-decoration-none(href='/panel/envio/crearEnvio')
+                    .row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.p-3.ms-1.me-1.shadow.rounded-pill.m-5.mt-4
+                        h5.fw-bold.text-white.m-0.p-0 CONTINUAR
+
 
 block scripts
+    script const addres = !{JSON.stringify(address)} 
     script(src='/javascripts/googleMaps.js')
     script(src='/javascripts/validation.js')
     script(async src="https://maps.googleapis.com/maps/api/js?libraries=places,visualization&key=AIzaSyAEErsjNBLnxa3y-N2LFDpENunDEE8SDAs&v=weekly&callback=initMap")

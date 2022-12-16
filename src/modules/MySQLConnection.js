@@ -153,7 +153,24 @@ const db = {
 		});
 	},
 
-	getContact:(id_usr,email,tel) =>{ //modifique
+	getContactsByUserId: (id_usr) => {
+		return new Promise((resolve, reject) => {
+			con.query('SELECT * FROM Contact WHERE id_usr= ?', [id_usr], (err, results) => {
+				if (err) reject(err);
+				else resolve(results);
+			});
+		});
+	},
+	getShippings: (id_usr) => {
+		return new Promise((resolve, reject) => {
+			con.query('SELECT * FROM ShippingDetail  WHERE id_usr= ?', [id_usr], (err, results) => {
+				if (err) reject(err);
+				else resolve(results);
+			});
+		});
+	},
+
+	getContact:(id_usr,email,tel) =>{
 		return new Promise((resolve, reject) => {
 			con.query('SELECT * FROM Contact  WHERE id_usr= ? and em_cont= ? and tel_cont= ?', [id_usr, email, tel], (err, results) => {
 				if (err) reject(err);
@@ -163,7 +180,7 @@ const db = {
 	},
 
 
-	createContact: (idUser,name, email, tel) => { //modifique
+	createContact: (idUser,name, email, tel) => {
 		return new Promise((resolve, reject) => {			
 			// check if email is already in use			
 			db.getContact(idUser,email,tel).then((results) => {
@@ -190,6 +207,15 @@ const db = {
 		});
 	},
 
+	getlocations:() =>{ //modifique
+		return new Promise((resolve, reject) => {
+			con.query('SELECT * FROM Locker', [], (err, results) => {
+				if(err)reject(err);
+				else resolve(results);
+			});
+		});
+	},
+
 	createAddresse: (idUser,name, email, tel) => { //modifique
 		return new Promise((resolve, reject) => {
 			
@@ -207,8 +233,53 @@ const db = {
 			}).catch((err) => {
 				reject(err);
 			});
+
+
+	
 		});
 	},
+
+
+	getPayment:(id_usr,name,card,date) =>{ //modifique
+		return new Promise((resolve, reject) => {
+			con.query('SELECT * FROM Wallet  WHERE id_usr= ? and nm_wal= ? and num_wal= ? and  date_wal= STR_TO_DATE(?,"%d/%m/%Y")', [id_usr, name, card, date], (err, results) => {
+				if (err) reject(err);
+				else resolve(results);
+			});
+		});
+	},
+
+
+	createPayment: (idUser,nick,name,card,date) => { //modifique
+		return new Promise((resolve, reject) => {			
+			// check if card is already in use			
+			db.getPayment(idUser,name,card,date).then((results) => {
+				if (results.length > 0) reject('El metodo de pago ya se encuentra registrado');
+				else {
+					//console.log("FECHA:", date);
+					// create new payment
+					con.query('INSERT INTO Wallet VALUES (DEFAULT, ?, ?, ?, ?, STR_TO_DATE(?,"%d/%m/%Y"))', [idUser,nick,name,card,date], (err, results) => {
+						if (err) reject(err);
+						else resolve(results);
+					});
+				}
+			}).catch((err) => {
+				reject(err);
+			});
+		});
+	},
+
+	// Get wallets by id_usr
+	getWalletsByUserId:(idUser) =>{ 
+		return new Promise((resolve, reject) => {
+			con.query('SELECT * FROM Wallet WHERE id_usr = ?', [idUser], (err, results) => {
+				if (err) reject(err);
+				else resolve(results);
+			});
+		});
+	},
+
+	// Deliver Methods
 
 	getStateRoute:(idUser) =>{ //
 		return new Promise((resolve, reject) => {
