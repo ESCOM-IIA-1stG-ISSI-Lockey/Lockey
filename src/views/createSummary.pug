@@ -1,91 +1,95 @@
 extends layout
 
 block content
+    form
+        .container.row.col-fluid-12.mt-3.mx-auto
+            .col-lg-6.col-md-6.mt-3
+                h1.fw-bold Lugar de origen
+                p.m-0 Selecciona o elige un lugar de origen
+                input#origen.btn-check(type='radio' name='options2' autocomplete='off')
+                label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center(for='origen')
+                    p.fw-bold Nombre del lugar
+                    p Dirección
+                a.text-decoration-none(href='/panel/envio/crearEnvio/origen')
+                    .row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.p-3.ms-3.me-3.shadow.rounded-pill
+                        h5.fw-bold.text-white.m-0.p-0 CAMBIAR ORIGEN
+            
+            .col-lg-6.col-md-6.mt-3
+                h1.fw-bold Lugar de destino
+                p.m-0 Selecciona o elige un lugar de destino
+                input#destino.btn-check(type='radio' name='options3' autocomplete='off')
+                label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center(for='destino')
+                    p.fw-bold Nombre del lugar
+                    p Dirección
+                a.text-decoration-none(href='/panel/envio/crearEnvio/destino')
+                    .row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.p-3.ms-3.me-3.shadow.rounded-pill
+                        h5.fw-bold.text-white.m-0.p-0 CAMBIAR DESTINO
     .container.row.col-fluid-12.mt-3.mx-auto
-        h1.fw-bold Tamaño del paquete
+        h1.fw-bold.mt-5 Tamaño del paquete
         p.m-0 Selecciona un tamaño de locker
-        .wrapper.Paquetes.p-0
-            input#option1.btn-check(type='radio' name='options1' autocomplete='off')
-            label.btn.btn-secondary(class='TamañoPaquete' for='option1')
-                h3.fw-bold Chico
-                img.boxSize(src="/images/package-s.svg")
-                p.fw-bold Medidas maximas
-                .row
-                    .col
-                        p.m-0.p-0.fw-bold1 Altura
-                        p.m-0.p-0 10 cm
-                    .col
-                        p.m-0.p-0.fw-bold1 Anchura
-                        p.m-0.p-0 40 cm
-                    .col
-                        p.m-0.p-0.fw-bold1 Profundidad
-                        p.m-0.p-0 60 cm
+        form 
+            .wrapper.Paquetes.p-0
+                input#option1.btn-check(type='radio' name='options1' autocomplete='off' disabled)
+                label.btn.btn-secondary.d-flex.flex-column.align-items-center.justify-content-center(class='TamañoPaquete' for='option1')
+                    h3.fw-bold Chico
+                    img.boxSize(src="/images/package-s.svg")
+                    p.fw-bold.pt-4 Medidas maximas
+                    .row
+                        .col
+                            p.m-0.p-0.fw-bold1 Altura
+                            p.m-0.p-0 10 cm
+                        .col
+                            p.m-0.p-0.fw-bold1 Anchura
+                            p.m-0.p-0 40 cm
+                        .col
+                            p.m-0.p-0.fw-bold1 Profundidad
+                            p.m-0.p-0 60 cm
+                        //- .col
+                        //-     p.m-0.p-0 Peso
+                        //-     p.m-0.p-0 15 kg
+                input#option2.btn-check(type='radio' name='options1' autocomplete='off' disabled)
+                label.btn.btn-secondary.d-flex.flex-column.align-items-center.justify-content-center(class='TamañoPaquete' for='option2') 
+                    h3.fw-bold Mediano 
+                    img.boxSize(src="/images/package-m.svg")
+                    p.fw-bold.pt-4 Medidas maximas
+                    .row
+                        .col
+                            p.m-0.p-0.fw-bold1 Altura
+                            p.m-0.p-0 20 cm
+                        .col
+                            p.m-0.p-0.fw-bold1 Anchura
+                            p.m-0.p-0 40 cm
+                        .col
+                            p.m-0.p-0.fw-bold1 Profundidad
+                            p.m-0.p-0 60 cm
+                        //- .col
+                        //-     p.m-0.p-0 Peso
+                        //-     p.m-0.p-0 15 kg
+                input#option3.btn-check(type='radio' name='options1' autocomplete='off' disabled)
+                label.btn.btn-secondary.d-flex.flex-column.align-items-center.justify-content-center(class='TamañoPaquete' for='option3') 
+                    h3.fw-bold Grande 
+                    img.boxSize(src="/images/package-l.svg")
+                    p.fw-bold.pt-4 Medidas maximas
+                    .row
+                        .col
+                            p.m-0.p-0.fw-bold1 Altura
+                            p.m-0.p-0 50 cm
+                        .col
+                            p.m-0.p-0.fw-bold1 Anchura
+                            p.m-0.p-0 40 cm
+                        .col
+                            p.m-0.p-0.fw-bold1 Profundidad
+                            p.m-0.p-0 60 cm
                     //- .col
                     //-     p.m-0.p-0 Peso
-                    //-     p.m-0.p-0 15 kg
-            input#option2.btn-check(type='radio' name='options1' autocomplete='off')
-            label.btn.btn-secondary(class='TamañoPaquete' for='option2') 
-                h3.fw-bold Mediano 
-                img.boxSize(src="/images/package-m.svg")
-                p.fw-bold Medidas maximas
-                .row
-                    .col
-                        p.m-0.p-0.fw-bold1 Altura
-                        p.m-0.p-0 20 cm
-                    .col
-                        p.m-0.p-0.fw-bold1 Anchura
-                        p.m-0.p-0 40 cm
-                    .col
-                        p.m-0.p-0.fw-bold1 Profundidad
-                        p.m-0.p-0 60 cm
-                    //- .col
-                    //-     p.m-0.p-0 Peso
-                    //-     p.m-0.p-0 15 kg
-            input#option3.btn-check(type='radio' name='options1' autocomplete='off')
-            label.btn.btn-secondary(class='TamañoPaquete' for='option3') 
-                h3.fw-bold Grande 
-                img.boxSize(src="/images/package-l.svg")
-                p.fw-bold Medidas maximas
-                .row
-                    .col
-                        p.m-0.p-0.fw-bold1 Altura
-                        p.m-0.p-0 50 cm
-                    .col
-                        p.m-0.p-0.fw-bold1 Anchura
-                        p.m-0.p-0 40 cm
-                    .col
-                        p.m-0.p-0.fw-bold1 Profundidad
-                        p.m-0.p-0 60 cm
-                    //- .col
-                    //-     p.m-0.p-0 Peso
-                    //-     p.m-0.p-0 15 kg
-
-    .container.row.col-fluid-12.mt-3.mx-auto
-
-        .col-lg-6.col-md-6.mt-3
-            h1.fw-bold Lugar de origen
-            p.m-0 Selecciona o elige un lugar de origen
-            input#origen.btn-check(type='radio' name='options2' autocomplete='off')
-            label.btn.btn-secondary.place(for='origen')
-                p.fw-bold Nombre del lugar
-                p Dirección
-                //- #map.vw-100.rounded.shadow(style="height:75vh")
+                    //-     p.m-0.p-0 15 kg  
             a.text-decoration-none(href='/panel/envio/crearEnvio/origen')
-                .col-12.bg-secondary.p-2.rounded-4.mx-1
-                    p.fw-bold.my-0.px-4.mt-2.text-center.text-white Cambiar origen
-        
-        .col-lg-6.col-md-6.mt-3
-            h1.fw-bold Lugar de destino
-            p.m-0 Selecciona o elige un lugar de destino
-            input#destino.btn-check(type='radio' name='options3' autocomplete='off')
-            label.btn.btn-secondary.place(for='destino')
-                p.fw-bold Nombre del lugar
-                p Dirección
-                //- #map1.vw-100.rounded.shadow(style="height:75vh")
-            a.text-decoration-none(href='/panel/envio/crearEnvio/destino')
-                .col-12.bg-secondary.p-2.rounded-4.mx-1
-                    p.fw-bold.my-0.px-4.mt-2.text-center.text-white Cambiar destino
-        
+                    .row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.p-3.ms-3.me-3.shadow.rounded-pill.m-5.mt-4
+                        h5.fw-bold.text-white.m-0.p-0 CONTINUAR
+
+
+
+
     //- .container.row.col-fluid-12.mt-3.mx-auto
     //-     h1.fw-bold Informacion de pago
     //-     p Agregar o seleccionar tarjeta de credito o debito

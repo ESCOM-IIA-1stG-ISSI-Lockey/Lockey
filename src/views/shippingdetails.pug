@@ -2,7 +2,7 @@ extends layout
 
 block content
     .container
-        .bg-primary.d-flex.p-2
+        .bg-primary.d-flex.p-2.rounded.justify-content-center
             h2.fw-bold.m-0 Detalles de envio
         .row.mt-3.mb-3
             div.detalles.col-sm-6.col-xs-12
@@ -34,7 +34,7 @@ block content
                 p Metodo de pago: 
                     small.text-muted #{shipping.num_wal}
 
-        .d-flex.p-2.bg-secondary
+        .d-flex.p-2.bg-secondary.rounded.justify-content-center
             h3.fw-bold.text-white.m-0 Trayectoria
 
         -let n = shipping.stat_shpg
@@ -45,26 +45,34 @@ block content
                     if n==7
                         .StepProgress-item.current.d-none
                         if key == n
-                            .StepProgress-item.is-done.b-line
+                            .StepProgress-item.is-cancel.b-line
                                 strong= num
-                                    p Fecha: 00/00/0000   
-                                    p Hora:  00:00 
+                                    p Actualización
+                                    p.update Fecha y hora: #{shipping.dtu_shpg}
 
                     else if n==6
                         .StepProgress-item.current.d-none
                         if key == n
-                            .StepProgress-item.is-done.b-line
+                            .StepProgress-item.is-store.b-line
                                 strong= num
-                                    p Fecha: 00/00/0000   
-                                    p Hora:  00:00 
+                                    p Actualización
+                                    p.update Fecha y hora: #{shipping.dtu_shpg}  
                     
                     else if n > 0
-                        .StepProgress-item.is-done
-                            strong= num
-                            -n-- 
-                            if n == 0
-                                p Fecha: 00/00/0000   
-                                p Hora:  00:00
+                        if key != 5
+                            .StepProgress-item.is-done
+                                strong= num
+                                -n-- 
+                                if n == 0
+                                    p Actualización
+                                    p.update Fecha y hora: #{shipping.dtu_shpg}  
+                        else
+                            .StepProgress-item.is-done.b-line
+                                strong= num
+                                -n-- 
+                                if n == 0
+                                    p Actualización
+                                    p.update Fecha y hora: #{shipping.dtu_shpg}  
 
                     else
                         if n != 6 || n !=7

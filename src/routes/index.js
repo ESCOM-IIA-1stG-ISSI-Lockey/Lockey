@@ -105,7 +105,7 @@ router.route('/registro')
 	});
 
 	function generateToken() {
-	   	let num = 0;
+		let num = 0;
 		let random = Math.random();
 		random = random * (899999) + 100000;
 		random = Math.trunc(random);

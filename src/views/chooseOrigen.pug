@@ -1,8 +1,16 @@
 extends createSummary
 
 block content
-    //- #map1.vw-100.rounded.shadow.container(style="height:75vh")
-    #map.vw-100.rounded.shadow.container(style="height:75vh")
+    .container
+        h1.fw-bold Lugar de origen
+        p.mb-3 Selecciona o elige un lugar de origen
+        .row
+            .col-md-7.col-lg-7.m-0.p-0
+                #map1.rounded.sizemap
+            .col-md-5.col-lg-5.m-0.p-0.bg-primary
+                p hola
+        
+    //- #map.vw-100.rounded.shadow.container(style="height:75vh")
 
 block scripts
     script const address = !{JSON.stringify(address)} 
