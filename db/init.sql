@@ -314,7 +314,7 @@ CREATE OR REPLACE VIEW `vUser` AS
 DROP TABLE IF EXISTS `lockey_db`.`ShippingDetail`;
 USE `lockey_db`;
 CREATE OR REPLACE VIEW `ShippingDetail` AS
-    SELECT     Shipping.*, nm_shpgtype, nm_wal, num_wal, OriginContact.nm_cont as nm_contorg, Origin.qr_shpgdr as qr_org, OriginDoor.nm_door as nm_drorg, OriginLocker.nm_lkr as nm_lkrorg, DestinationContact.nm_cont as nm_contdst, Destination.qr_shpgdr as qr_dst, DestinationDoor.nm_door as nm_drdst, DestinationLocker.nm_lkr as nm_lkrdst
+    SELECT     Shipping.*, nm_shpgtype, dtu_shpg, nm_wal, num_wal, OriginContact.nm_cont as nm_contorg, Origin.qr_shpgdr as qr_org, OriginDoor.nm_door as nm_drorg, OriginLocker.nm_lkr as nm_lkrorg, DestinationContact.nm_cont as nm_contdst, Destination.qr_shpgdr as qr_dst, DestinationDoor.nm_door as nm_drdst, DestinationLocker.nm_lkr as nm_lkrdst
 		FROM       Shipping
 		NATURAL JOIN Wallet
 		NATURAL JOIN ShippingType
@@ -370,6 +370,8 @@ INSERT INTO `lockey_db`.`Shipping` (`trk_shpg`, `id_usr`,`id_shpgtype`, `stat_sh
 INSERT INTO `lockey_db`.`Shipping` (`trk_shpg`, `id_usr`,`id_shpgtype`, `stat_shpg`, `dts_shpg`, `dtu_shpg`, `dte_shpg`, `pr_shpg`, `hgt_shpg`, `wd_shpg`, `deep_shpg`, `wt_shpg`, `id_wal`) VALUES ('202212140630003003', 1, 2, 4, '2022-12-14 06:25:00', '2022-12-14 06:25:00', NULL, 135.01, 40.64, 33.30, 63.5, 18.00, 2);
 INSERT INTO `lockey_db`.`Shipping` (`trk_shpg`, `id_usr`,`id_shpgtype`, `stat_shpg`, `dts_shpg`, `dtu_shpg`, `dte_shpg`, `pr_shpg`, `hgt_shpg`, `wd_shpg`, `deep_shpg`, `wt_shpg`, `id_wal`) VALUES ('202212080735001002', 2, 1, 2, '2022-12-08 07:35:00', '2022-12-08 07:35:00', NULL, 90.99, 10.5, 5.23, 10.23, 7.56, 2);
 INSERT INTO `lockey_db`.`Shipping` (`trk_shpg`, `id_usr`,`id_shpgtype`, `stat_shpg`, `dts_shpg`, `dtu_shpg`, `dte_shpg`, `pr_shpg`, `hgt_shpg`, `wd_shpg`, `deep_shpg`, `wt_shpg`, `id_wal`) VALUES ('202212190127001003', 1, 1, 5, '2022-12-19 01:27:00', '2022-12-19 01:27:00', '2022-12-20 01:27:00', 150.00, 20.64, 23.30, 34.5, 15.00, 1);
+INSERT INTO `lockey_db`.`Shipping` (`trk_shpg`, `id_usr`,`id_shpgtype`, `stat_shpg`, `dts_shpg`, `dtu_shpg`, `dte_shpg`, `pr_shpg`, `hgt_shpg`, `wd_shpg`, `deep_shpg`, `wt_shpg`, `id_wal`) VALUES ('202212010240002003', 1, 2, 3, '2022-12-01 02:24:00', '2022-12-01 02:24:00', NULL, 87.39, 10.5, 5.23, 10.23, 7.56, 2);
+INSERT INTO `lockey_db`.`Shipping` (`trk_shpg`, `id_usr`,`id_shpgtype`, `stat_shpg`, `dts_shpg`, `dtu_shpg`, `dte_shpg`, `pr_shpg`, `hgt_shpg`, `wd_shpg`, `deep_shpg`, `wt_shpg`, `id_wal`) VALUES ('202212221045001003', 2, 2, 4, '2022-12-22 10:45:00', '2022-12-22 10:45:00', NULL, 54.50, 20.64, 23.30, 34.5, 15.00, 1);
 COMMIT;
 
 -- -----------------------------------------------------
@@ -402,16 +404,16 @@ COMMIT;
 START TRANSACTION;
 USE `lockey_db`;
 INSERT INTO `lockey_db`.`Door` (`id_door`, `id_lkr`, `id_drtype`, `nm_door`, `stat_door`) VALUES (DEFAULT, 1, 2, 01, 1);
-INSERT INTO `lockey_db`.`Door` (`id_door`, `id_lkr`, `id_drtype`, `nm_door`, `stat_door`) VALUES (DEFAULT, 2, 3, 01, 2);
-INSERT INTO `lockey_db`.`Door` (`id_door`, `id_lkr`, `id_drtype`, `nm_door`, `stat_door`) VALUES (DEFAULT, 3, 1, 01, 3);
-INSERT INTO `lockey_db`.`Door` (`id_door`, `id_lkr`, `id_drtype`, `nm_door`, `stat_door`) VALUES (DEFAULT, 4, 2, 01, 1);
-INSERT INTO `lockey_db`.`Door` (`id_door`, `id_lkr`, `id_drtype`, `nm_door`, `stat_door`) VALUES (DEFAULT, 1, 3, 02, 2);
-INSERT INTO `lockey_db`.`Door` (`id_door`, `id_lkr`, `id_drtype`, `nm_door`, `stat_door`) VALUES (DEFAULT, 2, 1, 02, 1);
-INSERT INTO `lockey_db`.`Door` (`id_door`, `id_lkr`, `id_drtype`, `nm_door`, `stat_door`) VALUES (DEFAULT, 3, 3, 02, 2);
-INSERT INTO `lockey_db`.`Door` (`id_door`, `id_lkr`, `id_drtype`, `nm_door`, `stat_door`) VALUES (DEFAULT, 4, 1, 02, 1);
-INSERT INTO `lockey_db`.`Door` (`id_door`, `id_lkr`, `id_drtype`, `nm_door`, `stat_door`) VALUES (DEFAULT, 1, 3, 03, 2);
+INSERT INTO `lockey_db`.`Door` (`id_door`, `id_lkr`, `id_drtype`, `nm_door`, `stat_door`) VALUES (DEFAULT, 1, 3, 02, 1);
+INSERT INTO `lockey_db`.`Door` (`id_door`, `id_lkr`, `id_drtype`, `nm_door`, `stat_door`) VALUES (DEFAULT, 1, 1, 03, 1);
+INSERT INTO `lockey_db`.`Door` (`id_door`, `id_lkr`, `id_drtype`, `nm_door`, `stat_door`) VALUES (DEFAULT, 2, 2, 01, 1);
+INSERT INTO `lockey_db`.`Door` (`id_door`, `id_lkr`, `id_drtype`, `nm_door`, `stat_door`) VALUES (DEFAULT, 2, 3, 02, 1);
 INSERT INTO `lockey_db`.`Door` (`id_door`, `id_lkr`, `id_drtype`, `nm_door`, `stat_door`) VALUES (DEFAULT, 2, 1, 03, 1);
-INSERT INTO `lockey_db`.`Door` (`id_door`, `id_lkr`, `id_drtype`, `nm_door`, `stat_door`) VALUES (DEFAULT, 3, 3, 03, 2);
+INSERT INTO `lockey_db`.`Door` (`id_door`, `id_lkr`, `id_drtype`, `nm_door`, `stat_door`) VALUES (DEFAULT, 3, 3, 01, 1);
+INSERT INTO `lockey_db`.`Door` (`id_door`, `id_lkr`, `id_drtype`, `nm_door`, `stat_door`) VALUES (DEFAULT, 3, 1, 02, 1);
+INSERT INTO `lockey_db`.`Door` (`id_door`, `id_lkr`, `id_drtype`, `nm_door`, `stat_door`) VALUES (DEFAULT, 3, 3, 03, 1);
+INSERT INTO `lockey_db`.`Door` (`id_door`, `id_lkr`, `id_drtype`, `nm_door`, `stat_door`) VALUES (DEFAULT, 4, 1, 01, 1);
+INSERT INTO `lockey_db`.`Door` (`id_door`, `id_lkr`, `id_drtype`, `nm_door`, `stat_door`) VALUES (DEFAULT, 4, 3, 02, 1);
 INSERT INTO `lockey_db`.`Door` (`id_door`, `id_lkr`, `id_drtype`, `nm_door`, `stat_door`) VALUES (DEFAULT, 4, 1, 03, 1);
 
 COMMIT;
@@ -442,6 +444,10 @@ INSERT INTO `lockey_db`.`ShippingDoor` (`id_shpgdr`, `id_door`, `trk_shpg`, `id_
 INSERT INTO `lockey_db`.`ShippingDoor` (`id_shpgdr`, `id_door`, `trk_shpg`, `id_cont`, `edge_shpgdr`, `busy_shpgdr`, `qr_shpgdr`) VALUES (DEFAULT, 1, '202212080735001002', 3, 2, 1, 780192);
 INSERT INTO `lockey_db`.`ShippingDoor` (`id_shpgdr`, `id_door`, `trk_shpg`, `id_cont`, `edge_shpgdr`, `busy_shpgdr`, `qr_shpgdr`) VALUES (DEFAULT, 5, '202212190127001003', 1, 1, 1, Null);
 INSERT INTO `lockey_db`.`ShippingDoor` (`id_shpgdr`, `id_door`, `trk_shpg`, `id_cont`, `edge_shpgdr`, `busy_shpgdr`, `qr_shpgdr`) VALUES (DEFAULT, 3, '202212190127001003', 1, 2, 1, 493435);
+INSERT INTO `lockey_db`.`ShippingDoor` (`id_shpgdr`, `id_door`, `trk_shpg`, `id_cont`, `edge_shpgdr`, `busy_shpgdr`, `qr_shpgdr`) VALUES (DEFAULT, 10,'202212010240002003', 3, 1, 1, Null);
+INSERT INTO `lockey_db`.`ShippingDoor` (`id_shpgdr`, `id_door`, `trk_shpg`, `id_cont`, `edge_shpgdr`, `busy_shpgdr`, `qr_shpgdr`) VALUES (DEFAULT, 1, '202212010240002003', 3, 2, 1, 436563);
+INSERT INTO `lockey_db`.`ShippingDoor` (`id_shpgdr`, `id_door`, `trk_shpg`, `id_cont`, `edge_shpgdr`, `busy_shpgdr`, `qr_shpgdr`) VALUES (DEFAULT, 5, '202212221045001003', 1, 1, 1, Null);
+INSERT INTO `lockey_db`.`ShippingDoor` (`id_shpgdr`, `id_door`, `trk_shpg`, `id_cont`, `edge_shpgdr`, `busy_shpgdr`, `qr_shpgdr`) VALUES (DEFAULT, 3, '202212221045001003', 1, 2, 1, 357236);
 COMMIT;
 
 -- -----------------------------------------------------

@@ -31,7 +31,7 @@ router.get('/envio/detalles/[0-9]{18}', (req,res,next) =>{
 		db.getshippingdetails(traking).then((results)=>{
 			debug('results', results);
 			if (results.length) {
-				res.render('shippingdetails' , { title: 'sendiit - panel', path: req.path, user: req.session.user, shipping:results[0]});
+				res.render('shippingdetails', { title: 'sendiit - panel', path: req.path, user: req.session.user, shipping:results[0]});
 			}
 			else {
 				res.status(401).json({response:'ERROR', message:'Envío no encontrado'});
