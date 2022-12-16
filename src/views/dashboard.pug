@@ -24,11 +24,15 @@ block content
 							if locker.stat_rte == 1
 								.StepProgress-item.is-done.b-line
 									a.strong(href='/panel/repartidor/lockersnm/'+locker.nm_lkr) 
-										p.text-status=locker.nm_lkr		
+										p.text-status=locker.nm_lkr
+								 
+									
 							else
 								.StepProgress-item.current.b-line
 									a.strong(href='/panel/repartidor/lockersnm/'+locker.nm_lkr) 
 										p.text-status=locker.nm_lkr
+
+
 						else if locker.stat_rte == 1
 							.StepProgress-item.is-done
 								a.strong(href='/panel/repartidor/lockersnm/'+locker.nm_lkr) 

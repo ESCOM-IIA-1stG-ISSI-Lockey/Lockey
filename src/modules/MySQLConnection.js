@@ -232,6 +232,36 @@ const db = {
 		});
 	},
 
+
+	getPayment:(id_usr,name,card,date) =>{ //modifique
+		return new Promise((resolve, reject) => {
+			con.query('SELECT * FROM Wallet  WHERE id_usr= ? and nm_wal= ? and num_wal= ? and  date_wal= STR_TO_DATE(?,"%d/%m/%Y")', [id_usr, name, card, date], (err, results) => {
+				if (err) reject(err);
+				else resolve(results);
+			});
+		});
+	},
+
+
+	createPayment: (idUser,nick,name,card,date) => { //modifique
+		return new Promise((resolve, reject) => {			
+			// check if card is already in use			
+			db.getPayment(idUser,name,card,date).then((results) => {
+				if (results.length > 0) reject('El metodo de pago ya se encuentra registrado');
+				else {
+					//console.log("FECHA:", date);
+					// create new payment
+					con.query('INSERT INTO Wallet VALUES (DEFAULT, ?, ?, ?, ?, STR_TO_DATE(?,"%d/%m/%Y"))', [idUser,nick,name,card,date], (err, results) => {
+						if (err) reject(err);
+						else resolve(results);
+					});
+				}
+			}).catch((err) => {
+				reject(err);
+			});
+		});
+	},
+
 	getStateRoute:(idUser) =>{ //
 		return new Promise((resolve, reject) => {
 			con.query('SELECT id_rte, date_rte, stat_rte FROM route WHERE id_usr = ?', [idUser], (err, results) => {

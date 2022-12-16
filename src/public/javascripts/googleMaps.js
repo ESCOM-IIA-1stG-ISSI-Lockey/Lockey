@@ -1,4 +1,3 @@
-
 console.log(addres)
 var add =addres.map(e =>e.dir_lkr)
 console.log(add)
@@ -31,4 +30,4 @@ function codeAddress(geocoder, map,address) {
 }
   
   
-  window.initMap = initMap;
+window.initMap = initMap;
