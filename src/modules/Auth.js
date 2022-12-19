@@ -4,32 +4,62 @@ const { con } = require("./MySQLConnection");
 const Auth = {
 	onlyUsers: (req, res, next) => {
 		if (!req.session.user) 
-			return res.redirect('/');
+			if (req.method == 'GET')
+				res.redirect('/');
+			else if (req.method == 'POST')
+				req.json({
+					response: 'ERROR',
+					message: 'Solicitud no autorizada'
+				})
 		
 		next();
 	},
 	onlyAdmins: (req, res, next) => {
 		if (!req.session.user || req.session.user.role != 'ADMIN')
-			return res.redirect('/');
+			if (req.method == 'GET')
+				res.redirect('/');
+			else if (req.method == 'POST')
+				req.json({
+					response: 'ERROR',
+					message: 'Solicitud no autorizada'
+				})
 		
 		next();
 	},
 	onlyDeliverers: (req, res, next) => {
 		if (!req.session.user || req.session.user.role != 'DELIVERER')
-			return res.redirect('/');
+			if (req.method == 'GET')
+				res.redirect('/');
+			else if (req.method == 'POST')
+				req.json({
+					response: 'ERROR',
+					message: 'Solicitud no autorizada'
+				})
 		
 		next();
 	},
 	onlyClients: (req, res, next) => {
 		if (!req.session.user || req.session.user.role != 'CLIENT')
-			return res.redirect('/');
-		
-		next();
-	},
+			if (req.method == 'GET')
+				res.redirect('/');
+			else if (req.method == 'POST')
+				req.json({
+					response: 'ERROR',
+					message: 'Solicitud no autorizada'
+				})
+				
+				next();
+			},
 	onlyGuests: (req, res, next) => {
 		if (req.session.user)
-			return res.redirect('/panel');
-		
+			if (req.method == 'GET')
+				res.redirect('/panel');
+			else if (req.method == 'POST')
+				req.json({
+					response: 'ERROR',
+					message: 'Solicitud no autorizada'
+				})
+				
 		next();
 	},
 	
@@ -59,7 +89,13 @@ const Auth = {
 			if (err)
 				return res.status(500).send({ error: 'No se pudo cerrar la sesión' });
 
-			res.redirect('/');
+					if (req.method == 'GET')
+						res.redirect('/');
+					else if (req.method == 'POST')
+						req.json({
+							response: 'ERROR',
+							message: 'Solicitud no autorizada'
+						})
 		});
 	}
 };
