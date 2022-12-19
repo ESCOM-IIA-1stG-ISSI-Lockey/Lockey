@@ -98,9 +98,6 @@ router.route('/envio/crearEnvio/origen')
 			user: req.session.user,
 			address: lockers	//TODO: Change address to addresses
 		});
-		//REMINDER: Change address to addresses
-		//NOTE: asda
-		//DEBUG: asdasd
 	});
 
 // Extension view to choose the destination
