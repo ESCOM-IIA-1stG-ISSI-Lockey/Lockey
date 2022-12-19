@@ -1,3 +1,4 @@
+const { con } = require("./MySQLConnection");
 
 // Using Express-Session withour Passport.js
 const Auth = {
@@ -34,9 +35,9 @@ const Auth = {
 	
 	createSession: (req, res, newUser) => {
 		return req.session.regenerate((err) => {
-			if (err) {
-				return res.status(500).send({ error: 'No se pudo iniciar sesión' });
-			}
+			if (err)
+				throw new Error('No se pudo iniciar sesión')
+			
 			req.session.user = {
 				id: newUser.id_usr,
 				name: newUser.nm_usr,
@@ -53,7 +54,6 @@ const Auth = {
 		req.session.destroy((err) => {
 			if (err)
 				return res.status(500).send({ error: 'No se pudo cerrar la sesión' });
-			
 			res.redirect('/');
 		});
 	}

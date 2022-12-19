@@ -24,7 +24,7 @@ router.route('/identificacion')
 					Auth.createSession(req, res, results[0]);
 				else {
 					req.session.tmpemail = email;
-					res.status(200).json({
+					res.json({
 						response: 'OK',
 						message: 'Usuario creado correctamente',
 						modal: {
@@ -63,7 +63,7 @@ router.route('/registro')
 		})
 		.then(() => {
 			req.session.tmpemail = email;
-			res.status(200).json({
+			res.json({
 				response: 'OK',
 				message: 'Usuario creado correctamente',
 				modal: {
@@ -98,11 +98,11 @@ router.route('/verificador')
 		});
 	});
 
-router.route('/cerrar-sesion')
-.get(Auth.onlyUsers, 
-	(req, res, next) => {
-		Auth.destroySession(req, res);
-	});
+router.route('/salir')
+.get(Auth.onlyUsers,
+	(req, res, next) => 
+		Auth.deleteSession(req, res)
+	);
 
 
 
