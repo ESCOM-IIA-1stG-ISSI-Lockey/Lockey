@@ -28,7 +28,7 @@ const Validator = {
 		.not().isEmpty().withMessage(`${name} es obligatorio`)
 		.isLength({ min: 3 }).withMessage(`${name} debe tener al menos 3 caracteres`)
 		.isLength({ max: 50 }).withMessage(`${name} debe tener maximo 50 caracteres`)
-		.isAlphanumeric().withMessage(`${name} solo puede contener letras y numeros`),
+		.isAlphanumeric().withMessage(`${name} solo puede contener letras y números`),
 	// Fullname
 	_fullname: (param, name) => check(param)
 		.not().isEmpty().withMessage(`${name} es obligatorio`)
@@ -44,7 +44,7 @@ const Validator = {
 	// Phone
 	_phone: (param, name) => check(param)
 		.not().isEmpty().withMessage(`${name} es obligatorio`)
-		.isInt().withMessage(`${name} solo puede contener numeros`)
+		.isInt().withMessage(`${name} solo puede contener números`)
 		.isLength({ min: 10, max: 10 }).withMessage(`${name} debe tener solo 10 caracteres`),
 	// Email
 	_email: (param, name) => check(param)
@@ -55,7 +55,7 @@ const Validator = {
 		.not().isEmpty().withMessage(`${name} es obligatoria`)
 		.isLength({ min: 8 }).withMessage(`${name} debe tener al menos 8 caracteres`)
 		.isLength({ max: 16 }).withMessage(`${name} debe tener maximo 16 caracteres`)
-		.matches(/\d/).withMessage(`${name} debe tener al menos un numero`)
+		.matches(/\d/).withMessage(`${name} debe tener al menos un número`)
 		.matches(/[a-z]/).withMessage(`${name} debe tener al menos una letra minuscula`)
 		.matches(/[A-Z]/).withMessage(`${name} debe tener al menos una letra mayuscula`)
 		.matches(/[!@#$%^&*(),.?":{}|<>]/).withMessage(`${name} debe tener al menos un caracter especial`),
@@ -66,12 +66,17 @@ const Validator = {
 	// Token digit
 	_tokenDigit: (param, name) => check(param)
 		.not().isEmpty().withMessage(`${name} es obligatorio`)
-		.isInt().withMessage(`${name} solo puede contener numeros`)
+		.isInt().withMessage(`${name} solo puede contener números`)
 		.isLength({ min: 1, max: 1 }).withMessage(`${name} debe tener solo 1 caracter`),
+	// Tracking number
+	_trackingNumber: (param, name) => check(param)
+		.not().isEmpty().withMessage(`${name} es obligatorio`)
+		.isInt().withMessage(`${name} solo puede contener números`)
+		.isLength({ min: 18, max: 18 }).withMessage(`${name} debe tener solo 18 caracteres`),
 	// Credit card
 	_creditCard: (param, name) => check(param)
 		.not().isEmpty().withMessage(`${name} es obligatorio`)
-		.isInt().withMessage(`${name} solo puede contener numeros`)
+		.isInt().withMessage(`${name} solo puede contener números`)
 		.isLength({ min: 16, max: 16 }).withMessage(`${name} debe tener solo 16 caracteres`),
 	// Credit card date format: MM/YY
 	_creditCardDate: (param, name) => check(param)
@@ -90,11 +95,11 @@ const Validator = {
 			req.body.cardDate = cardDate.toISOString().split('T')[0]
 			
 			return cardDate > today
-		}).withMessage('La fecha de expiracion no es valida'),
+		}).withMessage('La fecha de expiración no es valida'),
 	// Credit card cvv
 	_creditCardCvv: (param, name) => check(param)	
 		.not().isEmpty().withMessage(`${name} es obligatorio`)
-		.isInt().withMessage(`${name} solo puede contener numeros`)
+		.isInt().withMessage(`${name} solo puede contener números`)
 		.isLength({ min: 3, max: 3 }).withMessage(`${name} debe tener solo 3 caracteres`),
 	// Credit card name
 	_creditCardName: (param, name) => _fullname(param, name),
@@ -117,12 +122,18 @@ const Validator = {
 
 	// Token
 	token: [
-		_tokenDigit('NUM1', 'El primer digito'),
-		_tokenDigit('NUM2', 'El segundo digito'),
-		_tokenDigit('NUM3', 'El tercer digito'),
-		_tokenDigit('NUM4', 'El cuarto digito'),
-		_tokenDigit('NUM5', 'El quinto digito'),
-		_tokenDigit('NUM6', 'El sexto digito'),
+		_tokenDigit('NUM1', 'El primer dígito'),
+		_tokenDigit('NUM2', 'El segundo dígito'),
+		_tokenDigit('NUM3', 'El tercer dígito'),
+		_tokenDigit('NUM4', 'El cuarto dígito'),
+		_tokenDigit('NUM5', 'El quinto dígito'),
+		_tokenDigit('NUM6', 'El sexto dígito'),
+		validateResult
+	],
+
+	// Tracking number
+	trackingNumber: [
+		_trackingNumber('trackingNumber', 'El número de guia'),
 		validateResult
 	],
 
@@ -137,9 +148,9 @@ const Validator = {
 
 	// Credit card
 	creditCard: [
-		_creditCard('cardNumber', 'El numero de tarjeta'),
-		_creditCardDate('cardDate', 'La fecha de expiracion'),
-		_creditCardCvv('cardCvv', 'El cvv'),
+		_creditCard('cardNumber', 'El número de tarjeta'),
+		_creditCardDate('cardDate', 'La fecha de expiración'),
+		_creditCardCvv('cardCvv', 'El CVV'),
 		_creditCardName('cardName', 'El nombre en la tarjeta'),
 		validateResult
 	],
