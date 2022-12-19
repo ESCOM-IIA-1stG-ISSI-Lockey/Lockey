@@ -104,33 +104,38 @@ function validatePassword(form) {
 				
 				fetch(action, {
 					method: method,
-					body: urlencoded
+					body: urlencoded,
+					redirect: 'follow',
 				})
-				.then(res => res.json())
-				.then(data => {
-					if (data.response == 'OK')
-						if (data.redirect)
-							window.location.href = data.redirect;
-						else if(data.modal) {
-							let oldModalElem = document.querySelector(data.modal.old);
-							let oldModal = bootstrap.Modal.getOrCreateInstance(oldModalElem);
-							let newModal = bootstrap.Modal.getOrCreateInstance(document.querySelector(data.modal.new)/*, {focus:true}*/);
-
-							oldModalElem.addEventListener('hidden.bs.modal', (event) => {
-								newModal.show();
-							}, { once: true });
-							oldModal.hide()
-						} 
-						else{
-							console.log(data.message);
-							toast(data.message, TOAST_TYPES.SUCCESS);
-						}
-					else {
-						console.log(data.message);
-						form.classList.remove('was-validated');
-						toast(data.message, TOAST_TYPES.DANGER);
-					}
-					
+				.then(res => {
+					if (res.redirected)
+						window.location.replace(res.url);
+					else
+						res.json().then(data => {
+							if (data.response == 'OK')
+								if (data.redirect)
+									window.location.href = data.redirect;
+								else if(data.modal) {
+									let oldModalElem = document.querySelector(data.modal.old);
+									let oldModal = bootstrap.Modal.getOrCreateInstance(oldModalElem);
+									let newModal = bootstrap.Modal.getOrCreateInstance(document.querySelector(data.modal.new)/*, {focus:true}*/);
+		
+									oldModalElem.addEventListener('hidden.bs.modal', (event) => {
+										newModal.show();
+									}, { once: true });
+									oldModal.hide()
+								} 
+								else{
+									console.log(data.message);
+									toast(data.message, TOAST_TYPES.SUCCESS);
+								}
+							else {
+								console.log(data.message);
+								form.classList.remove('was-validated');
+								toast(data.message, TOAST_TYPES.DANGER);
+							}
+							
+						})
 				})
 				.catch(err => {
 					toast('Error al enviar el formulario');
