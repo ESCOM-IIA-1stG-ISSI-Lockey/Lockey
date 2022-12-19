@@ -301,7 +301,7 @@ CREATE OR REPLACE VIEW `vUser` AS
         tel_usr,
         CASE type_usr
             WHEN 1 THEN 'ADMIN'
-            WHEN 2 THEN 'DELIVER'
+            WHEN 2 THEN 'DELIVERER'
             ELSE 'CLIENT'
         END AS type_usr,
         tk_usr
