@@ -133,7 +133,7 @@ const Validator = {
 
 	// Tracking number
 	trackingNumber: [
-		_trackingNumber('trackingNumber', 'El número de guia'),
+		_trackingNumber('tracking', 'El número de guia'),
 		validateResult
 	],
 
