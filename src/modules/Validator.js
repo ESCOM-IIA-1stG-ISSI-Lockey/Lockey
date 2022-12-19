@@ -2,11 +2,16 @@ const { check, validationResult } = require('express-validator');
 
 const validateResult = (req, res, next) => {
 	try {
+		console.log('validateResult');
 		validationResult(req).throw();
 		next();
 	}
 	catch (err) {
-		res.status(422).json({ errors: err.array() });
+		console.log('validateResult error');
+		res.status(401).json({ 
+			response: 'ERROR',
+			errors: err.array()
+		});
 		/**
 		 * Example of err.array() output:
 		 * [
@@ -122,6 +127,7 @@ const Validator = {
 	signin: [
 		v._email('email', 'El correo'),
 		v._password('password', 'La contraseña'),
+		validateResult
 	],
 
 	// Sign up

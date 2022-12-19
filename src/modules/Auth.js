@@ -46,7 +46,11 @@ const Auth = {
 				isActive: newUser.act_usr,
 			};
 
-			res.redirect('/panel');
+			res.json({
+				response: 'OK',
+				message: 'Usuario creado correctamente',
+				redirect: '/',
+			});
 		});
 	},
 
@@ -54,6 +58,7 @@ const Auth = {
 		req.session.destroy((err) => {
 			if (err)
 				return res.status(500).send({ error: 'No se pudo cerrar la sesión' });
+
 			res.redirect('/');
 		});
 	}
