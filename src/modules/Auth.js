@@ -35,7 +35,7 @@ const Auth = {
 	createSession: (req, res, newUser) => {
 		return req.session.regenerate((err) => {
 			if (err) {
-				return res.status(500).send({ error: 'Could not create session' });
+				return res.status(500).send({ error: 'No se pudo iniciar sesión' });
 			}
 			req.session.user = {
 				id: newUser.id_usr,
@@ -47,8 +47,16 @@ const Auth = {
 
 			res.redirect('/panel');
 		});
-	}
+	},
 
+	deleteSession: (req, res) => {
+		req.session.destroy((err) => {
+			if (err)
+				return res.status(500).send({ error: 'No se pudo cerrar la sesión' });
+			
+			res.redirect('/');
+		});
+	}
 };
 
 module.exports = Auth;

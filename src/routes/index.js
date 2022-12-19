@@ -21,7 +21,7 @@ router.route('/identificacion')
 		db.checkCredentials(email, password).then((results) => {
 			if (results.length) {
 				if (results[0].act_usr == 'ENABLED')
-					Auth.createSession(req, results[0]);
+					Auth.createSession(req, res, results[0]);
 				else {
 					req.session.tmpemail = email;
 					res.status(200).json({
@@ -42,6 +42,7 @@ router.route('/identificacion')
 			res.status(400).json({ response: 'ERROR', message: err.message });
 		});
 	});
+
 router.route('/registro')
 .post(Auth.onlyGuests, Validator.signup,
 	(req, res, next) => {
@@ -88,13 +89,19 @@ router.route('/verificador')
 
 		db.verifycode(email, VerifyNumber).then((results) => {
 			if (results.length)
-				Auth.createSession(req, results[0]);
+				Auth.createSession(req, res, results[0]);
 			else
 				throw new Error('Código Inválido');
 		}).catch((err) => {
 			debug(err);
 			res.status(400).json({ response: 'ERROR', message: err });
 		});
+	});
+
+router.route('/cerrar-sesion')
+.get(Auth.onlyUsers, 
+	(req, res, next) => {
+		Auth.destroySession(req, res);
 	});
 
 
