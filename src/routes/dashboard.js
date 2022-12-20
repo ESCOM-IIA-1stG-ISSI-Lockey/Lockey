@@ -57,7 +57,7 @@ router.route('/envio/:tracking([0-9]{18})')
 		wall
 	}
  */
-router.route('/envio/crearEnvio')
+router.route('/crear-envio')
 .get(Auth.onlyClients,
 	async (req, res, next) => {
 		if (!req.session.shipping)
@@ -95,35 +95,24 @@ router.route('/envio/crearEnvio')
 			req.session.shipping.destination = destination
 		if (size)
 			req.session.shipping.size = size
-
-		res.json({ response: 'OK', redirect: '/panel/envio/crearEnvio' })
+			
+		res.json({ response: 'OK', redirect: '/panel'+req.path })
 	});
 
-// Extension view to choose the origin
-router.route('/envio/crearEnvio/origen')
+// Extension view to choose the origin or destination
+router.route('/crear-envio/:choose(origen|destino)')
 .get(Auth.onlyClients,
 	async (req, res, next) => {
 		let lockers = await db.getlocations()
-		res.render('chooseOrigen', {
+		let choose = req.params.choose=='origen'?'origin':'destination'
+		res.render('chooseLocation', {
 			title: 'sendiit - panel',
 			path: req.path,
 			user: req.session.user,
+			choose: choose,
 			address: lockers	//TODO: Change address to addresses
 		});
 	});
-
-// Extension view to choose the destination
-router.route('/envio/crearEnvio/destino')
-.get(Auth.onlyClients,
-	async (req, res, next) => {
-		let lockers = await db.getlocations()
-		res.render('chooseDestination', {
-			title: 'sendiit - panel',
-			path: req.path,
-			user: req.session.user,
-			address: lockers	//TODO: Change address to addresses
-		});
-});
 
 // Extension view to choose the sender
 router.route('/envio/crearEnvio/sender')	//TODO: Change to /envio/crearEnvio/remitente
