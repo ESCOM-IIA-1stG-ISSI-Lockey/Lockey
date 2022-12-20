@@ -65,7 +65,7 @@ const v = {
 		.matches(/\d/).withMessage(`${name} debe tener al menos un número`)
 		.matches(/[a-z]/).withMessage(`${name} debe tener al menos una letra minuscula`)
 		.matches(/[A-Z]/).withMessage(`${name} debe tener al menos una letra mayuscula`)
-		.matches(/[^\d]_/).withMessage(`${name} debe tener al menos un caracter especial`)
+		.matches(/[\W_]/).withMessage(`${name} debe tener al menos un caracter especial`)
 	},
 	// Password confirm
 	_passwordConfirm: function (param, name) { return this._password(param, name)
