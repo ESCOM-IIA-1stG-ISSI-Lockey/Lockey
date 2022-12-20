@@ -12,15 +12,12 @@ const validateResult = (req, res, next) => {
 			errors: err.array()
 		});
 		/**
-		 * Example of err.array() output:
-		 * [
-		 * 	{
-		 * 		value: '123456789',
-		 * 		msg: 'El telefono debe tener solo 10 caracteres',
-		 * 		param: 'phone',
-		 * 		location: 'body'
-		 * 	}
-		 * ]
+		 * errors = [{
+		 * 		location: string,
+		 * 		param: string,
+		 * 		value: string,
+		 * 		msg: string,
+		 * }]
 		 */
 	}
 };
@@ -71,6 +68,11 @@ const v = {
 	_passwordConfirm: function (param, name) { return this._password(param, name)
 		.if(check('password').exists())
 		.custom((value, { req }) => value !== req.body.password).withMessage('Las contraseñas no coinciden')
+	},
+	// Terms and conditions as checkbox
+	_termsAndConditions: function (param, name) { return check(param)
+		.not().isEmpty().withMessage(`${name} es obligatorio`)
+		.equals('on').withMessage(`Debes aceptar ${name}`)
 	},
 	// Token digit
 	_tokenDigit: function (param, name) { return check(param)
@@ -132,10 +134,11 @@ const Validator = {
 	// Sign up
 	signup: [
 		v._fullname('name', 'El nombre'),
-		v._phone('phone', 'El teléfono'),
+		v._phone('tel', 'El teléfono'),
 		v._email('email', 'El correo'),
 		v._password('password', 'La contraseña'),
 		v._passwordConfirm('passwordConfirm', 'La confirmación de la contraseña'),
+		v._termsAndConditions('terms', 'Los Términos y Condiciones'),
 		validateResult
 	],	
 

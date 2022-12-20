@@ -1,4 +1,4 @@
-form.needs-validation(action='/registro' method='POST' novalidate)
+form(action='/registro' method='POST' novalidate)
 	#signupModal.modal.fade(tabindex='-1' aria-hidden='true')
 		.modal-dialog.modal-dialog-centered.modal-dialog-scrollable
 				.modal-content
@@ -7,32 +7,32 @@ form.needs-validation(action='/registro' method='POST' novalidate)
 						button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
 					.modal-body
 						.form-floating.mb-3
-							input#nmInputSignup.form-control(type='text' name='name' required)
+							input#nmInputSignup.form-control(type='text' name='name')
 							label(for='nmInputSignup') Nombre
-							.invalid-feedback Ingresa tu nombre completo
+							.invalid-feedback
 						.form-floating.mb-3
-							input#emInputSignup.form-control(type='email' name='email' required)
+							input#emInputSignup.form-control(type='email' name='email')
 							label(for='emInputSignup') Correo electrónico
-							.invalid-feedback Ingresa tu correo
+							.invalid-feedback
 						.form-floating.mb-3
-							input#telInputSignup.form-control(type='tel' name='tel' required)
+							input#telInputSignup.form-control(type='tel' name='tel')
 							label(for='telInputSignup') Teléfono
-							.invalid-feedback Ingresa tu telefono
+							.invalid-feedback
 						.form-floating.mb-3
-							input#pwdInputSignup.form-control(type='password' name='password' min=8 max=16 required)
+							input#pwdInputSignup.form-control(type='password' name='password')
 							label(for='pwdInputSignup') Contraseña
-							.invalid-feedback Ingresa tu contraseña
+							.invalid-feedback
 						.form-floating.mb-3
-							input#pwdvInputSignup.form-control(type='password' name='password-confirm' required)
+							input#pwdvInputSignup.form-control(type='password' name='passwordConfirm')
 							label(for='pwdvInputSignup') Confirmar Contraseña
-							.invalid-feedback Ingresa la confirmación de tu contraseña
+							.invalid-feedback
 						.mb-3.form-check
-							input#termInputSignup.form-check-input(type='checkbox' name='terms' required)
+							input#termInputSignup.form-check-input(type='checkbox' name='terms')
 							label.form-check-label(for='termInputSignup') 
 								| Acepto los 
 								a(href="#") 
 									| Términos y Condiciones
-							.invalid-feedback Necesitas aceptar los términos y condiciones
+							.invalid-feedback
 						button.btn(type='button' data-bs-target='#signinModal' data-bs-toggle='modal') ¿Ya tienes una cuenta? Inicia sesión
 					.modal-footer
 						button.btn.btn-danger(type='reset' data-bs-dismiss='modal') Cancelar
