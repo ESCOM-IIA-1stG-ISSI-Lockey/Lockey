@@ -1,9 +1,9 @@
 const labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 let labelIndex = 0;
 
-console.log(addres)
-var add =addres.map(e =>e.dir_lkr)
-var addnm =addres.map(e =>e.nm_lkr)
+console.log(addresses)
+var add =addresses.map(e =>e.dir_lkr)
+var addnm =addresses.map(e =>e.nm_lkr)
 console.log(add)
 var geocoder;
 var map;

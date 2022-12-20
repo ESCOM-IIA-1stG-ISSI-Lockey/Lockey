@@ -1,15 +1,16 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var session = require('express-session');
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const session = require('express-session');
 
-var index = require('./routes/index');
-var dashboard = require('./routes/dashboard');
+const index = require('./routes/index');
+const dashboard = require('./routes/dashboard');
+const createShipping = require('./routes/create-shipping');
 
-var app = express();
+const app = express();
 
 // view engine setup jaddas
 app.set('views', path.join(__dirname, 'views'));
@@ -36,6 +37,7 @@ app.use(session({
 
 app.use('/', index);
 app.use('/panel', dashboard);
+app.use('/crear-envio', createShipping);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

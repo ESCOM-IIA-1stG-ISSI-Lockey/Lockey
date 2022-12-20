@@ -2,7 +2,7 @@ extends createSummary
 
 block content
     .container
-        form(action='/panel/crear-envio' method='Post')
+        form(action='/crear-envio' method='Post')
             if choose=='origin'
                 h1.fw-bold Lugar de origen
                 p.mb-3 Selecciona un lugar de origen
@@ -13,7 +13,7 @@ block content
                 .col-md-7.col-lg-7.m-0.p-0
                     #map.rounded.sizemap
                 .col-md-5.col-lg-5.m-0.p-0.slide_ver
-                    each val in address  
+                    each val in addresses
                         input.btn-check(id=val.id_lkr type='radio' value=val.id_lkr  name=choose  autocomplete='off')
                         label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center.ms-3.me-3.m-0(for=val.id_lkr)
                             p.fw-bold=val.nm_lkr
@@ -35,7 +35,7 @@ block content
 
 
 block scripts
-    script const addres = !{JSON.stringify(address)} 
+    script const addresses = !{JSON.stringify(addresses)} 
     script(src='/javascripts/googleMaps.js')
     script(src='/javascripts/validation.js')
     script(async src="https://maps.googleapis.com/maps/api/js?libraries=places,visualization&key=AIzaSyAEErsjNBLnxa3y-N2LFDpENunDEE8SDAs&v=weekly&callback=initMap")
