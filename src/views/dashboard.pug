@@ -1,10 +1,7 @@
 extends layout
 
 block content
-
-
 	.container
-	
 		if user.type == 'ADMIN'
 			p.nameUser Admin Dashboard
 
@@ -60,9 +57,15 @@ block content
 				.pt-3.container.pb-3
 					h1.nameUser Bienvenido #{user.name}
 					
-					.form-group
-						label Rastrear envío
-						input#exampleInputEmail1.form-control(type='text' placeholder='Ingrese número de guía')
+					form#num_g.form-group(action='/envio' method='POST' novalidate)
+						.form-floating.mt-3
+							input#num_guia.form-control(type='text' name='tracking' placeholder='Ingrese número de guía' onkeyup='search_shipping(event)')
+							label(for='num_guia') Rastrear envío
+							.invalid-tooltip
+
+						//- label(for="num_guia") Rastrear envío
+						//- input#num_guia.form-control(type='number' name='tracking_id' placeholder='Ingrese número de guía' onkeyup='myFunction(event)')
+						//- .feedback-invalidate
 						//- small#emailHelp.form-text.text-muted Podemos poner algo interesante aquí
 			
 
@@ -70,7 +73,7 @@ block content
 			.wrapper.container 
 				each val in pedingShipings
 				
-					a.text-decoration-none(href='/panel/envio/'+val.trk_shpg)
+					a.text-decoration-none(href='/envio/'+val.trk_shpg)
 						.item.row.d-flex.align-items-center.justify-content-center(style='min-width: 380px;')
 							.col-4.p-0
 								img(style='max-height: 120px;' src='https://img.freepik.com/vector-premium/icono-vector-arte-linea-camion-entrega-envio-rapido-aplicaciones-sitios-web-transporte_652240-16.jpg')
@@ -121,4 +124,3 @@ block content
 block scripts
 	script const user = !{JSON.stringify(user)}
 	script(src='/javascripts/validation.js')
-

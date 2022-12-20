@@ -2,93 +2,96 @@ extends layout
 
 block content
     .container
-        .bg-primary.d-flex.p-2.rounded.justify-content-center
-            h2.fw-bold.m-0 Detalles de envío
-        .row.mt-3.mb-3
-            div.detalles.col-sm-6.col-xs-12
-                p Número de guía: 
-                    small.text-muted #{shipping.trk_shpg}
-                p Remitente: 
-                    small.text-muted #{shipping.nm_contorg}
-                p Destinatario: 
-                    small.text-muted #{shipping.nm_contdst}
-                p Lugar de origen: 
-                    small.text-muted #{shipping.nm_lkrorg}
-                p Lugar de destino: 
-                    small.text-muted #{shipping.nm_lkrdst}
-                p Tipo de envío: 
-                    small.text-muted #{shipping.nm_shpgtype}
-                p Fecha de creación: 
-                    small.text-muted #{shipping.dts_shpg}
-            div.detalles.col-sm-6.col-xs-12
-                p Altura del paquete: 
-                    small.text-muted #{shipping.hgt_shpg} cm
-                p Ancho del paquete: 
-                    small.text-muted #{shipping.wd_shpg} cm
-                p Profundidad del paquete: 
-                    small.text-muted #{shipping.deep_shpg} cm
-                p Peso del paquete: 
-                    small.text-muted #{shipping.wt_shpg} kg
-                p Precio: 
-                    small.text-muted $ #{shipping.pr_shpg} mx
-                p Método de pago: 
-                    small.text-muted #{shipping.num_wal}
+        if typeof(shipping) == 'undefined'
+            include /include/not_found
+        else 
+            .bg-primary.d-flex.p-2.rounded.justify-content-center
+                h2.fw-bold.m-0 Detalles de envío
+            .row.mt-3.mb-3
+                div.detalles.col-sm-6.col-xs-12
+                    p Número de guía: 
+                        small.text-muted #{shipping.trk_shpg}
+                    p Remitente: 
+                        small.text-muted #{shipping.nm_contorg}
+                    p Destinatario: 
+                        small.text-muted #{shipping.nm_contdst}
+                    p Lugar de origen: 
+                        small.text-muted #{shipping.nm_lkrorg}
+                    p Lugar de destino: 
+                        small.text-muted #{shipping.nm_lkrdst}
+                    p Tipo de envío: 
+                        small.text-muted #{shipping.nm_shpgtype}
+                    p Fecha de creación: 
+                        small.text-muted #{shipping.dts_shpg}
+                div.detalles.col-sm-6.col-xs-12
+                    p Altura del paquete: 
+                        small.text-muted #{shipping.hgt_shpg} cm
+                    p Ancho del paquete: 
+                        small.text-muted #{shipping.wd_shpg} cm
+                    p Profundidad del paquete: 
+                        small.text-muted #{shipping.deep_shpg} cm
+                    p Peso del paquete: 
+                        small.text-muted #{shipping.wt_shpg} kg
+                    p Precio: 
+                        small.text-muted $ #{shipping.pr_shpg} mx
+                    p Método de pago: 
+                        small.text-muted #{shipping.num_wal}
 
-        .d-flex.p-2.bg-secondary.rounded.justify-content-center
-            h3.fw-bold.text-white.m-0 Trayectoria
+            .d-flex.p-2.bg-secondary.rounded.justify-content-center
+                h3.fw-bold.text-white.m-0 Trayectoria
 
-        -let n = shipping.stat_shpg
-        .process
-            ul.StepProgress
-                each num, key in  {1 : 'En espera de recolección', 2 : 'En espera de transportista', 3 : 'En tránsito', 4 : 'En espera de recepción', 5 : 'Completado', 6 : 'Almacén', 7 : 'Cancelado'}
-                    
-                    if n==7
-                        .StepProgress-item.current.d-none
-                        if key == n
-                            .StepProgress-item.is-cancel.b-line
-                                strong= num
-                                    p Actualización
-                                    p.update Fecha y hora: #{shipping.dtu_shpg}
-
-                    else if n==6
-                        .StepProgress-item.current.d-none
-                        if key == n
-                            .StepProgress-item.is-store.b-line
-                                strong= num
-                                    p Actualización
-                                    p.update Fecha y hora: #{shipping.dtu_shpg}  
-                    
-                    else if n > 0
-                        if key != 5
-                            .StepProgress-item.is-done
-                                strong= num
-                                -n-- 
-                                if n == 0
-                                    p Actualización
-                                    p.update Fecha y hora: #{shipping.dtu_shpg}  
-                        else
-                            .StepProgress-item.is-done.b-line
-                                strong= num
-                                -n-- 
-                                if n == 0
-                                    p Actualización
-                                    p.update Fecha y hora: #{shipping.dtu_shpg}  
-
-                    else
-                        if n != 6 || n !=7
+            -let n = shipping.stat_shpg
+            .process
+                ul.StepProgress
+                    each num, key in  {1 : 'En espera de recolección', 2 : 'En espera de transportista', 3 : 'En tránsito', 4 : 'En espera de recepción', 5 : 'Completado', 6 : 'Almacén', 7 : 'Cancelado'}
+                        
+                        if n==7
                             .StepProgress-item.current.d-none
-                                strong.d-none= num
+                            if key == n
+                                .StepProgress-item.is-cancel.b-line
+                                    strong= num
+                                        p Actualización
+                                        p.update Fecha y hora: #{shipping.dtu_shpg}
 
-                        if key<6
-                            if key==5 && n<4
-                                .StepProgress-item.current.b-line
+                        else if n==6
+                            .StepProgress-item.current.d-none
+                            if key == n
+                                .StepProgress-item.is-store.b-line
+                                    strong= num
+                                        p Actualización
+                                        p.update Fecha y hora: #{shipping.dtu_shpg}  
+                        
+                        else if n > 0
+                            if key != 5
+                                .StepProgress-item.is-done
                                     strong= num
                                     -n-- 
-                            
+                                    if n == 0
+                                        p Actualización
+                                        p.update Fecha y hora: #{shipping.dtu_shpg}  
                             else
-                                .StepProgress-item.current
+                                .StepProgress-item.is-done.b-line
                                     strong= num
                                     -n-- 
+                                    if n == 0
+                                        p Actualización
+                                        p.update Fecha y hora: #{shipping.dtu_shpg}  
+
+                        else
+                            if n != 6 || n !=7
+                                .StepProgress-item.current.d-none
+                                    strong.d-none= num
+
+                            if key<6
+                                if key==5 && n<4
+                                    .StepProgress-item.current.b-line
+                                        strong= num
+                                        -n-- 
+                                
+                                else
+                                    .StepProgress-item.current
+                                        strong= num
+                                        -n-- 
 
                         
 
