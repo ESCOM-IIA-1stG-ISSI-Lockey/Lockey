@@ -71,7 +71,7 @@ router.route('/envio/crearEnvio')
 		if (req.session.shipping.destination)
 			params.destination = await db.getloker(req.session.shipping.destination)[0]
 		
-		res.render('createShipping', {
+		res.render('createSummary', {
 			title: 'sendiit - panel',
 			path: req.path,
 			user: req.session.user,
@@ -81,7 +81,7 @@ router.route('/envio/crearEnvio')
 .post(Auth.onlyClients,
 	(req, res, next) => {
 		if (!req.session.shipping)
-			req.session.shipping = {}
+		req.session.shipping = { origin: null, destination: null, size: null, sender: null, receiver: null, wall: null}
 
 		let { origin, destination, size } = req.body
 			
