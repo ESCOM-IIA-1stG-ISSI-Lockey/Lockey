@@ -16,10 +16,10 @@ router.get('/', async(req, res, next) => {
 			}
 			console.log.params
 			res.render('dashboard', {
-				 title: 'sendiit - panel', 
-				 path: req.path, 
-				 user: req.session.user, 
-				 ...params
+				title: 'sendiit - panel', 
+				path: req.path, 
+				user: req.session.user, 
+				...params
 				});
 		}
 		else {
@@ -199,22 +199,10 @@ router.route('/nuevo/resumen')
 //     });
 // });
 
-
-//  Agregar destinatario
-router.get('/envio/crearEnvio/createAddresse', (req,res,next) =>{
-    // res.render("createAddresse") 
-    if (req.session.user) {
-        res.render('createAddresse' , { title: 'sendiit - panel', path: req.path, user: req.session.user });
-    } else {
-        res.redirect('/');
-    }
-});
-
-
 //  Agregar metodo de pago
 router.get('/envio/crearEnvio/payment', (req,res,next) =>{
     if (req.session.user) {
-        db.getmetodosDePagos(req.session.user).then((results)=>{
+        db.getUserById(req.session.user).then((results)=>{
 			debug('results', results);
 			if (results.length) {
 				res.render('payment' , { title: 'sendiit - panel', path: req.path, user: req.session.user, metodosDePagos:results});
