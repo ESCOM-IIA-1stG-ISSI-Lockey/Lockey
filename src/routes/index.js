@@ -30,6 +30,7 @@ router.route('/identificacion')
 						email: results[0].em_usr,
 						type: results[0].type_usr,
 						isActive: results[0].act_usr
+
 					};
 					debug('/identificacion session.user:', req.session.user);
 					
@@ -74,9 +75,10 @@ router.route('/registro')
 				db.getUserById(results.insertId).then((results) => {
 					
 					if (results.length > 0) {
-
-						
-						mailer.mailVerification(email, token);
+						token=token.toString();
+						subject="Codigo de verificacion"
+						html ="<b>Tu Codigo de verificacion es :" + token +" </b>"
+						mailer.mailVerification(email,html,subject);
 
 						req.session.tmpemail = email;
 
