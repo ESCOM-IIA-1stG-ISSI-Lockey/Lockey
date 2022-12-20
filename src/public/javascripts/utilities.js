@@ -2,6 +2,12 @@ let toastContainer
 
 (() => { 
 	toastContainer = document.querySelector('.toast-container');
+
+	document.querySelectorAll('.modal').forEach(modal => 
+		modal.addEventListener('shown.bs.modal', (event) => 
+			modal.querySelector('input, select, textarea').focus()
+		)
+	);
 })()
 
 const TOAST_TYPES = {
@@ -38,4 +44,16 @@ function toast(message, type=TOAST_TYPES.DANGER, duration=3000) {
 
     toastBs.show();
 	return toastElem;
- }
+}
+
+function switchModal(oldModalStr, newModalStr) {
+	let oldModalElem = document.querySelector(oldModalStr);
+	let oldModal = bootstrap.Modal.getOrCreateInstance(oldModalElem);
+	let newModal = bootstrap.Modal.getOrCreateInstance(document.querySelector(newModalStr));
+
+	oldModalElem.addEventListener('hidden.bs.modal', (event) => {
+		newModal.show();
+	}, { once: true });
+	oldModal.hide()
+	
+}
