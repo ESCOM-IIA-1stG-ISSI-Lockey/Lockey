@@ -112,15 +112,17 @@ router.route('/:choose(origen|destino)')
 	});
 
 // Extension view to choose the sender
-router.route('/remitente')	
+router.route('/:choose(remitente|destinarario)')
 .get(Auth.onlyClients,
 	async (req, res, next) => {
 		let contacts = await db.getContactsByUserId(req.session.user.id);
+		let choose = req.params.choose=='remitente'?'sender':'receiver'
 		console.log('contacts', contacts)
-		res.render('createShipping/choose/sender', {
+		res.render('createShipping/choose/contact', {
 			title: 'sendiit - panel',
 			path: req.path,
 			user: req.session.user,
+			choose: choose,
 			contacts: contacts
 		});
 	});
