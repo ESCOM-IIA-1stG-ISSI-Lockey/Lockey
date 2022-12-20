@@ -29,7 +29,7 @@ router.route('/')
 		if (req.session.shipping.destination)
 			params.destination = (await db.getloker(req.session.shipping.destination))[0]
 		
-		res.render('createSummary', {
+		res.render('createShipping/create', {
 			title: 'sendiit - panel',
 			path: req.path,
 			user: req.session.user,
@@ -65,7 +65,7 @@ router.route('/resumen')
 		let wallet = await db.getWalletsByUserId(req.session.user.id);
 		let contacts = await db.getContactsByUserId(req.session.user.id);
 		console.log('contacts', contacts)
-		res.render('shippingResume', {
+		res.render('createShipping/resume', {
 			title: 'sendiit - panel',
 			path: req.path,
 			user: req.session.user,
@@ -102,7 +102,7 @@ router.route('/:choose(origen|destino)')
 	async (req, res, next) => {
 		let lockers = await db.getlocations()
 		let choose = req.params.choose=='origen'?'origin':'destination'
-		res.render('chooseLocation', {
+		res.render('createShipping/choose/location', {
 			title: 'sendiit - panel',
 			path: req.path,
 			user: req.session.user,
@@ -117,7 +117,7 @@ router.route('/remitente')
 	async (req, res, next) => {
 		let contacts = await db.getContactsByUserId(req.session.user.id);
 		console.log('contacts', contacts)
-		res.render('createSender', {
+		res.render('createShipping/choose/sender', {
 			title: 'sendiit - panel',
 			path: req.path,
 			user: req.session.user,
@@ -131,7 +131,7 @@ router.route('/payment')
 	async (req, res, next) => {
 		let metodosDePagos = await db.getWalletsByUserId(req.session.user.id);
 	
-		res.render('payment', { title: 'sendiit - panel', path: req.path, user: req.session.user, metodosDePagos: metodosDePagos });
+		res.render('createShipping/choose/payment', { title: 'sendiit - panel', path: req.path, user: req.session.user, metodosDePagos: metodosDePagos });
 	});
 
 module.exports = router;
