@@ -1,39 +1,40 @@
 form(action='/registro' method='POST' novalidate)
-	#signupModal.modal.fade(tabindex='-1' aria-hidden='true')
-		.modal-dialog.modal-dialog-centered.modal-dialog-scrollable
-				.modal-content
-					.modal-header
-						h1.modal-title.fs-5 Crea una cuenta
-						button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
-					.modal-body
-						.form-floating.mb-3
-							input#nmInputSignup.form-control(type='text' name='name')
-							label(for='nmInputSignup') Nombre
-							.invalid-feedback
-						.form-floating.mb-3
-							input#emInputSignup.form-control(type='email' name='email')
-							label(for='emInputSignup') Correo electrónico
-							.invalid-feedback
-						.form-floating.mb-3
-							input#telInputSignup.form-control(type='tel' name='tel')
-							label(for='telInputSignup') Teléfono
-							.invalid-feedback
-						.form-floating.mb-3
-							input#pwdInputSignup.form-control(type='password' name='password')
-							label(for='pwdInputSignup') Contraseña
-							.invalid-feedback
-						.form-floating.mb-3
-							input#pwdvInputSignup.form-control(type='password' name='passwordConfirm')
-							label(for='pwdvInputSignup') Confirmar Contraseña
-							.invalid-feedback
-						.mb-3.form-check
-							input#termInputSignup.form-check-input(type='checkbox' name='terms')
-							label.form-check-label(for='termInputSignup') 
-								| Acepto los 
-								a(href="#") 
-									| Términos y Condiciones
-							.invalid-feedback
-						button.btn(type='button' data-bs-target='#signinModal' data-bs-toggle='modal') ¿Ya tienes una cuenta? Inicia sesión
-					.modal-footer
-						button.btn.btn-danger(type='reset' data-bs-dismiss='modal') Cancelar
-						button.btn.btn-primary(type='submit') Crear Cuenta
+	fieldset 
+		#signupModal.modal.fade(tabindex='-1' aria-hidden='true')
+			.modal-dialog.modal-dialog-centered.modal-dialog-scrollable
+					.modal-content
+						.modal-header
+							h1.modal-title.fs-5 Crea una cuenta
+							button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+						.modal-body
+							.form-floating.mb-3
+								input#nmInputSignup.form-control(type='text' name='name')
+								label(for='nmInputSignup') Nombre
+								.invalid-feedback
+							.form-floating.mb-3
+								input#emInputSignup.form-control(type='email' name='email')
+								label(for='emInputSignup') Correo electrónico
+								.invalid-feedback
+							.form-floating.mb-3
+								input#telInputSignup.form-control(type='tel' name='tel')
+								label(for='telInputSignup') Teléfono
+								.invalid-feedback
+							.form-floating.mb-3
+								input#pwdInputSignup.form-control(type='password' name='password')
+								label(for='pwdInputSignup') Contraseña
+								.invalid-feedback
+							.form-floating.mb-3
+								input#pwdvInputSignup.form-control(type='password' name='passwordConfirm')
+								label(for='pwdvInputSignup') Confirmar Contraseña
+								.invalid-feedback
+							.mb-3.form-check
+								input#termInputSignup.form-check-input(type='checkbox' name='terms')
+								label.form-check-label(for='termInputSignup') 
+									| Acepto los 
+									a(href="#") 
+										| Términos y Condiciones
+								.invalid-feedback
+							button.btn(type='button' data-bs-target='#signinModal' data-bs-toggle='modal') ¿Ya tienes una cuenta? Inicia sesión
+						.modal-footer
+							button.btn.btn-danger(type='reset' data-bs-dismiss='modal') Cancelar
+							button.btn.btn-primary(type='submit') Crear Cuenta

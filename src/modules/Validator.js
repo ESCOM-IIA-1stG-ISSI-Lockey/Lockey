@@ -68,7 +68,7 @@ const v = {
 	// Password confirm
 	_passwordConfirm: function (param, name) { return this._password(param, name)
 		.if(check('password').exists())
-		.custom((value, { req }) => value !== req.body.password).withMessage('Las contraseñas no coinciden')
+		.custom((value, { req }) => value === req.body.password).withMessage('Las contraseñas no coinciden')
 	},
 	// Terms and conditions as checkbox boolean
 	_termsAndConditions: function (param, name) { return check(param)
@@ -134,7 +134,6 @@ const Validator = {
 
 	// Sign up
 	signup: [
-		(req, res, next) => { console.log(req.body); next() },
 		v._fullname('name', 'El nombre'),
 		v._phone('tel', 'El teléfono'),
 		v._email('email', 'El correo'),

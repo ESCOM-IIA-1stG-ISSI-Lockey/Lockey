@@ -65,7 +65,7 @@ const db = {
 			});
 		});
 	},
-	getUSerByEmail: (email) => {
+	getUserByEmail: (email) => {
 		return new Promise((resolve, reject) => {
 			if (!isConnected)
 				throw errorDBConnection;
@@ -84,7 +84,7 @@ const db = {
 			
 			// check if email is already in use
 			
-			db.getUSerByEmail(email).then((results) => {
+			db.getUserByEmail(email).then((results) => {
 				if (results.length > 0) reject('Correo ya en uso');
 				else {
 					// create new user
@@ -105,12 +105,14 @@ const db = {
 				throw errorDBConnection;
 			con.query('SELECT * FROM vUser WHERE em_usr = ? AND tk_usr = ? LIMIT 1', [email,token], (err, results) => {
 				if (err) reject(err);
-				else {
-					resolve(results);
-					con.query('UPDATE User SET act_usr=1, tk_usr=NULL WHERE em_usr = ? AND tk_usr = ? ', [email,token], (err) => {
+				else if (results.length) {
+					con.query('UPDATE User SET tk_usr = NULL WHERE em_usr = ?', [email], (err, results) => {
 						if (err) reject(err);
+						else resolve(results);
 					});
 				}
+				else 
+					reject('Código Inválido');
 			});
 		});
 	},

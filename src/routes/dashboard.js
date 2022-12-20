@@ -6,7 +6,7 @@ const db = require('../modules/MySQLConnection');
 const Validator = require('../modules/Validator');
 
 router.route('/')
-.get(Auth.onlyUsers,
+.get(Auth.onlyUsers, 
 	async (req, res, next) => {
 		let params = {}
 		switch (req.session.user.type) {

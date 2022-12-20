@@ -25,7 +25,9 @@
 						console.log(element.name, element.type=='checkbox'?element.checked:element.value);
 						urlencoded.append(element.name, element.type=='checkbox'?element.checked:element.value);
 					});
-				
+
+				form.querySelectorAll('fieldset')
+					.forEach((fieldset) => fieldset.disabled = true);
 				fetch(action, {
 					method: method,
 					body: urlencoded,
@@ -52,7 +54,8 @@
 								let input = form.querySelector(`[name="${err.param}"]`);
 								let feedback = form.querySelector(`[name="${err.param}"] + label + .invalid-feedback`);
 								input.classList.add('is-invalid');
-								feedback.textContent = err.msg;
+								if (feedback)
+									feedback.textContent = err.msg;
 							}
 						}
 						else				// show toast
@@ -66,6 +69,10 @@
 				.catch(err => {
 					toast(err.message? err.message : 'Error al enviar la petición', TOAST_TYPES.ERROR);
 					console.log(err);
+				})
+				.finally(() => {
+					form.querySelectorAll('fieldset')
+					.forEach((fieldset) => fieldset.disabled = false);
 				});
 		}, false)
 	})

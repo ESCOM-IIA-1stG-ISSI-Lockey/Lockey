@@ -39,7 +39,7 @@ router.route('/identificacion')
 				throw new Error('Correo o contraseña incorrectos');
 
 		}).catch((err) => {
-			res.status(400).json({ response: 'ERROR', message: err.message });
+			res.status(400).json({ response: 'ERROR', message: err.message||err });
 		});
 	});
 
@@ -47,7 +47,9 @@ router.route('/registro')
 .post(Auth.onlyGuests, Validator.signup,
 	(req, res, next) => {
 		let { name, email, tel, password } = req.body,
-			token = Math.floor(Math.random() * 1000000); // Random 6-digit number
+			// token 6-digit number fixed
+			token = Math.floor(Math.random() * 1000000)// Random 6-digit number
+				.toString().padStart(6, '0'); 
 
 		password = crypto.createHash('sha256').update(password).digest('hex');
 
@@ -74,7 +76,7 @@ router.route('/registro')
 		})
 		.catch((err) => {
 			debug(err);
-			res.status(400).json({ response: 'ERROR', message: err });
+			res.status(400).json({ response: 'ERROR', message: err.message||err });
 		});
 	});
 
@@ -87,14 +89,24 @@ router.route('/verificador')
 			VerifyNumber = NUM1 + NUM2 + NUM3 + NUM4 + NUM5 + NUM6,
 			email = req.session.tmpemail;
 
+		debug(VerifyNumber);
+
 		db.verifycode(email, VerifyNumber).then((results) => {
+			console.log(results);
+			if (results.changedRows)
+				return db.getUserByEmail(email);
+			else
+				throw new Error('Código Inválido');
+		})
+		.then((results) => {
 			if (results.length)
 				Auth.createSession(req, res, results[0]);
 			else
-				throw new Error('Código Inválido');
-		}).catch((err) => {
+				throw new Error('Usuario no encontrado');
+		})
+		.catch((err) => {
 			debug(err);
-			res.status(400).json({ response: 'ERROR', message: err });
+			res.status(400).json({ response: 'ERROR', message: err.message||err });
 		});
 	});
 

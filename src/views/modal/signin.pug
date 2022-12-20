@@ -1,21 +1,22 @@
 form(action='/identificacion' method='POST' novalidate)
-	#signinModal.modal.fade(tabindex='-1' aria-hidden='true')
-		.modal-dialog.modal-dialog-centered.modal-dialog-scrollable
-				.modal-content
-					.modal-header
-						h1.modal-title.fs-5 Inicia sesión
-						button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
-					.modal-body
-						.form-floating.mb-3
-							input#emInputSignin.form-control(type='email' name='email' placeholder='name@example.com')
-							label(for='emInputSignin') Correo electrónico
-							.invalid-feedback
-						.form-floating.mb-3
-							input#pwdInputSignin.form-control(type='password' name='password' placeholder='********')
-							label(for='pwdInputSignin') Contraseña
-							.invalid-feedback
-						button.btn(type='button' data-bs-target='#passwordresetModal' data-bs-toggle='modal') ¿Olvidaste tu contraseña?
-						button.btn(type='button' data-bs-target='#signupModal' data-bs-toggle='modal') ¿No tienes una cuenta? Regístrate
-					.modal-footer
-						button.btn.btn-danger(type='reset' data-bs-dismiss='modal') Cancelar
-						button.btn.btn-primary(type='submit') Iniciar sesión
+	fieldset 
+		#signinModal.modal.fade(tabindex='-1' aria-hidden='true')
+			.modal-dialog.modal-dialog-centered.modal-dialog-scrollable
+					.modal-content
+						.modal-header
+							h1.modal-title.fs-5 Inicia sesión
+							button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+						.modal-body
+							.form-floating.mb-3
+								input#emInputSignin.form-control(type='email' name='email' placeholder='name@example.com')
+								label(for='emInputSignin') Correo electrónico
+								.invalid-feedback
+							.form-floating.mb-3
+								input#pwdInputSignin.form-control(type='password' name='password' placeholder='********')
+								label(for='pwdInputSignin') Contraseña
+								.invalid-feedback
+							button.btn(type='button' data-bs-target='#passwordresetModal' data-bs-toggle='modal') ¿Olvidaste tu contraseña?
+							button.btn(type='button' data-bs-target='#signupModal' data-bs-toggle='modal') ¿No tienes una cuenta? Regístrate
+						.modal-footer
+							button.btn.btn-danger(type='reset' data-bs-dismiss='modal') Cancelar
+							button.btn.btn-primary(type='submit') Iniciar sesión
