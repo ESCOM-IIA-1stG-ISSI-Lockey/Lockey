@@ -8,7 +8,7 @@ block content
                     .rounded-bottom
                         .card-body
                             h5.container.text-center.fs-4 Agregar Tarjeta
-                            form.row.g-3.needs-validation(method='post' action='/panel/envio/crearEnvio/payment' novalidate)
+                            form.row.g-3.needs-validation(method='post' action='' novalidate) //cambiar ruta
                                 .form-outline.mb-3
                                     label.form-label.mb-1.px-1.mt-3.fw-bold(for='validationNumber') Número de tarjeta
                                     input#validationNumber.form-control(type='text' name='card' placeholder='XXXXXXXXXX123456' required='' maxlength='16')
