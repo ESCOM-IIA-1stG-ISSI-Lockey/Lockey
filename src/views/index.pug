@@ -6,7 +6,12 @@ block content
 			h1.display-4.fw-normal Rastree su envío
 			p.lead.fw-normal
 				| Ingresa el número de guía de tu envío y obtén información actualizada de su estado.
-			button.btn.btn-primary(type='button' onclick='createToast("error tenton")') Rastrear Envío
+			form#num_g.form-group(action='/envio' method='POST' novalidate)
+				.form-floating.mt-3
+					input#num_guia.form-control(type='text' name='tracking' placeholder='Ingrese número de guía' onkeyup='search_shipping(event)')
+					label.text-dark(for='num_guia') Rastrear envío
+					.invalid-tooltip
+					
 	.d-md-flex.flex-md-equal.w-100.p-0.m-0
 		.me-md-3.py-5.px-3.py-md-5.px-md-5.text-center.overflow-hidden.text-bg-dark
 			.my-4.py-5

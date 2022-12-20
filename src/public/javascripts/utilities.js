@@ -55,5 +55,11 @@ function switchModal(oldModalStr, newModalStr) {
 		newModal.show();
 	}, { once: true });
 	oldModal.hide()
-	
+}
+
+function search_shipping(e){
+	if (e.key === "Enter"){
+		document.querySelector("#tracking_id").submit()
+		location.assign('/panel/envio/'+e.target.value)
+		}
 }

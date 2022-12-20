@@ -29,22 +29,6 @@ router.route('/')
 
 	});
 
-router.route('/envio');	//envios historicos (esto de momento no)
-
-router.route('/envio/:tracking([0-9]{18})')
-.get(Auth.onlyClients, Validator.trackingNumber,
-	async (req, res, next) => {
-		console.log(req.params)
-		let traking = req.params.tracking,
-			shipping = await db.getshippingdetails(traking)
-
-		res.render('shippingdetails', {
-			title: 'sendiit - panel',
-			path: req.path,
-			user: req.session.user,
-			shipping: shipping[0]
-		});
-	});
 
 router.route('/repartidor/lockersnm/:lockerid([a-z ^A-Z 0-9&,%.]{1,})')
 .get(Auth.onlyDeliverers,
