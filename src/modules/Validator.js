@@ -175,6 +175,7 @@ const Validator = {
 		v._creditCardDate('cardDate', 'La fecha de expiración'),
 		v._creditCardCvv('cardCvv', 'El CVV'),
 		v._creditCardName('cardName', 'El nombre en la tarjeta'),
+		v._nickname('nickName', 'El alias'),
 		validateResult
 	],
 
