@@ -47,6 +47,16 @@ router.route('/envio/detalles/:tracking([0-9]{18})')
 	});
 
 // Crear envio (tamaño, origen, destino)
+/* 
+	req.session.shipping = {
+		origin,
+		destination,
+		size,
+		sender,
+		receiver,
+		wall
+	}
+ */
 router.route('/envio/crearEnvio')
 .get(Auth.onlyClients,
 	async (req, res, next) => {
@@ -240,8 +250,6 @@ router.route('/repartidor/lockersnm/:lockerid([a-z ^A-Z 0-9&,%.]{1,})')
 .get(Auth.onlyDeliverers,
 	async (req, res, next) => {
 		let traking = req.params.lockerid;
-
-		traking = traking.replace('%20', ' ');
 
 
 		db.getShippingdetailByUserId(req.session.user.id, traking).then((results) => {

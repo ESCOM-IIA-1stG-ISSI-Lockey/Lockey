@@ -6,7 +6,7 @@
 	Array.from(forms).forEach(form => {
 		Array.from(form.elements).forEach((element) => {
 
-			element.addEventListener('keypress', event =>  {
+			element.addEventListener('change', event =>  {
 				element.classList.remove('is-invalid')
 			});
 		});
@@ -22,8 +22,8 @@
 				Array.from(form.elements)
 					.filter(element => element.name !== '')
 					.forEach(element => {
-						console.log(element.name, element.value);
-						urlencoded.append(element.name, element.value)
+						console.log(element.name, element.type=='checkbox'?element.checked:element.value);
+						urlencoded.append(element.name, element.type=='checkbox'?element.checked:element.value);
 					});
 				
 				fetch(action, {

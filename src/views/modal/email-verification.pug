@@ -1,5 +1,5 @@
 
-form.needs-validation(action='/verificador' method='POST' novalidate)
+form(action='/verificador' method='POST' novalidate)
 	#mailverificationModal.modal.fade(tabindex='-1' data-bs-backdrop="static" aria-hidden='true')
 		.modal-dialog.modal-dialog-centered.modal-dialog-scrollable
 				.modal-content
@@ -12,17 +12,17 @@ form.needs-validation(action='/verificador' method='POST' novalidate)
 						.form-floating.mb-3
 							div.row
 								div.col-2.p-3
-									input#NUM1.form-control(type='text' name='NUM1' maxlength="1" pattern="[0-9]{1}" title="ingresa un numero" required)
+									input#NUM1.form-control(type='text' name='NUM1' maxlength="1" pattern="[0-9]{1}" title="ingresa un numero")
 								div.col-2.p-3
-									input#NUM2.form-control(type='text' name='NUM2' maxlength="1" pattern="[0-9]{1}" title="ingresa un numero" required)
+									input#NUM2.form-control(type='text' name='NUM2' maxlength="1" pattern="[0-9]{1}" title="ingresa un numero")
 								div.col-2.p-3
-									input#NUM3.form-control(type='text' name='NUM3' maxlength="1" pattern="[0-9]{1}" title="ingresa un numero" required)
+									input#NUM3.form-control(type='text' name='NUM3' maxlength="1" pattern="[0-9]{1}" title="ingresa un numero")
 								div.col-2.p-3
-									input#NUM4.form-control(type='text' name='NUM4' maxlength="1" pattern="[0-9]{1}" title="ingresa un numero" required)
+									input#NUM4.form-control(type='text' name='NUM4' maxlength="1" pattern="[0-9]{1}" title="ingresa un numero")
 								div.col-2.p-3
-									input#NUM5.form-control(type='text' name='NUM5' maxlength="1" pattern="[0-9]{1}" title="ingresa un numero" required)
+									input#NUM5.form-control(type='text' name='NUM5' maxlength="1" pattern="[0-9]{1}" title="ingresa un numero")
 								div.col-2.p-3
-									input#NUM6.form-control(type='text' name='NUM6' maxlength="1" pattern="[0-9]{1}" title="ingresa un numero" required)
+									input#NUM6.form-control(type='text' name='NUM6' maxlength="1" pattern="[0-9]{1}" title="ingresa un numero")
 						
 						// button.btn(type='button' data-bs-target='#signupModal' data-bs-toggle='modal') Reenviar codigo 
 					.modal-footer

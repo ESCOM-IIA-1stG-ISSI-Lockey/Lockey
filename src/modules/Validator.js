@@ -6,7 +6,8 @@ const validateResult = (req, res, next) => {
 		next();
 	}
 	catch (err) {
-		console.log(err.array());
+		console.log('ERRORS: ' + err.array().length);
+		// console.log(err.array());
 		res.status(401).json({ 
 			response: 'ERROR',
 			errors: err.array()
@@ -69,10 +70,10 @@ const v = {
 		.if(check('password').exists())
 		.custom((value, { req }) => value !== req.body.password).withMessage('Las contraseñas no coinciden')
 	},
-	// Terms and conditions as checkbox
+	// Terms and conditions as checkbox boolean
 	_termsAndConditions: function (param, name) { return check(param)
 		.not().isEmpty().withMessage(`${name} es obligatorio`)
-		.equals('on').withMessage(`Debes aceptar ${name}`)
+		.equals('true').withMessage(`Debes aceptar ${name}`)
 	},
 	// Token digit
 	_tokenDigit: function (param, name) { return check(param)
@@ -133,6 +134,7 @@ const Validator = {
 
 	// Sign up
 	signup: [
+		(req, res, next) => { console.log(req.body); next() },
 		v._fullname('name', 'El nombre'),
 		v._phone('tel', 'El teléfono'),
 		v._email('email', 'El correo'),
