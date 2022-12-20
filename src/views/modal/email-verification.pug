@@ -1,0 +1,30 @@
+form(action='/verificador' method='POST' novalidate)
+	fieldset 
+		#mailverificationModal.modal.fade(tabindex='-1' data-bs-backdrop="static" aria-hidden='true')
+			.modal-dialog.modal-dialog-centered.modal-dialog-scrollable
+					.modal-content
+						.modal-header
+							h1.modal-title.fs-5 Confirma Correo Electrónico
+							button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+						.modal-body
+							p Te hemos enviado un correo electrónico con un código.
+							p Para completar la verificación de tu cuenta, por favor , ingresa el código de activación de 6 dígitos.
+							.form-floating.mb-3
+								div.row
+									div.col-2.p-3
+										input#NUM1.form-control.no-bg-img(type='text' name='NUM1' maxlength="1" pattern="[0-9]{1}" title="ingresa un numero")
+									div.col-2.p-3
+										input#NUM2.form-control.no-bg-img(type='text' name='NUM2' maxlength="1" pattern="[0-9]{1}" title="ingresa un numero")
+									div.col-2.p-3
+										input#NUM3.form-control.no-bg-img(type='text' name='NUM3' maxlength="1" pattern="[0-9]{1}" title="ingresa un numero")
+									div.col-2.p-3
+										input#NUM4.form-control.no-bg-img(type='text' name='NUM4' maxlength="1" pattern="[0-9]{1}" title="ingresa un numero")
+									div.col-2.p-3
+										input#NUM5.form-control.no-bg-img(type='text' name='NUM5' maxlength="1" pattern="[0-9]{1}" title="ingresa un numero")
+									div.col-2.p-3
+										input#NUM6.form-control.no-bg-img(type='text' name='NUM6' maxlength="1" pattern="[0-9]{1}" title="ingresa un numero")
+							
+							// button.btn(type='button' data-bs-target='#signupModal' data-bs-toggle='modal') Reenviar codigo 
+						.modal-footer
+							//button.btn.btn-danger(type='reset' data-bs-dismiss='modal') Cancelar
+							button.btn.btn-primary(type='submit') Confirmar

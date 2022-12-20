@@ -6,7 +6,6 @@ block content
             .col-lg-6.col-md-6.mt-3
                 h1.fw-bold Lugar de origen
                 p.m-0 Selecciona o elige un lugar de origen
-                
                 if typeof(datosOrigin.nm_lkr)=='undefined'
                     input#origen.btn-check(type='radio' name='options2' autocomplete='off')
 
@@ -26,7 +25,6 @@ block content
             .col-lg-6.col-md-6.mt-3
                 h1.fw-bold Lugar de destino
                 p.m-0 Selecciona o elige un lugar de destino
-                
                 if typeof(DatosDestino.nm_lkr)=='undefined'
                     input#destino.btn-check(type='radio' name='options3' autocomplete='off')
                     label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center(for='destino')
@@ -37,6 +35,7 @@ block content
                     label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center.bg-primary(for='destino')
                         p.fw-bold #{DatosDestino.nm_lkr} 
                         p #{DatosDestino.dir_lkr} 
+
                 a.text-decoration-none(href='/panel/envio/crearEnvio/destino')
                     .row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.p-3.ms-3.me-3.shadow.rounded-pill
                         h5.fw-bold.text-white.m-0.p-0 CAMBIAR DESTINO

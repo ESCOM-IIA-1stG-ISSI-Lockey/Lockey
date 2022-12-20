@@ -8,7 +8,7 @@ block content
 		if user.type == 'ADMIN'
 			p.nameUser Admin Dashboard
 
-		else if user.type == 'DELIVER'
+		else if user.type == 'DELIVERER'
 			if stateRoute.length == 0   
 				.row(data-masonry='{"percentPosition": true }' style='position: relative; height: 690px;')
 					.col-sm-6.col-lg-4.mb-4(style='position: absolute; left: 0%; top: 0px;')
@@ -73,7 +73,7 @@ block content
 					a.text-decoration-none(href='/panel/envio/detalles/'+val.trk_shpg)
 						.item.row.d-flex.align-items-center.justify-content-center(style='min-width: 380px;')
 							.col-4.p-0
-								img(style='max-height: 120px;')(src='https://img.freepik.com/vector-premium/icono-vector-arte-linea-camion-entrega-envio-rapido-aplicaciones-sitios-web-transporte_652240-16.jpg')
+								img(style='max-height: 120px;' src='https://img.freepik.com/vector-premium/icono-vector-arte-linea-camion-entrega-envio-rapido-aplicaciones-sitios-web-transporte_652240-16.jpg')
 							.col-8.p-0
 								each num, key in  {1 : 'En espera de entrega para recolección', 2 : 'En espera de recolección', 3 : 'En tránsito', 4 : 'En espera de recepción del destinatario', 5 : 'Completado', 6 : 'Almacén', 7 : 'Cancelado'}
 									if key == val.stat_shpg

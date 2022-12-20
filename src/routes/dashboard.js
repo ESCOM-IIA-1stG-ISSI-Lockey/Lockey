@@ -1,179 +1,196 @@
-var debug = require('debug')('lockey:router:dashboard');
-var express = require('express');
-var router = express.Router();
-var db = require('../modules/MySQLConnection');
+const debug = require('debug')('lockey:router:dashboard');
+const express = require('express');
+const router = express.Router();
+const Auth = require('../modules/Auth');
+const db = require('../modules/MySQLConnection');
+const Validator = require('../modules/Validator');
 
-router.get('/', async(req, res, next) => {
-		if (req.session.user) {
-			debug('session.user:', req.session.user);
-			let params = {}
-			if(req.session.user.type=='DELIVER')
-			{
+router.route('/')
+.get(Auth.onlyUsers, 
+	async (req, res, next) => {
+		let params = {}
+		switch (req.session.user.type) {
+			case 'ADMIN':
+				break;
+			case 'DELIVERER':
 				params.stateRoute = await db.getLockersByUserId(req.session.user.id)
-			}else if(req.session.user.type=='CLIENT')
-			{
+				break;
+			case 'CLIENT':
 				params.pedingShipings = await db.getShippings(req.session.user.id)
-			}
-			console.log.params
-			res.render('dashboard', {
-				title: 'sendiit - panel', 
-				path: req.path, 
-				user: req.session.user, 
-				...params
-				});
+				break;
 		}
-		else {
-			res.redirect('/');
-			}
-});
 
-router.get('/cerrarsesion', (req, res, next) => {
-	debug('session.user:', req.session.user);
-	if (req.session.user) {
-		req.session.destroy();
-		res.redirect('/');
-	} else {
-		res.redirect('/');
-	}
-});
-router.get('/envio');//envios historicos (esto de momento no)
-
-router.get('/envio/detalles/[0-9]{18}', (req,res,next) =>{
-	// res.render("shippingdetails") 
-	if (req.session.user) {
-		let traking=req.path.match(/\d{18}/)[0] 
-		console.log (traking)
-		db.getshippingdetails(traking).then((results)=>{
-			debug('results', results);
-			if (results.length) {
-				res.render('shippingdetails', { title: 'sendiit - panel', path: req.path, user: req.session.user, shipping:results[0]});
-			}
-			else {
-				res.status(401).json({response:'ERROR', message:'Envío no encontrado'});
-			}
+		res.render('dashboard', {
+			title: 'sendiit - panel',
+			path: req.path,
+			user: req.session.user,
+			...params
 		});
-	
-	} else {
-		res.redirect('/');
-	}
-});
 
-router.get('/envio/crearEnvio', async(req,res,next) =>{
-	
-	if (req.session.user) {
-		let locker = await db.getloker(req.session.createShipping)
-		let locker1 = await db.getloker(req.session.createShippingDestino)
-		console.log('dedwedewdwe')
-		console.log(locker)
-		res.render('createSummary' , { title: 'sendiit - panel', path: req.path, user: req.session.user,datosOrigin:locker[0]||{},DatosDestino:locker1[0]||{}});
-	} else {
+	});
 
-		res.redirect('/');
-	}
-});
+router.route('/envio');	//envios historicos (esto de momento no)
 
+router.route('/envio/detalles/:tracking([0-9]{18})')
+.get(Auth.onlyClients, Validator.trackingNumber,
+	async (req, res, next) => {
+		console.log(req.params)
+		let traking = req.params.tracking,
+			shipping = await db.getshippingdetails(traking)
 
-router.post('/envio/crearEnvio', (req,res,next) =>{
-	if (req.session.user) {
-        if(!req.session.createShipping){
-            req.session.createShipping = {}
-        }
-        let {NameOrigen,NameDestino} = req.body
-		if(NameOrigen)
-        	req.session.createShipping = NameOrigen
-		if(NameDestino)
-			req.session.createShippingDestino = NameDestino
-        console.log(req.session.createShipping)
-		res.redirect('/panel/envio/crearEnvio');
-	} else {
-		res.redirect('/');
-	}
-});
-
-router.get('/envio/crearEnvio/origen', (req,res,next) =>{
-	if (req.session.user) {
-        db.getlocations().then((results)=>{
-			debug('results', results);
-			if (results.length) {
-                res.render('chooseOrigen' , { title: 'sendiit - panel', path: req.path, user: req.session.user, address:results });
-			}
-			else {
-				res.status(401).json({response:'ERROR', message:'Envío no encontrado'});
-			}
-		});
-	} else {
-		res.redirect('/');
-	}
-});
-
-router.get('/envio/crearEnvio/destino', (req,res,next) =>{
-    if (req.session.user) {
-        db.getlocations().then((results)=>{
-			debug('results', results);
-			if (results.length) {
-                res.render('chooseDestination' , { title: 'sendiit - panel', path: req.path, user: req.session.user, address:results });
-			}
-			else {
-				res.status(401).json({response:'ERROR', message:'Envío no encontrado'});
-			}
-		});
-	} else {
-		res.redirect('/');
-	}
-});
-
-router.get('/envio/crearEnvio/sender',async (req,res,next) =>{
-	if (req.session.user) {
-		let contacts = await db.getContactsByUserId(req.session.user.id);
-		console.log('contacts', contacts)
-		res.render('createSender', { title: 'sendiit - panel', path: req.path, user: req.session.user, contacts: contacts});
-	} else {
-		res.redirect('/');
-	}
-});
-
-
-router.route('/envio/crearEnvio')
-	.post((req,res,next) =>{
-		console.log(req.body)
-		let {name, email, tel} = req.body;
-		db.createContact(req.session.user.id, name, email, tel).then((results)=>{ //checar
-			debug('results', results);
-			if (results.affectedRows) {
-				res.status(200).json({
-					response: "OK",
-					message: "Contacto guardado con éxito",
-					// redirect: "ViewMaps" //modifiaciones prueba mapas
-				})
-			}
-			else {
-				res.status(401).json({
-					response: "ERROR",
-					message: "problemas en el servidor"
-				})
-			}
-		}).catch((err) => {
-			console.log("ERROR", err)
-			res.status(402).json({response:'ERROR', message:err});
+		res.render('shippingdetails', {
+			title: 'sendiit - panel',
+			path: req.path,
+			user: req.session.user,
+			shipping: shipping[0]
 		});
 	});
 
+// Crear envio (tamaño, origen, destino)
+/* 
+	req.session.shipping = {
+		origin,
+		destination,
+		size,
+		sender,
+		receiver,
+		wall
+	}
+ */
+router.route('/envio/crearEnvio')
+.get(Auth.onlyClients,
+	async (req, res, next) => {
+		if (!req.session.shipping)
+			req.session.shipping = {}
+		debug('shipping', req.session.shipping)
+		let params = {}
+
+		if (req.session.shipping.origin)
+			params.origin = await db.getloker(req.session.shipping.origin)[0]
+		
+		if (req.session.shipping.destination)
+			params.destination = await db.getloker(req.session.shipping.destination)[0]
+		
+		res.render('createSummary', {
+			title: 'sendiit - panel',
+			path: req.path,
+			user: req.session.user,
+			...params
+		});		
+	})
+.post(Auth.onlyClients,
+	(req, res, next) => {
+		if (!req.session.shipping)
+		req.session.shipping = { origin: null, destination: null, size: null, sender: null, receiver: null, wall: null}
+
+		let { origin, destination, size } = req.body
+			
+		// let { NameOrigen, NameDestino } = req.body
+		if (origin)
+			req.session.shipping.origin = origin
+		if (destination)
+			req.session.shipping.destination = destination
+		if (size)
+			req.session.shipping.size = size
+
+		debug(req.session.shipping)
+		res.redirect(req.path); //FIXME: Checar si se puede hacer un redirect a la misma ruta
+	});
+
+// Extension view to choose the origin
+router.route('/envio/crearEnvio/origen')
+.get(Auth.onlyClients,
+	async (req, res, next) => {
+		let lockers = await db.getlocations()
+		res.render('chooseOrigen', {
+			title: 'sendiit - panel',
+			path: req.path,
+			user: req.session.user,
+			address: lockers	//TODO: Change address to addresses
+		});
+	});
+
+// Extension view to choose the destination
+router.route('/envio/crearEnvio/destino')
+.get(Auth.onlyClients,
+	async (req, res, next) => {
+		let lockers = await db.getlocations()
+		res.render('chooseDestination', {
+			title: 'sendiit - panel',
+			path: req.path,
+			user: req.session.user,
+			address: lockers	//TODO: Change address to addresses
+		});
+});
+
+// Extension view to choose the sender
+router.route('/envio/crearEnvio/sender')	//TODO: Change to /envio/crearEnvio/remitente
+.get(Auth.onlyClients,
+	async (req, res, next) => {
+		let contacts = await db.getContactsByUserId(req.session.user.id);
+		console.log('contacts', contacts)
+		res.render('createSender', {
+			title: 'sendiit - panel',
+			path: req.path,
+			user: req.session.user,
+			contacts: contacts
+		});
+	});
+
+// Extension view to choose the receiver
+// router.route('/envio/crearEnvio/receiver')	//TODO: Change to /envio/crearEnvio/destinatario
+// .get(Auth.onlyClients,
+// 	async (req, res, next) => {
+// 		let contacts = await db.getContactsByUserId(req.session.user.id);
+// 		console.log('contacts', contacts)
+// 		res.render('createSender', {
+// 			title: 'sendiit - panel',
+// 			path: req.path,
+// 			user: req.session.user,
+// 			contacts: contacts
+// 		});
+// 	});
+
+// NOTE: PATH IS REPEATED!!!
+// router.route('/envio/crearEnvio')
+// 	.post((req, res, next) => {
+// 		console.log(req.body)
+// 		let { name, email, tel } = req.body;
+// 		db.createContact(req.session.user.id, name, email, tel).then((results) => { 
+// 			debug('results', results);
+// 			if (results.affectedRows) {
+// 				res.status(200).json({
+// 					response: "OK",
+// 					message: "Contacto guardado con éxito",
+// 					// redirect: "ViewMaps" //modifiaciones prueba mapas
+// 				})
+// 			}
+// 			else {
+// 				res.status(401).json({
+// 					response: "ERROR",
+// 					message: "problemas en el servidor"
+// 				})
+// 			}
+// 		}).catch((err) => {
+// 			console.log("ERROR", err)
+// 			res.status(402).json({ response: 'ERROR', message: err });
+// 		});
+// 	});
+
+// Crear envio (remitente, destinatario, pago) y cobro
 router.route('/nuevo/resumen')
-	.get(async (req,res,next) => {
-		if (req.session.user) {
-			let wallet = await db.getWalletsByUserId(req.session.user.id);
-			let contacts = await db.getContactsByUserId(req.session.user.id);
-			console.log('contacts', contacts)
-			res.render('createSender' , { 
-				title: 'sendiit - panel', 
-				path: req.path, 
-				user: req.session.user, 
-				wallet: wallet,
-				contacts: contacts
-			});
-		} else {
-			res.redirect('/');
-		}
+.get(Auth.onlyClients,
+	async (req, res, next) => {
+		let wallet = await db.getWalletsByUserId(req.session.user.id);
+		let contacts = await db.getContactsByUserId(req.session.user.id);
+		console.log('contacts', contacts)
+		res.render('createSender', {
+			title: 'sendiit - panel',
+			path: req.path,
+			user: req.session.user,
+			wallet: wallet,
+			contacts: contacts
+		});
 	})
 
 // router.post('/envio/crearEnvio/createSender', (req,res,next) =>{
@@ -199,50 +216,56 @@ router.route('/nuevo/resumen')
 //     });
 // });
 
+// //  Agregar destinatario
+// router.get('/envio/crearEnvio/createAddresse', (req, res, next) => {
+// 	// res.render("createAddresse") 
+// 	if (req.session.user) {
+// 		res.render('createAddresse', { title: 'sendiit - panel', path: req.path, user: req.session.user });
+// 	} else {
+// 		res.redirect('/');
+// 	}
+// });
+
+
 //  Agregar metodo de pago
-router.get('/envio/crearEnvio/payment', (req,res,next) =>{
-    if (req.session.user) {
-        db.getUserById(req.session.user).then((results)=>{
-			debug('results', results);
-			if (results.length) {
-				res.render('payment' , { title: 'sendiit - panel', path: req.path, user: req.session.user, metodosDePagos:results});
-			}
-			else {
-				res.status(401).json({response:'ERROR', message:'Rutas completadas no encontradas'});
-			}
-		});
-        //res.render('payment' , { title: 'sendiit - panel', path: req.path, user: req.session.user, metodosDePagos: metodosDePagos });
-
-    } else {
-        res.redirect('/');
-    }
-});
-
-router.get('/repartidor/lockersnm/[a-z ^A-Z 0-9&,%.]{1,}', (req,res,next) =>{
-	if (req.session.user) {
-		const regex = /[a-z ^A-Z 0-9&,%.]{1,}/g;
-		let traking=req.path.match(regex)[2]
-
-		traking = traking.replace('%20', ' ');
-		
-		
-		db.getShippingdetailByUserId(req.session.user.id, traking).then((results)=>{
-			debug('results', results);
-			if (results.length) {
-				res.render('lockers' , { title: 'sendiit - panel', path: req.path, traking:traking, shippingDetails:results});
-			}
-			else {
-				res.status(401).json({response:'ERROR', message:'Rutas completadas no encontradas'});
-			}
-		});
-		
-
-	} else {
-		res.redirect('/');
-	}
-});
-
-
+router.route('/envio/crearEnvio/payment')
+.get(Auth.onlyClients,
+	async (req, res, next) => {
 	
+		db.getmetodosDePagos(req.session.user).then((results) => {
+
+			debug('results', results);
+			if (results.length) {
+				res.render('payment', { title: 'sendiit - panel', path: req.path, user: req.session.user, metodosDePagos: results });
+			}
+			else {
+				res.status(401).json({ response: 'ERROR', message: 'Rutas completadas no encontradas' });
+			}
+		});
+		//res.render('payment' , { title: 'sendiit - panel', path: req.path, user: req.session.user, metodosDePagos: metodosDePagos });
+	});
+
+
+router.route('/repartidor/lockersnm/:lockerid([a-z ^A-Z 0-9&,%.]{1,})')
+.get(Auth.onlyDeliverers,
+	async (req, res, next) => {
+		let traking = req.params.lockerid;
+
+
+		db.getShippingdetailByUserId(req.session.user.id, traking).then((results) => {
+			debug('results', results);
+			if (results.length) {
+				res.render('lockers', { title: 'sendiit - panel', path: req.path, traking: traking, shippingDetails: results });
+			}
+			else {
+				res.status(401).json({ response: 'ERROR', message: 'Rutas completadas no encontradas' });
+			}
+		});
+
+
+});
+
+
+
 
 module.exports = router;

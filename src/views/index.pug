@@ -18,9 +18,9 @@ block content
 				h2.display-5 Ya tengo cuenta
 				p.lead Inicia sesión para acceder a tus envíos.
 			button.btn.btn-secondary(type='button' data-bs-toggle='modal' data-bs-target='#signinModal') Ingresar
-	include signin
-	include signup
-	include email-verification
-	include password-reset
+	include modal/signin
+	include modal/signup
+	include modal/email-verification
+	include modal/password-reset
 block scripts
 	script(src='/javascripts/validation.js')
