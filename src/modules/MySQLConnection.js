@@ -153,6 +153,15 @@ const db = {
 		});
 	},
 
+	getShippingStat: (trk_shpg) => {
+		return new Promise((resolve, reject) => {
+			con.query('SELECT stat_shpg FROM ShippingDetail WHERE trk_shpg = ?', [stat_shpg], (err,results) => {
+				if (err) reject(err);
+				else resolve(results);
+			});
+		});
+	},
+
 	getContactsByUserId: (id_usr) => {
 		return new Promise((resolve, reject) => {
 			con.query('SELECT * FROM Contact WHERE id_usr= ?', [id_usr], (err, results) => {
@@ -161,6 +170,7 @@ const db = {
 			});
 		});
 	},
+	
 	getShippings: (id_usr) => {
 		return new Promise((resolve, reject) => {
 			con.query('SELECT * FROM ShippingDetail  WHERE id_usr= ?', [id_usr], (err, results) => {
