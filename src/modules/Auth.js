@@ -1,5 +1,3 @@
-const { con } = require("./MySQLConnection");
-
 // Using Express-Session withour Passport.js
 const Auth = {
 	onlyUsers: (req, res, next) => {
@@ -9,7 +7,7 @@ const Auth = {
 			else if (req.method == 'POST')
 				req.json({
 					response: 'ERROR',
-					message: 'Solicitud no autorizada'
+					message: 'No tienes los permisos necesarios para realizar esta acción'
 				})
 		
 		next();
@@ -21,7 +19,7 @@ const Auth = {
 			else if (req.method == 'POST')
 				req.json({
 					response: 'ERROR',
-					message: 'Solicitud no autorizada'
+					message: 'No tienes los permisos necesarios para realizar esta acción'
 				})
 		
 		next();
@@ -33,7 +31,7 @@ const Auth = {
 			else if (req.method == 'POST')
 				req.json({
 					response: 'ERROR',
-					message: 'Solicitud no autorizada'
+					message: 'No tienes los permisos necesarios para realizar esta acción'
 				})
 		
 		next();
@@ -45,7 +43,7 @@ const Auth = {
 			else if (req.method == 'POST')
 				req.json({
 					response: 'ERROR',
-					message: 'Solicitud no autorizada'
+					message: 'No tienes los permisos necesarios para realizar esta acción'
 				})
 				
 				next();
@@ -57,7 +55,7 @@ const Auth = {
 			else if (req.method == 'POST')
 				req.json({
 					response: 'ERROR',
-					message: 'Solicitud no autorizada'
+					message: 'No tienes los permisos necesarios para realizar esta acción'
 				})
 				
 		next();
@@ -94,7 +92,7 @@ const Auth = {
 					else if (req.method == 'POST')
 						req.json({
 							response: 'ERROR',
-							message: 'Solicitud no autorizada'
+							message: 'No tienes los permisos necesarios para realizar esta acción'
 						})
 		});
 	}
