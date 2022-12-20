@@ -31,7 +31,7 @@ router.route('/')
 
 router.route('/envio');	//envios historicos (esto de momento no)
 
-router.route('/envio/detalles/:tracking([0-9]{18})')
+router.route('/envio/:tracking([0-9]{18})')
 .get(Auth.onlyClients, Validator.trackingNumber,
 	async (req, res, next) => {
 		console.log(req.params)
