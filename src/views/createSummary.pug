@@ -6,11 +6,18 @@ block content
             .col-lg-6.col-md-6.mt-3
                 h1.fw-bold Lugar de origen
                 p.m-0 Selecciona o elige un lugar de origen
-                input#origen.btn-check(type='radio' name='options2' autocomplete='off')
-                label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center(for='origen')
-                    if typeof(origin) != 'undefined'
-                        p.fw-bold #{origin.nm_lkr} 
-                        p #{origin.dir_lkr} 
+                if typeof(datosOrigin.nm_lkr)=='undefined'
+                    input#origen.btn-check(type='radio' name='options2' autocomplete='off')
+
+                    label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center(for='origen')
+                        i.h1.bi.bi-building-fill
+                        p Sin lugar seleccionado
+                else
+                    input#origen.btn-check(type='radio' name='options2' autocomplete='off')
+
+                    label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center.bg-primary(for='origen')
+                        p.fw-bold #{datosOrigin.nm_lkr} 
+                        p #{datosOrigin.dir_lkr} 
                 a.text-decoration-none(href='/panel/envio/crearEnvio/origen')
                     .row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.p-3.ms-3.me-3.shadow.rounded-pill
                         h5.fw-bold.text-white.m-0.p-0 CAMBIAR ORIGEN
@@ -18,11 +25,17 @@ block content
             .col-lg-6.col-md-6.mt-3
                 h1.fw-bold Lugar de destino
                 p.m-0 Selecciona o elige un lugar de destino
-                input#destino.btn-check(type='radio' name='options3' autocomplete='off')
-                label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center(for='destino')
-                    if typeof(destination) != 'undefined'
-                        p.fw-bold #{destination.nm_lkr} 
-                        p #{destination.dir_lkr} 
+                if typeof(DatosDestino.nm_lkr)=='undefined'
+                    input#destino.btn-check(type='radio' name='options3' autocomplete='off')
+                    label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center(for='destino')
+                        i.h1.bi.bi-building-fill
+                        p Sin lugar seleccionado
+                else
+                    input#destino.btn-check(type='radio' name='options3' autocomplete='off')
+                    label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center.bg-primary(for='destino')
+                        p.fw-bold #{DatosDestino.nm_lkr} 
+                        p #{DatosDestino.dir_lkr} 
+
                 a.text-decoration-none(href='/panel/envio/crearEnvio/destino')
                     .row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.p-3.ms-3.me-3.shadow.rounded-pill
                         h5.fw-bold.text-white.m-0.p-0 CAMBIAR DESTINO
@@ -35,7 +48,7 @@ block content
                 label.btn.btn-secondary.d-flex.flex-column.align-items-center.justify-content-center(class='TamañoPaquete' for='option1')
                     h3.fw-bold Chico
                     img.boxSize(src="/images/package-s.svg")
-                    p.fw-bold.pt-4 Medidas maximas
+                    p.fw-bold.pt-4 Medidas máximas
                     .row
                         .col
                             p.m-0.p-0.fw-bold1 Altura
@@ -53,7 +66,7 @@ block content
                 label.btn.btn-secondary.d-flex.flex-column.align-items-center.justify-content-center(class='TamañoPaquete' for='option2') 
                     h3.fw-bold Mediano 
                     img.boxSize(src="/images/package-m.svg")
-                    p.fw-bold.pt-4 Medidas maximas
+                    p.fw-bold.pt-4 Medidas máximas
                     .row
                         .col
                             p.m-0.p-0.fw-bold1 Altura
@@ -71,7 +84,7 @@ block content
                 label.btn.btn-secondary.d-flex.flex-column.align-items-center.justify-content-center(class='TamañoPaquete' for='option3') 
                     h3.fw-bold Grande 
                     img.boxSize(src="/images/package-l.svg")
-                    p.fw-bold.pt-4 Medidas maximas
+                    p.fw-bold.pt-4 Medidas máximas
                     .row
                         .col
                             p.m-0.p-0.fw-bold1 Altura

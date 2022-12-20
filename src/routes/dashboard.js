@@ -216,7 +216,6 @@ router.route('/nuevo/resumen')
 //     });
 // });
 
-
 // //  Agregar destinatario
 // router.get('/envio/crearEnvio/createAddresse', (req, res, next) => {
 // 	// res.render("createAddresse") 
@@ -234,6 +233,7 @@ router.route('/envio/crearEnvio/payment')
 	async (req, res, next) => {
 	
 		db.getmetodosDePagos(req.session.user).then((results) => {
+
 			debug('results', results);
 			if (results.length) {
 				res.render('payment', { title: 'sendiit - panel', path: req.path, user: req.session.user, metodosDePagos: results });

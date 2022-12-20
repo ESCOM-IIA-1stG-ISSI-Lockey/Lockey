@@ -59,8 +59,11 @@ router.route('/registro')
 			else throw new Error('No se pudo crear el usuario');
 		})
 		.then((results) => {
-			if (results.length > 0)
-				return mailer.mailVerification(email, token);
+			if (results.length > 0) {
+        subject="Codigo de verificacion"
+				html ="<b>Tu Codigo de verificacion es :" + token +" </b>"
+				return mailer.mailVerification(email,html,subject);
+      }
 			else throw new Error('Usuario no encontrado tras registro');		
 		})
 		.then(() => {

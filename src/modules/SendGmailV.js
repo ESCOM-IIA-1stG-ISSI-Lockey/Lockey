@@ -9,16 +9,14 @@
 
 	 */
 	// async..await is not allowed in global scope, must use a wrapper
-	mailVerification: async(email, num) => { {
+	mailVerification: async(email, html,subject) => { {
 		// TODO Borrar PLOX
 		
 
 	  // Generate test SMTP service account from ethereal.email
 	  // Only needed if you don't have a real mail account for testing
 	  let testAccount = await nodemailer.createTestAccount();
-	  var b = num.toString();
-		console.log(b);
-		console.log(email);
+	
 	  // create reusable transporter object using the default SMTP transport
 	  let transporter = nodemailer.createTransport({
 		host: "smtp.gmail.com",
@@ -32,11 +30,11 @@
 	
 	  // send mail with defined transport object
 	  let info = await transporter.sendMail({
-		from: '"Sendiit-Envios" ', // sender address
+		from: "Sendiit-Envios", // sender address
 		to: email, // list of receivers
-		subject: "Codigo de verificacion", // Subject line
-		text: b , // plain text body
-		html: "<b>Tu Codigo de verificacion es :" + b +" </b>"});
+		subject: subject, // Subject line
+		text: '' , // plain text body
+		html:html});
 	
 	  console.log("Message sent: %S", info.messageId);
 	  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
