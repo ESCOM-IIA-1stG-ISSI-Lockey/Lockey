@@ -49,7 +49,18 @@ app.use(function (req, res, next) {
 
 // error handler
 app.use(function (err, req, res, next) {
-	if (req.app.get('env') === 'development') {
+	if (err.status === 404)
+		err.message = 'Página no encontrada';
+	
+	// send error message if POST request
+	if (req.method === 'POST') {
+		res.json({ 
+			
+			response: 'ERROR',
+			message: err.message, 
+		});
+	}
+	else if (req.app.get('env') === 'development') {
 		// set locals, only providing error in development
 		res.locals.message = err.message;
 		res.locals.error = req.app.get('env') === 'development' ? err : {};
