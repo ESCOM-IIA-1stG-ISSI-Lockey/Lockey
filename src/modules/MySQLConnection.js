@@ -251,7 +251,10 @@ const db = {
 		return new Promise((resolve, reject) => {
 			if (!isConnected)
 				throw errorDBConnection;
+			console.log('id es: '+id);
 			con.query('SELECT * FROM Locker WHERE id_lkr = ? ', [id], (err, results) => {
+				console.log('results: ');
+				console.log(results);
 				if(err)reject(err);
 				else resolve(results);
 			});

@@ -65,11 +65,13 @@ router.route('/envio/crearEnvio')
 		debug('shipping', req.session.shipping)
 		let params = {}
 
-		if (req.session.shipping.origin)
-			params.origin = await db.getloker(req.session.shipping.origin)[0]
+		if (req.session.shipping.origin) 
+			params.origin = (await db.getloker(req.session.shipping.origin))[0]
 		
 		if (req.session.shipping.destination)
-			params.destination = await db.getloker(req.session.shipping.destination)[0]
+			params.destination = (await db.getloker(req.session.shipping.destination))[0]
+
+		console.log('params', params)
 		
 		res.render('createSummary', {
 			title: 'sendiit - panel',
@@ -81,8 +83,9 @@ router.route('/envio/crearEnvio')
 .post(Auth.onlyClients,
 	(req, res, next) => {
 		if (!req.session.shipping)
-		req.session.shipping = { origin: null, destination: null, size: null, sender: null, receiver: null, wall: null}
+			req.session.shipping = {}
 
+		debug('req.body', req.body)
 		let { origin, destination, size } = req.body
 			
 		// let { NameOrigen, NameDestino } = req.body
@@ -93,8 +96,7 @@ router.route('/envio/crearEnvio')
 		if (size)
 			req.session.shipping.size = size
 
-		debug(req.session.shipping)
-		res.redirect(req.path); //FIXME: Checar si se puede hacer un redirect a la misma ruta
+		res.json({ response: 'OK', redirect: '/panel/envio/crearEnvio' })
 	});
 
 // Extension view to choose the origin

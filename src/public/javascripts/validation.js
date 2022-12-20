@@ -19,8 +19,15 @@
 					method = form.getAttribute('method'),
 					urlencoded = new URLSearchParams();
 					
+				// element.type in ['text', 'email', 'password', 'number', 'tel', 'date', 'time', 'textarea']
+
 				Array.from(form.elements)
 					.filter(element => element.name !== '')
+					.filter(element => {
+						if (element.type == 'radio')
+							return element.checked;
+						return true;
+					})
 					.forEach(element => {
 						console.log(element.name, element.type=='checkbox'?element.checked:element.value);
 						urlencoded.append(element.name, element.type=='checkbox'?element.checked:element.value);

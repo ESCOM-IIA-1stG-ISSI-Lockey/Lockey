@@ -1,7 +1,7 @@
 const Auth = {
 	// Allow only logged users (ADMIN, CLIENT, DELIVERER)
 	onlyUsers: (req, res, next) => {
-		if (!req.session.user)
+		if (!req.session.user) {
 			if (req.method == 'GET')
 				res.redirect('/');
 			else if (req.method == 'POST')
@@ -9,12 +9,12 @@ const Auth = {
 					response: 'ERROR',
 					message: 'No tienes los permisos necesarios para realizar esta acción'
 				})
-
-		next();
+		} 
+		else next();
 	},
 	// Allow only logged users (ADMIN)
 	onlyAdmins: (req, res, next) => {
-		if (!req.session.user || req.session.user.type != 'ADMIN')
+		if (!req.session.user || req.session.user.type != 'ADMIN') {
 			if (req.method == 'GET')
 				res.redirect('/');
 			else if (req.method == 'POST')
@@ -22,12 +22,12 @@ const Auth = {
 					response: 'ERROR',
 					message: 'No tienes los permisos necesarios para realizar esta acción'
 				})
-
-		next();
+		} 
+		else next();
 	},
 	// Allow only logged users (DELIVERER)
 	onlyDeliverers: (req, res, next) => {
-		if (!req.session.user || req.session.user.type != 'DELIVERER')
+		if (!req.session.user || req.session.user.type != 'DELIVERER') {
 			if (req.method == 'GET')
 				res.redirect('/');
 			else if (req.method == 'POST')
@@ -35,12 +35,12 @@ const Auth = {
 					response: 'ERROR',
 					message: 'No tienes los permisos necesarios para realizar esta acción'
 				})
-
-		next();
+		} 
+		else next();
 	},
 	// Allow only logged users (CLIENT)
 	onlyClients: (req, res, next) => {
-		if (!req.session.user || req.session.user.type != 'CLIENT')
+		if (!req.session.user || req.session.user.type != 'CLIENT') {
 			if (req.method == 'GET')
 				res.redirect('/');
 			else if (req.method == 'POST')
@@ -48,12 +48,12 @@ const Auth = {
 					response: 'ERROR',
 					message: 'No tienes los permisos necesarios para realizar esta acción'
 				})
-
-		next();
+		} 
+		else next();
 	},
 	// Allow not logged users (GUEST)
 	onlyGuests: (req, res, next) => {
-		if (req.session.user)
+		if (req.session.user) {
 			if (req.method == 'GET')
 				res.redirect('/panel');
 			else if (req.method == 'POST')
@@ -61,8 +61,8 @@ const Auth = {
 					response: 'ERROR',
 					message: 'No tienes los permisos necesarios para realizar esta acción'
 				})
-
-		next();
+		} 
+		else next();
 	},
 
 	createSession: (req, res, newUser) => {
