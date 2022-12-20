@@ -1,0 +1,27 @@
+extends layout
+
+block content
+
+    .container
+        .row
+            .col-9 
+            .bg-primary.d-flex.p-2.rounded.justify-content-center
+                h2.fw-bold.m-0 Detalle de envio
+            p Número de guía:
+                    small.text-muted #{shipping.trk_shpg}
+            .text-center
+                img.rounded.mx-auto.d-block(src="/images/codigo-qr.png" width="350" VSPACE="30" alt="Responsive image")
+                a.btn.btn-secondary.btn-lg.active.mr-5(href='#' role='button' aria-pressed='true') Recolectar 
+                .btn.btn-primary.btn-lg.active(href='#' role='button' aria-pressed='true') Entrega
+            .col-4
+                
+         
+            .col-6
+                
+            
+            
+            .col-8
+                a.btn.btn-danger(type='button' href='/panel/repartidor/guia/reportForm') Reportar inconveniente
+                        
+                   
+

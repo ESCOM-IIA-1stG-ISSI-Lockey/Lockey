@@ -350,5 +350,8 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 	.sizemap{
 		height: 75vh;
 	}
+.mr-5 {
+		margin-right: ($spacer * 2.5) !important;
+	  }
 
 }
