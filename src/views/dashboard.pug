@@ -75,7 +75,7 @@ block content
 							.col-4.p-0
 								img(style='max-height: 120px;' src='https://img.freepik.com/vector-premium/icono-vector-arte-linea-camion-entrega-envio-rapido-aplicaciones-sitios-web-transporte_652240-16.jpg')
 							.col-8.p-0
-								each num, key in  {1 : 'En espera de entrega para recolección', 2 : 'En espera de recolección', 3 : 'En tránsito', 4 : 'En espera de recepción del destinatario', 5 : 'Completado', 6 : 'Almacén', 7 : 'Cancelado'}
+								each num, key in  {1 : 'En espera de recolección', 2 : 'En espera de transportista', 3 : 'En tránsito', 4 : 'En espera de recepción', 5 : 'Completado', 6 : 'Almacén', 7 : 'Cancelado'}
 									if key == val.stat_shpg
 										p.card-text.text-center.m-0.text-status= num
 								h6.card-title.card-text.text-center.text-secondary= val.trk_shpg
