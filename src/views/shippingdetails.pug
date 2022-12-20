@@ -40,7 +40,7 @@ block content
         -let n = shipping.stat_shpg
         .process
             ul.StepProgress
-                each num, key in  {1 : 'En espera de entrega para recolección', 2 : 'En espera de recolección', 3 : 'En tránsito', 4 : 'En espera de recepción del destinatario', 5 : 'Completado', 6 : 'Almacén', 7 : 'Cancelado'}
+                each num, key in  {1 : 'En espera de recolección', 2 : 'En espera de transportista', 3 : 'En tránsito', 4 : 'En espera de recepción', 5 : 'Completado', 6 : 'Almacén', 7 : 'Cancelado'}
                     
                     if n==7
                         .StepProgress-item.current.d-none
