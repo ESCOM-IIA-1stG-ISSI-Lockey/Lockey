@@ -125,6 +125,22 @@ router.route('/remitente')
 		});
 	});
 
+	router.route('/addSender')
+	.get(Auth.onlyClients,
+		async (req, res, next) => {
+			//-
+			//-let choose = req.params.choose=='origen'?'origin':'destination'
+			res.render('createShipping/addSender', {
+				title: 'sendiit - panel',
+				path: req.path,
+				user: req.session.user,
+				choose: choose,
+				addresses: lockers
+			});
+		});
+
+
+
 //  Agregar metodo de pago
 router.route('/payment')
 .get(Auth.onlyClients,
@@ -133,5 +149,14 @@ router.route('/payment')
 	
 		res.render('createShipping/choose/payment', { title: 'sendiit - panel', path: req.path, user: req.session.user, metodosDePagos: metodosDePagos });
 	});
+
+	router.route('/addSender')
+	.get(Auth.onlyClients,
+		async (req, res, next) => {
+			let metodosDePagos = await db.getWalletsByUserId(req.session.user.id);
+		
+			res.render('crear-envio/remitente/addSender', { title: 'sendiit - panel', path: req.path, user: req.session.user, metodosDePagos: metodosDePagos });
+		});
+
 
 module.exports = router;
