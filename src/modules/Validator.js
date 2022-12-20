@@ -2,12 +2,11 @@ const { check, validationResult } = require('express-validator');
 
 const validateResult = (req, res, next) => {
 	try {
-		console.log('validateResult');
 		validationResult(req).throw();
 		next();
 	}
 	catch (err) {
-		console.log('validateResult error');
+		console.log(err.array());
 		res.status(401).json({ 
 			response: 'ERROR',
 			errors: err.array()
@@ -66,7 +65,7 @@ const v = {
 		.matches(/\d/).withMessage(`${name} debe tener al menos un número`)
 		.matches(/[a-z]/).withMessage(`${name} debe tener al menos una letra minuscula`)
 		.matches(/[A-Z]/).withMessage(`${name} debe tener al menos una letra mayuscula`)
-		.matches(/[!@#$%^&*(),.?":{}|<>]/).withMessage(`${name} debe tener al menos un caracter especial`)
+		.matches(/[^\d]_/).withMessage(`${name} debe tener al menos un caracter especial`)
 	},
 	// Password confirm
 	_passwordConfirm: function (param, name) { return this._password(param, name)
