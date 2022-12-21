@@ -1,88 +1,44 @@
 extends /layout
 
 block content
-    form(action='/remitente' method='Post')
-        //- .container.row.col-fluid-12.mt-3.mx-auto
-        //-     .col-lg-6.col-md-6.mt-3
-        //-         h1.fw-bold Lugar de origen
-        //-         p.m-0 Selecciona o elige un lugar de origen
-                
-        //-         if typeof(datosOrigin.nm_lkr)=='undefined'
-        //-             input#origen.btn-check(type='radio' name='options2' autocomplete='off')
-
-        //-             label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center(for='origen')
-        //-                 i.h1.bi.bi-building-fill
-        //-                 p Sin lugar seleccionado
-        //-         else
-        //-             input#origen.btn-check(type='radio' name='options2' autocomplete='off')
-
-        //-             label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center.bg-primary(for='origen')
-        //-                 p.fw-bold #{datosOrigin.nm_lkr} 
-        //-                 p #{datosOrigin.dir_lkr} 
-                    
-        .container-fluid
-            h1.fw-bold.mt-5 Datos del remitente
-            .d-grid.row.col-xl-
-                button.collapsed(type='button' style='background-color: #F9D950;' onclick="location.href = '/panel/envio/crearEnvio/chooseSender'")
-                    .col-12.rounded-4.d-flex.fs-3.justify-content-start
-                        .row.align-items-center.col-4
-                            svg.bi.bi-plus-circle(xmlns='http://www.w3.org/2000/svg' width='33' height='33' fill='currentColor' viewbox='0 0 16 16')
-                                path(d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z')
-                                path(d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z')
-                        p.fw-bold.pt-3(color='black') Agregar Destinatario
-            p.fw-bold-pt-3(color='black')
-            button.btn.btn-primary(type='button' data-bs-toggle='modal' data-bs-target='#exampleModal' style='background-color: #212E46;')
-                    .modal-dialog.modal-dialog-centered.modal-dialog-scrollable.fw-bold.px-4(style='color: #ffffff;') Contactos
-            .col-fluid.mt-1.mx-1
-                #exampleModal.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
-                    .modal-dialog.modal-dialog-scrollable
-                        .modal-content
-                            .modal-header
-                                h2#exampleModalLabel.modal-title.fw-bold.mt-5 Contactos
-                                button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
-                            .modal-body
-                                p=!{contacts}
-                                form(action='/panel/crear-envio/remitente' method='Post')
-                                    each contact in contacts
-                                        a.text-decoration-none(href='/panel/envio/crearEnvio/'+contact.id_cont style="color: black" method='Post')
-                                            h6.col-12.bg-secondary.p-2.rounded-4.fw-bold(style='--bs-bg-opacity: 0.3')= contact.nm_cont
-                                                p.my-0.px-4.fw-normal=contact.em_cont
-                                                p.my-0.px-4.fw-normal=contact.tel_cont
+    form(action='/crear-envio' method='POST')
+        .container
+            if choose=='sender'
+                h1.fw-bold Remiente
+                p.mb-3 Seleccione un remitente
+            else
+                h1.fw-bold Destinatario
+                p.mb-3 Seleccione un Destinatario
+            .row(data-masonry="{'percentPosition': true }" style="position: relative;" )
+                //- .col-md-5.col-lg-5.m-0.p-0.slide_ver
+                each contact in contacts
+                    .col-sm-6.col-lg-4.mb-4
+                        .card.border-0
+                            input.btn-check(id=contact.id_cont type='radio' value=contact.id_cont  name=choose  autocomplete='off')
+                            label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center.ms-3.me-3.m-0(for=contact.id_cont)
+                                p.fw-bold=contact.nm_cont
+                                small=contact.em_cont   
+                                small=contact.tel_cont
+                        
+            .row.mt-3.float-right.ms-3
+                .form-check
+                    input#exampleCheck1.form-check-input(type='checkbox')
+                    label.form-check-label(for='exampleCheck1') Recordar contacto
             .row
-                .col-6
-                    a.text-decoration-none(href='/panel')
+                .col-4
+                    a.text-decoration-none(href='/crear-envio')
                         .row.d-flex.align-items-center.justify-content-center.btn.btn-warning.p-3.ms-1.me-1.shadow.rounded-pill.m-5.mt-4
-                            h5.fw-bold.text-white.m-0.p-0 Cancelar
-                .col-6
-                    button.row.w-100.d-flex.align-items-center.justify-content-center.btn.btn-secondary.p-3.ms-1.me-1.shadow.rounded-pill.m-5.mt-4(type='submit')
-                        h5.fw-bold.text-white.m-0.p-0 Continuar
+                            h5.fw-bold.text-white.m-0.p-0 ATRÁS
+                .col-4
+                    button.row.w-100.d-flex.align-items-center.justify-content-center.btn.btn-secondary.p-3.ms-1.me-1.shadow.rounded-pill.m-5.mt-4(type='button' data-bs-toggle='modal' data-bs-target='#contactModal')
+                        if choose=='sender'
+                            h5.fw-bold.text-white.m-0.p-0  AGREGAR REMITENTE
+                        else
+                            h5.fw-bold.text-white.m-0.p-0  AGREGAR DESTINATARIO                    
+
+                .col-4
+                    button.row.w-100.d-flex.align-items-center.justify-content-center.btn.btn-primary.p-3.ms-1.me-1.shadow.rounded-pill.m-5.mt-4(type='submit')
+                        h5.fw-bold.text-white.m-0.p-0 CONTINUAR 
+    include /modal/contact
 block scripts
     script(src='/javascripts/validation.js')
-            //- .row.col-fluid-12.mt-3
-            //-     h4 Recientemente
-            //-     .col-12.bg-secondary.p-2.rounded-4(style='--bs-bg-opacity: 0.3')
-            //-         p.fw-bold.my-0.px-4 Juanito Juarez
-            //-         p.px-2.my-0.px-4 JuanitoJuarez@gmail.com
-            //-     .col-12.bg-secondary.p-2.rounded-4.mt-2(style='--bs-bg-opacity: 0.3')
-            //-         p.fw-bold.my-0.px-4 Juanito Juarez
-            //-         p.px-2.my-0.px-4 JuanitoJuarez@gmail.com
-            //-     .col-12.rounded.px-3.mb-3
-            //-         p(align='right')
-            //-         button.btn.btn-primary(type='button' data-bs-toggle='modal' data-bs-target='#exampleModal' style='background-color: #212E46;')
-            //-             .modal-dialog.modal-dialog-centered.modal-dialog-scrollable.fw-bold.my-0.px-4(style='color: #ffffff;') Ver todos
-            //-             // Modal
-            //-         #exampleModal.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
-            //-             .modal-dialog.modal-dialog-scrollable
-            //-                 .modal-content
-            //-                     .modal-header
-            //-                         h1#exampleModalLabel.modal-title.fs-5 Modal title
-            //-                         button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
-            //-                     .modal-body
-            //-                         | ...
-            //-                     .modal-footer
-            //-                         button.btn.btn-secondary(type='button' data-bs-dismiss='modal') Close
-            //-                         button.btn.btn-primary(type='button') Save changes
-            //-             .d-grid.gap-4
-            //-         .row.col-fluid.mt-1.mx-1
-            //-         button.btn.btn-primary.btn-lg.rounded-5.mt-3(type='submit' style='background-color: #F9D950;' data-bs-toggle='modal')
-            //-             .fw-bold(style='color:#212E46') Continuar

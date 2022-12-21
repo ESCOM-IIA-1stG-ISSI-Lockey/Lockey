@@ -194,6 +194,18 @@ const db = {
 		});
 	},
 
+	getContactById: (id_cont) => {
+		return new Promise((resolve, reject) => {
+			if (!isConnected)
+				throw errorDBConnection;
+			con.query('SELECT * FROM Contact  WHERE id_cont= ? LIMIT 1', [id_cont], (err, results) => {
+				if (err) reject(err);
+				else resolve(results);
+			});
+		});
+	},
+
+
 	getContact:(id_usr,email,tel) =>{
 		return new Promise((resolve, reject) => {
 			if (!isConnected)
