@@ -8,7 +8,7 @@ block content
 
             .bg-primary.d-flex.p-2.pb-4.rounded.justify-content-center(style="height: 70px;")
                 h1.title.text-center.fw-bold.m-0.pb-4.pt-2=traking
-
+            
             div.detalles
                 each detail, index in shippingDetails
                     .card(style='width: 24rem;')
@@ -18,7 +18,7 @@ block content
                                     img(style='max-height: 100px;',src='/images/package-m.svg')
                                 .col-8.p-0
                                     p Número de guía 
-                                        small.text-muted #{detail.trk_shpg}              
+                                        a(href="/panel/repartidor/guia/" + detail.trk_shpg) #{detail.trk_shpg}            
 
                                     p Origen:
                                         small.text-muted #{detail.nm_lkrorg}

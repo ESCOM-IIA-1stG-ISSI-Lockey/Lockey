@@ -375,7 +375,6 @@ const db = {
 		});
 	},
 
-
 	getShippingdetailByUserId: (userId, lockerDestino) => {
 		return new Promise((resolve, reject) => {
 			if (!isConnected)
@@ -386,6 +385,8 @@ const db = {
 			});
 		});
 	},
+
+
 
 };
 

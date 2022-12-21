@@ -28,17 +28,9 @@ block content
                 .col-4
                     a.text-decoration-none(href='/crear-envio')
                         .row.d-flex.align-items-center.justify-content-center.btn.btn-warning.p-3.ms-1.me-1.shadow.rounded-pill.m-5.mt-4
-                            h5.fw-bold.text-white.m-0.p-0 ATRÁS
-                .col-4
-                    button.row.w-100.d-flex.align-items-center.justify-content-center.btn.btn-secondary.p-3.ms-1.me-1.shadow.rounded-pill.m-5.mt-4(type='button' data-bs-toggle='modal' data-bs-target='#contactModal')
-                        if choose=='sender'
-                            h5.fw-bold.text-white.m-0.p-0  AGREGAR REMITENTE
-                        else
-                            h5.fw-bold.text-white.m-0.p-0  AGREGAR DESTINATARIO                    
-
-                .col-4
-                    button.row.w-100.d-flex.align-items-center.justify-content-center.btn.btn-primary.p-3.ms-1.me-1.shadow.rounded-pill.m-5.mt-4(type='submit')
-                        h5.fw-bold.text-white.m-0.p-0 CONTINUAR 
-    include /modal/contact
+                            h5.fw-bold.text-white.m-0.p-0 Cancelar
+                .col-6
+                    button.row.w-100.d-flex.align-items-center.justify-content-center.btn.btn-secondary.p-3.ms-1.me-1.shadow.rounded-pill.m-5.mt-4(type='submit')
+                        h5.fw-bold.text-white.m-0.p-0 Continuar
 block scripts
     script(src='/javascripts/validation.js')

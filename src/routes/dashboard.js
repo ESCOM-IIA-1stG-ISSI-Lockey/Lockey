@@ -29,22 +29,6 @@ router.route('/')
 
 	});
 
-router.route('/envio');	//envios historicos (esto de momento no)
-
-router.route('/envio/:tracking([0-9]{18})')
-.get(Auth.onlyClients, Validator.trackingNumber,
-	async (req, res, next) => {
-		console.log(req.params)
-		let traking = req.params.tracking,
-			shipping = await db.getshippingdetails(traking)
-
-		res.render('shippingdetails', {
-			title: 'sendiit - panel',
-			path: req.path,
-			user: req.session.user,
-			shipping: shipping[0]
-		});
-	});
 
 router.route('/repartidor/lockersnm/:lockerid([a-z ^A-Z 0-9&,%.]{1,})')
 .get(Auth.onlyDeliverers,
@@ -64,6 +48,70 @@ router.route('/repartidor/lockersnm/:lockerid([a-z ^A-Z 0-9&,%.]{1,})')
 
 
 });
+
+router.route('/repartidor/guia/:tracking([0-9]{18})')
+.get(Auth.onlyDeliverers,
+	async(req,res,next) =>{
+	// res.render("shippingdetails") 
+	if (req.session.user) {
+		let traking=req.path.match(/\d{18}/)[0] 
+
+		db.getshippingdetails(traking).then((results)=>{  
+			debug('results', results);
+			if (results.length) {
+				res.render('tracking_guide', { title: 'sendiit - panel', path: req.path, traking: traking, user: req.session.user, route:results});
+			}
+			else {
+				res.status(401).json({response:'ERROR', message:'Envio no encontrado'});
+			}
+		});
+	
+	} else {
+		res.redirect('/');
+	}
+});
+
+router.route('/repartidor/guia/reportForm')
+.get(Auth.onlyDeliverers,
+	async(req,res,next) =>{
+		if (req.session.user) {
+			res.render('reportForm',{ title: 'sendiit - panel', path: req.path, user: req.session.user});
+		} else {
+			res.redirect('/');
+		}
+});
+
+
+router.route('/repartidor/guia/sendForm')
+.get(Auth.onlyDeliverers,
+	async(req,res,next) =>{
+		if (req.session.user) {
+			res.render('sendForm',{ title: 'sendiit - panel', path: req.path, user: req.session.user});
+		} else {
+			res.redirect('/');
+		}
+});
+
+router.route('/repartidor/guia/shippingCollected')
+.get(Auth.onlyDeliverers,
+	async(req,res,next) =>{
+		if (req.session.user) {
+			res.render('shippingCollected',{ title: 'sendiit - panel', path: req.path, user: req.session.user});
+		} else {
+			res.redirect('/');
+		}
+});
+
+router.route('/repartidor/guia/shipmentDelivered')
+.get(Auth.onlyDeliverers,
+	async(req,res,next) =>{
+		if (req.session.user) {
+			res.render('shipmentDelivered',{ title: 'sendiit - panel', path: req.path, user: req.session.user});
+		} else {
+			res.redirect('/');
+		}
+});
+
 
 
 

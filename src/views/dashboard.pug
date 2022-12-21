@@ -1,10 +1,7 @@
 extends layout
 
 block content
-
-
 	.container
-	
 		if user.type == 'ADMIN'
 			p.nameUser Admin Dashboard
 
@@ -59,18 +56,30 @@ block content
 			.bg-primary
 				.pt-3.container.pb-3
 					h1.nameUser Bienvenido #{user.name}
-					
-					.form-group
-						label Rastrear envío
-						input#exampleInputEmail1.form-control(type='text' placeholder='Ingrese número de guía')
-						//- small#emailHelp.form-text.text-muted Podemos poner algo interesante aquí
+					p.mt-1.mb-1 Rastrear envío
+					form#num_g.form-group.mt-0(action='/envio' method='POST' novalidate)
+						.input-group
+							.form-floating
+								input#num_guia.form-control(type='text' name='tracking' onkeyup='search_shipping(event)' placeholder='Ingrese número de guía')
+								label(for='num_guia') Número de guía
+								.invalid-tooltip
+							button.input-group-text.btn.btn-secondary(type="submit" onclick='search_shipping(event)') Buscar
+						
+						
+						//- .form-floating
+						//- 	.input-group.mb-3
+						//- 		input#num_guia.form-control(type='text' name='tracking' placeholder='Ingrese número de guía' onkeyup='search_shipping(event)')
+						//- 		//- label.text-dark(for='num_guia') Rastrear envío
+						//- 		div.input-group-append
+						//- 			button.btn.btn-secondary(type="submit" onclick='search_shipping(event)' ) Buscar
+						//- 		.invalid-tooltip
 			
 
 			h4.pt-3.container Envíos en curso
 			.wrapper.container 
 				each val in pedingShipings
 				
-					a.text-decoration-none(href='/panel/envio/'+val.trk_shpg)
+					a.text-decoration-none(href='/envio/'+val.trk_shpg)
 						.item.row.d-flex.align-items-center.justify-content-center(style='min-width: 380px;')
 							.col-4.p-0
 								img(style='max-height: 120px;' src='https://img.freepik.com/vector-premium/icono-vector-arte-linea-camion-entrega-envio-rapido-aplicaciones-sitios-web-transporte_652240-16.jpg')
@@ -121,4 +130,3 @@ block content
 block scripts
 	script const user = !{JSON.stringify(user)}
 	script(src='/javascripts/validation.js')
-

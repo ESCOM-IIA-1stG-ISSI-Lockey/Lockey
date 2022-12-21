@@ -1,0 +1,32 @@
+form(action='/crear-envio/wallet' method='POST' novalidate)
+    fieldset 
+        #cardModal.modal.fade(tabindex='-1' aria-labelledby='cardModalLabel' aria-hidden='true')
+            .modal-dialog.modal-dialog-scrollable
+                .modal-content
+                    .modal-header
+                        h5.container.text-center.fs-4 Agregar Tarjeta
+                        button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                    .modal-body
+                        .form-outline.mb-3
+                            label.form-label.mb-1.px-1.mt-3.fw-bold(for='validationNumber') Número de tarjeta
+                            input#validationNumber.form-control(type='text' name='cardNumber' placeholder='XXXXXXXXXX123456')
+                            .invalid-feedback
+                        .form-outline.mb-3
+                            label.form-label.mb-1.px-1.mt-3.fw-bold(for='validationName') Nombre y Apellido
+                            input#validationName.form-control(type='text' name='cardName' placeholder='Juan Daniel')
+                            .invalid-feedback
+                        .form-outline.mb-3
+                            label.form-label.mb-1.px-1.mt-3.fw-bold(for='validationDate') Fecha de vencimiento
+                            input#validationDate.form-control(type='text' name='cardDate' placeholder='MM/YYYY')
+                            .invalid-feedback
+                        .form-outline.mb-3
+                            label.form-label.mb-1.px-1.mt-3.fw-bold(for='validationCVV') CVV
+                            input#validationCVV.form-control(type='text' name='cardCvv' placeholder='CVV')
+                            .invalid-feedback
+                        .form-outline.mb-3
+                            label.form-label.mb-1.px-1.mt-3.fw-bold(for='validationName') Alias de la tarjeta
+                            input#validationName.form-control(type='text' name='nickName' placeholder='Mauricio Velazquez')
+                            .invalid-feedback
+                    .modal-footer
+                        button.btn.btn-danger(type='reset' data-bs-dismiss='modal') Cancelar
+                        button.btn.btn-primary(type='submit') Continuar

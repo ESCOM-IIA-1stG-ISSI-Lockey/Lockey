@@ -129,6 +129,10 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 	width: 0;
 }
 
+.text_normal{
+	font-weight: normal;
+}
+
 .wrapper{
 	max-height: 240px;
 	// border: 1px solid #dddddd;
@@ -350,5 +354,10 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 	.sizemap{
 		height: 75vh;
 	}
-
+.mr-5 {
+		margin-right: ($spacer * 2.5) !important;
+	  }
+.mp-5{
+	margin-top: ($spacer * 2.5) !important;
+}
 }

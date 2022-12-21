@@ -1,8 +1,8 @@
-header.container.d-flex.flex-wrap.align-items-center.justify-content-center.justify-content-between.p-2.mb-0
+header.container.d-flex.flex-wrap.align-items-center.justify-content-between.p-2.mb-0
 	include logo
-	.col-md-3.text-end
+	.text-end
 		if user
-			.flex-shrink-0.dropdown
+			.dropdown.text-end.dropstart 
 				a.d-block.link-dark.text-decoration-none.dropdown-toggle(href='#' data-bs-toggle='dropdown' aria-expanded='false')
 					img.rounded-circle.m-0.p-0(src='https://dreamvilla.life/wp-content/uploads/2017/07/dummy-profile-pic.png' alt='usuario' width='32' height='32')
 				ul.dropdown-menu.text-small.shadow(style='')
@@ -20,6 +20,10 @@ header.container.d-flex.flex-wrap.align-items-center.justify-content-center.just
 						hr.dropdown-divider
 					li
 						a.dropdown-item(href='/salir') Cerrar sesión
-		else if path!='/'
-			button.btn.btn-outline-primary.me-2(type='button') Login
-			button.btn.btn-primary(type='button') Sign-up
+		else if path != '/'
+
+			button.btn.btn-secondary.me-2(type='button' data-bs-toggle='modal' data-bs-target='#signupModal') Crear Cuenta
+			button.btn.btn-primary(type='button' data-bs-toggle='modal' data-bs-target='#signinModal') Ingresar
+			include /modal/signin
+			include /modal/signup
+			script(src='/javascripts/validation.js')
