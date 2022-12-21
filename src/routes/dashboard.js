@@ -4,8 +4,8 @@ const router = express.Router();
 const Auth = require('../modules/Auth');
 const db = require('../modules/MySQLConnection');
 const Validator = require('../modules/Validator');
-const optionsl = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', dayPeriod: 'short', hour: '2-digit', minute: '2-digit', hour12: true};
-const optionss = { dateStyle: 'short', timeStyle: 'short'};
+const optionsl = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', dayPeriod: 'short', hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'America/Mexico_City'};
+const optionss = { dateStyle: 'short', timeStyle: 'short',timeZone: 'America/Mexico_City'};
 const formaterlong = new Intl.DateTimeFormat("es-MX",optionsl);
 const formatershort = new Intl.DateTimeFormat("es-MX",optionss);
 
