@@ -7,6 +7,10 @@ const Auth = require('../modules/Auth');
 const Validator = require('../modules/Validator');
 const mailer = require('../modules/SendGmailV');
 const { verifycode } = require('../modules/MySQLConnection');
+const optionsl = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', dayPeriod: 'short', hour: '2-digit', minute: '2-digit', hour12: true};
+const optionss = { dateStyle: 'short', timeStyle: 'short'};
+const formaterlong = new Intl.DateTimeFormat("es-MX",optionsl);
+const formatershort = new Intl.DateTimeFormat("es-MX",optionss);
 
 router.route('/')
 .get(Auth.onlyGuests, (req, res, next) => {
@@ -149,7 +153,12 @@ router.route('/envio/:tracking([0-9]{18})')
 		console.log(req.params)
 		let traking = req.params.tracking,
 			shipping = await db.getshippingdetails(traking)
-
+			if(shipping.length){
+				shipping[0].dtu_shpg=formaterlong.format(shipping[0].dtu_shpg)
+				shipping[0].dts_shpg=formaterlong.format(shipping[0].dts_shpg)
+				shipping[0].dte_shpg=formaterlong.format(shipping[0].dte_shpg)
+			}
+					
 		res.render('shippingdetails', {
 			title: 'sendiit - panel',
 			path: req.path,
