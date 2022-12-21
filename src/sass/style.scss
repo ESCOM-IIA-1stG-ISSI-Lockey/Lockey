@@ -357,5 +357,7 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 .mr-5 {
 		margin-right: ($spacer * 2.5) !important;
 	  }
-
+.mp-5{
+	margin-top: ($spacer * 2.5) !important;
+}
 }
