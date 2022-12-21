@@ -1,17 +1,21 @@
 	const nodemailer = require("nodemailer");
 
 
-	const val = {
-		// Roles
-	/**
-	 * 
-	 * @param {string} email 
+const val = {
+	sendEmailVerification: async (res, email, token) => { return new Promise((resolve, reject) => {
+		res.render('modal/verify_email', { token:token }, function(err, html) {
+			if (err)
+				reject('Problemas al renderizar el correo');
+			else
+				val.sendEmail(email, html, 'Verificación de Cuenta')
+				.then((info) => resolve(info) )
+				.catch((err) => reject(err) );
+		});
+	})},
 
-	 */
+
 	// async..await is not allowed in global scope, must use a wrapper
-	mailVerification: async(email, html,subject) => { {
-		// TODO Borrar PLOX
-		
+	sendEmail: (email, html,subject) => { return new Promise(async (resolve, reject) => {
 
 	  // Generate test SMTP service account from ethereal.email
 	  // Only needed if you don't have a real mail account for testing
@@ -37,14 +41,8 @@
 		html:html});
 	
 	  console.log("Message sent: %S", info.messageId);
-	  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-	
-	  // Preview only available when sending through an Ethereal account
-	  //console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-	  // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
-	}
-
-}
+	  resolve(info.messageId);
+	})},
 };
 
 	module.exports = val;

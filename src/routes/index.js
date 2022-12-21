@@ -63,30 +63,20 @@ router.route('/registro')
 			else throw new Error('No se pudo crear el usuario');
 		})
 		.then((results) => {
-			if (results.length > 0) {
-        		subject="Verificación de cuenta"
-				res.render('modal/verify_email', { token: token
-				}, function(err, html) {
-					if (err)
-						throw new Error('Problemas al renderizar el correo');
-					else {
-						// "<b>Tu Codigo de verificacion es :" + token +" </b>"
-						mailer.mailVerification(email,html,subject).then(() => {
-							req.session.tmpemail = email;
-							res.json({
-								response: 'OK',
-								message: 'Usuario creado correctamente',
-								modal: {
-									new: '#mailverificationModal',
-									old: '#signupModal'
-								},
-							});
-						})
-					}
-				});		
-
-      		}
+			if (results.length) 
+				return mailer.sendEmailVerification(res, email, token)
 			else throw new Error('Usuario no encontrado tras registro');		
+		})
+		.then(() => {
+			req.session.tmpemail = email;
+			res.json({
+				response: 'OK',
+				message: 'Usuario creado correctamente',
+				modal: {
+					new: '#mailverificationModal',
+					old: '#signupModal'
+				},
+			});
 		})
 		.catch((err) => {
 			debug(err);
@@ -123,7 +113,7 @@ router.route('/verificador')
 			else
 				throw new Error('Usuario no encontrado');
 		})
-		.catch((err) => {
+		.catch((err) => {fh
 			debug(err);
 			res.status(400).json({ response: 'ERROR', message: err.message||err });
 		});

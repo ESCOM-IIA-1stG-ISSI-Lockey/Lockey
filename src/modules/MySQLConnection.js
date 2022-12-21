@@ -182,6 +182,17 @@ const db = {
 			});
 		});
 	},
+		
+	UpdateShippings: (estado,id_envio) => {
+		return new Promise((resolve, reject) => {
+			if (!isConnected)
+				throw errorDBConnection;
+			con.query("UPDATE Shipping SET stat_shpg = stat_shpg + 1 where trk_shpg = ?", [estado,id_envio], (err, results) => {
+				if (err) reject(err);
+				else resolve(results);
+			});
+		});
+	},
 
 	getContactById: (id_cont) => {
 		return new Promise((resolve, reject) => {

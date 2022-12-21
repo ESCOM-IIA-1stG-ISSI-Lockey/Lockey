@@ -1,8 +1,41 @@
 extends layout
 
+
 block content
+    form(action='/panel/actualizar' method='POST' novalidate)
+        input(type="hidden" value=shipping.stat_shpg name='name' id='id')
+        input(type="hidden" value=shipping.trk_shpg name='tkr' id='tkr')
 
-    button.btn.btn-primary.btn-lg(type='button') Estado actual
+        button.btn.btn-primary.btn-lg(onclick="stateAct()") Estado actual
+        button.btn.btn-primary.btn-lg(onclick='senemail()') Siguiente estado
 
-    button.btn.btn-primary.btn-lg(type='button') Siguiente estado
+block scripts
+    script const user = !{JSON.stringify(user)}
+    script(src='/javascripts/validation.js')
+    script.
+        function stateAct() {
+            var num=parseInt(document.getElementById("id").value); 
+            num = num-1
+            // alert(num); 
+            const array = [
+                { id: 1, state: "En espera de recolección"},
+                { id: 2, state: "En espera de transportista"},
+                { id: 3, state: "En tránsito"},
+                { id: 4, state: "En espera de recepción"},
+                { id: 5, state: "Completado"},
+                { id: 6, state: "Almacén"},
+                { id: 7, state: "Cancelado"}
+            ];
+            alert(array[num].state);
+            
+            document.querySelector("form").submit()
+        }
 
+        function senemail() {
+            var num=parseInt(document.getElementById("id").value); 
+            alert(num);
+            //return mailer.sendEmailVerification(res, email, shipping.stat_shpg)
+        }
+
+        const mailer = require('../modules/SendGmailV');
+    //- return 
