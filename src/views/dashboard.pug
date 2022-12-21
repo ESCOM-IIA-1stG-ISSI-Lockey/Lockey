@@ -56,17 +56,15 @@ block content
 			.bg-primary
 				.pt-3.container.pb-3
 					h1.nameUser Bienvenido #{user.name}
-					
-					form#num_g.form-group(action='/envio' method='POST' novalidate)
-						.form-floating.mt-3
-							input#num_guia.form-control(type='text' name='tracking' placeholder='Ingrese número de guía' onkeyup='search_shipping(event)')
-							label(for='num_guia') Rastrear envío
-							.invalid-tooltip
-
-						//- label(for="num_guia") Rastrear envío
-						//- input#num_guia.form-control(type='number' name='tracking_id' placeholder='Ingrese número de guía' onkeyup='myFunction(event)')
-						//- .feedback-invalidate
-						//- small#emailHelp.form-text.text-muted Podemos poner algo interesante aquí
+					p.mt-1.mb-1 Rastrear envío
+					form#num_g.form-group.mt-0(action='/envio' method='POST' novalidate)
+						.form-floating
+							.input-group.mb-3
+								input#num_guia.form-control(type='text' name='tracking' placeholder='Ingrese número de guía' onkeyup='search_shipping(event)')
+								//- label.text-dark(for='num_guia') Rastrear envío
+								div.input-group-append
+									button.btn.btn-secondary(type="submit" onclick='search_shipping(event)' ) Buscar
+								.invalid-tooltip
 			
 
 			h4.pt-3.container Envíos en curso
