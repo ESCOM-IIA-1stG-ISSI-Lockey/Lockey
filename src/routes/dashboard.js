@@ -4,6 +4,10 @@ const router = express.Router();
 const Auth = require('../modules/Auth');
 const db = require('../modules/MySQLConnection');
 const Validator = require('../modules/Validator');
+const optionsl = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', dayPeriod: 'short', hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'America/Mexico_City'};
+const optionss = { dateStyle: 'short', timeStyle: 'short',timeZone: 'America/Mexico_City'};
+const formaterlong = new Intl.DateTimeFormat("es-MX",optionsl);
+const formatershort = new Intl.DateTimeFormat("es-MX",optionss);
 
 router.route('/')
 .get(Auth.onlyUsers, 
@@ -17,6 +21,12 @@ router.route('/')
 				break;
 			case 'CLIENT':
 				params.pedingShipings = await db.getShippings(req.session.user.id)
+				params.pedingShipings.map((shipping)=>{
+					shipping.dtu_shpg=formatershort.format(shipping.dtu_shpg)
+					shipping.dts_shpg=formatershort.format(shipping.dts_shpg)
+					shipping.dte_shpg=formatershort.format(shipping.dte_shpg)
+					
+				})
 				break;
 		}
 
@@ -39,7 +49,7 @@ router.route('/repartidor/lockersnm/:lockerid([a-z ^A-Z 0-9&,%.]{1,})')
 		db.getShippingdetailByUserId(req.session.user.id, traking).then((results) => {
 			debug('results', results);
 			if (results.length) {
-				res.render('lockers', { title: 'sendiit - panel', path: req.path, traking: traking, shippingDetails: results });
+				res.render('lockers', { title: 'sendiit - panel', path: req.path, user: req.session.user ,traking: traking, shippingDetails: results });
 			}
 			else {
 				res.status(401).json({ response: 'ERROR', message: 'Rutas completadas no encontradas' });
@@ -49,26 +59,23 @@ router.route('/repartidor/lockersnm/:lockerid([a-z ^A-Z 0-9&,%.]{1,})')
 
 });
 
-router.route('/repartidor/guia/:tracking([0-9]{18})')
+router.route('/repartidor/guia/:guia([0-9]{18})')
 .get(Auth.onlyDeliverers,
-	async(req,res,next) =>{
-	// res.render("shippingdetails") 
-	if (req.session.user) {
-		let traking=req.path.match(/\d{18}/)[0] 
+	async(req,res,next) => {
+		let traking=req.params.guia
 
-		db.getshippingdetails(traking).then((results)=>{  
+		console.log(traking)
+		db.getShippinguide(req.session.user.id , traking).then((results)=>{  
 			debug('results', results);
 			if (results.length) {
-				res.render('tracking_guide', { title: 'sendiit - panel', path: req.path, traking: traking, user: req.session.user, route:results});
+				res.render('tracking_guide', { title: 'sendiit - panel',
+				path: req.path, traking:traking, user: req.session.user, shippingDetails: results[0]});
 			}
 			else {
 				res.status(401).json({response:'ERROR', message:'Envio no encontrado'});
 			}
 		});
-	
-	} else {
-		res.redirect('/');
-	}
+
 });
 
 router.route('/repartidor/guia/reportForm')
@@ -81,6 +88,15 @@ router.route('/repartidor/guia/reportForm')
 		}
 });
 
+router.route('/pc')
+.get(Auth.onlyUsers,
+	async(req,res,next) =>{
+		if (req.session.user) {
+			res.render('PRUEBAS_CORREOS',{ title: 'sendiit - panel', path: req.path, user: req.session.user});
+		} else {
+			res.redirect('/');
+		}
+});
 
 router.route('/repartidor/guia/sendForm')
 .get(Auth.onlyDeliverers,
