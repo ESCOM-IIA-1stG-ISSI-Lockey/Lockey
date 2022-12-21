@@ -1,0 +1,38 @@
+extends layout
+
+block content
+    .container.py-5
+        .row.d-flex.justify-content-center
+            .col-md-9.col-lg-7.col-xl-5
+                .card
+                    .rounded-bottom
+                        .card-body
+                            h1.container.text-center.fs-4 Reporte de inconvenientes
+                                .form-outline.mb-3
+                                    label.form-label.mb-1.px-1.mt-3.fw-bold(for='validationName') Numero de casillero/Locker
+                                    input#validationName.form-control(type='text' name='numeroCasillero' placeholder='1' required='')
+                                    .invalid-feedback
+                                        | Es necesario ingresar el numero de casillero
+                                
+                                .form-outline.mb-3
+                                    label.form-label.mb-1.px-1.mt-3.fw-bold(for='validationDate') Ubicación
+                                    input#validationDate.form-control(type='text' name='Ubicacion' placeholder='Av. Miguel Othon...' required='')
+                                    .invalid-feedback
+                                        | Es necesario ingresar una ubicación valida
+                    
+                                .form-outline.mb-3
+                                    label.form-label.mb-1.px-1.mt-3.fw-bold(for='validationCVV') Descripción
+                                    input#validationCVV.form-control(type='text' name='descripcion' placeholder='Ingresar texto' required='')
+                                    .invalid-feedback
+                                        | Es necesario ingresar un codigo valido
+                                .form-outline.mb-3
+                                    label.form-label.mb-1.px-1.mt-3.fw-bold(for='validationName') Numero de contacto
+                                    input#validationName.form-control(type='text' name='telContacto' placeholder='Teléfono' required='')
+                                    .invalid-feedback
+                                        | Es necesario ingresar un alias valido
+
+                                .d-grid.gap-4
+                                    .row.col-fluid.mt-1.mx-1
+                                        a.btn.btn-secondary.btn-lg.rounded-5.mt-3(type='button' href='/panel/repartidor/guia/sendForm') Reportar inconveniente
+                                             
+                                            // Yo digo que es mejor Enviar reporte 

@@ -18,7 +18,7 @@ block content
                                     img(style='max-height: 100px;',src='/images/package-m.svg')
                                 .col-8.p-0
                                     p Número de guía 
-                                        small.text-muted #{detail.trk_shpg}              
+                                        a(href="/panel/repartidor/guia/" + detail.trk_shpg) #{detail.trk_shpg}            
 
                                     p Origen:
                                         small.text-muted #{detail.nm_lkrorg}
