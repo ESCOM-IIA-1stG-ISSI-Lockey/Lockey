@@ -168,7 +168,7 @@ router.route('/wallet')
 			metodosDePagos: metodosDePagos
 		});
 	});
-
+		
 
 router.route('/:choose(remitente|destinatario)')
 .get(Auth.onlyClients,
