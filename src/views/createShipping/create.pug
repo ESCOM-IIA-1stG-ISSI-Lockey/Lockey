@@ -5,7 +5,7 @@ block content
         .container.row.col-fluid-12.mt-3.mx-auto
             .col-lg-6.col-md-6.mt-3
                 h1.fw-bold Lugar de origen
-                p.m-0 Selecciona o elige un lugar de origen
+                p.m-0 Elige un lugar de origen
                 input#origen.btn-check(type='radio' name='options2' autocomplete='off' disabled=typeof(origin)=='undefined'? '':null)
                 if typeof(origin)=='undefined'
                     label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center(for='origen')
@@ -21,7 +21,7 @@ block content
             
             .col-lg-6.col-md-6.mt-3
                 h1.fw-bold Lugar de destino
-                p.m-0 Selecciona o elige un lugar de destino
+                p.m-0 Elige un lugar de destino
                 input#destino.btn-check(type='radio' name='options3' autocomplete='off' disabled=typeof(destination)=='undefined'? '':null)
                 if typeof(destination)=='undefined'
                     label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center(for='destino')

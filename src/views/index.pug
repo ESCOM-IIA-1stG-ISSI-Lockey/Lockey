@@ -6,23 +6,33 @@ block content
 			h1.display-4.fw-normal Rastree su envío
 			p.lead.fw-normal
 				| Ingresa el número de guía de tu envío y obtén información actualizada de su estado.
-			form#num_g.form-group(action='/envio' method='POST' novalidate)
-				.form-floating.mt-3
-					input#num_guia.form-control(type='text' name='tracking' placeholder='Ingrese número de guía' onkeyup='search_shipping(event)')
-					label.text-dark(for='num_guia') Rastrear envío
-					.invalid-tooltip
-					
+			form#num_g.form-group.text-dark(action='/envio' method='POST' novalidate)
+				.input-group
+					.form-floating
+						input#num_guia.form-control(type='text' name='tracking' onkeyup='search_shipping(event)' placeholder='Ingrese número de guía')
+						label(for='num_guia') Número de Guía
+						.invalid-tooltip
+					button.input-group-text.btn.btn-secondary(type="submit" onclick='search_shipping(event)') Buscar
+				//- .form-floating.mt-3
+				//- 	.input-group.mb-3
+				//- 		input#num_guia.form-control(type='text' name='tracking' placeholder='Ingrese número de guía' onkeyup='search_shipping(event)')
+						//- label.text-dark(for='num_guia') Rastrear envío
+						
+							
 	.d-md-flex.flex-md-equal.w-100.p-0.m-0
-		.me-md-3.py-5.px-3.py-md-5.px-md-5.text-center.overflow-hidden.text-bg-dark
-			.my-4.py-5
-				h2.display-5 Soy nuevo aquí
-				p.lead Crea una cuenta para comenzar monitorizar tus envíos.
-			button.btn.btn-tertiary(type='button' data-bs-toggle='modal' data-bs-target='#signupModal') Crear Cuenta
-		.me-md-3.py-5.px-3.py-md-5.px-md-5.text-center.overflow-hidden.bg-light
-			.my-4.py-5
+		.me-md-3.py-5.px-3.py-md-5.px-md-5.text-center.overflow-hidden.bg-primary
+			.my-5.py-5
+				h2.display-5.text-dark Soy nuevo aquí
+				p.lead.text-dark Crea una cuenta para comenzar monitorizar tus envíos.
+			button.btn.btn-secondary(type='button' data-bs-toggle='modal' data-bs-target='#signupModal') 
+				h5 Crear Cuenta
+		.me-md-3.py-5.px-3.py-md-5.px-md-5.text-center.overflow-hidden.bg-white
+			.my-5.py-5
 				h2.display-5 Ya tengo cuenta
 				p.lead Inicia sesión para acceder a tus envíos.
-			button.btn.btn-secondary(type='button' data-bs-toggle='modal' data-bs-target='#signinModal') Ingresar
+			button.btn.btn-primary(type='button' data-bs-toggle='modal' data-bs-target='#signinModal') 
+				h5 Ingresar
+	
 	include modal/signin
 	include modal/signup
 	include modal/email-verification

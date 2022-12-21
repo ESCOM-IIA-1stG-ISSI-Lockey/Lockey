@@ -34,7 +34,6 @@ router.route('/identificacion')
 						},
 					});
 				}
-
 			}
 			else
 				throw new Error('Correo o contraseña incorrectos');
@@ -92,9 +91,9 @@ router.route('/registro')
 	});
 
 router.route('/test/emailformat')
-.get((req, res, next) => {
-	res.render('modal/verify_email', { token: '123456' });
-});
+	.get((req, res, next) => {
+		res.render('test/emailformat', { token: '123456' });
+	});
 
 router.route('/verificador')
 .post(Auth.onlyGuests, Validator.token,
