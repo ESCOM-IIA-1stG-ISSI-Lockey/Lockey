@@ -1,24 +1,29 @@
-form(action='/verificador' method='POST' novalidate)
+form(action='/crear-envio/remitente' method='POST' novalidate)
 	fieldset 
-	#contactModal.modal.fade(tabindex='-1' aria-labelledby='contactModalLabel' aria-hidden='true') 
-		.modal-dialog.modal-dialog-scrollable
-			.modal-content
-				.modal-header 
-					h5.container.text-center.fs-4 Datos del remitente					
-					button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close') 
-				.modal-body
-					.container-fluid
-						h6.container.text-center.fs-4.my-3 
-						label.form-label.mb-1.px-1.mt-3.fw-bold(for='NombreDestinatario') Nombre del remitente
-						input#NombreDestinatario.form-control.rounded-4(type='text' placeholder='José Octavio...' required name="name")
-						.invalid-feedback                                              
-						label.form-label.mb-1.px-1.mt-0.fw-bold(for='Correo') Correo
-						input#Correo.form-control.rounded-4(type='email' placeholder='name@example.com...' required name="email")
-						.invalid-feedback
-						label.form-label.mb-1.px-1.mt-0.fw-bold(for='telefono') Telefono
-						input#telefono.form-control.rounded-4(type='tel' placeholder='55...' required name="tel")
-						.invalid-feedback
-				
-				.modal-footer
-					//button.btn.btn-danger(type='reset' data-bs-dismiss='modal') Cancelar
-					button.btn.btn-primary(type='submit') Confirmar
+		#contactModal.modal.fade(tabindex='-1' aria-labelledby='contactModalLabel' aria-hidden='true') 
+			.modal-dialog.modal-dialog-scrollable
+				.modal-content
+					.modal-header 
+						if choose=='sender'
+							h5.fw-bold.text-white.m-0.p-0  Datos del remitente
+						else
+							h5.fw-bold.text-white.m-0.p-0  Datos del destinatario				
+						button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close') 
+					.modal-body
+						.container-fluid
+							h6.container.text-center.fs-4.my-3 
+							label.form-label.mb-1.px-1.mt-3.fw-bold(for='NombreDestinatario') Nombre del remitente
+							input#NombreDestinatario.form-control.rounded-4(type='text' placeholder='José Octavio...'  name="name")
+							.invalid-feedback                                              
+							label.form-label.mb-1.px-1.mt-0.fw-bold(for='Correo') Correo
+							input#Correo.form-control.rounded-4(type='email' placeholder='name@example.com...'  name="email")
+							.invalid-feedback
+							label.form-label.mb-1.px-1.mt-0.fw-bold(for='telefono') Telefono
+							input#telefono.form-control.rounded-4(type='tel' placeholder='55...' name="phone")
+							.invalid-feedback
+					
+					.modal-footer
+						//button.btn.btn-danger(type='reset' data-bs-dismiss='modal') Cancelar
+						button.btn.btn-primary(type='submit' ) Confirmar
+
+

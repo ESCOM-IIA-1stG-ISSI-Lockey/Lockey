@@ -131,6 +131,17 @@ router.route('/:choose(remitente|destinatario)')
 			choose: choose,
 			contacts: contacts
 		});
+	})
+.post(Auth.onlyClients, Validator.contact,	
+	async (req, res, next) => {
+		let contacts = await db.getContactsByUserId(req.session.user.id);
+		res.render('createShipping/choose/contact', { 
+			title: 'sendiit - panel', 
+			path: req.path, 
+			user: req.session.user, 
+			choose: choose,
+			conttac: contacts
+		});
 	});
 
 
@@ -146,6 +157,7 @@ router.route('/wallet')
 			metodosDePagos: metodosDePagos
 		});
 	})
+
 .post(Auth.onlyClients, Validator.creditCard,	
 	async (req, res, next) => {
 		let metodosDePagos = await db.getWalletsByUserId(req.session.user.id);
@@ -158,8 +170,30 @@ router.route('/wallet')
 	});
 
 
-
-
+router.route('/:choose(remitente|destinatario)')
+.get(Auth.onlyClients,
+	async (req, res, next) => {
+		let contacts = await db.getContactsByUserId(req.session.user.id);
+		let choose = req.params.choose=='remitente'?'sender':'receiver'
+		console.log('contacts', contacts)
+		res.render('createShipping/choose/contact', {
+			title: 'sendiit - panel',
+			path: req.path,
+			user: req.session.user,
+			choose: choose,
+			contacts: contacts
+		});
+	})
+.post(Auth.onlyClients, Validator.contact,	
+	async (req, res, next) => {
+		let contacts = await db.getContactsByUserId(req.session.user.id);
+		res.render('createShipping/choose/wallet', { 
+			title: 'sendiit - panel', 
+			path: req.path, 
+			user: req.session.user, 
+			conttac: contacts
+		});
+	});
 
 		
 
