@@ -156,7 +156,7 @@ const db = {
 		return new Promise((resolve, reject) => {
 			if (!isConnected)
 				throw errorDBConnection;
-			con.query('SELECT * FROM ShippingDetail  WHERE trk_shpg= ?', [trk_shpg], (err, results) => {
+			con.query('SELECT * FROM ShippingDetail WHERE trk_shpg= ?', [trk_shpg], (err, results) => {
 				if (err) reject(err);
 				else resolve(results);
 			});
@@ -367,13 +367,22 @@ const db = {
 		return new Promise((resolve, reject) => {
 			if (!isConnected)
 				throw errorDBConnection;
-			con.query('SELECT * FROM ShippingDetail WHERE nm_lkrdst = ?', [ lockerDestino], (err, results) => {
+			con.query('SELECT * FROM ShippingDetail WHERE nm_lkrdst = ? ', [ lockerDestino ], (err, results) => {
 				if (err) reject(err);
 				else resolve(results);
 			});
 		});
 	},
-
+	getShippinguide: (userId, guia) => {
+		return new Promise((resolve, reject) => {
+			if (!isConnected)
+				throw errorDBConnection;
+			con.query('SELECT * FROM Shipping WHERE trk_shpg = ? ', [ guia ], (err, results) => {
+				if (err) reject(err);
+				else resolve(results);
+			});
+		});
+	},
 
 
 };

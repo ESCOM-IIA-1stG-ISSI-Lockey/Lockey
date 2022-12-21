@@ -39,7 +39,7 @@ router.route('/repartidor/lockersnm/:lockerid([a-z ^A-Z 0-9&,%.]{1,})')
 		db.getShippingdetailByUserId(req.session.user.id, traking).then((results) => {
 			debug('results', results);
 			if (results.length) {
-				res.render('lockers', { title: 'sendiit - panel', path: req.path, traking: traking, shippingDetails: results });
+				res.render('lockers', { title: 'sendiit - panel', path: req.path, user: req.session.user ,traking: traking, shippingDetails: results });
 			}
 			else {
 				res.status(401).json({ response: 'ERROR', message: 'Rutas completadas no encontradas' });
@@ -49,26 +49,23 @@ router.route('/repartidor/lockersnm/:lockerid([a-z ^A-Z 0-9&,%.]{1,})')
 
 });
 
-router.route('/repartidor/guia/:tracking([0-9]{18})')
+router.route('/repartidor/guia/:guia([0-9]{18})')
 .get(Auth.onlyDeliverers,
-	async(req,res,next) =>{
-	// res.render("shippingdetails") 
-	if (req.session.user) {
-		let traking=req.path.match(/\d{18}/)[0] 
+	async(req,res,next) => {
+		let traking=req.params.guia
 
-		db.getshippingdetails(traking).then((results)=>{  
+		console.log(traking)
+		db.getShippinguide(req.session.user.id , traking).then((results)=>{  
 			debug('results', results);
 			if (results.length) {
-				res.render('tracking_guide', { title: 'sendiit - panel', path: req.path, traking: traking, user: req.session.user, route:results});
+				res.render('tracking_guide', { title: 'sendiit - panel',
+				path: req.path, traking:traking, user: req.session.user, shippingDetails: results[0]});
 			}
 			else {
 				res.status(401).json({response:'ERROR', message:'Envio no encontrado'});
 			}
 		});
-	
-	} else {
-		res.redirect('/');
-	}
+
 });
 
 router.route('/repartidor/guia/reportForm')
