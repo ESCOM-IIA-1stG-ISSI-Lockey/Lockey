@@ -144,11 +144,11 @@ router.route('/:choose(remitente|destinarario)')
 
 
 //  Agregar metodo de pago
-router.route('/payment')
+router.route('/wallet')
 .get(Auth.onlyClients,
 	async (req, res, next) => {
 		let metodosDePagos = await db.getWalletsByUserId(req.session.user.id);
-		res.render('createShipping/choose/payment', { 
+		res.render('createShipping/choose/wallet', { 
 			title: 'sendiit - panel', 
 			path: req.path, 
 			user: req.session.user, 
@@ -158,7 +158,7 @@ router.route('/payment')
 .post(Auth.onlyClients, Validator.creditCard,	
 	async (req, res, next) => {
 		let metodosDePagos = await db.getWalletsByUserId(req.session.user.id);
-		res.render('createShipping/choose/payment', { 
+		res.render('createShipping/choose/wallet', { 
 			title: 'sendiit - panel', 
 			path: req.path, 
 			user: req.session.user, 

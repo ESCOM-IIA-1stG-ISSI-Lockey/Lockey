@@ -1,0 +1,39 @@
+extends /layout
+
+block content
+    .container.py-5
+        .row.d-flex.justify-content-center
+            //- .col-md-9.col-lg-7.col-xl-5
+            //-     .card
+            //-         .rounded-bottom
+            //-             .card-body
+            //-                 h5.container.text-center.fs-4 Agregar Tarjeta
+            //-                 form.row.g-3(action='/crear-envio/addCard' method='Post' novalidate)
+            //-                     .form-outline.mb-3
+            //-                         label.form-label.mb-1.px-1.mt-3.fw-bold(for='validationNumber') Número de tarjeta
+            //-                         input#validationNumber.form-control(type='text' name='cardNumber' placeholder='XXXXXXXXXX123456')
+            //-                         .invalid-feedback
+            //-                     .form-outline.mb-3
+            //-                         label.form-label.mb-1.px-1.mt-3.fw-bold(for='validationName') Nombre y Apellido
+            //-                         input#validationName.form-control(type='text' name='cardName' placeholder='Juan Daniel')
+            //-                         .invalid-feedback
+            //-                     .row.mb-3
+            //-                         .col-7
+            //-                             .form-outline
+            //-                                 label.form-label.mb-1.px-1.mt-3.fw-bold(for='validationDate') Fecha de vencimiento
+            //-                                 input#validationDate.form-control(type='text' name='cardDate' placeholder='MM/YYYY')
+            //-                                 .invalid-feedback
+            //-                         .col-3
+            //-                             .form-outline
+            //-                                 label.form-label.mb-1.px-1.mt-3.fw-bold(for='validationCVV') CVV
+            //-                                 input#validationCVV.form-control(type='text' name='cardCvv' placeholder='CVV')
+            //-                                 .invalid-feedback
+            //-                     .form-outline.mb-3
+            //-                         label.form-label.mb-1.px-1.mt-3.fw-bold(for='validationName') Alias de la tarjeta
+            //-                         input#validationName.form-control(type='text' name='nickName' placeholder='Mauricio Velazquez')
+            //-                         .invalid-feedback
+            button.btn.btn-primary(type='button' data-bs-toggle='modal' data-bs-target='#cardModal' style='background-color: #212E46;')
+                .modal-dialog.modal-dialog-centered.modal-dialog-scrollable.fw-bold.px-4(style='color: #ffffff;') Contactos
+            include /modal/wallet
+block scripts
+    script(src='/javascripts/validation.js')

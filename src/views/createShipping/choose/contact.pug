@@ -2,24 +2,6 @@ extends /layout
 
 block content
     form(action='/remitente' method='Post')
-        //- .container.row.col-fluid-12.mt-3.mx-auto
-        //-     .col-lg-6.col-md-6.mt-3
-        //-         h1.fw-bold Lugar de origen
-        //-         p.m-0 Selecciona o elige un lugar de origen
-                
-        //-         if typeof(datosOrigin.nm_lkr)=='undefined'
-        //-             input#origen.btn-check(type='radio' name='options2' autocomplete='off')
-
-        //-             label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center(for='origen')
-        //-                 i.h1.bi.bi-building-fill
-        //-                 p Sin lugar seleccionado
-        //-         else
-        //-             input#origen.btn-check(type='radio' name='options2' autocomplete='off')
-
-        //-             label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center.bg-primary(for='origen')
-        //-                 p.fw-bold #{datosOrigin.nm_lkr} 
-        //-                 p #{datosOrigin.dir_lkr} 
-                    
         .container-fluid
             h1.fw-bold.mt-5 Datos del remitente
             .d-grid.row.col-xl-
@@ -30,31 +12,19 @@ block content
                                 path(d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z')
                                 path(d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z')
                         p.fw-bold.pt-3(color='black') Agregar Destinatario
+            
             p.fw-bold-pt-3(color='black')
-            button.btn.btn-primary(type='button' data-bs-toggle='modal' data-bs-target='#exampleModal' style='background-color: #212E46;')
-                    .modal-dialog.modal-dialog-centered.modal-dialog-scrollable.fw-bold.px-4(style='color: #ffffff;') Contactos
-            .col-fluid.mt-1.mx-1
-                #exampleModal.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
-                    .modal-dialog.modal-dialog-scrollable
-                        .modal-content
-                            .modal-header
-                                h2#exampleModalLabel.modal-title.fw-bold.mt-5 Contactos
-                                button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
-                            .modal-body
-                                p=!{contacts}
-                                form(action='/panel/crear-envio/remitente' method='Post')
-                                    each contact in contacts
-                                        a.text-decoration-none(href='' style="color: black" method='Post')
-                                            h6.col-12.bg-secondary.p-2.rounded-4.fw-bold(style='--bs-bg-opacity: 0.3')= contact.nm_cont
-                                                p.my-0.px-4.fw-normal=contact.em_cont
-                                                p.my-0.px-4.fw-normal=contact.tel_cont
+            button.btn.btn-primary(type='button' data-bs-toggle='modal' data-bs-target='#contactModal' style='background-color: #212E46;')
+                .modal-dialog.modal-dialog-centered.modal-dialog-scrollable.fw-bold.px-4(style='color: #ffffff;') Contactos
+            include /modal/contact
+
             .row
                 .col-6
                     a.text-decoration-none(href='/panel')
                         .row.d-flex.align-items-center.justify-content-center.btn.btn-warning.p-3.ms-1.me-1.shadow.rounded-pill.m-5.mt-4
                             h5.fw-bold.text-white.m-0.p-0 Cancelar
                 .col-6
-                    a.text-decoration-none(href='/crear-envio/payment')
+                    a.text-decoration-none(href='/crear-envio/wallet')
                             .row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.p-3.ms-3.me-3.shadow.rounded-pill.m-5.mt-4
                                 h5.fw-bold.text-white.m-0.p-0 Continuar
 block scripts
