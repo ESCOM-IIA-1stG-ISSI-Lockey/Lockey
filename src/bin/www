@@ -8,6 +8,11 @@ var app = require('../app');
 var debug = require('debug')('lockey:server');
 var http = require('http');
 
+// Zona horaria
+process.env.TZ = "America/Mexico_City";
+
+
+
 /**
  * Get port from environment and store in Express.
  */

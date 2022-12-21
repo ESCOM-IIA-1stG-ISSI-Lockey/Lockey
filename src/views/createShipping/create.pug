@@ -4,6 +4,38 @@ block content
     form
         .container.row.col-fluid-12.mt-3.mx-auto
             .col-lg-6.col-md-6.mt-3
+                h1.fw-bold Remitente
+                p.m-0 Elige un remitente
+                input#origen.btn-check(type='radio' name='options2' autocomplete='off' disabled=typeof(sender)=='undefined'? '':null)
+                if typeof(sender)=='undefined'
+                    label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center(for='origen')
+                        i.h1.bi.bi-building-fill
+                        p Sin remitente seleccionado
+                else
+                    label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center.bg-primary(for='origen')
+                        p.fw-bold #{sender.nm_cont} 
+                        p #{sender.em_cont} 
+                a.text-decoration-none(href='/crear-envio/remitente')
+                    .row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.p-3.ms-3.me-3.shadow.rounded-pill
+                        h5.fw-bold.text-white.m-0.p-0 CAMBIAR REMITENTE
+            
+            .col-lg-6.col-md-6.mt-3
+                h1.fw-bold Destinatario
+                p.m-0 Selecciona o elige un destinatario
+                input#destino.btn-check(type='radio' name='options3' autocomplete='off' disabled=typeof(receiver)=='undefined'? '':null)
+                if typeof(receiver)=='undefined'
+                    label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center(for='destino')
+                        i.h1.bi.bi-building-fill
+                        p Sin destinatario selecciona
+                else
+                    label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center.bg-primary(for='destino')
+                        p.fw-bold #{receiver.nm_cont} 
+                        p #{receiver.em_cont} 
+
+                a.text-decoration-none(href='/crear-envio/destinatario')
+                    .row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.p-3.ms-3.me-3.shadow.rounded-pill
+                        h5.fw-bold.text-white.m-0.p-0 CAMBIAR DESTINATARIO
+            .col-lg-6.col-md-6.mt-3
                 h1.fw-bold Lugar de origen
                 p.m-0 Elige un lugar de origen
                 input#origen.btn-check(type='radio' name='options2' autocomplete='off' disabled=typeof(origin)=='undefined'? '':null)

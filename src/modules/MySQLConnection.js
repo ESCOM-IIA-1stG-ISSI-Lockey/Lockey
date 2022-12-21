@@ -140,18 +140,7 @@ const db = {
 			});
 		});
 	},
-
-	getresumshipping: (trk_shpg,edge_shpgdr,stat_shpg) => {
-		return new Promise((resolve, reject) => {
-			if (!isConnected)
-				throw errorDBConnection;
-			con.query('SELECT trk_shpg, nm_lkr, date_rte, dtu_shpg FROM Shipping NATURAL JOIN User NATURAL JOIN ShippingDoor NATURAL JOIN Door NATURAL JOIN Locker NATURAL JOIN Route WHERE trk_shpg= ?', [stat], 'AND edge_shpgdr= ?', [stat], 'AND stat_shpg= ?', [stat], (err, results) => {
-				if (err) reject(err);
-				else resolve(results);
-			});
-		});
-	},
-
+	
 	getshippingdetails: (trk_shpg) => {
 		return new Promise((resolve, reject) => {
 			if (!isConnected)
@@ -187,12 +176,24 @@ const db = {
 		return new Promise((resolve, reject) => {
 			if (!isConnected)
 				throw errorDBConnection;
-			con.query('SELECT * FROM ShippingDetail  WHERE id_usr= ?', [id_usr], (err, results) => {
+			con.query('SELECT * FROM ShippingDetail  WHERE id_usr= ? AND (stat_shpg = 6 OR stat_shpg < 5)', [id_usr], (err, results) => {
 				if (err) reject(err);
 				else resolve(results);
 			});
 		});
 	},
+
+	getContactById: (id_cont) => {
+		return new Promise((resolve, reject) => {
+			if (!isConnected)
+				throw errorDBConnection;
+			con.query('SELECT * FROM Contact  WHERE id_cont= ? LIMIT 1', [id_cont], (err, results) => {
+				if (err) reject(err);
+				else resolve(results);
+			});
+		});
+	},
+
 
 	getContact:(id_usr,email,tel) =>{
 		return new Promise((resolve, reject) => {
