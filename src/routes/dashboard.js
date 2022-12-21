@@ -4,8 +4,8 @@ const router = express.Router();
 const Auth = require('../modules/Auth');
 const db = require('../modules/MySQLConnection');
 const Validator = require('../modules/Validator');
-const optionsl = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', dayPeriod: 'short', hour: '2-digit', minute: '2-digit', hour12: true};
-const optionss = { dateStyle: 'short', timeStyle: 'short'};
+const optionsl = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', dayPeriod: 'short', hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'America/Mexico_City'};
+const optionss = { dateStyle: 'short', timeStyle: 'short',timeZone: 'America/Mexico_City'};
 const formaterlong = new Intl.DateTimeFormat("es-MX",optionsl);
 const formatershort = new Intl.DateTimeFormat("es-MX",optionss);
 const mailer = require('../modules/SendGmailV');
@@ -49,7 +49,7 @@ router.route('/repartidor/lockersnm/:lockerid([a-z ^A-Z 0-9&,%.]{1,})')
 		db.getShippingdetailByUserId(req.session.user.id, traking).then((results) => {
 			debug('results', results);
 			if (results.length) {
-				res.render('lockers', { title: 'sendiit - panel', path: req.path, traking: traking, shippingDetails: results });
+				res.render('lockers', { title: 'sendiit - panel', path: req.path, user: req.session.user ,traking: traking, shippingDetails: results });
 			}
 			else {
 				res.status(401).json({ response: 'ERROR', message: 'Rutas completadas no encontradas' });
@@ -59,19 +59,23 @@ router.route('/repartidor/lockersnm/:lockerid([a-z ^A-Z 0-9&,%.]{1,})')
 
 });
 
-router.route('/repartidor/guia/:tracking([0-9]{18})')
+router.route('/repartidor/guia/:guia([0-9]{18})')
 .get(Auth.onlyDeliverers,
-	async(req,res,next) =>{
-	// res.render("shippingdetails") 
-	db.getshippingdetails(traking).then((results)=>{  
-		debug('results', results);
-		if (results.length) {
-			res.render('tracking_guide', { title: 'sendiit - panel', path: req.path, traking: traking, user: req.session.user, route:results});
-		}
-		else {
-			res.status(401).json({response:'ERROR', message:'Envio no encontrado'});
-		}
-	});
+	async(req,res,next) => {
+		let traking=req.params.guia
+
+		console.log(traking)
+		db.getShippinguide(req.session.user.id , traking).then((results)=>{  
+			debug('results', results);
+			if (results.length) {
+				res.render('tracking_guide', { title: 'sendiit - panel',
+				path: req.path, traking:traking, user: req.session.user, shippingDetails: results[0]});
+			}
+			else {
+				res.status(401).json({response:'ERROR', message:'Envio no encontrado'});
+			}
+		});
+
 });
 
 router.route('/repartidor/guia/reportForm')
