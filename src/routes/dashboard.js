@@ -53,22 +53,15 @@ router.route('/repartidor/guia/:tracking([0-9]{18})')
 .get(Auth.onlyDeliverers,
 	async(req,res,next) =>{
 	// res.render("shippingdetails") 
-	if (req.session.user) {
-		let traking=req.path.match(/\d{18}/)[0] 
-
-		db.getshippingdetails(traking).then((results)=>{  
-			debug('results', results);
-			if (results.length) {
-				res.render('tracking_guide', { title: 'sendiit - panel', path: req.path, traking: traking, user: req.session.user, route:results});
-			}
-			else {
-				res.status(401).json({response:'ERROR', message:'Envio no encontrado'});
-			}
-		});
-	
-	} else {
-		res.redirect('/');
-	}
+	db.getshippingdetails(traking).then((results)=>{  
+		debug('results', results);
+		if (results.length) {
+			res.render('tracking_guide', { title: 'sendiit - panel', path: req.path, traking: traking, user: req.session.user, route:results});
+		}
+		else {
+			res.status(401).json({response:'ERROR', message:'Envio no encontrado'});
+		}
+	});
 });
 
 router.route('/repartidor/guia/reportForm')
@@ -81,6 +74,15 @@ router.route('/repartidor/guia/reportForm')
 		}
 });
 
+router.route('/pc')
+.get(Auth.onlyUsers,
+	async(req,res,next) =>{
+		if (req.session.user) {
+			res.render('PRUEBAS_CORREOS',{ title: 'sendiit - panel', path: req.path, user: req.session.user});
+		} else {
+			res.redirect('/');
+		}
+});
 
 router.route('/repartidor/guia/sendForm')
 .get(Auth.onlyDeliverers,
