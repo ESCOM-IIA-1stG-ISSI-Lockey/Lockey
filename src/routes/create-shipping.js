@@ -156,11 +156,6 @@ router.route('/wallet')
 			metodosDePagos: metodosDePagos
 		});
 	});
-
-
-
-
-
 		
 
 module.exports = router;
