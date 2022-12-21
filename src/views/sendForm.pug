@@ -1,0 +1,20 @@
+extends layout
+
+block content
+    .container.py-5
+        .row.d-flex.justify-content-center
+            .col-md-9.col-lg-7.col-xl-5
+                .card
+                    .rounded-bottom
+                        .card-body
+	
+                            h1.container.text-center.fs-4 Reporte enviado
+                                    small.text-muted 
+                            .position-relative.overflow-hidden.p-3.p-md-5.text-center.bg-codqr.text-light
+                            
+                                img.rounded.mx-auto.d-block(src="/images/check.jpeg" width="300" VSPACE="-20" alt="Responsive image")
+                            .col-1                  
+                            h2.container.text-center.fs-4 Gracias por su aporte!   
+                            .col-2
+                                a.btn.btn-primary.center(type='button' href='/panel/') Aceptar
+                                .col-3
