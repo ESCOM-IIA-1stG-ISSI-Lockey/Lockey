@@ -5,6 +5,7 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const sessionFileStore = require('session-file-store')(session);
 
 const index = require('./routes/index');
 const dashboard = require('./routes/dashboard');
@@ -31,9 +32,11 @@ app.use(logger('dev'));
 
 app.use(session({
 	secret: 'foo',
-	resave: false,
+	resave: true,
 	saveUninitialized: true,
-	cookie: { maxAge: 3600000 }	// 1 minute = 60 units
+	cookie: { maxAge: 1000*60*60 },	// 1 minute = 60 units
+	store: new sessionFileStore({ path: './sessions' })
+
 }));
 
 app.use('/', index);

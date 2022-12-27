@@ -125,7 +125,7 @@ router.route('/actualizar')
 		//let traking = req.params.tracking	
 		const
 		html='<p>'+array[name].state+'<p>'
-		mailer.sendEmail('dannydvalle99139@gmail.com', html,'Actualización de estado de envío')
+		mailer.sendEmail('gustavopdzz0@gmail.com', html,'Actualización de estado de envío')
 		db.UpdateShippings(estado,tkr)
 	});
 
