@@ -1,12 +1,13 @@
 extends layout
 
 block content
-    .container
-        if typeof(shipping) == 'undefined'
-            include /include/not_found
-        else 
-            .bg-primary.d-flex.p-2.rounded.justify-content-center
-                h2.fw-bold.m-0 Detalles de envío
+    if typeof(shipping) == 'undefined'
+        include /include/not_found
+    else 
+        .bg-secondary       
+            .container            
+                h2.fw-bold.m-0.p-2.text-primary Detalles de envío  
+        .container
             .row.mt-3.mb-3
                 div.detalles.col-sm-6.col-xs-12
                     p Número de guía: 
@@ -37,8 +38,8 @@ block content
                     p Método de pago: 
                         small.text-muted #{shipping.num_wal}
 
-            .d-flex.p-2.bg-secondary.rounded.justify-content-center
-                h3.fw-bold.text-white.m-0 Trayectoria
+            .d-flex.justify-content-center.bg-primary.rounded.p-2
+                h5.fw-bold.text-secondary.m-0 Trayectoria
 
             -let n = shipping.stat_shpg
             .process
@@ -50,7 +51,7 @@ block content
                             if key == n
                                 .StepProgress-item.is-cancel.b-line
                                     strong= num
-                                        p Actualización
+                                        p.bg-secondary.rounded Actualización
                                         p.update Fecha y hora: #{shipping.dtu_shpg}
 
                         else if n==6
@@ -58,7 +59,7 @@ block content
                             if key == n
                                 .StepProgress-item.is-store.b-line
                                     strong= num
-                                        p Actualización
+                                        p.bg-secondary.rounded Actualización:
                                         p.update Fecha y hora: #{shipping.dtu_shpg}  
                         
                         else if n > 0
@@ -67,14 +68,14 @@ block content
                                     strong= num
                                     -n-- 
                                     if n == 0
-                                        p Actualización
+                                        p.bg-secondary.rounded Actualización
                                         p.update Fecha y hora: #{shipping.dtu_shpg}  
                             else
                                 .StepProgress-item.is-done.b-line
                                     strong= num
                                     -n-- 
                                     if n == 0
-                                        p Actualización
+                                        p.bg-secondary.rounded Actualización
                                         p.update Fecha y hora: #{shipping.dtu_shpg}  
 
                         else
@@ -93,6 +94,6 @@ block content
                                         strong= num
                                         -n-- 
 
-                        
+                            
 
-    
+        

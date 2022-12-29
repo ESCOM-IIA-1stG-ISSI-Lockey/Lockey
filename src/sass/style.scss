@@ -358,12 +358,20 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 }
 
 .nFound p{
-	font-weight: normal
+	font-weight: normal;
+	font-size: 20px;
 }
 
 .nFound img{
-	width: 400px;
+	width: 300px;
 }
+
+
+.textButton{
+	width: 90%;
+	font-size: 20px;
+}
+
 
 @media (min-width: 768px) {
 	.flex-md-equal > * {
@@ -406,4 +414,5 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 	.nFound img{
 		width: 800px;
 	}
+
 }

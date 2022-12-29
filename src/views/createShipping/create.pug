@@ -1,9 +1,11 @@
 extends /layout
 
 block content
+    .bg-secondary       
+        .container            
+            h2.fw-bold.m-0.p-2.text-primary Crear envío                    
     form
         .container.row.col-fluid-12.mt-3.mx-auto    
-            h2.fw-bold.m-0.p-2.bg-primary.text-center Crear envío                    
             .col-lg-6.col-md-6.mt-3
                 h3.fw-bold Lugar de origen
                 p.m-0 Elige un lugar de origen
@@ -121,15 +123,13 @@ block content
                             .col
                                 p.m-0.p-0.fw-bold1 Peso
                                 p.m-0.p-0 #{size.weight} kg
-            .row
-                .col-6
-                    a.text-decoration-none(href='/panel')
-                        .row.d-flex.align-items-center.justify-content-center.btn.btn-warning.p-3.ms-0.me-0.shadow.rounded-pill.m-5.mt-4
-                            h5.fw-bold.text-white.m-0.p-0 CANCELAR
-                .col-6
-                    a.text-decoration-none(href='/crear-envio/wallet')
-                        .row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.p-3.ms-3.me-3.shadow.rounded-pill.m-5.mt-4
-                            h5.fw-bold.text-white.m-0.p-0 CONTINUAR
+        .row-12.d-flex.mb-4.mt-3
+            a.col-6.text-decoration-none(href='/panel')
+                center
+                    h5.fw-bold.align-items-center.justify-content-center.btn.btn-warning.shadow.rounded-pill.textButton CANCELAR
+            a.col-6.text-decoration-none(href='/crear-envio/wallet')
+                center
+                    h5.fw-bold.align-items-center.justify-content-center.btn.btn-secondary.shadow.rounded-pill.textButton CONTINUAR
 
 
     //- .container.py-5
