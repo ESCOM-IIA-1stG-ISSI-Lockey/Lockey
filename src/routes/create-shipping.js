@@ -172,15 +172,27 @@ router.route('/wallet')
 	})
 .post(Auth.onlyClients, Validator.creditCard,	
 	async (req, res, next) => {
-		let metodosDePagos = await db.getWalletsByUserId(req.session.user.id);
-		res.render('createShipping/choose/wallet', { 
-			title: 'sendiit - panel', 
-			path: req.path, 
-			user: req.session.user, 
-			metodosDePagos: metodosDePagos
+		console.log("Holaaaa no crees otra routepls")
+		let {} = req.body;
+		db.createPayment(req.session.user.id, ).then((results)=>{ 
+			debug('results', results);
+			if (results.affectedRows) {
+				res.status(200).json({
+					response: "OK",
+					redirect: "/remitente" //modifiaciones
+				})
+			}
+			else {
+				res.status(401).json({
+					response: "ERROR",
+					message: "problemas en el servidor"
+				})
+			}
+		}).catch((err) => {
+			console.log("ERROR", err)
+			res.status(402).json({response:'ERROR', message:err});
 		});
 	});
-		
 
 
 

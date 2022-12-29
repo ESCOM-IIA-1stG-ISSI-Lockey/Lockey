@@ -163,10 +163,9 @@ const Validator = {
 
 	// Contact (name, email, phone)
 	contact: [
-		v._nickname('cName', 'El nombre'),
-		v._email('cEmail', 'El correo'),
-		v._phone('cPhone', 'El teléfono'),
-		validateResult
+		v._nickname('name', 'El nombre'),
+		v._email('email', 'El correo'),
+		v._phone('phone', 'El teléfono'),
 	],
 
 	// Credit card
