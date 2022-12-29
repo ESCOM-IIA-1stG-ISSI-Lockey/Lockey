@@ -166,7 +166,6 @@ const Validator = {
 		v._nickname('name', 'El nombre'),
 		v._email('email', 'El correo'),
 		v._phone('phone', 'El teléfono'),
-		validateResult
 	],
 
 	// Credit card

@@ -134,13 +134,25 @@ router.route('/:choose(remitente|destinatario)')
 	})
 .post(Auth.onlyClients, Validator.contact,	
 	async (req, res, next) => {
-		let contacts = await db.getContactsByUserId(req.session.user.id);
-		res.render('createShipping/choose/contact', { 
-			title: 'sendiit - panel', 
-			path: req.path, 
-			user: req.session.user, 
-			choose: choose,
-			conttac: contacts
+		let { name, email, phone} = req.body;
+		db.createContact(req.session.user.id, name, email, phone).then((results)=>{ 
+			//console.log(tel,"telefono")
+			debug('results', results);
+			if (results.affectedRows) {
+				res.status(200).json({
+					response: "OK",
+					redirect: "remitente" //modifiaciones
+				})
+			}
+			else {
+				res.status(401).json({
+					response: "ERROR",
+					message: "problemas en el servidor"
+				})
+			}
+		}).catch((err) => {
+			console.log("ERROR", err)
+			res.status(402).json({response:'ERROR', message:err});
 		});
 	});
 
@@ -157,44 +169,42 @@ router.route('/wallet')
 			metodosDePagos: metodosDePagos
 		});
 	})
-
 .post(Auth.onlyClients, Validator.creditCard,	
 	async (req, res, next) => {
-		let metodosDePagos = await db.getWalletsByUserId(req.session.user.id);
-		res.render('createShipping/choose/wallet', { 
-			title: 'sendiit - panel', 
-			path: req.path, 
-			user: req.session.user, 
-			metodosDePagos: metodosDePagos
-		});
-	});
-		
-
-router.route('/:choose(remitente|destinatario)')
-.get(Auth.onlyClients,
-	async (req, res, next) => {
-		let contacts = await db.getContactsByUserId(req.session.user.id);
-		let choose = req.params.choose=='remitente'?'sender':'receiver'
-		console.log('contacts', contacts)
-		res.render('createShipping/choose/contact', {
-			title: 'sendiit - panel',
-			path: req.path,
-			user: req.session.user,
-			choose: choose,
-			contacts: contacts
-		});
-	})
-.post(Auth.onlyClients, Validator.contact,	
-	async (req, res, next) => {
-		let contacts = await db.getContactsByUserId(req.session.user.id);
-		res.render('createShipping/choose/wallet', { 
-			title: 'sendiit - panel', 
-			path: req.path, 
-			user: req.session.user, 
-			conttac: contacts
+		let {nickName, cardName, cardNumber, cardDate} = req.body;
+		cardDate = "30/"+cardDate
+		db.createPayment(req.session.user.id, nickName, cardName, cardNumber, cardDate).then((results)=>{ 
+			//console.log(tel,"telefono")
+			debug('results', results);
+			if (results.affectedRows) {
+				res.status(200).json({
+					response: "OK",
+					redirect: "wallet" //modifiaciones
+				})
+			}
+			else {
+				res.status(401).json({
+					response: "ERROR",
+					message: "problemas en el servidor"
+				})
+			}
+		}).catch((err) => {
+			console.log("ERROR", err)
+			res.status(402).json({response:'ERROR', message:err});
 		});
 	});
 
+
+
+
+
+
+router.route('/remitente')
+.post(Auth.onlyClients, 
+	(req, res, next) => {
+		console.log(req.body)
 		
+		
+	});		
 
 module.exports = router;

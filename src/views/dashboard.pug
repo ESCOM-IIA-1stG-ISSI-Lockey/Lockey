@@ -78,11 +78,10 @@ block content
 			h4.pt-3.container Envíos en curso
 			.wrapper.container 
 				each val in pedingShipings
-				
 					a.text-decoration-none(href='/envio/'+val.trk_shpg)
-						.item.row.d-flex.align-items-center.justify-content-center(style='min-width: 380px;')
-							.col-4.p-0
-								img(style='max-height: 120px;' src='https://img.freepik.com/vector-premium/icono-vector-arte-linea-camion-entrega-envio-rapido-aplicaciones-sitios-web-transporte_652240-16.jpg')
+						.item.row.d-flex.align-items-center.justify-content-center.align-content-center(style='min-width: 380px;')
+							.col-4.p-0(style="text-align:center")
+								img(src='https://img.freepik.com/vector-premium/icono-vector-arte-linea-camion-entrega-envio-rapido-aplicaciones-sitios-web-transporte_652240-16.jpg')
 							.col-8.p-0
 								each num, key in  {1 : 'En espera de recolección', 2 : 'En espera de transportista', 3 : 'En tránsito', 4 : 'En espera de recepción', 5 : 'Completado', 6 : 'Almacén', 7 : 'Cancelado'}
 									if key == val.stat_shpg
@@ -113,7 +112,7 @@ block content
 							i.h1.bi.bi-clock-history.icons
 						.col-8
 							h5.fw-bold.m-0.p-0 HISTORIAL DE ENVÍOS
-				a.text-decoration-none(href='#')
+				a.text-decoration-none(href='/panel/informacion')
 					.item.row.d-flex.align-items-center.justify-content-center.btn.btn-primary.m-3.p-3
 						.col-4
 							i.h1.bi.bi-emoji-smile-fill.icons

@@ -59,7 +59,7 @@
 							
 							for (let err of errors) {
 								let input = form.querySelector(`[name="${err.param}"]`);
-								let feedback = form.querySelector(`[name="${err.param}"] + label + .invalid-feedback,label + [name="${err.param}"] + .invalid-feedback, [name="${err.param}"] + label + .invalid-tooltip`);
+								let feedback = form.querySelector(`[name="${err.param}"] + label + .invalid-feedback,label + [name="${err.param}"] + .invalid-feedback`);
 								input.classList.add('is-invalid');
 ;							if (feedback)
 									feedback.textContent = err.msg;
