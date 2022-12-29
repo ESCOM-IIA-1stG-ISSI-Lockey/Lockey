@@ -11,31 +11,32 @@ block content
                 p.mb-3 Seleccione un Destinatario
             .row(data-masonry="{'percentPosition': true }" style="position: relative;" )
                 //- .col-md-5.col-lg-5.m-0.p-0.slide_ver
+                .col-sm-6.col-lg-4.mb-4
+                    button.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center(type='button' data-bs-toggle='modal' data-bs-target='#contactModal')
+                        i.h1.bi.bi-person-fill-add
+                        if choose=='sender'
+                            h5.fw-bold.m-0.p-0  AGREGAR REMITENTE
+                        else
+                            h5.fw-bold.m-0.p-0  AGREGAR DESTINATARIO
                 each contact in contacts
                     .col-sm-6.col-lg-4.mb-4
-                        .card.border-0
-                            input.btn-check(id=contact.id_cont type='radio' value=contact.id_cont  name=choose  autocomplete='off')
-                            label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center.ms-3.me-3.m-0(for=contact.id_cont)
-                                p.fw-bold=contact.nm_cont
-                                small=contact.em_cont   
-                                small=contact.tel_cont
+                        //- .card.border-0
+                        input.btn-check(id=contact.id_cont type='radio' value=contact.id_cont  name=choose  autocomplete='off')
+                        label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center(for=contact.id_cont)
+                            p.fw-bold=contact.nm_cont
+                            small=contact.em_cont   
+                            small=contact.tel_cont
                         
             .row.mt-3.float-right.ms-3
                 .form-check
                     input#exampleCheck1.form-check-input(type='checkbox')
                     label.form-check-label(for='exampleCheck1') Recordar contacto
             .row
-                .col-4
+                .col-6
                     a.text-decoration-none(href='/crear-envio')
                         .row.d-flex.align-items-center.justify-content-center.btn.btn-warning.p-3.ms-1.me-1.shadow.rounded-pill.m-5.mt-4
                             h5.fw-bold.text-white.m-0.p-0 Cancelar
-                .col-4
-                    button.row.w-100.d-flex.align-items-center.justify-content-center.btn.btn-secondary.p-3.ms-1.me-1.shadow.rounded-pill.m-5.mt-4(type='button' data-bs-toggle='modal' data-bs-target='#contactModal')
-                        if choose=='sender'
-                            h5.fw-bold.text-white.m-0.p-0  AGREGAR REMITENTE
-                        else
-                            h5.fw-bold.text-white.m-0.p-0  AGREGAR DESTINATARIO
-                .col-4
+                .col-6
                     button.row.w-100.d-flex.align-items-center.justify-content-center.btn.btn-secondary.p-3.ms-1.me-1.shadow.rounded-pill.m-5.mt-4(type='submit')
                         h5.fw-bold.text-white.m-0.p-0 Continuar                    
     include /modal/contact
