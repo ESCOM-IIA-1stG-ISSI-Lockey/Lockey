@@ -134,14 +134,25 @@ router.route('/:choose(remitente|destinatario)')
 	})
 .post(Auth.onlyClients, Validator.contact,	
 	async (req, res, next) => {
-		let contacts = await db.getContactsByUserId(req.session.user.id);
-		let choose = req.params.choose=='remitente'?'sender':'receiver'
-		res.render('createShipping/choose/contact', { 
-			title: 'sendiit - panel', 
-			path: req.path, 
-			user: req.session.user, 
-			choose:choose,
-			contacts: contacts
+		console.log("Holaaaa no crees otra routepls")
+		let {name, email, tel} = req.body;
+		db.createContact(req.session.user.id,name, email, tel).then((results)=>{ 
+			debug('results', results);
+			if (results.affectedRows) {
+				res.status(200).json({
+					response: "OK",
+					redirect: "crear-envio/remitente" //modifiaciones
+				})
+			}
+			else {
+				res.status(401).json({
+					response: "ERROR",
+					message: "problemas en el servidor"
+				})
+			}
+		}).catch((err) => {
+			console.log("ERROR", err)
+			res.status(402).json({response:'ERROR', message:err});
 		});
 	});
 
@@ -171,33 +182,5 @@ router.route('/wallet')
 		
 
 
-
-
-
-
-router.route('/:choose(remitente|destinatario)')
-.post(Auth.onlyClients, 
-	(req, res, next) => {
-		console.log(req.body)
-		let {name, email, tel} = req.body;
-		db.createContact(req.session.user.id,name, email, tel).then((results)=>{ 
-			debug('results', results);
-			if (results.affectedRows) {
-				res.status(200).json({
-					response: "OK",
-					redirect: "crear-envio/remitente" //modifiaciones
-				})
-			}
-			else {
-				res.status(401).json({
-					response: "ERROR",
-					message: "problemas en el servidor"
-				})
-			}
-		}).catch((err) => {
-			console.log("ERROR", err)
-			res.status(402).json({response:'ERROR', message:err});
-		});
-	});		
 
 module.exports = router;
