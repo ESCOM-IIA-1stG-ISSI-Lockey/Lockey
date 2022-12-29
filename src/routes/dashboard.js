@@ -105,6 +105,17 @@ router.route('/pc/:tracking([0-9]{18})')
 			shipping: shipping[0]});
 	});
 
+
+router.route('/informacion')
+.get(Auth.onlyUsers,
+	async(req,res,next) =>{
+		res.render('infoHow',{ 
+			title: 'sendiit - panel', 
+			path: req.path, 
+			user: req.session.user});
+	});
+	
+
 router.route('/actualizar')
 .post(Auth.onlyUsers,
 	(req, res, next) => {

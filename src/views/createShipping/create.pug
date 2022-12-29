@@ -2,42 +2,7 @@ extends /layout
 
 block content
     form
-        .container.row.col-fluid-12.mt-3.mx-auto
-            .col-lg-6.col-md-6.mt-3
-                h1.fw-bold Remitente
-                p.m-0 Elige un remitente
-                input#origen.btn-check(type='radio' name='options2' autocomplete='off' disabled=typeof(sender)=='undefined'? '':null)
-                if typeof(sender)=='undefined'
-                    label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center(for='origen')
-                        i.h1.bi.bi-building-fill
-                        p Sin remitente seleccionado
-                else
-                    label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center.bg-primary(for='origen')
-                        p.fw-bold #{sender.nm_cont} 
-                        p #{sender.em_cont} 
-                a.text-decoration-none(href='/crear-envio/remitente')
-                    .row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.p-3.ms-3.me-3.shadow.rounded-pill
-                        h5.fw-bold.text-white.m-0.p-0 CAMBIAR REMITENTE
-            
-            .col-lg-6.col-md-6.mt-3
-                h1.fw-bold Destinatario
-                p.m-0 Selecciona o elige un destinatario
-                input#destino.btn-check(type='radio' name='options3' autocomplete='off' disabled=typeof(receiver)=='undefined'? '':null)
-                if typeof(receiver)=='undefined'
-                    label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center(for='destino')
-                        i.h1.bi.bi-building-fill
-                        svg.bi.bi-person-circle(xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' viewbox='0 0 16 16')
-                            path(d='M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z')
-                            path(fill-rule='evenodd' d='M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z')
-                        p Sin destinatario selecciona
-                else
-                    label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center.bg-primary(for='destino')
-                        p.fw-bold #{receiver.nm_cont} 
-                        p #{receiver.em_cont} 
-
-                a.text-decoration-none(href='/crear-envio/destinatario')
-                    .row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.p-3.ms-3.me-3.shadow.rounded-pill
-                        h5.fw-bold.text-white.m-0.p-0 CAMBIAR DESTINATARIO
+        .row.container.row.col-fluid-12.mt-3.mx-auto
             .col-lg-6.col-md-6.mt-3
                 h1.fw-bold Lugar de origen
                 p.m-0 Elige un lugar de origen
@@ -70,6 +35,40 @@ block content
                 a.text-decoration-none(href='/crear-envio/destino')
                     .row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.p-3.ms-3.me-3.shadow.rounded-pill
                         h5.fw-bold.text-white.m-0.p-0 CAMBIAR DESTINO
+        .row.container.row.col-fluid-12.mt-5.mx-auto
+            .col-lg-6.col-md-6.mt-3
+                h1.fw-bold Remitente
+                p.m-0 Elige un remitente
+                input#origen.btn-check(type='radio' name='options2' autocomplete='off' disabled=typeof(sender)=='undefined'? '':null)
+                if typeof(sender)=='undefined'
+                    label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center(for='origen')
+                        i.h1.bi.bi-person-fill
+                        p Sin remitente seleccionado
+                else
+                    label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center.bg-primary(for='origen')
+                        p.fw-bold #{sender.nm_cont} 
+                        p #{sender.em_cont} 
+                a.text-decoration-none(href='/crear-envio/remitente')
+                    .row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.p-3.ms-3.me-3.shadow.rounded-pill
+                        h5.fw-bold.text-white.m-0.p-0 CAMBIAR REMITENTE
+            
+            .col-lg-6.col-md-6.mt-3
+                h1.fw-bold Destinatario
+                p.m-0 Elige un destinatario
+                input#destino.btn-check(type='radio' name='options3' autocomplete='off' disabled=typeof(receiver)=='undefined'? '':null)
+                if typeof(receiver)=='undefined'
+                    label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center(for='destino')
+                        i.h1.bi.bi-person-fill
+                        p Sin destinatario selecciona
+                else
+                    label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center.bg-primary(for='destino')
+                        p.fw-bold #{receiver.nm_cont} 
+                        p #{receiver.em_cont} 
+
+                a.text-decoration-none(href='/crear-envio/destinatario')
+                    .row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.p-3.ms-3.me-3.shadow.rounded-pill
+                        h5.fw-bold.text-white.m-0.p-0 CAMBIAR DESTINATARIO
+
     - 
         let sizes = [
             { 
