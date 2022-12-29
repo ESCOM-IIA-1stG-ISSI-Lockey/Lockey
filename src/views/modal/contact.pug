@@ -4,21 +4,27 @@ form(action='/crear-envio/remitente' method='POST' novalidate)
 			.modal-dialog.modal-dialog-scrollable
 				.modal-content
 					.modal-header 
-						if choose=='remitente'
-							h5.fw-bold.text-white.m-0.p-0  Datos del remitente
+						if choose=='sender'
+							h1.modal-title.fs-5  Datos del Remitente
 						else
-							h5.fw-bold.text-white.m-0.p-0  Datos del destinatario				
+							h1.modal-title.fs-5  Datos del Destinatario				
 						button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close') 
 					.modal-body
 						.container-fluid
 							h6.container.text-center.fs-4.my-3 
-							label.form-label.mb-1.px-1.mt-3.fw-bold(for='NombreDestinatario') Nombre del remitente
-							input#NombreDestinatario.form-control.rounded-4(type='text' placeholder='José Octavio...' name="name")
-							.invalid-feedback                                              
+							if choose=='sender'
+								label.form-label.mb-1.px-1.mt-3.fw-bold(for='NombreDestinatario') Nombre del remitente
+								input#NombreDestinatario.form-control.rounded-4(type='text' placeholder='José Octavio...' name="name")
+								.invalid-feedback
+							else
+								label.form-label.mb-1.px-1.mt-3.fw-bold(for='NombreDestinatario') Nombre del destinatario
+								input#NombreDestinatario.form-control.rounded-4(type='text' placeholder='José Octavio...' name="name")
+								.invalid-feedback
+								
 							label.form-label.mb-1.px-1.mt-0.fw-bold(for='Correo') Correo
 							input#Correo.form-control.rounded-4(type='email' placeholder='name@example.com...' name="email")
 							.invalid-feedback
-							label.form-label.mb-1.px-1.mt-0.fw-bold(for='Telefono') Telefono
+							label.form-label.mb-1.px-1.mt-0.fw-bold(for='Telefono') Teléfono
 							input#telefono.form-control.rounded-4(type='tel' placeholder='55...' name="phone")
 							.invalid-feedback
 					

@@ -134,9 +134,8 @@ router.route('/:choose(remitente|destinatario)')
 	})
 .post(Auth.onlyClients, Validator.contact,	
 	async (req, res, next) => {
-		console.log(req.body,"joto")
 		let { name, email, phone} = req.body;
-		db.createContact(req.session.user.id,name, email, phone).then((results)=>{ 
+		db.createContact(req.session.user.id, name, email, phone).then((results)=>{ 
 			//console.log(tel,"telefono")
 			debug('results', results);
 			if (results.affectedRows) {
@@ -172,14 +171,15 @@ router.route('/wallet')
 	})
 .post(Auth.onlyClients, Validator.creditCard,	
 	async (req, res, next) => {
-		console.log("Holaaaa no crees otra routepls")
-		let {} = req.body;
-		db.createPayment(req.session.user.id, ).then((results)=>{ 
+		let {nickName, cardName, cardNumber, cardDate} = req.body;
+		cardDate = "30/"+cardDate
+		db.createPayment(req.session.user.id, nickName, cardName, cardNumber, cardDate).then((results)=>{ 
+			//console.log(tel,"telefono")
 			debug('results', results);
 			if (results.affectedRows) {
 				res.status(200).json({
 					response: "OK",
-					redirect: "/remitente" //modifiaciones
+					redirect: "wallet" //modifiaciones
 				})
 			}
 			else {

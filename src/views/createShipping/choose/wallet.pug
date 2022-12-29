@@ -6,7 +6,7 @@ block content
         p Agregar o seleccionar tarjeta de crédito o débito
             //- button.btn.btn-primary.rounded-5.mt-3(type='button' style='background-color: #212E46;')
             //-a.fw-bold.end-0(style='color: secondary') Ver todos
-    form
+    form(action='/crear-envio/wallet' method='POST')
         .container.col-fluid-12.mt-3.mx-auto
             .col-lg-6.mt-3
                 input#origen.btn-check(type='radio' name='options2' autocomplete='off' disabled=typeof(wallet)=='undefined'? '':null)
