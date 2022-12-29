@@ -134,14 +134,15 @@ router.route('/:choose(remitente|destinatario)')
 	})
 .post(Auth.onlyClients, Validator.contact,	
 	async (req, res, next) => {
-		console.log("Holaaaa no crees otra routepls")
-		let {name, email, tel} = req.body;
-		db.createContact(req.session.user.id,name, email, tel).then((results)=>{ 
+		console.log(req.body,"joto")
+		let { name, email, phone} = req.body;
+		db.createContact(req.session.user.id,name, email, phone).then((results)=>{ 
+			//console.log(tel,"telefono")
 			debug('results', results);
 			if (results.affectedRows) {
 				res.status(200).json({
 					response: "OK",
-					redirect: "crear-envio/remitente" //modifiaciones
+					redirect: "remitente" //modifiaciones
 				})
 			}
 			else {
@@ -182,5 +183,16 @@ router.route('/wallet')
 		
 
 
+
+
+
+
+router.route('/remitente')
+.post(Auth.onlyClients, 
+	(req, res, next) => {
+		console.log(req.body)
+		
+		
+	});		
 
 module.exports = router;

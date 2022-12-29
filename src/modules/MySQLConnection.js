@@ -219,6 +219,7 @@ const db = {
 
 
 	createContact: (idUser,name, email, tel) => {
+		console.log(tel,"telefono")
 		return new Promise((resolve, reject) => {
 			if (!isConnected)
 				throw errorDBConnection;
