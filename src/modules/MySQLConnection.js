@@ -299,11 +299,11 @@ const db = {
 	},
 
 
-	getPayment:(id_usr,name,card,date) =>{ //modifique
+	getPayment:(id_usr,name,number,date) =>{ //modifique
 		return new Promise((resolve, reject) => {
 			if (!isConnected)
 				throw errorDBConnection;
-			con.query('SELECT * FROM Wallet  WHERE id_usr= ? and nm_wal= ? and num_wal= ? and  date_wal= STR_TO_DATE(?,"%d/%m/%Y")', [id_usr, name, card, date], (err, results) => {
+			con.query('SELECT * FROM Wallet WHERE id_usr= ? and nm_wal= ? and num_wal= ? and  date_wal= STR_TO_DATE(?,"%d/%m/%Y")', [id_usr, name, number, date], (err, results) => {
 				if (err) reject(err);
 				else resolve(results);
 			});
@@ -311,17 +311,17 @@ const db = {
 	},
 
 
-	createPayment: (idUser,nick,name,card,date) => { //modifique
+	createPayment: (idUser,nick,name,number,date) => { //modifique
 		return new Promise((resolve, reject) => {
 			if (!isConnected)
 				throw errorDBConnection;
 			// check if card is already in use			
-			db.getPayment(idUser,name,card,date).then((results) => {
+			db.getPayment(idUser,name,number,date).then((results) => {
 				if (results.length > 0) reject('El metodo de pago ya se encuentra registrado');
 				else {
 					//console.log("FECHA:", date);
 					// create new payment
-					con.query('INSERT INTO Wallet VALUES (DEFAULT, ?, ?, ?, ?, STR_TO_DATE(?,"%d/%m/%Y"))', [idUser,nick,name,card,date], (err, results) => {
+					con.query('INSERT INTO Wallet VALUES (DEFAULT, ?, ?, ?, ?, STR_TO_DATE(?,"%d/%m/%Y"))', [idUser,nick,name,number,date], (err, results) => {
 						if (err) reject(err);
 						else resolve(results);
 					});
