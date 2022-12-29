@@ -135,11 +135,9 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 
 .wrapper{
 	max-height: 180px;
-	// border: 1px solid #dddddd;
 	display: flex;
 	overflow: auto;
 	padding: 15px;
-	// background-color: $primary;
 }
 
 .wrapper::-webkit-scrollbar{width: 0}
@@ -359,6 +357,14 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 	margin: 0%;
 }
 
+.nFound p{
+	font-weight: normal
+}
+
+.nFound img{
+	width: 400px;
+}
+
 @media (min-width: 768px) {
 	.flex-md-equal > * {
 		flex: 1;
@@ -384,21 +390,20 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 		width: 200px;
 	}
 	
-	.wrapper{
+	.wrapper2{
 		max-height: 240px;
 	}
 
-	.wrapper .item{
+	.wrapper2 .item{
 		min-width: 160px;
 		height: 164px;
-		text-align: left;
-		background-color: #ffffff;
-		margin-right: 30px;
-		border-radius: 30px;
-		box-shadow: 2px 2px 12px #0000005e;
 	}
 	
 	.wrapper img{
 		max-height: 120px;
+	}
+
+	.nFound img{
+		width: 800px;
 	}
 }

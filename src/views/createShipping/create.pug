@@ -2,9 +2,10 @@ extends /layout
 
 block content
     form
-        .container.row.col-fluid-12.mt-3.mx-auto                        
+        .container.row.col-fluid-12.mt-3.mx-auto    
+            h2.fw-bold.m-0.p-2.bg-primary.text-center Crear envío                    
             .col-lg-6.col-md-6.mt-3
-                h1.fw-bold Lugar de origen
+                h3.fw-bold Lugar de origen
                 p.m-0 Elige un lugar de origen
                 input#origen.btn-check(type='radio' name='options2' autocomplete='off' disabled=typeof(origin)=='undefined'? '':null)
                 if typeof(origin)=='undefined'
@@ -20,7 +21,7 @@ block content
                         h5.fw-bold.text-white.m-0.p-0 CAMBIAR ORIGEN
             
             .col-lg-6.col-md-6.mt-3
-                h1.fw-bold Lugar de destino
+                h3.fw-bold Lugar de destino
                 p.m-0 Elige un lugar de destino
                 input#destino.btn-check(type='radio' name='options3' autocomplete='off' disabled=typeof(destination)=='undefined'? '':null)
                 if typeof(destination)=='undefined'
@@ -37,7 +38,7 @@ block content
                         h5.fw-bold.text-white.m-0.p-0 CAMBIAR DESTINO
         .row.container.row.col-fluid-12.mt-5.mx-auto
             .col-lg-6.col-md-6.mt-3
-                h1.fw-bold Remitente
+                h3.fw-bold Remitente
                 p.m-0 Elige un remitente
                 input#origen.btn-check(type='radio' name='options2' autocomplete='off' disabled=typeof(sender)=='undefined'? '':null)
                 if typeof(sender)=='undefined'
@@ -53,7 +54,7 @@ block content
                         h5.fw-bold.text-white.m-0.p-0 CAMBIAR REMITENTE
             
             .col-lg-6.col-md-6.mt-3
-                h1.fw-bold Destinatario
+                h3.fw-bold Destinatario
                 p.m-0 Elige un destinatario
                 input#destino.btn-check(type='radio' name='options3' autocomplete='off' disabled=typeof(receiver)=='undefined'? '':null)
                 if typeof(receiver)=='undefined'
@@ -97,7 +98,7 @@ block content
             },
         ]
     .container.row.col-fluid-12.mt-3.mx-auto
-        h1.fw-bold.mt-5 Tamaño del paquete
+        h3.fw-bold.mt-5 Tamaño del paquete
         p.m-0 Selecciona un tamaño de locker
         form 
             .wrapper.Paquetes.p-0
