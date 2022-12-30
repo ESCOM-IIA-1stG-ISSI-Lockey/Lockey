@@ -117,37 +117,24 @@ router.route('/pc/:tracking([0-9]{18})')
 router.route('/actualizar')
 .post(Auth.onlyUsers,
 	(req, res, next) => {
-		console.log('hola')
+		let user = req.session.user
 		let {name,tkr} = req.body
-		let email1 = 'omardelvalle99139@gmail.com'
 		let email2 = 'dannydvalle99139@gmail.com'
 		// let estado = name	
 		name = name-1
 		const states = [
-			{ id: 1, state: "en espera de recolección, lleva el paquete al lugar de origen"},
-			{ id: 2, state: "en espera de transportista"},
-			{ id: 3, state: "en tránsito, pronto está en el lugar de destino"},
-			{ id: 4, state: "en espera de recepción por el destinatario"},
-			{ id: 5, state: "completado, el paquete ha sido recibido por el destinatario con exito"},
-			{ id: 6, state: "en almacén, ponte en contacto con soporte para tener más información"},
-			{ id: 7, state: "cancelado,  ponte en contacto con soporte si hay algún problema"}
+			{ id: 1, state: "en espera de recolección, date prisa y lleva el paquete al lugar de origen", 	route: "https://lh3.google.com/u/2/d/1xu5cgIwQml_y6Lk4QF4CHKfNWdXNda-k=w1920-h973-iv1"},
+			{ id: 2, state: "en espera de transportista, te notificaremos cuando tu envío esté en transito",route: "https://lh3.google.com/u/2/d/1SIePJdbDIr4DnjSFWYFW985ObhE58XV3=w2000-h4168-iv1"},
+			{ id: 3, state: "en tránsito, pronto está en el lugar de destino", 								route: "https://lh3.google.com/u/2/d/1Y5tV5o7NsPokLgqgprFYv4M7iFb0KTT3=w1920-h973-iv1"},
+			{ id: 4, state: "en espera de recepción por el destinatario", 									route: "https://lh3.google.com/u/2/d/1MphskkmSf3g3oYJnuyN8oBhtODwmlLk3=w1920-h973-iv1"},
+			{ id: 5, state: "completado, el paquete ha sido recibido por el destinatario con exito",		route: "https://lh3.google.com/u/2/d/1vrYgKgWjTmjyZJ3GFuvZxyMZ6eKf76gQ=w1920-h973-iv1"},
+			{ id: 6, state: "en almacén, ponte en contacto con soporte para tener más información", 		route: "https://lh3.google.com/u/2/d/19oEY1IN5m7n1slx_JJNgERTXq3qO9fjE=w1920-h973-iv1"},
+			{ id: 7, state: "cancelado,  ponte en contacto con soporte si hay algún problema", 				route: "https://lh3.google.com/u/2/d/1PY7m26-54ohV11ygRBVQMx8D72LyCQnF=w1920-h973-iv1"}
 		];
-
-		const imgStates = [
-			{ id: 1, route: "https://lh3.google.com/u/2/d/1xu5cgIwQml_y6Lk4QF4CHKfNWdXNda-k=w1920-h973-iv1"},
-			{ id: 2, route: "https://lh3.google.com/u/2/d/1SIePJdbDIr4DnjSFWYFW985ObhE58XV3=w2000-h4168-iv1"},
-			{ id: 3, route: "https://lh3.google.com/u/2/d/1Y5tV5o7NsPokLgqgprFYv4M7iFb0KTT3=w1920-h973-iv1"},
-			{ id: 4, route: "https://lh3.google.com/u/2/d/1MphskkmSf3g3oYJnuyN8oBhtODwmlLk3=w1920-h973-iv1"},
-			{ id: 5, route: "https://lh3.google.com/u/2/d/1vrYgKgWjTmjyZJ3GFuvZxyMZ6eKf76gQ=w1920-h973-iv1"},
-			{ id: 6, route: "https://lh3.google.com/u/2/d/19oEY1IN5m7n1slx_JJNgERTXq3qO9fjE=w1920-h973-iv1"},
-			{ id: 7, route: "https://lh3.google.com/u/2/d/1PY7m26-54ohV11ygRBVQMx8D72LyCQnF=w1920-h973-iv1"}
-		];
-		
 		//let traking = req.params.tracking	
-		mailer.sendEmailStateShipping(res, email1, 'user1', tkr, states[name].state, imgStates[name].route)
-		mailer.sendEmailStateShipping(res, email2, 'user2', tkr, states[name].state, imgStates[name].route)
-
-		// mailer.sendEmail('gustavopdzz0@gmail.com', html,'Actualización de estado de envío')
+		mailer.sendEmailStateShipping(res, user.email, user.name, tkr, states[name].state, states[name].route)
+		if(name>2)
+			mailer.sendEmailStateShipping(res, email2, 'Daniel', tkr, states[name].state, states[name].route)
 		// db.UpdateShippings(estado,tkr)
 	});
 
