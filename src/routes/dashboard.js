@@ -88,24 +88,6 @@ router.route('/repartidor/guia/reportForm')
 		}
 });
 
-router.route('/pc/:tracking([0-9]{18})')
-.get(Auth.onlyUsers,
-	async(req,res,next) =>{
-		let traking = req.params.tracking,
-		shipping = await db.getshippingdetails(traking)
-		if(shipping.length){
-			shipping[0].dtu_shpg=formaterlong.format(shipping[0].dtu_shpg)
-			shipping[0].dts_shpg=formaterlong.format(shipping[0].dts_shpg)
-			shipping[0].dte_shpg=formaterlong.format(shipping[0].dte_shpg)
-		}
-		res.render('PRUEBAS_CORREOS',{ 
-			title: 'sendiit - panel', 
-			path: req.path, 
-			user: req.session.user, 
-			shipping: shipping[0]});
-	});
-
-
 router.route('/informacion')
 .get(Auth.onlyUsers,
 	async(req,res,next) =>{
@@ -114,30 +96,59 @@ router.route('/informacion')
 			path: req.path, 
 			user: req.session.user});
 	});
-	
+
+router.route('/pc/:tracking([0-9]{18})')
+.get(Auth.onlyUsers,
+	async(req,res,next) =>{
+		let traking = req.params.tracking,
+		shipping = await db.getshippingdetails(traking)
+		// if(shipping.length){
+		// 	shipping[0].dtu_shpg=formaterlong.format(shipping[0].dtu_shpg)
+		// 	shipping[0].dts_shpg=formaterlong.format(shipping[0].dts_shpg)
+		// 	shipping[0].dte_shpg=formaterlong.format(shipping[0].dte_shpg)
+		// }
+		res.render('PRUEBAS_CORREOS',{ 
+			title: 'sendiit - panel', 
+			path: req.path, 
+			user: req.session.user, 
+			shipping: shipping[0]});
+	});
 
 router.route('/actualizar')
 .post(Auth.onlyUsers,
 	(req, res, next) => {
 		console.log('hola')
 		let {name,tkr} = req.body
-		let estado = name	
+		let email1 = 'omardelvalle99139@gmail.com'
+		let email2 = 'dannydvalle99139@gmail.com'
+		// let estado = name	
 		name = name-1
-		const array = [
-			{ id: 1, state: "En espera de recolección"},
-			{ id: 2, state: "En espera de transportista"},
-			{ id: 3, state: "En tránsito"},
-			{ id: 4, state: "En espera de recepción"},
-			{ id: 5, state: "Completado"},
-			{ id: 6, state: "Almacén"},
-			{ id: 7, state: "Cancelado"}
+		const states = [
+			{ id: 1, state: "en espera de recolección, lleva el paquete al lugar de origen"},
+			{ id: 2, state: "en espera de transportista"},
+			{ id: 3, state: "en tránsito, pronto está en el lugar de destino"},
+			{ id: 4, state: "en espera de recepción por el destinatario"},
+			{ id: 5, state: "completado, el paquete ha sido recibido por el destinatario con exito"},
+			{ id: 6, state: "en almacén, ponte en contacto con soporte para tener más información"},
+			{ id: 7, state: "cancelado,  ponte en contacto con soporte si hay algún problema"}
+		];
+
+		const imgStates = [
+			{ id: 1, route: "https://lh3.google.com/u/2/d/1xu5cgIwQml_y6Lk4QF4CHKfNWdXNda-k=w1920-h973-iv1"},
+			{ id: 2, route: "https://lh3.google.com/u/2/d/1SIePJdbDIr4DnjSFWYFW985ObhE58XV3=w2000-h4168-iv1"},
+			{ id: 3, route: "https://lh3.google.com/u/2/d/1Y5tV5o7NsPokLgqgprFYv4M7iFb0KTT3=w1920-h973-iv1"},
+			{ id: 4, route: "https://lh3.google.com/u/2/d/1MphskkmSf3g3oYJnuyN8oBhtODwmlLk3=w1920-h973-iv1"},
+			{ id: 5, route: "https://lh3.google.com/u/2/d/1vrYgKgWjTmjyZJ3GFuvZxyMZ6eKf76gQ=w1920-h973-iv1"},
+			{ id: 6, route: "https://lh3.google.com/u/2/d/19oEY1IN5m7n1slx_JJNgERTXq3qO9fjE=w1920-h973-iv1"},
+			{ id: 7, route: "https://lh3.google.com/u/2/d/1PY7m26-54ohV11ygRBVQMx8D72LyCQnF=w1920-h973-iv1"}
 		];
 		
 		//let traking = req.params.tracking	
-		const
-		html='<p>'+array[name].state+'<p>'
-		mailer.sendEmail('gustavopdzz0@gmail.com', html,'Actualización de estado de envío')
-		db.UpdateShippings(estado,tkr)
+		mailer.sendEmailStateShipping(res, email1, 'user1', tkr, states[name].state, imgStates[name].route)
+		mailer.sendEmailStateShipping(res, email2, 'user2', tkr, states[name].state, imgStates[name].route)
+
+		// mailer.sendEmail('gustavopdzz0@gmail.com', html,'Actualización de estado de envío')
+		// db.UpdateShippings(estado,tkr)
 	});
 
 router.route('/repartidor/guia/sendForm')
