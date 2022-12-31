@@ -404,7 +404,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `lockey_db`;
-INSERT INTO `lockey_db`.`DoorType` (`id_drtype`, `nm_drtype`, `hgt_drtype`, `wd_drtype`, `deep_drtype`, `wt_drtype`, `pr_drtype`) VALUES (DEFAULT, 'Pequeño', 10.93, 40.64, 63.5, NULL, 150);
+INSERT INTO `lockey_db`.`DoorType` (`id_drtype`, `nm_drtype`, `hgt_drtype`, `wd_drtype`, `deep_drtype`, `wt_drtype`, `pr_drtype`) VALUES (DEFAULT, 'Chico', 10.93, 40.64, 63.5, NULL, 150);
 INSERT INTO `lockey_db`.`DoorType` (`id_drtype`, `nm_drtype`, `hgt_drtype`, `wd_drtype`, `deep_drtype`, `wt_drtype`, `pr_drtype`) VALUES (DEFAULT, 'Mediano', 23.13, 40.64, 63.5, NULL, 200);
 INSERT INTO `lockey_db`.`DoorType` (`id_drtype`, `nm_drtype`, `hgt_drtype`, `wd_drtype`, `deep_drtype`, `wt_drtype`, `pr_drtype`) VALUES (DEFAULT, 'Grande', 50.8, 40.64, 63.5, NULL, 250);
 

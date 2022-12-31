@@ -31,29 +31,29 @@ block content
                     .row
                         .col-5.form-outline.mb-3
                             p.text-secondary.mb-1.px-1.fw-bold Remitente:
-                        .col.form-outline.mb-3(style='text-align: left;') Juan Daniel Del Valle
+                        .col.form-outline.mb-3(style='text-align: left;')= sender.nm_cont
                     .row
                         .col-5.form-outline.mb-3
                             p.text-secondary.mb-1.px-1.fw-bold Destinatario:
-                        .col.form-outline.mb-3(style='text-align: left;') Jose Rios Perez
+                        .col.form-outline.mb-3(style='text-align: left;')= receiver.nm_cont
                     .row
                         .col-5.form-outline.mb-3
                             p.text-secondary.mb-1.px-1.fw-bold Tamaño del locker:
-                        .col.form-outline.mb-3(style='text-align: left;') Mediano
+                        .col.form-outline.mb-3(style='text-align: left;')= size.nm_drtype
                     .row
                         .col-5.form-outline.mb-3
                             p.text-secondary.mb-1.px-1.fw-bold Lugar de origen:
-                        .col.form-outline.mb-3(style='text-align: left;') Plaza Antenas
+                        .col.form-outline.mb-3(style='text-align: left;')= origin.nm_lkr
                     .row
                         .col-5.form-outline.mb-3
                             p.text-secondary.mb-1.px-1.fw-bold Lugar de destino:
-                        .col.form-outline.mb-3(style='text-align: left;') Plaza Garden
+                        .col.form-outline.mb-3(style='text-align: left;')= destination.nm_lkr
                     .row
                         .col-4.form-outline.mb-3
                             .col-4.form-outline.mb-3
                                 h2.fw-bold(style='color: #CAA400;') Costo:
                         .col-4.form-outline.mb-3
-                            h2.fw-bold-secondary-left $100.00
+                            h2.fw-bold-secondary-left= "$"+size.pr_drtype
                 .row
                     .col.form-outline.mb-3
                     .col-10.form-outline.mb-3(style='color: #A8A8A8; text-align: center;')
