@@ -1,10 +1,10 @@
 extends /layout
 
 block content
-    .bg-secondary       
-        .container            
-            h2.fw-bold.m-0.p-2.text-primary Crear envío                    
-    form 
+    form(method='POST' action='/crear-envio')
+        .bg-secondary       
+            .container            
+                h2.fw-bold.m-0.p-2.text-primary Crear envío                    
         .container.row.col-fluid-12.mt-3.mx-auto    
             .col-lg-6.col-md-6.mt-3
                 h3.fw-bold Lugar de origen
@@ -72,115 +72,69 @@ block content
                     .row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.p-3.ms-3.me-3.shadow.rounded-pill
                         h5.fw-bold.text-white.m-0.p-0 CAMBIAR DESTINATARIO
 
-    - 
-        let sizes = [
-            { 
-                'name': 'Chico',
-                'sign': 's',
-                'height': 10,
-                'width': 40,
-                'depth': 60,
-                'weight': 15 
-            },
-            { 
-                'name': 'Mediano',
-                'sign': 'm',
-                'height': 20,
-                'width': 40,
-                'depth': 60,
-                'weight': 15 
-            },
-            { 
-                'name': 'Grande',
-                'sign': 'l',
-                'height': 30,
-                'width': 40,
-                'depth': 60,
-                'weight': 15 
-            },
-        ]
-    .container.row.col-fluid-12.mt-3.mx-auto
-        h3.fw-bold.mt-5 Tamaño del paquete
-        p.m-0 Selecciona un tamaño de locker
-        form 
+        - 
+            let sizes = [
+                { 
+                    'id': '1',
+                    'name': 'Chico',
+                    'sign': 's',
+                    'height': 10,
+                    'width': 40,
+                    'depth': 60,
+                    'weight': 15 
+                },
+                { 
+                    'id': '2',
+                    'name': 'Mediano',
+                    'sign': 'm',
+                    'height': 20,
+                    'width': 40,
+                    'depth': 60,
+                    'weight': 15 
+                },
+                { 
+                    'id': '3',
+                    'name': 'Grande',
+                    'sign': 'l',
+                    'height': 30,
+                    'width': 40,
+                    'depth': 60,
+                    'weight': 15 
+                },
+            ]
+        .container.row.col-fluid-12.mt-3.mx-auto
+            h3.fw-bold.mt-5 Tamaño del paquete
+            p.m-0 Selecciona un tamaño de locker
+            
             .wrapper.Paquetes.p-0
-                for size in sizes
-                    input.btn-check(type='radio' name='size' autocomplete='off' id='option'+size.sign disabled=typeof(origin)=='undefined'||typeof(destination)=='undefined'? '':null)
-                    label.btn.btn-secondary.d-flex.flex-column.align-items-center.justify-content-center(class='TamañoPaquete' for='option'+size.sign)
-                        h3.fw-bold #{size.name}
-                        img.boxSize(src="/images/package-"+size.sign+".svg")
+                for msyze in sizes
+                    input.btn-check(type='radio' name='size' autocomplete='off' id='option'+msyze.sign value=msyze.id 
+                        disabled=typeof(origin)=='undefined'||typeof(destination)=='undefined'? '':null
+                        checked=typeof(size)!='undefined'&&size.id_drtype==msyze.id? '':null
+                        )
+                    label.btn.btn-secondary.d-flex.flex-column.align-items-center.justify-content-center(class='TamañoPaquete' for='option'+msyze.sign)
+                        h3.fw-bold #{msyze.name}
+                        img.boxSize(src="/images/package-"+msyze.sign+".svg")
                         p.fw-bold.pt-4 Medidas máximas
                         .row
                             .col
                                 p.m-0.p-0.fw-bold1 Altura
-                                p.m-0.p-0 #{size.height} cm
+                                p.m-0.p-0 #{msyze.height} cm
                             .col
                                 p.m-0.p-0.fw-bold1 Anchura
-                                p.m-0.p-0 #{size.width} cm
+                                p.m-0.p-0 #{msyze.width} cm
                             .col
                                 p.m-0.p-0.fw-bold1 Peso
-                                p.m-0.p-0 #{size.weight} kg
+                                p.m-0.p-0 #{msyze.weight} kg
                             .col
                                 p.m-0.p-0.fw-bold1 Profundidad
-                                p.m-0.p-0 #{size.depth} cm
-        .row-12.d-flex.mb-4.mt-3
-            a.col-6.text-decoration-none(href='/panel')
-                center
-                    h5.fw-bold.align-items-center.justify-content-center.btn.btn-warning.shadow.rounded-pill.textButton CANCELAR
-            a.col-6.text-decoration-none(href='/crear-envio/resumen')
-                center
-                    h5.fw-bold.align-items-center.justify-content-center.btn.btn-secondary.shadow.rounded-pill.textButton CONTINUAR
-
-
-    //- .container.py-5
-    //-     h1.fw-bold Resumen del env&iacute;o
-    //-     .row.d-flex.justify-content-center
-    //-         .col-md-9.col-lg-7.col-xl-5
-    //-             .card(style='background-color:rgba(255, 251, 239, 1);')
-    //-                 .rounded-bottom
-    //-                     .card-body
-    //-                         .row
-    //-                             .col-5.form-outline.mb-3
-    //-                                 a.text-decoration-none.mb-1.px-1.mt-3.fw-bold(href='#' style='color: #212E46;' 
-    //-                                 onclick="location.href = '/panel/envio/crearEnvio/createSender';") Remitente:
-    //-                             .col.form-outline.mb-3(style='text-align: left;') Juan Daniel Del Valle
-    //-                         .row
-    //-                             .col-5.form-outline.mb-3
-    //-                                 a.text-decoration-none.mb-1.px-1.mt-3.fw-bold(href='#' style='color: #212E46;'
-    //-                                 onclick="location.href = '/panel/envio/crearEnvio/createAddresse';") Destinatario:
-    //-                             .col.form-outline.mb-3(style='text-align: left;') Jose Rios Perez
-    //-                         .row
-    //-                             .col-5.form-outline.mb-3
-    //-                                 a.text-decoration-none.mb-1.px-1.mt-3.fw-bold(href='#' style='color: #212E46;' 
-    //-                                 onclick="location.href = '/panel/envio/crearEnvio/createSize';") Tama&ntilde;o del locker:
-    //-                             .col.form-outline.mb-3(style='text-align: left;') Mediano
-    //-                         .row
-    //-                             .col-5.form-outline.mb-3
-    //-                                 a.text-decoration-none.mb-1.px-1.mt-3.fw-bold(href='#' style='color: #212E46;' onclick='') Lugar de origen:
-    //-                             .col.form-outline.mb-3(style='text-align: left;') Plaza Antenas
-    //-                         .row
-    //-                             .col-5.form-outline.mb-3
-    //-                                 a.text-decoration-none.mb-1.px-1.mt-3.fw-bold(href='#' style='color: #212E46;' onclick='') Lugar de destino:
-    //-                             .col.form-outline.mb-3(style='text-align: left;') Plaza Garden
-    //-                         .row
-    //-                             .col-4.form-outline.mb-3
-    //-                             .col-4.form-outline.mb-3
-    //-                                 h2.fw-bold(style='color: #CAA400;') Costo:
-    //-                             .col-4.form-outline.mb-3
-    //-                                 h2.fw-bold(style='color: #212E46; text-align: left;') $100.00
-    //- .row
-    //-     .col.form-outline.mb-3
-    //-     .col-10.form-outline.mb-3(style='color: #A8A8A8; text-align: center;')
-    //-         p
-    //-             | *Una vez confirmado el env&iacute;o se contar&aacute; con 24 horas
-    //-             | para depositar el paquete en el locker, de lo contrario se
-    //-             | cancelar&aacute; la solicitud y no habr&aacute; devoluci&oacute;n.
-    //-     .col.form-outline.mb-3
-
-    //- .d-grid.gap-2.col-6.mx-auto
-    //-     button.btn.btn-primary.btn-lg.rounded-5.px-2.my-0.px-4(type='submit' style='background-color: #212E46;')
-    //-         .fw-bold(style='color: #FFFFFF') Confirmar envio
-
+                                p.m-0.p-0 #{msyze.depth} cm
+            .row-12.d-flex.mb-4.mt-3
+                a.col-6.text-decoration-none(href='/panel')
+                    center
+                        h5.fw-bold.align-items-center.justify-content-center.btn.btn-warning.shadow.rounded-pill.textButton CANCELAR
+                .col-6.text-decoration-none
+                    button.fw-bold.align-items-center.justify-content-center.btn.btn-secondary.shadow.rounded-pill.textButton(type='submit') CONTINUAR
 
 block scripts
     script(src='/javascripts/googleMaps.js')

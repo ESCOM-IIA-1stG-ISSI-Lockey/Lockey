@@ -122,6 +122,7 @@ CREATE TABLE IF NOT EXISTS `lockey_db`.`DoorType` (
   `hgt_drtype` DOUBLE NOT NULL,
   `wd_drtype` DOUBLE NOT NULL,
   `deep_drtype` DOUBLE NOT NULL,
+  `pr_drtype` DOUBLE NOT NULL,
   `wt_drtype` DOUBLE NULL,
   PRIMARY KEY (`id_drtype`))
 ENGINE = InnoDB;
@@ -403,9 +404,9 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `lockey_db`;
-INSERT INTO `lockey_db`.`DoorType` (`id_drtype`, `nm_drtype`, `hgt_drtype`, `wd_drtype`, `deep_drtype`, `wt_drtype`) VALUES (DEFAULT, 'Pequeño', 10.93, 40.64, 63.5, NULL);
-INSERT INTO `lockey_db`.`DoorType` (`id_drtype`, `nm_drtype`, `hgt_drtype`, `wd_drtype`, `deep_drtype`, `wt_drtype`) VALUES (DEFAULT, 'Mediano', 23.13, 40.64, 63.5, NULL);
-INSERT INTO `lockey_db`.`DoorType` (`id_drtype`, `nm_drtype`, `hgt_drtype`, `wd_drtype`, `deep_drtype`, `wt_drtype`) VALUES (DEFAULT, 'Grande', 50.8, 40.64, 63.5, NULL);
+INSERT INTO `lockey_db`.`DoorType` (`id_drtype`, `nm_drtype`, `hgt_drtype`, `wd_drtype`, `deep_drtype`, `wt_drtype`, `pr_drtype`) VALUES (DEFAULT, 'Pequeño', 10.93, 40.64, 63.5, NULL, 150);
+INSERT INTO `lockey_db`.`DoorType` (`id_drtype`, `nm_drtype`, `hgt_drtype`, `wd_drtype`, `deep_drtype`, `wt_drtype`, `pr_drtype`) VALUES (DEFAULT, 'Mediano', 23.13, 40.64, 63.5, NULL, 200);
+INSERT INTO `lockey_db`.`DoorType` (`id_drtype`, `nm_drtype`, `hgt_drtype`, `wd_drtype`, `deep_drtype`, `wt_drtype`, `pr_drtype`) VALUES (DEFAULT, 'Grande', 50.8, 40.64, 63.5, NULL, 250);
 
 COMMIT;
 

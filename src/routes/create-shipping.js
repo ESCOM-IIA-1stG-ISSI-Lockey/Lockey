@@ -21,19 +21,24 @@ router.route('/')
 	async (req, res, next) => {
 		if (!req.session.shipping)
 			req.session.shipping = {}
+
+		debug('req.session.shipping', req.session.shipping)
 		let params = {}
 
 		if (req.session.shipping.origin) 
-			params.origin = (await db.getLoker(req.session.shipping.origin))[0]
+			params.origin = (await db.getLokerById(req.session.shipping.origin))[0]
 		
 		if (req.session.shipping.destination)
-			params.destination = (await db.getLoker(req.session.shipping.destination))[0]
+			params.destination = (await db.getLokerById(req.session.shipping.destination))[0]
 
 		if (req.session.shipping.sender)
 			params.sender = (await db.getContactById(req.session.shipping.sender))[0]
 
 		if (req.session.shipping.receiver)
 			params.receiver = (await db.getContactById(req.session.shipping.receiver))[0]
+
+		if (req.session.shipping.size)
+			params.size = (await db.getSizeById(req.session.shipping.size))[0]
 		
 		res.render('createShipping/create', {
 			title: 'sendiit - panel',
@@ -62,7 +67,11 @@ router.route('/')
 		if (receiver)
 			req.session.shipping.receiver = receiver
 
-		if (origin && destination && size && sender && receiver)
+		if (req.session.shipping.origin
+			&& req.session.shipping.destination
+			&& req.session.shipping.size
+			&& req.session.shipping.sender
+			&& req.session.shipping.receiver)
 			res.json({ response: 'OK', redirect: '/crear-envio/resumen' })
 		else
 			res.json({ response: 'OK', redirect: '/crear-envio'+req.path })
@@ -72,9 +81,33 @@ router.route('/')
 router.route('/resumen')
 .get(Auth.onlyClients,
 	async (req, res, next) => {
+		/**
+		 * sender, receiver, wallet, origin, destination, size*
+		 */
 		let params = {}
+
+		if (req.session.shipping.sender)
+			params.sender = (await db.getContactById(req.session.shipping.sender))[0]
+
+		if (req.session.shipping.receiver)
+			params.receiver = (await db.getContactById(req.session.shipping.receiver))[0]
+		
 		if (req.session.shipping.wallet) 
-			params.wallet = (await db.getWallet(req.session.shipping.wallet))[0]
+			params.wallet = (await db.getWalletById(req.session.shipping.wallet))[0]
+
+		if (req.session.shipping.origin)
+			params.origin = (await db.getLokerById(req.session.shipping.origin))[0]
+		
+		if (req.session.shipping.destination)
+			params.destination= (await db.getLokerById(req.session.shipping.destination))[0]
+
+		if (req.session.shipping.size)
+			params.size = (await db.getSizeById(req.session.shipping.size))[0]
+
+		let distance; // calcular precio usando la api de google maps
+		// despues usar la formula para calcular el precio
+
+		debug('req.session.shipping', req.session.shipping)
 		
 		res.render('createShipping/resume', {
 			title: 'sendiit - panel',
