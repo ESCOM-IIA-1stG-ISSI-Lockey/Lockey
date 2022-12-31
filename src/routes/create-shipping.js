@@ -196,15 +196,18 @@ router.route('/wallet')
 
 
 
+router.route('/selectWallet')
+.get(Auth.onlyClients,
+	async (req, res, next) => {
+		let metodosDePagos = await db.getWalletsByUserId(req.session.user.id);
+		res.render('createShipping/choose/selectWallet', { 
+			title: 'sendiit - panel', 
+			path: req.path, 
+			user: req.session.user, 
+			metodosDePagos: metodosDePagos
+		});
+	})
 
 
-
-router.route('/remitente')
-.post(Auth.onlyClients, 
-	(req, res, next) => {
-		console.log(req.body)
-		
-		
-	});		
 
 module.exports = router;
