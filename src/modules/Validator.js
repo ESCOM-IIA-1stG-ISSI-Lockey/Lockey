@@ -29,7 +29,7 @@ const v = {
 		.not().isEmpty().withMessage(`${name} es obligatorio`)
 		.isLength({ min: 3 }).withMessage(`${name} debe tener al menos 3 caracteres`)
 		.isLength({ max: 50 }).withMessage(`${name} debe tener maximo 50 caracteres`)
-		.isAlphanumeric().withMessage(`${name} solo puede contener letras y números`)
+		.matches(/^[\wà-ÿÀ-Ÿ ]+$/).withMessage(`${name} solo puede contener letras y números`)
 	},
 	// Fullname
 	_fullname: function (param, name) { return check(param)
@@ -166,6 +166,7 @@ const Validator = {
 		v._nickname('name', 'El nombre'),
 		v._email('email', 'El correo'),
 		v._phone('phone', 'El teléfono'),
+		validateResult
 	],
 
 	// Credit card
