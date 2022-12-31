@@ -6,36 +6,20 @@ block content
         p Agregar o seleccionar tarjeta de crédito o débito
             //- button.btn.btn-primary.rounded-5.mt-3(type='button' style='background-color: #212E46;')
             //-a.fw-bold.end-0(style='color: secondary') Ver todos
-    form(action='/crear-envio/wallet' method='POST')
-        .container.col-fluid-12.mt-3.mx-auto
-            .col-lg-6.mt-3
-                input#origen.btn-check(type='radio' name='options2' autocomplete='off' disabled=typeof(wallet)=='undefined'? '':null)
-                if typeof(wallet)=='undefined'
-                    label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center(for='origen')
-                        i.h1.bi.bi-building-fill
-                        p Sin tarjeta seleccionada
-                else
-                    label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center.bg-primary(for='wallet')
-                        p.fw-bold #{wallet.nknm_wall} 
-                        p #{wallet.num_wall} 
-            .col-12.p-3.rounded-pill.mx-1.ms-3.me-3
-                button.btn.btn-primary(type='button' data-bs-toggle='modal' data-bs-target='#exampleModal' style='background-color: #212E46;')
-                    .modal-dialog.modal-dialog-centered.modal-dialog-scrollable.fw-bold.my-0.px-4(style='color: #ffffff;') CAMBIAR TARJETA
-                #exampleModal.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
-                    .modal-dialog.modal-dialog-scrollable
-                        .modal-content
-                            .modal-header
-                                h5.container.text-center.fs-4 Métodos de Pago
-                                button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
-                            .modal-body
-                                each metodo in metodosDePagos
-                                    .col-sm-6.col-lg-4.mb-4
-                                        .card.border-0
-                                            input.btn-check(id=metodo.id_wal type='radio' value=metodo.id_wal  name=choose  autocomplete='off')
-                                            label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center.ms-3.me-3.m-0(for=metodo.id_wal)
-                                                p.fw-bold=metodo.nknm_wal
-                                                small=metodo.nm_wal
-                                                small=metodo.num_wal[0]   
+    form(action='/crear-envio/wallet' method='POST')   
+        .col
+            input#origen.btn-check(type='radio' name='options2' autocomplete='off' disabled=typeof(origin)=='undefined'? '':null)
+            if typeof(origin)=='undefined'
+                label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center(for='origen')
+                    i.h1.bi.bi-building-fill
+                    p Sin tarjeta seleccionada
+            else
+                label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center.bg-primary(for='origen')
+                    p.fw-bold #{origin.nm_lkr} 
+                    p #{origin.dir_lkr} 
+            a.text-decoration-none(href='/crear-envio/selectWallet')
+                .row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.p-3.ms-3.me-3.shadow.rounded-pill
+                    h5.fw-bold.text-white.m-0.p-0 CAMBIAR TARJETA
                                                 
         
                     
