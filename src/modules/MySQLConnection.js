@@ -260,7 +260,7 @@ const db = {
 			});
 		});
 	},
-	getloker:(id) =>{ //modifique
+	getLoker:(id) =>{ //modifique
 		return new Promise((resolve, reject) => {
 			if (!isConnected)
 				throw errorDBConnection;
@@ -269,6 +269,17 @@ const db = {
 				console.log('results: ');
 				console.log(results);
 				if(err)reject(err);
+				else resolve(results);
+			});
+		});
+	},
+
+	getWallet: (id_wal) => {
+		return new Promise((resolve, reject) => {
+			if (!isConnected)
+				throw errorDBConnection;
+			con.query('SELECT * FROM Wallet WHERE id_wal = ? ', [id_wal], (err, results) => {
+				if (err) reject(err);
 				else resolve(results);
 			});
 		});

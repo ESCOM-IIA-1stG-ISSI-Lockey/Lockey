@@ -1,39 +1,74 @@
 extends /layout
 
 block content
-    .container.row.col-fluid-12.mt-3.mx-auto
-        h1.fw-bold Información de Pago
-        p Agregar o seleccionar tarjeta de crédito o débito
-            //- button.btn.btn-primary.rounded-5.mt-3(type='button' style='background-color: #212E46;')
-            //-a.fw-bold.end-0(style='color: secondary') Ver todos
-    form(action='/crear-envio/wallet' method='POST')   
-        .col
-            input#origen.btn-check(type='radio' name='options2' autocomplete='off' disabled=typeof(origin)=='undefined'? '':null)
-            if typeof(origin)=='undefined'
-                label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center(for='origen')
-                    i.h1.bi.bi-building-fill
-                    p Sin tarjeta seleccionada
-            else
-                label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center.bg-primary(for='origen')
-                    p.fw-bold #{origin.nm_lkr} 
-                    p #{origin.dir_lkr} 
-            a.text-decoration-none(href='/crear-envio/tarjeta')
-                .row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.p-3.ms-3.me-3.shadow.rounded-pill
-                    h5.fw-bold.text-white.m-0.p-0 CAMBIAR TARJETA
+    .bg-secondary       
+        .container            
+            h2.fw-bold.m-0.p-2.text-primary Resumen de envío
+    form 
+        .container.row.col-fluid-12.mt-3.mx-auto    
+            .col-lg-6.col-md-6.mt-3
+                h3.fw-bold Método de pago
+                p.m-0 Elige una tarjeta de credito o débito
+                input#origen.btn-check(type='radio' name='options2' autocomplete='off' disabled=typeof(wallet)=='undefined'? '':null)
+                if typeof(wallet)=='undefined'
+                    label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center(for='origen')
+                        i.h1.bi.bi-building-fill
+                        p Sin tarjeta seleccionada
+                    // TODO: change wallet to wallet
+                else
+                    label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center.bg-primary(for='origen')
+                        p.fw-bold #{wallet.nknm_wal} 
+                        p #{wallet.num_wal} 
+                a.text-decoration-none(href='/crear-envio/tarjeta')
+                    .row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.p-3.ms-3.me-3.shadow.rounded-pill
+                        h5.fw-bold.text-white.m-0.p-0 SELECCIONAR TARJETA
+            
+            .col-lg-6.col-md-6.mt-3
+                h3.fw-bold Resumen
+                p.m-0 Aqui va el resumen
+
+            .row-12.d-flex.mb-4.mt-3
+            a.col-6.text-decoration-none(href='/crear-envio/resumen')
+                center
+                    h5.fw-bold.align-items-center.justify-content-center.btn.btn-warning.shadow.rounded-pill.textButton CANCELAR
+            a.col-6.text-decoration-none(href='/crear-envio/finalizado')
+                center
+                    h5.fw-bold.align-items-center.justify-content-center.btn.btn-secondary.shadow.rounded-pill.textButton CONTINUAR
+                
+//- ---------
+//-     .container.row.col-fluid-12.mt-3.mx-auto
+//-         h1.fw-bold Información de Pago
+//-         p Agregar o seleccionar tarjeta de crédito o débito
+//-             //- button.btn.btn-primary.rounded-5.mt-3(type='button' style='background-color: #212E46;')
+//-             //-a.fw-bold.end-0(style='color: secondary') Ver todos
+//-     form(action='/crear-envio/wallet' method='POST')   
+//-         .col
+//-             input#origen.btn-check(type='radio' name='options2' autocomplete='off' disabled=typeof(wallet)=='undefined'? '':null)
+//-             if typeof(wallet)=='undefined'
+//-                 label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center(for='origen')
+//-                     i.h1.bi.bi-building-fill
+//-                     p Sin tarjeta seleccionada
+//-             else
+//-                 label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center.bg-primary(for='origen')
+//-                     p.fw-bold #{wallet.nm_lkr} 
+//-                     p #{wallet.dir_lkr} 
+//-             a.text-decoration-none(href='/crear-envio/tarjeta')
+//-                 .row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.p-3.ms-3.me-3.shadow.rounded-pill
+//-                     h5.fw-bold.text-white.m-0.p-0 CAMBIAR TARJETA
                                                 
         
                     
-            p(align='right')
+//-             p(align='right')
 
-            .row
-                .col-6
-                    a.text-decoration-none(href='/crear-envio')
-                        .row.d-flex.align-items-center.justify-content-center.btn.btn-warning.p-3.ms-0.me-0.shadow.rounded-pill.m-5.mt-4
-                            h5.fw-bold.text-white.m-0.p-0 Volver
-                .col-6
-                    a.text-decoration-none(href='/crear-envio/finalizado')
-                        .row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.p-3.ms-3.me-3.shadow.rounded-pill.m-5.mt-4
-                            h5.fw-bold.text-white.m-0.p-0 Continuar
+//-             .row
+//-                 .col-6
+//-                     a.text-decoration-none(href='/crear-envio')
+//-                         .row.d-flex.align-items-center.justify-content-center.btn.btn-warning.p-3.ms-0.me-0.shadow.rounded-pill.m-5.mt-4
+//-                             h5.fw-bold.text-white.m-0.p-0 Volver
+//-                 .col-6
+//-                     a.text-decoration-none(href='/crear-envio/finalizado')
+//-                         .row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.p-3.ms-3.me-3.shadow.rounded-pill.m-5.mt-4
+//-                             h5.fw-bold.text-white.m-0.p-0 Continuar
 
 
 block scripts

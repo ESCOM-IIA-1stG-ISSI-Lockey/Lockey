@@ -24,10 +24,10 @@ router.route('/')
 		let params = {}
 
 		if (req.session.shipping.origin) 
-			params.origin = (await db.getloker(req.session.shipping.origin))[0]
+			params.origin = (await db.getLoker(req.session.shipping.origin))[0]
 		
 		if (req.session.shipping.destination)
-			params.destination = (await db.getloker(req.session.shipping.destination))[0]
+			params.destination = (await db.getLoker(req.session.shipping.destination))[0]
 
 		if (req.session.shipping.sender)
 			params.sender = (await db.getContactById(req.session.shipping.sender))[0]
@@ -72,15 +72,15 @@ router.route('/')
 router.route('/resumen')
 .get(Auth.onlyClients,
 	async (req, res, next) => {
-		let wallet = await db.getWalletsByUserId(req.session.user.id);
-		let contacts = await db.getContactsByUserId(req.session.user.id);
-		console.log('contacts', contacts)
+		let params = {}
+		if (req.session.shipping.wallet) 
+			params.wallet = (await db.getWallet(req.session.shipping.wallet))[0]
+		
 		res.render('createShipping/resume', {
 			title: 'sendiit - panel',
 			path: req.path,
 			user: req.session.user,
-			wallet: wallet,
-			contacts: contacts
+			...params
 		});
 	})
 .post(Auth.onlyClients,
@@ -89,12 +89,16 @@ router.route('/resumen')
 			req.session.shipping = {}
 
 		debug('req.body', req.body)
-		let { wallet } = req.body
+		let { wallet, cvv } = req.body
 
 		if (wallet)
 			req.session.shipping.wallet = wallet
 
-		if (sender && receiver && wallet)
+		if (cvv)
+			req.session.shipping.cvv = cvv
+
+
+		if (wallet && cvv)
 			// Realizar cobro y creacion del envio
 			res.json({ response: 'OK', message: 'Envio creado' })
 		else
@@ -175,8 +179,8 @@ router.route('/tarjeta')
 		let metodosDePagos = await db.getWalletsByUserId(req.session.user.id);
 		res.render('createShipping/choose/wallet', { 
 			title: 'sendiit - panel', 
-			path: req.path, 
-			user: req.session.user, 
+			path: req.path,
+			user: req.session.user,
 			metodosDePagos: metodosDePagos
 		});
 	})
