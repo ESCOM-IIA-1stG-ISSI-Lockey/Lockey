@@ -34,8 +34,8 @@ block content
                                             input.btn-check(id=metodo.id_wal type='radio' value=metodo.id_wal  name=choose  autocomplete='off')
                                             label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center.ms-3.me-3.m-0(for=metodo.id_wal)
                                                 p.fw-bold=metodo.nknm_wal
-                                                small=metodo.num_wal  
-                                                small=metodo.date_wal
+                                                small=metodo.nm_wal
+                                                small=metodo.num_wal[0] //en pruebas x2  
                                                 
                             .modal-footer
                                 button.btn.btn-secondary(type='button' data-bs-dismiss='modal') Cerrar
