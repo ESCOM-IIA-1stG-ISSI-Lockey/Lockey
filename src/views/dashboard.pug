@@ -1,11 +1,13 @@
 extends layout
 
 block content
-	.container
-		if user.type == 'ADMIN'
+	
+	if user.type == 'ADMIN'
+		.container
 			p.nameUser Admin Dashboard
 
-		else if user.type == 'DELIVERER'
+	else if user.type == 'DELIVERER'
+		.container
 			if stateRoute.length == 0   
 				.row(data-masonry='{"percentPosition": true }' style='position: relative; height: 690px;')
 					.col-sm-6.col-lg-4.mb-4(style='position: absolute; left: 0%; top: 0px;')
@@ -25,14 +27,14 @@ block content
 
 				
 				ul.pt-3.StepProgress.align-items-centerpb-3
-	
+
 					each locker, i in stateRoute 
 						if i + 1 >= stateRoute.length
 							if locker.stat_rte == 1
 								.StepProgress-item.is-done.b-line
 									a.strong(href='/panel/repartidor/lockersnm/'+locker.nm_lkr) 
 										p.text-ruta=locker.nm_lkr
-								 			
+											
 							else
 								.StepProgress-item.current.b-line
 									a.strong(href='/panel/repartidor/lockersnm/'+locker.nm_lkr) 
@@ -51,38 +53,37 @@ block content
 								
 
 							- lockerc++
-							
-		else if user.type == 'CLIENT'
-			.bg-primary
-				.pt-3.container.pb-3
-					h1.nameUser Bienvenido #{user.name}
-					p.mt-1.mb-1 Rastrear envío
-					form#num_g.form-group.mt-0(action='/envio' method='POST' novalidate)
-						.input-group
-							.form-floating
-								input#num_guia.form-control(type='text' name='tracking' onkeyup='search_shipping(event)' placeholder='Ingrese número de guía')
-								label(for='num_guia') Número de guía
-								.invalid-tooltip
-							button.input-group-text.btn.btn-secondary(type="submit" onclick='search_shipping(event)') Buscar
 						
-						
-						//- .form-floating
-						//- 	.input-group.mb-3
-						//- 		input#num_guia.form-control(type='text' name='tracking' placeholder='Ingrese número de guía' onkeyup='search_shipping(event)')
-						//- 		//- label.text-dark(for='num_guia') Rastrear envío
-						//- 		div.input-group-append
-						//- 			button.btn.btn-secondary(type="submit" onclick='search_shipping(event)' ) Buscar
-						//- 		.invalid-tooltip
-			
+	else if user.type == 'CLIENT'
+		.bg-primary
+			.pt-3.container.pb-3.container
+				h1.nameUser Bienvenido #{user.name}
+				p.mt-1.mb-1 Rastrear envío
+				form#num_g.form-group.mt-0(action='/envio' method='POST' novalidate)
+					.input-group
+						.form-floating
+							input#num_guia.form-control(type='text' name='tracking' onkeyup='search_shipping(event)' placeholder='Ingrese número de guía')
+							label(for='num_guia') Número de guía
+							.invalid-tooltip
+						button.input-group-text.btn.btn-secondary(type="submit" onclick='search_shipping(event)') Buscar
+					
+					
+					//- .form-floating
+					//- 	.input-group.mb-3
+					//- 		input#num_guia.form-control(type='text' name='tracking' placeholder='Ingrese número de guía' onkeyup='search_shipping(event)')
+					//- 		//- label.text-dark(for='num_guia') Rastrear envío
+					//- 		div.input-group-append
+					//- 			button.btn.btn-secondary(type="submit" onclick='search_shipping(event)' ) Buscar
+					//- 		.invalid-tooltip
+		.container
 
 			h4.pt-3.container Envíos en curso
-			.wrapper.container 
+			.wrapper.container.wrapper2
 				each val in pedingShipings
-				
 					a.text-decoration-none(href='/envio/'+val.trk_shpg)
-						.item.row.d-flex.align-items-center.justify-content-center(style='min-width: 380px;')
-							.col-4.p-0
-								img(style='max-height: 120px;' src='https://img.freepik.com/vector-premium/icono-vector-arte-linea-camion-entrega-envio-rapido-aplicaciones-sitios-web-transporte_652240-16.jpg')
+						.item.row.d-flex.align-items-center.justify-content-center.align-content-center(style='min-width: 380px;')
+							.col-4.p-0(style="text-align:center")
+								img(src='https://img.freepik.com/vector-premium/icono-vector-arte-linea-camion-entrega-envio-rapido-aplicaciones-sitios-web-transporte_652240-16.jpg')
 							.col-8.p-0
 								each num, key in  {1 : 'En espera de recolección', 2 : 'En espera de transportista', 3 : 'En tránsito', 4 : 'En espera de recepción', 5 : 'Completado', 6 : 'Almacén', 7 : 'Cancelado'}
 									if key == val.stat_shpg
@@ -123,8 +124,8 @@ block content
 				//- a.text-decoration-none(href='/panel/envio/crearEnvio')
 				//- 	.item.row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.m-5.p-3.shadow.rounded-pill
 				//- 		h5.fw-bold.text-white.m-0.p-0 CONTINUAR
-		else
-			| Usuario desconocido
+	else
+		| Usuario desconocido
 
 
 block scripts
