@@ -1,46 +1,40 @@
 extends /layout
 
 block content
-    .bg-secondary       
-        .container            
-            h2.fw-bold.m-0.p-2.text-primary Solicitud exitosa
-    form(action='/crear-envio/resumen' method='Post')
-        .container.row.col-fluid-12.mt-3.mx-auto
-            .row    
-                .col-lg
-                    center
-                        img.img-fluid(src='/images/check.jpeg' width='300' height='300')
+    .container.row.col-fluid-12.mt-3.mx-auto
+        h1.fw-bold Información de Pago
+        p Agregar o seleccionar tarjeta de crédito o débito
+            //- button.btn.btn-primary.rounded-5.mt-3(type='button' style='background-color: #212E46;')
+            //-a.fw-bold.end-0(style='color: secondary') Ver todos
+    form(action='/crear-envio/wallet' method='POST')   
+        .col
+            input#origen.btn-check(type='radio' name='options2' autocomplete='off' disabled=typeof(origin)=='undefined'? '':null)
+            if typeof(origin)=='undefined'
+                label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center(for='origen')
+                    i.h1.bi.bi-building-fill
+                    p Sin tarjeta seleccionada
+            else
+                label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center.bg-primary(for='origen')
+                    p.fw-bold #{origin.nm_lkr} 
+                    p #{origin.dir_lkr} 
+            a.text-decoration-none(href='/crear-envio/tarjeta')
+                .row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.p-3.ms-3.me-3.shadow.rounded-pill
+                    h5.fw-bold.text-white.m-0.p-0 CAMBIAR TARJETA
+                                                
+        
+                    
+            p(align='right')
+
             .row
-                center
-                    h1.fw-bold Código QR del locker
-                p
-                .col-lg
-                    center
-                        img.img-fluid(src="/images/codigo-qr.png" width='300' height='300')
-                p
-                p
-                p
-            .row
-                .col
-                .col-6.col-md-5.d-flex.align-items-center.justify-content-center.btn.btn-primary.p-3.ms-3.me-3.shadow.rounded-pill
-                    a.text-decoration-none(href='/crear-envio/resumen')
-                        center
-                            h5.fw-bold.text-secondary.m-0.p-0 IMPRIMIR GUÍA
-                .col
-                p
-            .row
-                .col
-                .col-6.col-md-5.d-flex.align-items-center.justify-content-center.btn.btn-tertiary.p-3.ms-3.me-3.shadow.rounded-pill
-                    a.text-decoration-none(href='/panel/informacion')
-                        center
-                            h5.fw-bold.text-secondary.m-0.p-0 INSTRUCCIONES
-                .col
-                p
-            .row
-                .col
-                .col-6.col-md-5.d-flex.align-items-center.justify-content-center.btn.btn-secondary.p-3.ms-3.me-3.shadow.rounded-pill
-                    a.text-decoration-none(href='/panel')
-                        center
-                            h5.fw-bold.text-white.m-0.p-0 SALIR
-                .col
-                p
+                .col-6
+                    a.text-decoration-none(href='/crear-envio')
+                        .row.d-flex.align-items-center.justify-content-center.btn.btn-warning.p-3.ms-0.me-0.shadow.rounded-pill.m-5.mt-4
+                            h5.fw-bold.text-white.m-0.p-0 Volver
+                .col-6
+                    a.text-decoration-none(href='/crear-envio/finalizado')
+                        .row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.p-3.ms-3.me-3.shadow.rounded-pill.m-5.mt-4
+                            h5.fw-bold.text-white.m-0.p-0 Continuar
+
+
+block scripts
+    script(src='/javascripts/validation.js')

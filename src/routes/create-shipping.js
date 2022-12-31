@@ -101,6 +101,17 @@ router.route('/resumen')
 			res.json({ response: 'OK', redirect: '/crear-envio'+req.path })
 });
 
+// Envio finalizado con exito
+router.route('/finalizado')
+.get(Auth.onlyClients,
+	async (req, res, next) => {
+		res.render('createShipping/completed', {
+			title: 'sendiit - panel',
+			path: req.path,
+			user: req.session.user
+		});
+	});
+
 
 // Extension view to choose the origin or destination
 router.route('/:choose(origen|destino)')
@@ -158,7 +169,7 @@ router.route('/:choose(remitente|destinatario)')
 
 
 //  Agregar metodo de pago
-router.route('/wallet')
+router.route('/tarjeta')
 .get(Auth.onlyClients,
 	async (req, res, next) => {
 		let metodosDePagos = await db.getWalletsByUserId(req.session.user.id);
@@ -179,7 +190,7 @@ router.route('/wallet')
 			if (results.affectedRows) {
 				res.status(200).json({
 					response: "OK",
-					redirect: "wallet" //modifiaciones
+					redirect: "tarjeta" //modifiaciones
 				})
 			}
 			else {
@@ -196,17 +207,17 @@ router.route('/wallet')
 
 
 
-router.route('/selectWallet')
-.get(Auth.onlyClients,
-	async (req, res, next) => {
-		let metodosDePagos = await db.getWalletsByUserId(req.session.user.id);
-		res.render('createShipping/choose/selectWallet', { 
-			title: 'sendiit - panel', 
-			path: req.path, 
-			user: req.session.user, 
-			metodosDePagos: metodosDePagos
-		});
-	})
+// router.route('/tarjeta')
+// .get(Auth.onlyClients,
+// 	async (req, res, next) => {
+// 		let metodosDePagos = await db.getWalletsByUserId(req.session.user.id);
+// 		res.render('createShipping/choose/selectWallet', { 
+// 			title: 'sendiit - panel', 
+// 			path: req.path, 
+// 			user: req.session.user, 
+// 			metodosDePagos: metodosDePagos
+// 		});
+// 	})
 
 
 

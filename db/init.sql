@@ -37,7 +37,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `lockey_db`.`Wallet` (
   `id_wal` INT NOT NULL AUTO_INCREMENT,
   `id_usr` INT NOT NULL,
-  `nknm_wal` VARCHAR(10) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL,
+  `nknm_wal` VARCHAR(24) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL,
   `nm_wal` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL,
   `num_wal` VARCHAR(16) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL,
   `date_wal` DATE NOT NULL,
