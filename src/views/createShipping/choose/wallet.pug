@@ -35,27 +35,22 @@ block content
                                             label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center.ms-3.me-3.m-0(for=metodo.id_wal)
                                                 p.fw-bold=metodo.nknm_wal
                                                 small=metodo.nm_wal
-                                                small=metodo.num_wal[0] 
-                                                //en pruebas x2  
+                                                small=metodo.num_wal[0]   
                                                 
-                            .modal-footer
-                                button.btn.btn-secondary(type='button' data-bs-dismiss='modal') Cerrar
-                                button.btn.btn-primary(type='button') Confirmar
-
         
                     
-        p(align='right')
+            p(align='right')
 
-        .row
-            .col-6
-                a.text-decoration-none(href='/crear-envio')
-                    .row.d-flex.align-items-center.justify-content-center.btn.btn-warning.p-3.ms-0.me-0.shadow.rounded-pill.m-5.mt-4
-                        h5.fw-bold.text-white.m-0.p-0 Volver
-            .col-6
-                a.text-decoration-none(href='/crear-envio/resumen')
-                    .row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.p-3.ms-3.me-3.shadow.rounded-pill.m-5.mt-4
-                        h5.fw-bold.text-white.m-0.p-0 Continuar
-    include /modal/wallet
+            .row
+                .col-6
+                    a.text-decoration-none(href='/crear-envio')
+                        .row.d-flex.align-items-center.justify-content-center.btn.btn-warning.p-3.ms-0.me-0.shadow.rounded-pill.m-5.mt-4
+                            h5.fw-bold.text-white.m-0.p-0 Volver
+                .col-6
+                    a.text-decoration-none(href='/crear-envio/wallet')
+                        .row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.p-3.ms-3.me-3.shadow.rounded-pill.m-5.mt-4
+                            h5.fw-bold.text-white.m-0.p-0 Continuar
+
 
 block scripts
     script(src='/javascripts/validation.js')
