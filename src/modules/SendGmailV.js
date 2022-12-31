@@ -13,6 +13,16 @@ const val = {
 		});
 	})},
 
+	sendEmailStateShipping: async (res, email, user, num_g, state, img_state) => { return new Promise((resolve, reject) => {
+		res.render('modal/shipping_state_email', { user:user, num_g:num_g, state:state, img_state:img_state}, function(err, html) {
+			if (err)
+				reject('Problemas al renderizar el correo');
+			else
+				val.sendEmail(email, html, 'Estado actual del envío')
+				.then((info) => resolve(info) )
+				.catch((err) => reject(err) );
+		});
+	})},
 
 	// async..await is not allowed in global scope, must use a wrapper
 	sendEmail: (email, html,subject) => { return new Promise(async (resolve, reject) => {

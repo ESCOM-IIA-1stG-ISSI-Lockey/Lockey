@@ -1,0 +1,47 @@
+extends /layout
+
+block content
+    .bg-secondary       
+        .container            
+            h2.fw-bold.m-0.p-2.text-primary Solicitud exitosa
+    form(action='/crear-envio/resumen' method='Post')
+        .container.row.col-fluid-12.mt-3.mx-auto
+            .row    
+                .col-lg
+                    center
+                        img.img-fluid(src='/images/check.jpeg' width='300' height='300')
+            .row
+                center
+                    h1.fw-bold Código QR del locker
+                p
+                .col-lg
+                    center
+                        canvas#qr
+                        //- img.img-fluid(src="/images/codigo-qr.png" width='300' height='300')
+                p
+                p
+                p
+            .row
+                .col
+                .col-6.col-md-5.d-flex.align-items-center.justify-content-center.btn.btn-primary.p-3.ms-3.me-3.shadow.rounded-pill
+                    a.text-decoration-none(href='/crear-envio/resumen')
+                        center
+                            h5.fw-bold.text-secondary.m-0.p-0 IMPRIMIR GUÍA
+                .col
+                p
+            .row
+                .col
+                .col-6.col-md-5.d-flex.align-items-center.justify-content-center.btn.btn-tertiary.p-3.ms-3.me-3.shadow.rounded-pill
+                    a.text-decoration-none(href='/panel/informacion')
+                        center
+                            h5.fw-bold.text-secondary.m-0.p-0 INSTRUCCIONES
+                .col
+                p
+            .row
+                .col
+                .col-6.col-md-5.d-flex.align-items-center.justify-content-center.btn.btn-secondary.p-3.ms-3.me-3.shadow.rounded-pill
+                    a.text-decoration-none(href='/panel')
+                        center
+                            h5.fw-bold.text-white.m-0.p-0 SALIR
+                .col
+                p
