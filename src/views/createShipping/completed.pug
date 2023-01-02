@@ -16,7 +16,9 @@ block content
                 p
                 .col-lg
                     center
-                        img.img-fluid(src="/images/codigo-qr.png" width='300' height='300')
+                        //- importante: img, clase qr-img con data-text. Tambien importar los scripts de qrcode.js y qr.js en ese orden
+                        img.qr-img(width='300' height='300' data-text='numero de guia aquiii')
+                        //- img.qr-img(width='300' height='300' data-text=trkg_shpg)
                 p
                 p
                 p
@@ -44,3 +46,6 @@ block content
                             h5.fw-bold.text-white.m-0.p-0 SALIR
                 .col
                 p
+block scripts
+    script(src='/javascripts/qrcode.js')    //- 1er script
+    script(src='/javascripts/qr.js')        //- 2do script

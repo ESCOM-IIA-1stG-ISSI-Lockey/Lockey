@@ -260,7 +260,7 @@ const db = {
 			});
 		});
 	},
-	getLoker:(id) =>{ //modifique
+	getLokerById:(id) =>{ //modifique
 		return new Promise((resolve, reject) => {
 			if (!isConnected)
 				throw errorDBConnection;
@@ -274,11 +274,22 @@ const db = {
 		});
 	},
 
-	getWallet: (id_wal) => {
+	getWalletById: (id_wal) => {
 		return new Promise((resolve, reject) => {
 			if (!isConnected)
 				throw errorDBConnection;
 			con.query('SELECT * FROM Wallet WHERE id_wal = ? ', [id_wal], (err, results) => {
+				if (err) reject(err);
+				else resolve(results);
+			});
+		});
+	},
+
+	getSizeById: (id_size) => {
+		return new Promise((resolve, reject) => {
+			if (!isConnected)
+				throw errorDBConnection;
+			con.query('SELECT * FROM DoorType WHERE id_drtype = ? ', [id_size], (err, results) => {
 				if (err) reject(err);
 				else resolve(results);
 			});
