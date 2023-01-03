@@ -134,8 +134,8 @@ router.route('/actualizar')
 		//let traking = req.params.tracking	
 		mailer.sendEmailStateShipping(res, user.email, user.name, tkr, states[name].state, states[name].route)
 		if(name>2)
+			db.getUpdateShippings(estado,tkr)
 			mailer.sendEmailStateShipping(res, email2, 'Daniel', tkr, states[name].state, states[name].route)
-			 db.getUpdateShippings(estado,tkr)
 	});
 
 router.route('/repartidor/guia/sendForm')
