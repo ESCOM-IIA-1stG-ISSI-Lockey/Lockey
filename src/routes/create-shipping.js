@@ -21,19 +21,24 @@ router.route('/')
 	async (req, res, next) => {
 		if (!req.session.shipping)
 			req.session.shipping = {}
+
+		debug('req.session.shipping', req.session.shipping)
 		let params = {}
 
 		if (req.session.shipping.origin) 
-			params.origin = (await db.getloker(req.session.shipping.origin))[0]
+			params.origin = (await db.getLokerById(req.session.shipping.origin))[0]
 		
 		if (req.session.shipping.destination)
-			params.destination = (await db.getloker(req.session.shipping.destination))[0]
+			params.destination = (await db.getLokerById(req.session.shipping.destination))[0]
 
 		if (req.session.shipping.sender)
 			params.sender = (await db.getContactById(req.session.shipping.sender))[0]
 
 		if (req.session.shipping.receiver)
 			params.receiver = (await db.getContactById(req.session.shipping.receiver))[0]
+
+		if (req.session.shipping.size)
+			params.size = (await db.getSizeById(req.session.shipping.size))[0]
 		
 		res.render('createShipping/create', {
 			title: 'sendiit - panel',
@@ -62,7 +67,11 @@ router.route('/')
 		if (receiver)
 			req.session.shipping.receiver = receiver
 
-		if (origin && destination && size && sender && receiver)
+		if (req.session.shipping.origin
+			&& req.session.shipping.destination
+			&& req.session.shipping.size
+			&& req.session.shipping.sender
+			&& req.session.shipping.receiver)
 			res.json({ response: 'OK', redirect: '/crear-envio/resumen' })
 		else
 			res.json({ response: 'OK', redirect: '/crear-envio'+req.path })
@@ -72,15 +81,39 @@ router.route('/')
 router.route('/resumen')
 .get(Auth.onlyClients,
 	async (req, res, next) => {
-		let wallet = await db.getWalletsByUserId(req.session.user.id);
-		let contacts = await db.getContactsByUserId(req.session.user.id);
-		console.log('contacts', contacts)
+		/**
+		 * sender, receiver, wallet, origin, destination, size*
+		 */
+		let params = {}
+
+		if (req.session.shipping.sender)
+			params.sender = (await db.getContactById(req.session.shipping.sender))[0]
+
+		if (req.session.shipping.receiver)
+			params.receiver = (await db.getContactById(req.session.shipping.receiver))[0]
+		
+		if (req.session.shipping.wallet) 
+			params.wallet = (await db.getWalletById(req.session.shipping.wallet))[0]
+
+		if (req.session.shipping.origin)
+			params.origin = (await db.getLokerById(req.session.shipping.origin))[0]
+		
+		if (req.session.shipping.destination)
+			params.destination= (await db.getLokerById(req.session.shipping.destination))[0]
+
+		if (req.session.shipping.size)
+			params.size = (await db.getSizeById(req.session.shipping.size))[0]
+
+		let distance; // calcular precio usando la api de google maps
+		// despues usar la formula para calcular el precio
+
+		debug('req.session.shipping', req.session.shipping)
+		
 		res.render('createShipping/resume', {
 			title: 'sendiit - panel',
 			path: req.path,
 			user: req.session.user,
-			wallet: wallet,
-			contacts: contacts
+			...params
 		});
 	})
 .post(Auth.onlyClients,
@@ -89,17 +122,32 @@ router.route('/resumen')
 			req.session.shipping = {}
 
 		debug('req.body', req.body)
-		let { wallet } = req.body
+		let { wallet, cvv } = req.body
 
 		if (wallet)
 			req.session.shipping.wallet = wallet
 
-		if (sender && receiver && wallet)
+		if (cvv)
+			req.session.shipping.cvv = cvv
+
+
+		if (wallet && cvv)
 			// Realizar cobro y creacion del envio
 			res.json({ response: 'OK', message: 'Envio creado' })
 		else
 			res.json({ response: 'OK', redirect: '/crear-envio'+req.path })
 });
+
+// Envio finalizado con exito
+router.route('/finalizado')
+.get(Auth.onlyClients,
+	async (req, res, next) => {
+		res.render('createShipping/completed', {
+			title: 'sendiit - panel',
+			path: req.path,
+			user: req.session.user
+		});
+	});
 
 
 // Extension view to choose the origin or destination
@@ -158,14 +206,14 @@ router.route('/:choose(remitente|destinatario)')
 
 
 //  Agregar metodo de pago
-router.route('/wallet')
+router.route('/tarjeta')
 .get(Auth.onlyClients,
 	async (req, res, next) => {
 		let metodosDePagos = await db.getWalletsByUserId(req.session.user.id);
 		res.render('createShipping/choose/wallet', { 
 			title: 'sendiit - panel', 
-			path: req.path, 
-			user: req.session.user, 
+			path: req.path,
+			user: req.session.user,
 			metodosDePagos: metodosDePagos
 		});
 	})
@@ -179,7 +227,7 @@ router.route('/wallet')
 			if (results.affectedRows) {
 				res.status(200).json({
 					response: "OK",
-					redirect: "wallet" //modifiaciones
+					redirect: "tarjeta" //modifiaciones
 				})
 			}
 			else {
@@ -196,15 +244,18 @@ router.route('/wallet')
 
 
 
+// router.route('/tarjeta')
+// .get(Auth.onlyClients,
+// 	async (req, res, next) => {
+// 		let metodosDePagos = await db.getWalletsByUserId(req.session.user.id);
+// 		res.render('createShipping/choose/selectWallet', { 
+// 			title: 'sendiit - panel', 
+// 			path: req.path, 
+// 			user: req.session.user, 
+// 			metodosDePagos: metodosDePagos
+// 		});
+// 	})
 
 
-
-router.route('/remitente')
-.post(Auth.onlyClients, 
-	(req, res, next) => {
-		console.log(req.body)
-		
-		
-	});		
 
 module.exports = router;
