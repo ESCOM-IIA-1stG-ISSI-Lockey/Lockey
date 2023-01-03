@@ -135,7 +135,7 @@ router.route('/actualizar')
 		mailer.sendEmailStateShipping(res, user.email, user.name, tkr, states[name].state, states[name].route)
 		if(name>2)
 			mailer.sendEmailStateShipping(res, email2, 'Daniel', tkr, states[name].state, states[name].route)
-		// db.UpdateShippings(estado,tkr)
+			 db.getUpdateShippings(estado,tkr)
 	});
 
 router.route('/repartidor/guia/sendForm')
