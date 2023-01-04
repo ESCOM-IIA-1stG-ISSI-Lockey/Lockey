@@ -20,18 +20,25 @@ block content
         
                 p Profundidad Del Paquete : 
                     strong #{shippingDetails.deep_shpg} cm
-
                 
+                
+
+                    .contenedor
                     img.rounded.mx-auto.d-block(src="/images/codigo-qr.png" width="350" VSPACE="30" alt="Responsive image")
                 .text-center
-                    a.btn.btn-secondary.btn-lg.active.mb-5(href='/panel/repartidor/guia/shippingCollected' role='button' aria-pressed='true') Recolectar 
+                    if shippingDetails.edge_shpgdr == 1
+                        a.btn.btn-secondary.btn-lg.active.mb-5(href='/panel/repartidor/guia/shippingCollected' role='button' aria-pressed='true') Recolectar 
+                        //shippingDetails.edge_shpgdr == 2
+                    else
 
-                    a.btn.btn-primary.btn-lg.active.separar.mb-5(href='/panel/repartidor/guia/shipmentDelivered' role='button' aria-pressed='true') Entrega
+                        a.btn.btn-primary.btn-lg.active.separar.mb-5(href='/panel/repartidor/guia/shipmentDelivered' role='button' aria-pressed='true') Entrega
+                        //shippingDetails.stat_shpg == 3
                 .col-4               
             
                 .col-6           
                 
                 .col-8
+
                     a.btn.btn-danger.mt-5(type='button' href='/panel/repartidor/guia/reportForm') Reportar inconveniente
                         
                    

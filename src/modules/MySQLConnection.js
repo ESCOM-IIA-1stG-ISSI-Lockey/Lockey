@@ -181,11 +181,11 @@ const db = {
 		});
 	},
 		
-	getUpdateShippings: (estado,id_envio) => {
+	getUpdateShippings: (state,tkr) => {
 		return new Promise((resolve, reject) => {
 			if (!isConnected)
 				throw errorDBConnection;
-			con.query("UPDATE ShippingDetail SET stat_shpg = stat_shpg + 1 where trk_shpg = ?", [estado,id_envio], (err, results) => {
+			con.query("UPDATE ShippingDetail SET stat_shpg = ? + 1 where trk_shpg = ?", [state,tkr], (err, results) => {
 				if (err) reject(err);
 				else resolve(results);
 			});
@@ -406,11 +406,11 @@ const db = {
 			});
 		});
 	},
-	getShippinguide: (userId, guia) => {
+	getShippinguide: (userId, guia) => { //202212150310001002
 		return new Promise((resolve, reject) => {
 			if (!isConnected)
 				throw errorDBConnection;
-			con.query('SELECT * FROM Shipping WHERE trk_shpg = ? ', [ guia ], (err, results) => {
+			con.query('SELECT * FROM Shipping NATURAL JOIN Wallet NATURAL JOIN ShippingType RIGHT JOIN  (ShippingDoor AS Origin, Door as OriginDoor, Locker as OriginLocker) ON (Shipping.trk_shpg = Origin.trk_shpg AND OriginDoor.id_door = Origin.id_door AND OriginLocker.id_lkr = OriginDoor.id_lkr) RIGHT JOIN (ShippingDoor AS Destination, Door as DestinationDoor, Locker as DestinationLocker) ON (Shipping.trk_shpg = Destination.trk_shpg AND DestinationDoor.id_door = Destination.id_door AND DestinationLocker.id_lkr = DestinationDoor.id_lkr) WHERE Origin.trk_shpg = Destination.trk_shpg AND Origin.edge_shpgdr=1 AND Destination.edge_shpgdr=2 ', [ guia ], (err, results) => {
 				if (err) reject(err);
 				else resolve(results);
 			});

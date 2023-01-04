@@ -1,0 +1,37 @@
+extends /layout
+
+block content
+    form(action='/crear-envio/selectWallet' method='POST')
+        .container
+            h1.fw-bold Tarjetas
+            p.mb-3 Seleccione o agregue una tarjeta
+            .row(data-masonry="{'percentPosition': true }" style="position: relative;" )
+                //- .col-md-5.col-lg-5.m-0.p-0.slide_ver
+                .col-sm-6.col-lg-4.mb-4
+                    button.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center(type='button' data-bs-toggle='modal' data-bs-target='#cardModal')
+                        i.h1.bi.bi-person-fill-add
+                            h5.fw-bold.m-0.p-0  AGREGAR TARJETA
+                    each wallet in metodosDePagos
+                        .card.border-0
+                            input.btn-check(id=wallet.id_wal type='radio' value=wallet.id_wal  autocomplete='off')
+                            label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center(for=wallet.id_wal)
+                                small=wallet.nm_wal   
+                                small=wallet.num_wal
+                        
+            .row.mt-3.float-right.ms-3
+                .form-check
+                    input#exampleCheck1.form-check-input(type='checkbox')
+                    label.form-check-label(for='exampleCheck1') Recordar tarjeta
+            .row
+                .col-6
+                    a.text-decoration-none(href='/crear-envio')
+                        .row.d-flex.align-items-center.justify-content-center.btn.btn-warning.p-3.ms-1.me-1.shadow.rounded-pill.m-5.mt-4
+                            h5.fw-bold.text-white.m-0.p-0 Cancelar
+                .col-6
+                    button.row.w-100.d-flex.align-items-center.justify-content-center.btn.btn-secondary.p-3.ms-1.me-1.shadow.rounded-pill.m-5.mt-4(type='submit')
+                        h5.fw-bold.text-white.m-0.p-0 Continuar                    
+    include /modal/wallet
+
+
+block scripts
+    script(src='/javascripts/validation.js')

@@ -57,6 +57,7 @@ function codeAddress(geocoder, map,address,namew,i) {
  });
 }
 
+
   
 window.initMap = initMap;
 

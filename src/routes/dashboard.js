@@ -119,7 +119,7 @@ router.route('/actualizar')
 	(req, res, next) => {
 		let user = req.session.user
 		let {name,tkr} = req.body
-		let email2 = 'dannydvalle99139@gmail.com'
+		let email2 = 'c10vvm@gmail.com'
 		// let estado = name	
 		name = name-1
 		const states = [
@@ -132,10 +132,10 @@ router.route('/actualizar')
 			{ id: 7, state: "cancelado,  ponte en contacto con soporte si hay algún problema", 				route: "https://lh3.google.com/u/2/d/1PY7m26-54ohV11ygRBVQMx8D72LyCQnF=w1920-h973-iv1"}
 		];
 		//let traking = req.params.tracking	
-		mailer.sendEmailStateShipping(res, user.email, user.name, tkr, states[name].state, states[name].route)
-		if(name>2)
-			mailer.sendEmailStateShipping(res, email2, 'Daniel', tkr, states[name].state, states[name].route)
-		// db.UpdateShippings(estado,tkr)
+		db.getUpdateShippings(name,tkr)
+		mailer.sendEmailStateShipping(res, user.email, user.name, tkr, states[name].state, states[name].route)	//remitente
+		if(states[name].id>2)
+			mailer.sendEmailStateShipping(res, email2, 'Daniel', tkr, states[name].state, states[name].route) //destinatario
 	});
 
 router.route('/repartidor/guia/sendForm')
