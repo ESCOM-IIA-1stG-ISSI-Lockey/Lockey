@@ -119,7 +119,7 @@ router.route('/actualizar')
 	(req, res, next) => {
 		let user = req.session.user
 		let {name,tkr} = req.body
-		let email2 = 'dannydvalle99139@gmail.com'
+		let email2 = 'c10vvm@gmail.com'
 		// let estado = name	
 		name = name-1
 		const states = [
