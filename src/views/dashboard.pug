@@ -83,7 +83,9 @@ block content
 					a.text-decoration-none(href='/envio/'+val.trk_shpg)
 						.item.row.d-flex.align-items-center.justify-content-center.align-content-center(style='min-width: 380px;')
 							.col-4.p-0(style="text-align:center")
-								img(src='https://img.freepik.com/vector-premium/icono-vector-arte-linea-camion-entrega-envio-rapido-aplicaciones-sitios-web-transporte_652240-16.jpg')
+								each num, key in  {1 : 'img_state_1', 2 : 'img_state_2', 3 : 'img_state_3', 4 : 'img_state_4', 5 : 'img_state_5', 6 : 'img_state_6', 7 : 'img_state_7'}
+									if key == val.stat_shpg
+										img(src="/images/img_states/"+num+".png")(style="max-width: 100px")
 							.col-8.p-0
 								each num, key in  {1 : 'En espera de recolección', 2 : 'En espera de transportista', 3 : 'En tránsito', 4 : 'En espera de recepción', 5 : 'Completado', 6 : 'Almacén', 7 : 'Cancelado'}
 									if key == val.stat_shpg
@@ -94,11 +96,8 @@ block content
 								small.text-muted Destino: #{val.nm_lkrdst} 
 								br
 								small.text-muted Última actualización: #{val.dtu_shpg}
-								//- br
-								//- small.text-muted 00:00 PM - 00/00/0000
-				
 				else 
-					h4.pt-2.pb-2.container No hay envios en curso :(
+					h4.pt-2.pb-2.container No hay envios en curso 
 
 
 			.container.align-items-center.justify-content-center
@@ -108,7 +107,7 @@ block content
 							i.h1.bi.bi-box-seam-fill.icons
 						.col-8
 							h5.fw-bold.m-0.p-0 CREAR ENVÍO
-				a.text-decoration-none(href='#')
+				a.text-decoration-none(href='/panel/historial')
 					.item.row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.m-3.text-primary.p-3
 						.col-4
 							i.h1.bi.bi-clock-history.icons

@@ -170,11 +170,22 @@ const db = {
 		});
 	},
 	
-	getShippings: (id_usr) => {
+	getPendingShippings: (id_usr) => {
 		return new Promise((resolve, reject) => {
 			if (!isConnected)
 				throw errorDBConnection;
 			con.query('SELECT * FROM ShippingDetail  WHERE id_usr= ? AND (stat_shpg = 6 OR stat_shpg < 5)', [id_usr], (err, results) => {
+				if (err) reject(err);
+				else resolve(results);
+			});
+		});
+	},
+	
+	getShippings: (id_usr) => {
+		return new Promise((resolve, reject) => {
+			if (!isConnected)
+				throw errorDBConnection;
+			con.query('SELECT * FROM ShippingDetail  WHERE id_usr= ? ', [id_usr], (err, results) => {
 				if (err) reject(err);
 				else resolve(results);
 			});

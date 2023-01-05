@@ -1,0 +1,47 @@
+extends layout
+
+block content
+    .bg-secondary       
+        .container            
+            h2.fw-bold.m-0.p-2.text-primary Historial de envíos
+
+    - let long = 1
+    .container
+        .row
+            each val in pedingShipings
+                -long=long+1
+                if long%2==0
+                    .col-md-6.col-lg-6.col-xl-6.shippingHistory
+                        a.text-decoration-none(href='/envio/'+val.trk_shpg)
+                            //- .item.row.d-flex.align-items-center.justify-content-center.align-content-center(style='min-width: 380px;')
+                            //- .col-4.p-0(style="text-align:center")
+                                //- img(src='https://img.freepik.com/vector-premium/icono-vector-arte-linea-camion-entrega-envio-rapido-aplicaciones-sitios-web-transporte_652240-16.jpg')
+                            each num, key in  {1 : 'En espera de recolección', 2 : 'En espera de transportista', 3 : 'En tránsito', 4 : 'En espera de recepción', 5 : 'Completado', 6 : 'Almacén', 7 : 'Cancelado'}
+                                if key == val.stat_shpg
+                                    p.card-text.text-center.m-0.text-status= num
+                            h6.card-title.card-text.text-center.text-secondary= val.trk_shpg
+                            small.text-muted Origen: #{val.nm_lkrorg}
+                            br
+                            small.text-muted Destino: #{val.nm_lkrdst} 
+                            br
+                            small.text-muted Última actualización: #{val.dtu_shpg}
+
+                if long%2==1
+                    .col-md-6.col-lg-6.col-xl-6.shippingHistory
+                        a.text-decoration-none(href='/envio/'+val.trk_shpg)
+                            //- .item.row.d-flex.align-items-center.justify-content-center.align-content-center(style='min-width: 380px;')
+                            //- .col-4.p-0(style="text-align:center")
+                                //- img(src='https://img.freepik.com/vector-premium/icono-vector-arte-linea-camion-entrega-envio-rapido-aplicaciones-sitios-web-transporte_652240-16.jpg')
+                            each num, key in  {1 : 'En espera de recolección', 2 : 'En espera de transportista', 3 : 'En tránsito', 4 : 'En espera de recepción', 5 : 'Completado', 6 : 'Almacén', 7 : 'Cancelado'}
+                                if key == val.stat_shpg
+                                    p.card-text.text-center.m-0.text-status= num
+                            h6.card-title.card-text.text-center.text-secondary= val.trk_shpg
+                            small.text-muted Origen: #{val.nm_lkrorg}
+                            br
+                            small.text-muted Destino: #{val.nm_lkrdst} 
+                            br
+                            small.text-muted Última actualización: #{val.dtu_shpg}
+
+block scripts
+    script const user = !{JSON.stringify(user)}
+    script(src='/javascripts/validation.js')

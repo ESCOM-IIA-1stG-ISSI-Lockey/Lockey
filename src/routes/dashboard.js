@@ -21,7 +21,7 @@ router.route('/')
 				params.stateRoute = await db.getLockersByUserId(req.session.user.id)
 				break;
 			case 'CLIENT':
-				params.pedingShipings = await db.getShippings(req.session.user.id)
+				params.pedingShipings = await db.getPendingShippings(req.session.user.id)
 				params.pedingShipings.map((shipping)=>{
 					shipping.dtu_shpg=formatershort.format(shipping.dtu_shpg)
 					shipping.dts_shpg=formatershort.format(shipping.dts_shpg)
@@ -95,6 +95,16 @@ router.route('/informacion')
 			title: 'sendiit - panel', 
 			path: req.path, 
 			user: req.session.user});
+	});
+
+router.route('/historial')
+.get(Auth.onlyUsers,
+	async(req,res,next) =>{
+		res.render('history',{ 
+			title: 'sendiit - panel', 
+			path: req.path, 
+			user: req.session.user,
+			pedingShipings: await db.getShippings(req.session.user.id)});
 	});
 
 router.route('/pc/:tracking([0-9]{18})')

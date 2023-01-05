@@ -372,6 +372,10 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 	font-size: 20px;
 }
 
+.shippingHistory{
+	max-height: 180px;
+	padding: 15px;
+}
 
 @media (min-width: 768px) {
 	.flex-md-equal > * {
