@@ -1,29 +1,27 @@
 const mysql = require('mysql2');
-const con = mysql.createConnection({
-	host:		process.env.MYSQL_HOST,
-	port:		process.env.MYSQL_PORT,
-	user: 		process.env.MYSQL_USER,
-	password:	process.env.MYSQL_PASSWORD,
-	database:	process.env.MYSQL_DATABASE,
-});
 const errorDBConnection = new Error('No se pudo conectar a la base de datos');
-var isConnected = false;
-
-con.on('error', function(err) {
+var con,
 	isConnected = false;
-	console.error('db error', err);
-	if(err.code === 'PROTOCOL_CONNECTION_LOST' || err.code === 'ECONNRESET' || err.code === 'ECONNREFUSED') {
-		console.log('Connection to MySQL failed. Retrying in 5 seconds...');
-		setTimeout(con.connect(), 5*1000);	// try again in 2 seconds
-	}
-	else
-		throw err;
-}).on('connect', function(err) {
-	isConnected = true;
-	console.info(`Connected to MySQL on ${process.env.MYSQL_HOST}:${process.env.MYSQL_PORT}!`)
-});
 
-con.connect();
+function connect(time=5) {
+	con = mysql.createConnection({
+		host:		process.env.MYSQL_HOST,
+		port:		process.env.MYSQL_PORT,
+		user: 		process.env.MYSQL_USER,
+		password:	process.env.MYSQL_PASSWORD,
+		database:	process.env.MYSQL_DATABASE,
+	});
+	con.connect((err) => {
+		isConnected = !err;
+		if (err) {
+			console.log(`Connection to MySQL failed [${err.code}]. Retrying in ${time} seconds...`);
+			setTimeout(() => connect(++time), 5*1000);	// try again in time seconds
+		} 
+		else console.log(`Connected to MySQL on ${process.env.MYSQL_HOST}:${process.env.MYSQL_PORT}!`);
+	});
+}
+
+connect();
 
 const db = {
 	// Roles
