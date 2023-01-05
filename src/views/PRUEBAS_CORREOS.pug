@@ -13,28 +13,31 @@ block scripts
     script const user = !{JSON.stringify(user)}
     script(src='/javascripts/validation.js')
     script.
+        const array = {
+                1: "En espera de recolección",
+                2: "En espera de transportista",
+                3: "En tránsito",
+                4: "En espera de recepción",
+                5: "Completado",
+                6: "Almacén",
+                7: "Cancelado"
+            }
         function stateAct() {
             var num=parseInt(document.getElementById("id").value); 
-            num = num-1
-            // alert(num); 
-            const array = [
-                { id: 1, state: "En espera de recolección"},
-                { id: 2, state: "En espera de transportista"},
-                { id: 3, state: "En tránsito"},
-                { id: 4, state: "En espera de recepción"},
-                { id: 5, state: "Completado"},
-                { id: 6, state: "Almacén"},
-                { id: 7, state: "Cancelado"}
-            ];
-            alert(array[num].state);
-            
+            alert(num);
             document.querySelector("form").submit()
         }
 
         function senemail() {
-            var num=parseInt(document.getElementById("id").value); 
+            var num=parseInt(document.getElementById("id").value++); 
             alert(num);
-            //return mailer.sendEmailVerification(res, email, shipping.stat_shpg)
+            
+            if (num>=7) {
+                num=1;
+                document.getElementById("id").value=num;
+            }
+
+            document.querySelector("form").submit()
         }
 
         const mailer = require('../modules/SendGmailV');

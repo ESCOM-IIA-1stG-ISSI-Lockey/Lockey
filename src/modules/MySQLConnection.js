@@ -181,11 +181,14 @@ const db = {
 		});
 	},
 		
-	getUpdateShippings: (state,tkr) => {
+	updateShippingState: (state,tkr) => {
 		return new Promise((resolve, reject) => {
 			if (!isConnected)
 				throw errorDBConnection;
-			con.query("UPDATE ShippingDetail SET stat_shpg = ? + 1 where trk_shpg = ?", [state,tkr], (err, results) => {
+			// get min value of state or 5
+			state = Math.min(parseInt(state)+1, 7);
+			console.log('TRAKING <%s> NEXT STATE [%s]', tkr, state)
+			con.query("UPDATE Shipping SET stat_shpg = ? where trk_shpg = ?", [state,tkr], (err, results) => {
 				if (err) reject(err);
 				else resolve(results);
 			});
