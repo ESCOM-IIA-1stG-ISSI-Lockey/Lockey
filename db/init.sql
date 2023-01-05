@@ -494,6 +494,6 @@ INSERT INTO `lockey_db`.`RouteDetail` (`id_rtedtl`, `id_rte`, `id_lkr`, `ord_rte
 INSERT INTO `lockey_db`.`RouteDetail` (`id_rtedtl`, `id_rte`, `id_lkr`, `ord_rtedtl`) VALUES (DEFAULT, 1, 2, 2);
 INSERT INTO `lockey_db`.`RouteDetail` (`id_rtedtl`, `id_rte`, `id_lkr`, `ord_rtedtl`) VALUES (DEFAULT, 1, 3, 3);
 INSERT INTO `lockey_db`.`RouteDetail` (`id_rtedtl`, `id_rte`, `id_lkr`, `ord_rtedtl`) VALUES (DEFAULT, 1, 4, 4);
--- INSERT INTO `lockey_db`.`RouteDetail` (`id_rtedtl`, `id_rte`, `id_lkr`, `ord_rtedtl`) VALUES (DEFAULT, 1, 1, 5);
+-- INSERT INTO `lockey_db`.`RouteDetail` (`id_rtedtl`, `id_rte`, `id_lkr`, `ord_rtedtl`) VALES (DEFAULT, 1, 1, 5);
 
 COMMIT;
