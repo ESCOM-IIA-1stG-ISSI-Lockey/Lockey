@@ -21,10 +21,10 @@ block content
                 p Profundidad Del Paquete : 
                     strong #{shippingDetails.deep_shpg} cm
                 
-                
-
-                    .contenedor
-                    img.rounded.mx-auto.d-block(src="/images/codigo-qr.png" width="350" VSPACE="30" alt="Responsive image")
+                    
+                    
+                   
+                    img.qr-img.qr-imgrounded.mx-auto.d-block( width="350" VSPACE="30" alt="Responsive image" data-text= traking)
                 .text-center
                     if shippingDetails.edge_shpgdr == 1
                         a.btn.btn-secondary.btn-lg.active.mb-5(href='/panel/repartidor/guia/shippingCollected' role='button' aria-pressed='true') Recolectar 
@@ -40,6 +40,11 @@ block content
                 .col-8
 
                     a.btn.btn-danger.mt-5(type='button' href='/panel/repartidor/guia/reportForm') Reportar inconveniente
+
+
+block scripts
+    script(src='/javascripts/qrcode.js')    //- 1er script
+    script(src='/javascripts/qr.js')        //- 2do script
                         
                    
 
