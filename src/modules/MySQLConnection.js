@@ -1,29 +1,27 @@
 const mysql = require('mysql2');
-const con = mysql.createConnection({
-	host:		process.env.MYSQL_HOST,
-	port:		process.env.MYSQL_PORT,
-	user: 		process.env.MYSQL_USER,
-	password:	process.env.MYSQL_PASSWORD,
-	database:	process.env.MYSQL_DATABASE,
-});
 const errorDBConnection = new Error('No se pudo conectar a la base de datos');
-var isConnected = false;
-
-con.on('error', function(err) {
+var con,
 	isConnected = false;
-	console.error('db error', err);
-	if(err.code === 'PROTOCOL_CONNECTION_LOST' || err.code === 'ECONNRESET' || err.code === 'ECONNREFUSED') {
-		console.log('Connection to MySQL failed. Retrying in 5 seconds...');
-		setTimeout(con.connect(), 5*1000);	// try again in 2 seconds
-	}
-	else
-		throw err;
-}).on('connect', function(err) {
-	isConnected = true;
-	console.info(`Connected to MySQL on ${process.env.MYSQL_HOST}:${process.env.MYSQL_PORT}!`)
-});
 
-con.connect();
+function connect(time=5) {
+	con = mysql.createConnection({
+		host:		process.env.MYSQL_HOST,
+		port:		process.env.MYSQL_PORT,
+		user: 		process.env.MYSQL_USER,
+		password:	process.env.MYSQL_PASSWORD,
+		database:	process.env.MYSQL_DATABASE,
+	});
+	con.connect((err) => {
+		isConnected = !err;
+		if (err) {
+			console.log(`Connection to MySQL failed [${err.code}]. Retrying in ${time} seconds...`);
+			setTimeout(() => connect(++time), 5*1000);	// try again in time seconds
+		} 
+		else console.log(`Connected to MySQL on ${process.env.MYSQL_HOST}:${process.env.MYSQL_PORT}!`);
+	});
+}
+
+connect();
 
 const db = {
 	// Roles
@@ -183,11 +181,14 @@ const db = {
 		});
 	},
 		
-	getUpdateShippings: (estado,id_envio) => {
+	updateShippingState: (state,tkr) => {
 		return new Promise((resolve, reject) => {
 			if (!isConnected)
 				throw errorDBConnection;
-			con.query("UPDATE ShippingDetail SET stat_shpg = stat_shpg + 1 where trk_shpg = ?", [estado,id_envio], (err, results) => {
+			// get min value of state or 5
+			state = Math.min(parseInt(state)+1, 7);
+			console.log('TRAKING <%s> NEXT STATE [%s]', tkr, state)
+			con.query("UPDATE Shipping SET stat_shpg = ? where trk_shpg = ?", [state,tkr], (err, results) => {
 				if (err) reject(err);
 				else resolve(results);
 			});
@@ -384,14 +385,14 @@ const db = {
 		return new Promise((resolve, reject) => {
 			if (!isConnected)
 				throw errorDBConnection;
-			con.query(`SELECT * 
-			FROM Route 
-			INNER JOIN RouteDetail
-			ON Route.id_rte = RouteDetail.id_rte
-			INNER JOIN Locker
-			ON RouteDetail.id_lkr = Locker.id_lkr
-			WHERE id_usr = ? 
-			ORDER BY stat_rte, date_rte `, [idUser], (err, results) => {
+			con.query(`SELECT * FROM Route 
+						NATURAL JOIN RouteDetail 
+						NATURAL JOIN Locker 
+						NATURAL JOIN Door 
+						NATURAL JOIN ShippingDoor 
+						WHERE stat_rte=1 
+							AND qr_shpgdr IS NOT NULL 
+							AND Route.id_usr=?`, [idUser], (err, results) => {
 				if (err) reject(err);
 				else resolve(results);
 			});

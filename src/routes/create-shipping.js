@@ -5,7 +5,6 @@ const Auth = require('../modules/Auth');
 const db = require('../modules/MySQLConnection');
 const Validator = require('../modules/Validator');
 
-
 /* 
 	req.session.shipping = {
 		origin,
@@ -58,14 +57,28 @@ router.route('/')
 		// let { NameOrigen, NameDestino } = req.body
 		if (origin)
 			req.session.shipping.origin = origin
+
 		if (destination)
 			req.session.shipping.destination = destination
+
 		if (size)
 			req.session.shipping.size = size
+
 		if (sender)
 			req.session.shipping.sender = sender
+
 		if (receiver)
 			req.session.shipping.receiver = receiver
+
+		if (req.session.shipping.receiver==req.session.shipping.sender){
+			req.session.shipping.receiver=undefined
+			req.session.shipping.sender=undefined
+		}
+
+		if (req.session.shipping.origin==req.session.shipping.destination){
+			req.session.shipping.origin=undefined
+			req.session.shipping.destination=undefined
+		}
 
 		if (req.session.shipping.origin
 			&& req.session.shipping.destination
@@ -73,6 +86,7 @@ router.route('/')
 			&& req.session.shipping.sender
 			&& req.session.shipping.receiver)
 			res.json({ response: 'OK', redirect: '/crear-envio/resumen' })
+
 		else
 			res.json({ response: 'OK', redirect: '/crear-envio'+req.path })
 	});
@@ -85,6 +99,7 @@ router.route('/resumen')
 		 * sender, receiver, wallet, origin, destination, size*
 		 */
 		let params = {}
+		
 
 		if (req.session.shipping.sender)
 			params.sender = (await db.getContactById(req.session.shipping.sender))[0]
