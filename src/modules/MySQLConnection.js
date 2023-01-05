@@ -382,14 +382,14 @@ const db = {
 		return new Promise((resolve, reject) => {
 			if (!isConnected)
 				throw errorDBConnection;
-			con.query(`SELECT * 
-			FROM Route 
-			INNER JOIN RouteDetail
-			ON Route.id_rte = RouteDetail.id_rte
-			INNER JOIN Locker
-			ON RouteDetail.id_lkr = Locker.id_lkr
-			WHERE id_usr = ? 
-			ORDER BY stat_rte, date_rte `, [idUser], (err, results) => {
+			con.query(`SELECT * FROM Route 
+						NATURAL JOIN RouteDetail 
+						NATURAL JOIN Locker 
+						NATURAL JOIN Door 
+						NATURAL JOIN ShippingDoor 
+						WHERE stat_rte=1 
+							AND qr_shpgdr IS NOT NULL 
+							AND Route.id_usr=?`, [idUser], (err, results) => {
 				if (err) reject(err);
 				else resolve(results);
 			});
