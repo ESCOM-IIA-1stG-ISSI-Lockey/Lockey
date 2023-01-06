@@ -107,6 +107,16 @@ router.route('/historial')
 			pedingShipings: await db.getShippings(req.session.user.id)});
 	});
 
+router.route('/perfil')
+.get(Auth.onlyUsers,
+	async(req,res,next) =>{
+		res.render('account',{ 
+			title: 'sendiit - panel', 
+			path: req.path, 
+			user: req.session.user});
+	});
+	
+
 router.route('/pc/:tracking([0-9]{18})')
 .get(Auth.onlyUsers,
 	async(req,res,next) =>{
