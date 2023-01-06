@@ -431,6 +431,27 @@ const db = {
 		});
 	},
 
+	createEnvio: (idUser,time_create,time_fimish, price, wallet) => {
+		console.log(tel,"telefono")
+		return new Promise((resolve, reject) => {
+			if (!isConnected)
+				throw errorDBConnection;
+			// check if email is already in use			
+			db.getContact(idUser,email,tel).then((results) => {
+				if (results.length > 0) reject('El contacto ya ha sido registrado');
+				else {
+					// create new user
+					con.query('INSERT INTO Contact VALUES (DEFAULT, ?, ?, ?, ?)', [idUser, name ,email, tel], (err, results) => {
+						if (err) reject(err);
+						else resolve(results);
+					});
+				}
+			}).catch((err) => {
+				reject(err);
+			});
+		});
+	},
+
 
 };
 
