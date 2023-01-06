@@ -36,7 +36,7 @@ function createGuide(){
     idOrigen = origin.id_lkr
     idDestino = destination.id_lkr
 
-    let year = new Date().getFullYear().toString();
+    let year = new Date().getFullYear().toString(); //INICIO
     //console.log(year)
     let month = new Date().getMonth().toString();
     month = parseInt(month)
@@ -57,5 +57,5 @@ function createGuide(){
     idDestino =idDestino.padStart(3,0)
 
     var guia = year+month+day+hour+minute+"002001"
-    console.log(guia)
+    console.log(guia)//FIN
 }
