@@ -338,6 +338,28 @@ CREATE OR REPLACE VIEW `ShippingDetail` AS
 				AND Origin.edge_shpgdr=1 AND Destination.edge_shpgdr=2;
 
 
+-- -----------------------------------------------------
+-- View `lockey_db`.`RouteShipping`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `lockey_db`.`RouteShipping`;
+USE `lockey_db`;
+CREATE OR REPLACE VIEW `RouteShipping` AS
+    SELECT
+		Route.id_rte, Route.id_usr as id_usr_rte, Route.date_rte, Route.stat_rte,
+		RouteDetail.id_rtedtl, RouteDetail.ord_rtedtl,
+		Locker.id_lkr, Locker.nm_lkr, Locker.dir_lkr,
+		Door.id_door, Door.id_drtype, Door.nm_door, Door.stat_door,
+		ShippingDetail.*
+	FROM Route 
+	NATURAL JOIN RouteDetail 
+	NATURAL JOIN Locker 
+	NATURAL JOIN Door 
+	NATURAL JOIN ShippingDoor 
+	INNER JOIN ShippingDetail 
+		ON ShippingDetail.trk_shpg=ShippingDoor.trk_shpg 
+	WHERE stat_rte=1 AND qr_shpgdr IS NOT NULL;
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
