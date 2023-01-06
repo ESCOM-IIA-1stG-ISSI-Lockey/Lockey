@@ -73,12 +73,14 @@ router.route('/')
 		if (req.session.shipping.receiver==req.session.shipping.sender){
 			req.session.shipping.receiver=undefined
 			req.session.shipping.sender=undefined
+			
 		}
-
 		if (req.session.shipping.origin==req.session.shipping.destination){
 			req.session.shipping.origin=undefined
 			req.session.shipping.destination=undefined
 		}
+
+
 
 		if (req.session.shipping.origin
 			&& req.session.shipping.destination
@@ -87,9 +89,10 @@ router.route('/')
 			&& req.session.shipping.receiver)
 			res.json({ response: 'OK', redirect: '/crear-envio/resumen' })
 
-		else{
-
-			res.status(400).json({ response: 'ERROR', message: 'Ingresa todos los datos'});
+		else{	
+			//res.status(400).json({ response: 'ERROR', message: 'Ingresa todos los datos'});
+			res.json({ response: 'OK', redirect: '/crear-envio'+req.path })
+		//res.status(400).json({ response: 'ERROR', message: 'Ingresa todos los datos'});
 		}			
 	});
 
