@@ -54,7 +54,7 @@ router.route('/')
 			req.session.shipping = {}
 
 		debug('req.body', req.body)
-		let { origin, destination, size, sender, receiver } = req.body
+		let { origin, destination, size, sender, receiver,url } = req.body
 			
 		// let { NameOrigen, NameDestino } = req.body
 		if (origin)
@@ -72,29 +72,34 @@ router.route('/')
 		if (receiver)
 			req.session.shipping.receiver = receiver
 
-		if (req.session.shipping.receiver==req.session.shipping.sender){
-			req.session.shipping.receiver=undefined
-			req.session.shipping.sender=undefined
+		if (req.session.shipping.receiver==req.session.shipping.sender&&req.session.shipping.receiver!=undefined){
+			res.status(400).json({ response: 'ERROR', message: 'El destinatario y el remitente deben ser diferentes'});
+			return ;
 			
 		}
-		if (req.session.shipping.origin==req.session.shipping.destination){
-			req.session.shipping.origin=undefined
-			req.session.shipping.destination=undefined
+		if (req.session.shipping.origin==req.session.shipping.destination&&req.session.shipping.origin!=undefined){
+			res.status(400).json({ response: 'ERROR', message: 'El destino y el origen deben ser diferentes'});
+			return ;
 		}
 
-
-
+	
 		if (req.session.shipping.origin
 			&& req.session.shipping.destination
 			&& req.session.shipping.size
 			&& req.session.shipping.sender
 			&& req.session.shipping.receiver)
 			res.json({ response: 'OK', redirect: '/crear-envio/resumen' })
+		else if(!url){
+			res.status(400).json({ response: 'ERROR', message: 'Ingresa todos los datos'});
 
-		else{	
+		}
+
+		else{
+			
 			//res.status(400).json({ response: 'ERROR', message: 'Ingresa todos los datos'});
 			res.json({ response: 'OK', redirect: '/crear-envio'+req.path })
-		//res.status(400).json({ response: 'ERROR', message: 'Ingresa todos los datos'});
+
+		    //res.status(400).json({ response: 'ERROR', message: 'Ingresa todos los datos'});
 		}			
 	});
 
