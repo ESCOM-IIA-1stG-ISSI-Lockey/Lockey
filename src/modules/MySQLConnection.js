@@ -396,14 +396,8 @@ const db = {
 		return new Promise((resolve, reject) => {
 			if (!isConnected)
 				throw errorDBConnection;
-			con.query(`SELECT * FROM Route 
-						NATURAL JOIN RouteDetail 
-						NATURAL JOIN Locker 
-						NATURAL JOIN Door 
-						NATURAL JOIN ShippingDoor 
-						WHERE stat_rte=1 
-							AND qr_shpgdr IS NOT NULL 
-							AND Route.id_usr=?`, [idUser], (err, results) => {
+			con.query(`SELECT Route.*, RouteDetail.*, Locker.* FROM Route NATURAL JOIN RouteDetail NATURAL JOIN Locker
+			WHERE stat_rte=1 AND Route.id_usr=?;`, [idUser], (err, results) => {
 				if (err) reject(err);
 				else resolve(results);
 			});
@@ -414,7 +408,7 @@ const db = {
 		return new Promise((resolve, reject) => {
 			if (!isConnected)
 				throw errorDBConnection;
-			con.query('SELECT * FROM ShippingDetail WHERE nm_lkrdst = ? ', [ lockerDestino ], (err, results) => {
+			con.query('SELECT * FROM Route NATURAL JOIN RouteDetail NATURAL JOIN Locker NATURAL JOIN Door NATURAL JOIN ShippingDoor INNER JOIN ShippingDetail ON ShippingDetail.trk_shpg=ShippingDoor.trk_shpg WHERE stat_rte=1 AND qr_shpgdr IS NOT NULL AND Route.id_usr=? AND Locker.nm_lkr = ? ',[userId, lockerDestino ], (err, results) => {
 				if (err) reject(err);
 				else resolve(results);
 			});
@@ -424,7 +418,31 @@ const db = {
 		return new Promise((resolve, reject) => {
 			if (!isConnected)
 				throw errorDBConnection;
-			con.query('SELECT * FROM Shipping NATURAL JOIN Wallet NATURAL JOIN ShippingType RIGHT JOIN  (ShippingDoor AS Origin, Door as OriginDoor, Locker as OriginLocker) ON (Shipping.trk_shpg = Origin.trk_shpg AND OriginDoor.id_door = Origin.id_door AND OriginLocker.id_lkr = OriginDoor.id_lkr) RIGHT JOIN (ShippingDoor AS Destination, Door as DestinationDoor, Locker as DestinationLocker) ON (Shipping.trk_shpg = Destination.trk_shpg AND DestinationDoor.id_door = Destination.id_door AND DestinationLocker.id_lkr = DestinationDoor.id_lkr) WHERE Origin.trk_shpg = Destination.trk_shpg AND Origin.edge_shpgdr=1 AND Destination.edge_shpgdr=2 ', [ guia ], (err, results) => {
+			con.query('SELECT * FROM Route NATURAL JOIN RouteDetail NATURAL JOIN Locker NATURAL JOIN Door NATURAL JOIN ShippingDoor INNER JOIN ShippingDetail ON ShippingDetail.trk_shpg=ShippingDoor.trk_shpg WHERE stat_rte=1 AND qr_shpgdr IS NOT NULL AND Route.id_usr=? AND ShippingDoor.trk_shpg  = ? ', [userId, guia ], (err, results) => {
+				if (err) reject(err);
+				else resolve(results);
+			});
+		});
+	},
+
+	createReport:(idUser, idDoor, numGuia, title, details) => {
+		return new Promise((resolve, reject) => {
+			if (!isConnected)
+				throw errorDBConnection;
+			con.query('INSERT INTO Report VALUES (DEFAULT, ?, ?, ?, ?, ?)', [idUser, idDoor, numGuia, title, details], (err, results) => {
+				if (err) reject(err);
+				else resolve(results);
+			});
+		});
+	},
+
+	updateShippingstroute: (stateShipping ,tkr) => {
+		return new Promise((resolve, reject) => {
+			if (!isConnected)
+				throw errorDBConnection;
+			stateShipping = Math.min(parseInt(stateShipping)+1, 7);
+			console.log("NEXT ESTADO:", stateShipping);
+			con.query("UPDATE Shipping SET stat_shpg = ? where trk_shpg = ?", [stateShipping ,tkr], (err, results) => {
 				if (err) reject(err);
 				else resolve(results);
 			});

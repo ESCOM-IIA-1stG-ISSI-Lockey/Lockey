@@ -120,6 +120,21 @@ const v = {
 	},
 	// Credit card name
 	_creditCardName: function (param, name) { return this._fullname(param, name)},
+
+	_locker: function (param, name) { return check(param)
+		.not().isEmpty().withMessage(`${name} es obligatorio`)
+		.isInt().withMessage(`${name} solo puede contener números`)
+		.isLength({ min: 1, max: 2 }).withMessage(`${name} debe tener solo 2 digitos`)
+	},
+
+	_tittle: function (param, name) { return check(param)
+		.not().isEmpty().withMessage(`${name} es obligatorio`)
+		
+	},
+
+	_plazaReport: function (param, name) { return check(param)
+		.not().isEmpty().withMessage(`${name} es obligatoria`)
+	},
 }
 
 
@@ -178,6 +193,13 @@ const Validator = {
 		v._nickname('nickName', 'El alias'),
 		validateResult
 	],
+
+	reportForm: [
+		v._locker('idDoorReport', 'El numero de casillero'),
+		v._tittle('titleReport', 'El título'),
+		v._plazaReport('titleReport', 'La plaza'),
+		validateResult
+	],	
 
 	// Checkout
 	checkout: [

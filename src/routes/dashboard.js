@@ -19,6 +19,7 @@ router.route('/')
 				break;
 			case 'DELIVERER':
 				params.stateRoute = await db.getLockersByUserId(req.session.user.id)
+				console.log(params.stateRoute)
 				break;
 			case 'CLIENT':
 				params.pedingShipings = await db.getPendingShippings(req.session.user.id)
@@ -59,7 +60,7 @@ router.route('/repartidor/lockersnm/:lockerid([a-z ^A-Z 0-9&,%.]{1,})')
 
 });
 
-router.route('/repartidor/guia/:guia([0-9]{18})')
+/* router.route('/repartidor/guia/:guia([0-9]{18})')
 .get(Auth.onlyDeliverers,
 	async(req,res,next) => {
 		let traking=req.params.guia
@@ -76,17 +77,36 @@ router.route('/repartidor/guia/:guia([0-9]{18})')
 			}
 		});
 
-});
+}); */
 
-router.route('/repartidor/guia/reportForm')
+router.route('/repartidor/guia/report/:guia([0-9]{18})')
 .get(Auth.onlyDeliverers,
 	async(req,res,next) =>{
+		let traking=req.params.guia
 		if (req.session.user) {
-			res.render('reportForm',{ title: 'sendiit - panel', path: req.path, user: req.session.user});
+			res.render('reportForm',{ title: 'sendiit - panel', traking:traking ,path: req.path, user: req.session.user});
 		} else {
 			res.redirect('/');
 		}
-});
+})
+router.route('/repartidor/guia/report')
+.post(Auth.onlyDeliverers, Validator.reportForm,	
+	async (req, res, next) => {
+		let body = req.body;
+		console.log(req.body)
+		db.createReport(req.session.user.id, body.idDoorReport, body.traking, body.titleReport, body.detailsReport).then((results)=>{ 
+			debug('results', results);
+			if (results.affectedRows) {
+				res.status(200).json({response: 'OK', redirect: '/panel/repartidor/guia/sendForm'})
+			}
+			else {
+				throw new Error('Reporte no generado');
+			}
+		}).catch((err) => {
+			console.log("ERROR", err)
+			res.status(400).json({ response: 'ERROR', message: err.message||err });
+		});
+	});
 
 router.route('/informacion')
 .get(Auth.onlyUsers,
@@ -106,6 +126,16 @@ router.route('/historial')
 			user: req.session.user,
 			pedingShipings: await db.getShippings(req.session.user.id)});
 	});
+
+router.route('/perfil')
+.get(Auth.onlyUsers,
+	async(req,res,next) =>{
+		res.render('account',{ 
+			title: 'sendiit - panel', 
+			path: req.path, 
+			user: req.session.user});
+	});
+	
 
 router.route('/pc/:tracking([0-9]{18})')
 .get(Auth.onlyUsers,
@@ -159,15 +189,56 @@ router.route('/repartidor/guia/sendForm')
 		}
 });
 
+router.route('/repartidor/guia/:guia([0-9]{18})')
+.get(Auth.onlyDeliverers,
+	async(req,res,next) =>{
+		let guia = req.params.guia,
+		shipping = (await db.getShippinguide(req.session.user.id, guia))[0]
+		console.log(shipping)
+		if (req.session.user) {
+			res.render('tracking_guide',{ title: 'sendiit - panel', path: req.path, user: req.session.user, shipping: shipping});
+			// res.render('tracking_guide',{ title: 'sendiit - panel', path: req.path, user: req.session.user, shipping: shipping[0]});
+			// res.render('shippingCollected',{ title: 'sendiit - panel', path: req.path, user: req.session.user, shipping: shipping[0]});
+		} else {
+			res.redirect('/');
+		}
+		//db.updateShippingstroute(stateShipping ,tkr)
+		
+}).post(Auth.onlyDeliverers,
+	async(req,res,next) => {
+		let{name,tkr} =req.body;
+		console.log(name ,tkr)
+		db.updateShippingstroute(name ,tkr)
+		.then((result) => {
+			if (result.affectedRows > 0) {
+				console.log('actualizado')
+				res.json({
+					response: 'OK',
+					redirect:'/panel/repartidor/guia/shippingCollected'	
+				})
+			} else {
+				throw new Error('No se pudo actualizar')
+			}
+		}).catch((err) => {
+			console.log(err)
+			res.json({
+				response: 'ERROR',
+				message: err.message || 'No se pudo actualizar'
+			})
+		})
+	}); 
+
+
 router.route('/repartidor/guia/shippingCollected')
 .get(Auth.onlyDeliverers,
 	async(req,res,next) =>{
 		if (req.session.user) {
-			res.render('shippingCollected',{ title: 'sendiit - panel', path: req.path, user: req.session.user});
+			res.render('shippingCollected', { title: 'sendiit - panel', path: req.path, user: req.session.user});
 		} else {
 			res.redirect('/');
 		}
 });
+
 
 router.route('/repartidor/guia/shipmentDelivered')
 .get(Auth.onlyDeliverers,
@@ -178,7 +249,6 @@ router.route('/repartidor/guia/shipmentDelivered')
 			res.redirect('/');
 		}
 });
-
 
 
 
