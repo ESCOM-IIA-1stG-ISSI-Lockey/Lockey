@@ -44,7 +44,7 @@
 			"src/public",
 			"sessions"
 		],
-		"ext": "js,json",
+		"ext": "js",
 		"watch": [
 			"src/bin/www",
 			"."
