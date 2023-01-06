@@ -13,35 +13,66 @@ block content
                 if long%2==0
                     .col-md-6.col-lg-6.col-xl-6.shippingHistory
                         a.text-decoration-none(href='/envio/'+val.trk_shpg)
-                            //- .item.row.d-flex.align-items-center.justify-content-center.align-content-center(style='min-width: 380px;')
-                            //- .col-4.p-0(style="text-align:center")
-                                //- img(src='https://img.freepik.com/vector-premium/icono-vector-arte-linea-camion-entrega-envio-rapido-aplicaciones-sitios-web-transporte_652240-16.jpg')
-                            each num, key in  {1 : 'En espera de recolección', 2 : 'En espera de transportista', 3 : 'En tránsito', 4 : 'En espera de recepción', 5 : 'Completado', 6 : 'Almacén', 7 : 'Cancelado'}
-                                if key == val.stat_shpg
-                                    p.card-text.text-center.m-0.text-status= num
-                            h6.card-title.card-text.text-center.text-secondary= val.trk_shpg
-                            small.text-muted Origen: #{val.nm_lkrorg}
-                            br
-                            small.text-muted Destino: #{val.nm_lkrdst} 
-                            br
-                            small.text-muted Última actualización: #{val.dtu_shpg}
+                            .item.row.d-flex.align-items-center.justify-content-center.align-content-center
+                                each num, key in  {1 : 'En espera de recolección', 2 : 'En espera de transportista', 3 : 'En tránsito', 4 : 'En espera de recepción', 5 : 'Completado', 6 : 'Almacén', 7 : 'Cancelado'}
+                                        if key == val.stat_shpg
+                                            if key==5
+                                                .row.p-2.title_s.bg-success
+                                                    p.card-text.text-center.m-0.text-white=num
+                                            else if key==6
+                                                .row.p-2.title_s.bg-secondary
+                                                    p.card-text.text-center.m-0.text-white=num
+                                            else if key==7
+                                                .row.p-2.title_s.bg-warning
+                                                    p.card-text.text-center.m-0.text-white=num
+                                            else 
+                                                .row.p-2.title_s.bg-primary
+                                                    p.card-text.text-center.m-0.text-secondary=num
+                                .row.m-4
+                                    .col-4.p-1(style="text-align:center")
+                                                each num, key in  {1 : 'img_state_1', 2 : 'img_state_2', 3 : 'img_state_3', 4 : 'img_state_4', 5 : 'img_state_5', 6 : 'img_state_6', 7 : 'img_state_7'}
+                                                    if key == val.stat_shpg
+                                                        img(src="/images/img_states/"+num+".png")(style="max-width: 100px")
+                                    .col-8
+                                        
+                                        h6.card-title.card-text.text-center.text-blue= val.trk_shpg
+                                        small.text-muted.text-center Origen: #{val.nm_lkrorg}
+                                        br
+                                        small.text-muted.text-center Destino: #{val.nm_lkrdst}
+                                        br 
+                                        small.text-muted Última actualización: #{val.dtu_shpg}
 
                 if long%2==1
                     .col-md-6.col-lg-6.col-xl-6.shippingHistory
                         a.text-decoration-none(href='/envio/'+val.trk_shpg)
-                            //- .item.row.d-flex.align-items-center.justify-content-center.align-content-center(style='min-width: 380px;')
-                            //- .col-4.p-0(style="text-align:center")
-                                //- img(src='https://img.freepik.com/vector-premium/icono-vector-arte-linea-camion-entrega-envio-rapido-aplicaciones-sitios-web-transporte_652240-16.jpg')
-                            each num, key in  {1 : 'En espera de recolección', 2 : 'En espera de transportista', 3 : 'En tránsito', 4 : 'En espera de recepción', 5 : 'Completado', 6 : 'Almacén', 7 : 'Cancelado'}
-                                if key == val.stat_shpg
-                                    p.card-text.text-center.m-0.text-status= num
-                            h6.card-title.card-text.text-center.text-secondary= val.trk_shpg
-                            small.text-muted Origen: #{val.nm_lkrorg}
-                            br
-                            small.text-muted Destino: #{val.nm_lkrdst} 
-                            br
-                            small.text-muted Última actualización: #{val.dtu_shpg}
-
+                            .item.row.d-flex.align-items-center.justify-content-center.align-content-center
+                                each num, key in  {1 : 'En espera de recolección', 2 : 'En espera de transportista', 3 : 'En tránsito', 4 : 'En espera de recepción', 5 : 'Completado', 6 : 'Almacén', 7 : 'Cancelado'}
+                                        if key == val.stat_shpg
+                                            if key==5
+                                                .row.p-2.title_s.bg-success
+                                                    p.card-text.text-center.m-0.text-white=num
+                                            else if key==6
+                                                .row.p-2.title_s.bg-secondary
+                                                    p.card-text.text-center.m-0.text-white=num
+                                            else if key==7
+                                                .row.p-2.title_s.bg-warning
+                                                    p.card-text.text-center.m-0.text-white=num
+                                            else 
+                                                .row.p-2.title_s.bg-primary
+                                                    p.card-text.text-center.m-0.text-secondary=num
+                                .row.m-4
+                                    .col-4.p-1(style="text-align:center")
+                                                each num, key in  {1 : 'img_state_1', 2 : 'img_state_2', 3 : 'img_state_3', 4 : 'img_state_4', 5 : 'img_state_5', 6 : 'img_state_6', 7 : 'img_state_7'}
+                                                    if key == val.stat_shpg
+                                                        img(src="/images/img_states/"+num+".png")(style="max-width: 100px")
+                                    .col-8
+                                        
+                                        h6.card-title.card-text.text-center.text-blue= val.trk_shpg
+                                        small.text-muted Origen: #{val.nm_lkrorg}
+                                        br
+                                        small.text-muted Destino: #{val.nm_lkrdst}
+                                        br 
+                                        small.text-muted Última actualización: #{val.dtu_shpg}
 block scripts
     script const user = !{JSON.stringify(user)}
     script(src='/javascripts/validation.js')
