@@ -43,17 +43,17 @@ block content
                     .row
                         .col-5.form-outline.mb-3
                             p.text-secondary.mb-1.px-1.fw-bold Lugar de origen:
-                        .col.form-outline.mb-3(style='text-align: left;')= origin.nm_lkr
+                        .col.form-outline.mb-3(style='text-align: left;' id='origen_pp' data-mi-variable=origin.dir_lkr)= origin.dir_lkr
                     .row
                         .col-5.form-outline.mb-3
                             p.text-secondary.mb-1.px-1.fw-bold Lugar de destino:
-                        .col.form-outline.mb-3(style='text-align: left;')= destination.nm_lkr
+                        .col.form-outline.mb-3(style='text-align: left;' id='destino_pp' data-mi-variable=destination.dir_lkr)= destination.dir_lkr
                     .row
                         .col-4.form-outline.mb-3
                             .col-4.form-outline.mb-3
                                 h2.fw-bold(style='color: #CAA400;') Costo:
                         .col-4.form-outline.mb-3
-                            h1.fw-bold-secondary-left= "$"+size.pr_drtype
+                            h1.fw-bold-secondary-left(id='response' data-mi-variable=size.pr_drtype)= "$"
                 .row
                     .col.form-outline.mb-3
                     .col-10.form-outline.mb-3(style='color: #A8A8A8; text-align: center;')
@@ -67,7 +67,7 @@ block content
                 a.col-6.text-decoration-none(href='/crear-envio')
                     center
                         h5.fw-bold.align-items-center.justify-content-center.btn.btn-warning.shadow.rounded-pill.textButton REGRESAR
-                a.col-6.text-decoration-none(href='/crear-envio/finalizado')
+                a.col-6.text-decoration-none(href='/crear-envio/finalizado' id="miBoton")
                     center
                         h5.fw-bold.align-items-center.justify-content-center.btn.btn-secondary.shadow.rounded-pill.textButton CONFIRMAR ENVÍO
                 
@@ -110,3 +110,8 @@ block content
 
 block scripts
     script(src='/javascripts/validation.js')
+    script(src='/javascripts/createShipment.js')
+    script(src='/javascripts/create-shipping.js')
+    script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAEErsjNBLnxa3y-N2LFDpENunDEE8SDAs&callback=calculateDistance&v=weekly' defer='')
+    script const destino = !{JSON.stringify(destination.dir_lkr)} 
+    script const origen = !{JSON.stringify(origin.dir_lkr)}

@@ -127,6 +127,16 @@ router.route('/historial')
 			pedingShipings: await db.getShippings(req.session.user.id)});
 	});
 
+router.route('/perfil')
+.get(Auth.onlyUsers,
+	async(req,res,next) =>{
+		res.render('account',{ 
+			title: 'sendiit - panel', 
+			path: req.path, 
+			user: req.session.user});
+	});
+	
+
 router.route('/pc/:tracking([0-9]{18})')
 .get(Auth.onlyUsers,
 	async(req,res,next) =>{
@@ -154,7 +164,7 @@ router.route('/actualizar')
 		const states = {
 			1: {state: 'en espera de recolección, date prisa y lleva el paquete al lugar de origen', route: "https://lh3.google.com/u/2/d/1xu5cgIwQml_y6Lk4QF4CHKfNWdXNda-k=w1920-h973-iv1"},
 			2: {state: 'en espera de transportista, te notificaremos cuando tu envío esté en transito', route: "https://lh3.google.com/u/2/d/1SIePJdbDIr4DnjSFWYFW985ObhE58XV3=w2000-h4168-iv1"},
-			3: {state: 'en tránsito, pronto está en el lugar de destino', route: "https://lh3.google.com/u/2/d/1Y5tV5o7NsPokLgqgprFYv4M7iFb0KTT3=w1920-h973-iv1"},
+			3: {state: 'en tránsito, pronto estará en el lugar de destino', route: "https://lh3.google.com/u/2/d/1Y5tV5o7NsPokLgqgprFYv4M7iFb0KTT3=w1920-h973-iv1"},
 			4: {state: 'en espera de recepción por el destinatario', route: "https://lh3.google.com/u/2/d/1MphskkmSf3g3oYJnuyN8oBhtODwmlLk3=w1920-h973-iv1"},
 			5: {state: 'completado, el paquete ha sido recibido por el destinatario con exito', route: "https://lh3.google.com/u/2/d/1vrYgKgWjTmjyZJ3GFuvZxyMZ6eKf76gQ=w1920-h973-iv1"},
 			6: {state: 'en almacén, ponte en contacto con soporte para tener más información', route: "https://lh3.google.com/u/2/d/19oEY1IN5m7n1slx_JJNgERTXq3qO9fjE=w1920-h973-iv1"},

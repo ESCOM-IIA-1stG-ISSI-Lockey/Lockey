@@ -1,0 +1,27 @@
+form(action='/registro' method='POST' novalidate)
+	fieldset 
+		#signupModal.modal.fade(tabindex='-1' aria-hidden='true')
+			.modal-dialog.modal-dialog-centered.modal-dialog-scrollable
+					.modal-content
+						.modal-header
+							h1.modal-title.fs-5 Modificar datos personales
+							button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+						.modal-body
+							.form-floating.mb-3
+								input#nmInputSignup.form-control(type='text' name='name')
+								label.text_normal(for='nmInputSignup') Nombre
+								.invalid-feedback
+							.form-floating.mb-3
+								input#telInputSignup.form-control(type='tel' name='tel')
+								label.text_normal(for='telInputSignup') Teléfono
+								.invalid-feedback
+							.form-floating.mb-3
+								input#pwdInputSignup.form-control(type='password' name='password')
+								label.text_normal(for='pwdInputSignup') Contraseña
+								.invalid-feedback
+							.form-floating.mb-3
+								input#pwdvInputSignup.form-control(type='password' name='passwordConfirm')
+								label.text_normal(for='pwdvInputSignup') Confirmar Contraseña
+								.invalid-feedback
+							button.btn.btn-danger(type='reset' data-bs-dismiss='modal') Cancelar
+							button.btn.btn-primary(type='submit') Modificar cuenta

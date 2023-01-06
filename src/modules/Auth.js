@@ -76,6 +76,8 @@ const Auth = {
 				email: newUser.em_usr,
 				type: newUser.type_usr,
 				isActive: newUser.act_usr,
+				tel: newUser.tel_usr,
+				password: newUser.pwd_usr,
 			};
 
 			res.json({
