@@ -81,6 +81,10 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 	background-image: none !important;
 }
 
+.toast-container {
+	position: fixed !important;
+}
+
 .lupa{
 	font-size: 20px;
 	font-weight: bolder;
@@ -373,8 +377,37 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 }
 
 .shippingHistory{
-	max-height: 180px;
-	padding: 15px;
+	max-height: 230px;
+	padding: 20px;
+	padding-bottom: 15px;
+	
+}
+
+.shippingHistory .item{
+	justify-content: center;
+	align-items: center;
+	display: flex;
+	min-width: 120px;
+	max-width: 600px;
+	height: 200px;
+	text-align: left;
+	background-color: #ffffff;
+	// margin-right: 30px;
+	border-radius: 10px;
+	box-shadow: 0px 0px 2px #00000086;
+	background-color: #f7f7f7;
+}
+
+.title_s{
+	border-radius: 10px 10px 0 0;
+	text-transform: uppercase;
+	font-weight: 800;
+}
+
+.text-blue{
+	color: #2e7cdb;
+	font-size: 18px;
+	font-weight: 800;
 }
 
 @media (min-width: 768px) {
