@@ -81,6 +81,10 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 	background-image: none !important;
 }
 
+.toast-container {
+	position: fixed !important;
+}
+
 .lupa{
 	font-size: 20px;
 	font-weight: bolder;

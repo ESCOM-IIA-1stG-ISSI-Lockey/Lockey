@@ -87,8 +87,10 @@ router.route('/')
 			&& req.session.shipping.receiver)
 			res.json({ response: 'OK', redirect: '/crear-envio/resumen' })
 
-		else
-			res.json({ response: 'OK', redirect: '/crear-envio'+req.path })
+		else{
+
+			res.status(400).json({ response: 'ERROR', message: 'Ingresa todos los datos'});
+		}			
 	});
 
 // Crear envio (remitente, destinatario, pago) y cobro
