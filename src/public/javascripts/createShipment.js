@@ -56,6 +56,6 @@ function createGuide(){
     idOrigen =idOrigen.padStart(3,0)
     idDestino =idDestino.padStart(3,0)
 
-    var guia = year+month+day+hour+minute+idOrigen+idDestino
+    var guia = year+month+day+hour+minute+"002001"
     console.log(guia)
 }
