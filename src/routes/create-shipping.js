@@ -38,6 +38,8 @@ router.route('/')
 
 		if (req.session.shipping.size)
 			params.size = (await db.getSizeById(req.session.shipping.size))[0]
+
+		
 		
 		res.render('createShipping/create', {
 			title: 'sendiit - panel',
@@ -99,8 +101,6 @@ router.route('/resumen')
 		 * sender, receiver, wallet, origin, destination, size*
 		 */
 		let params = {}
-		
-
 		if (req.session.shipping.sender)
 			params.sender = (await db.getContactById(req.session.shipping.sender))[0]
 
@@ -119,8 +119,9 @@ router.route('/resumen')
 		if (req.session.shipping.size)
 			params.size = (await db.getSizeById(req.session.shipping.size))[0]
 
-		let distance; // calcular precio usando la api de google maps
+		let distance = params.pre; // calcular precio usando la api de google maps
 		// despues usar la formula para calcular el precio
+
 
 		debug('req.session.shipping', req.session.shipping)
 		
