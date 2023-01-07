@@ -13,11 +13,12 @@ block content
             .row
                 center
                     h1.fw-bold Código QR del locker
+                    
                 p
                 .col-lg
                     center
                         //- importante: img, clase qr-img con data-text. Tambien importar los scripts de qrcode.js y qr.js en ese orden
-                        img.qr-img(width='300' height='300' data-text='numero de guia aquiii')
+                        img.qr-img(width='300' height='300' data-text='aaaaaaaaaa')
                         //- img.qr-img(width='300' height='300' data-text=trkg_shpg)
                 p
                 p
@@ -49,4 +50,3 @@ block content
 block scripts
     script(src='/javascripts/qrcode.js')    //- 1er script
     script(src='/javascripts/qr.js')        //- 2do script
-    script(src='/javascripts/createShipment.js')

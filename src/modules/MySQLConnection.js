@@ -449,17 +449,30 @@ const db = {
 		});
 	},
 
-	createEnvio: (idUser,time_create,time_fimish, price, wallet) => {
-		console.log(tel,"telefono")
+	//Aqui tenia planeado obtener el numero de guia pero creo que la getShippinguide ya lo hace  
+	getShipping: (userId, guia) => { //202212150310001002
+		return new Promise((resolve, reject) => {
+			if (!isConnected)
+				throw errorDBConnection;
+			con.query('SELECT * FROM Route NATURAL JOIN RouteDetail NATURAL JOIN Locker NATURAL JOIN Door NATURAL JOIN ShippingDoor INNER JOIN ShippingDetail ON ShippingDetail.trk_shpg=ShippingDoor.trk_shpg WHERE stat_rte=1 AND qr_shpgdr IS NOT NULL AND Route.id_usr=? AND ShippingDoor.trk_shpg  = ? ', [userId, guia ], (err, results) => {
+				if (err) reject(err);
+				else resolve(results);
+			});
+		});
+	},
+
+
+	//guardar lso datos del envio
+	createShipping: (idUser,time_create,time_fimish, price, wallet, guia, size, sender) => {
 		return new Promise((resolve, reject) => {
 			if (!isConnected)
 				throw errorDBConnection;
 			// check if email is already in use			
-			db.getContact(idUser,email,tel).then((results) => {
-				if (results.length > 0) reject('El contacto ya ha sido registrado');
+			db.getEnvio(idUser,guia).then((results) => {
+				if (results.length > 0) reject('El envio ya existe');
 				else {
 					// create new user
-					con.query('INSERT INTO Contact VALUES (DEFAULT, ?, ?, ?, ?)', [idUser, name ,email, tel], (err, results) => {
+					con.query('INSERT INTO Shipping VALUES (DEFAULT, ?, ?, ?, ?, ?, ?)', [idUser, time_create ,time_finish, price, wallet, guia,size ,sender], (err, results) => {
 						if (err) reject(err);
 						else resolve(results);
 					});
@@ -470,6 +483,13 @@ const db = {
 		});
 	},
 
+	//faltaria llenar la tabla shippingDoor y guardarla
+	Shipping: (idUser,IdDoor,numGuia, idCont, wallet, guia, size, sender) => {
+
+
+
+
+	},
 
 };
 
