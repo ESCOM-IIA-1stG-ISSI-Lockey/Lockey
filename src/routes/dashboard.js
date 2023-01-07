@@ -160,7 +160,7 @@ router.route('/actualizar')
 		let user = req.session.user
 		let {name: idState,tkr} = req.body
 		console.log(req.body)
-		let email2 = 'c10vvm@gmail.com'
+		let email2 = 'dannydvalle99139@gmail.com'
 		const states = {
 			1: {state: 'en espera de recolección, date prisa y lleva el paquete al lugar de origen', route: "https://lh3.google.com/u/2/d/1xu5cgIwQml_y6Lk4QF4CHKfNWdXNda-k=w1920-h973-iv1"},
 			2: {state: 'en espera de transportista, te notificaremos cuando tu envío esté en transito', route: "https://lh3.google.com/u/2/d/1SIePJdbDIr4DnjSFWYFW985ObhE58XV3=w2000-h4168-iv1"},
@@ -174,7 +174,7 @@ router.route('/actualizar')
 
 
 		db.getUpdateShippings(idState,tkr)
-		mailer.sendEmailStateShipping(res, user.email, user.name, tkr, states[idState].state, states[idState].route)	//remitente
+		mailer.sendEmailStateShipping(res, user.email2, user.name, tkr, states[idState].state, states[idState].route)	//remitente
 		if(idState>2)
 			mailer.sendEmailStateShipping(res, email2, 'Daniel', tkr, states[idState].state, states[idState].route) //destinatario
 	});
