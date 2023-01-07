@@ -5,6 +5,7 @@ const Auth = require('../modules/Auth');
 const db = require('../modules/MySQLConnection');
 const Validator = require('../modules/Validator');
 
+
 /* 
 	req.session.shipping = {
 		origin,
@@ -129,6 +130,8 @@ router.route('/resumen')
 		if (req.session.shipping.size)
 			params.size = (await db.getSizeById(req.session.shipping.size))[0]
 
+		let num_guide;
+
 		let distance = params.pre; // calcular precio usando la api de google maps
 		// despues usar la formula para calcular el precio
 
@@ -148,7 +151,7 @@ router.route('/resumen')
 			req.session.shipping = {}
 
 		debug('req.body', req.body)
-		let { wallet, cvv } = req.body
+		let { wallet, cvv , sender, receiver, size, num_guide} = req.body 
 
 		if (wallet)
 			req.session.shipping.wallet = wallet
