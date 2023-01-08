@@ -59,9 +59,11 @@
 							
 							for (let err of errors) {
 								let input = form.querySelector(`[name="${err.param}"]`);
-								let feedback = form.querySelector(`[name="${err.param}"] + label + .invalid-feedback,label + [name="${err.param}"] + .invalid-feedback`);
+								// class start with invalid-
+								
+								let feedback = form.querySelector(`[name="${err.param}"] + label + [class^="invalid-"]`);
 								input.classList.add('is-invalid');
-;							if (feedback)
+							if (feedback)
 									feedback.textContent = err.msg;
 							}
 						}
