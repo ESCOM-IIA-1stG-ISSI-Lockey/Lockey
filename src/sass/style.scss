@@ -125,8 +125,9 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 .slide_ver{
 	display: flex;
 	flex-wrap: wrap;
-	max-height: 75vh;
-	overflow: auto;
+	justify-content: center;
+	// max-height: 75vh;
+	// overflow: auto;
 }
 
 .slide_ver::-webkit-scrollbar{
@@ -317,9 +318,6 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
     --bs-btn-active-bg:  #f9d950;
     --bs-btn-active-border-color:  #e7c010;
 	
-}
-.fw-bold1{
-	font-weight: 600 !important;
 }
 
 .Paquetes{max-height: 500px;}
