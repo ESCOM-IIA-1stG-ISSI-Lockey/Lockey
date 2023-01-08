@@ -10,67 +10,65 @@ block content
                 h3.fw-bold Lugar de origen
                 p.m-0 Elige un lugar de origen
                 input#origen.btn-check(type='radio' name='options2' autocomplete='off' disabled=typeof(origin)=='undefined'? '':null)
-                if typeof(origin)=='undefined'
-                    label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center(for='origen')
+                label.btn.btn-secondary.place.my-4.d-flex.flex-column.align-items-center.justify-content-center(for='origen' class=(typeof(origin)!='undefined') && 'bg-primary')
+                    if typeof(origin)!='undefined'
+                        p.fs-3.fw-bold.pt-4.mb-0 #{origin.nm_lkr} 
+                        p.fs-6.pb-3 #{origin.dir_lkr} 
+                    else
                         i.h1.bi.bi-building-fill
                         p Sin lugar seleccionado
-                else
-                    label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center.bg-primary(for='origen')
-                        p.fw-bold #{origin.nm_lkr} 
-                        p #{origin.dir_lkr} 
+
                 a.text-decoration-none(href='/crear-envio/origen')
                     .row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.p-3.ms-3.me-3.shadow.rounded-pill
-                        h5.fw-bold.text-white.m-0.p-0 CAMBIAR ORIGEN
+                        h5.fw-bold.text-white.m-0.p-0 SELECCIONAR ORIGEN
             
             .col-lg-6.col-md-6.mt-3
                 h3.fw-bold Lugar de destino
                 p.m-0 Elige un lugar de destino
                 input#destino.btn-check(type='radio' name='options3' autocomplete='off' disabled=typeof(destination)=='undefined'? '':null)
-                if typeof(destination)=='undefined'
-                    label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center(for='destino')
+                label.btn.btn-secondary.place.my-4.d-flex.flex-column.align-items-center.justify-content-center(for='destino' class=(typeof(destination)!='undefined') && 'bg-primary')
+                    if typeof(destination)!='undefined'
+                        p.fs-3.fw-bold.pt-4.mb-0 #{destination.nm_lkr} 
+                        p.fs-6.pb-3 #{destination.dir_lkr} 
+                    else
                         i.h1.bi.bi-building-fill
                         p Sin lugar seleccionado
-                else
-                    label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center.bg-primary(for='destino')
-                        p.fw-bold #{destination.nm_lkr} 
-                        p #{destination.dir_lkr} 
 
                 a.text-decoration-none(href='/crear-envio/destino')
                     .row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.p-3.ms-3.me-3.shadow.rounded-pill
-                        h5.fw-bold.text-white.m-0.p-0 CAMBIAR DESTINO
+                        h5.fw-bold.text-white.m-0.p-0 SELECCIONAR DESTINO
         .row.container.row.col-fluid-12.mt-5.mx-auto
             .col-lg-6.col-md-6.mt-3
                 h3.fw-bold Remitente
                 p.m-0 Elige un remitente
                 input#origen.btn-check(type='radio' name='options2' autocomplete='off' disabled=typeof(sender)=='undefined'? '':null)
-                if typeof(sender)=='undefined'
-                    label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center(for='origen')
+                label.btn.btn-secondary.place.my-4.d-flex.flex-column.align-items-center.justify-content-center(for='origen' class=(typeof(sender)!='undefined') && 'bg-primary')
+                    if typeof(sender)!='undefined'
+                        p.fs-3.fw-bold.pt-4.mb-0 #{sender.nm_cont}
+                        p.fs-6.pb-3 #{sender.em_cont}
+                    else
                         i.h1.bi.bi-person-fill
                         p Sin remitente seleccionado
-                else
-                    label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center.bg-primary(for='origen')
-                        p.fw-bold #{sender.nm_cont} 
-                        p #{sender.em_cont} 
+        
                 a.text-decoration-none(href='/crear-envio/remitente')
                     .row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.p-3.ms-3.me-3.shadow.rounded-pill
-                        h5.fw-bold.text-white.m-0.p-0 CAMBIAR REMITENTE
+                        h5.fw-bold.text-white.m-0.p-0 SELECCIONAR REMITENTE
             
             .col-lg-6.col-md-6.mt-3
                 h3.fw-bold Destinatario
                 p.m-0 Elige un destinatario
                 input#destino.btn-check(type='radio' name='options3' autocomplete='off' disabled=typeof(receiver)=='undefined'? '':null)
-                if typeof(receiver)=='undefined'
-                    label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center(for='destino')
+                label.btn.btn-secondary.place.my-4.d-flex.flex-column.align-items-center.justify-content-center(for='destino' class=(typeof(receiver)!='undefined') && 'bg-primary')
+                    if typeof(receiver)!='undefined'
+                        p.fs-3.fw-bold.pt-4.mb-0 #{receiver.nm_cont}
+                        p.fs-6.pb-3 #{receiver.em_cont}
+                    else
                         i.h1.bi.bi-person-fill
                         p Sin destinatario selecciona
-                else
-                    label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center.bg-primary(for='destino')
-                        p.fw-bold #{receiver.nm_cont} 
-                        p #{receiver.em_cont} 
 
                 a.text-decoration-none(href='/crear-envio/destinatario')
                     .row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.p-3.ms-3.me-3.shadow.rounded-pill
-                        h5.fw-bold.text-white.m-0.p-0 CAMBIAR DESTINATARIO
+                        h5.fw-bold.text-white.m-0.p-0 SELECCIONAR DESTINATARIO
                         
         - 
             let sizes = [
@@ -115,7 +113,7 @@ block content
                     label.btn.btn-secondary.d-flex.flex-column.align-items-center.justify-content-center(class='TamañoPaquete' for='option'+msyze.sign)
                         h3.fw-bold #{msyze.name}
                         img.boxSize(src="/images/package-"+msyze.sign+".svg")
-                        p.fw-bold.pt-4 Medidas máximas
+                        p.fs-3.fw-bold.pt-4.mb-0 Medidas máximas
                         .row
                             .col
                                 p.m-0.p-0.fw-bold1 Altura
@@ -124,11 +122,11 @@ block content
                                 p.m-0.p-0.fw-bold1 Anchura
                                 p.m-0.p-0 #{msyze.width} cm
                             .col
-                                p.m-0.p-0.fw-bold1 Peso
-                                p.m-0.p-0 #{msyze.weight} kg
-                            .col
                                 p.m-0.p-0.fw-bold1 Profundidad
                                 p.m-0.p-0 #{msyze.depth} cm
+                            .col
+                                p.m-0.p-0.fw-bold1 Peso
+                                p.m-0.p-0 #{msyze.weight} kg
             .row-12.d-flex.mb-4.mt-3
                 a.col-6.text-decoration-none(href='/panel')
                     center

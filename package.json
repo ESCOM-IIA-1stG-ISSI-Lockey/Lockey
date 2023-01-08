@@ -40,14 +40,14 @@
 		"legacyWatch": true,
 		"delay": 1500,
 		"ignore": [
-			"node_modules",
-			"src/public",
-			"sessions"
+			"node_modules/*",
+			"src/public/*",
+			"sessions/*"
 		],
-		"ext": "js",
+		"ext": "js,json",
 		"watch": [
 			"src/bin/www",
-			"."
+			"src/*"
 		]
 	}
 }

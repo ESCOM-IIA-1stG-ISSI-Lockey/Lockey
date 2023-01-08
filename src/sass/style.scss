@@ -306,7 +306,8 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 .place{
 	width: 90%;
 	height: 150px;
-	margin: 5%;
+	padding: 5%;
+	margin: auto;
 	box-shadow: 0px 5px 15px #00000027;
     --bs-btn-color: #212e46;
     --bs-btn-bg: #d3d5da;

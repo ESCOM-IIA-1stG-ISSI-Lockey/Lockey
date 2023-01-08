@@ -1,5 +1,5 @@
 form(action='/identificacion' method='POST' novalidate)
-	fieldset 
+	fieldset
 		#signinModal.modal.fade(tabindex='-1' aria-hidden='true')
 			.modal-dialog.modal-dialog-centered.modal-dialog-scrollable
 					.modal-content
@@ -8,15 +8,17 @@ form(action='/identificacion' method='POST' novalidate)
 							button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
 						.modal-body
 							.form-floating.mb-3
-								input#emInputSignin.form-control(type='email' name='email' placeholder='name@example.com')
+								input#emInputSignin.form-control(type='email' name='email' placeholder=' ')
 								label(for='emInputSignin') Correo electrónico
 								.invalid-feedback
 							.form-floating.mb-3
-								input#pwdInputSignin.form-control(type='password' name='password' placeholder='********')
+								input#pwdInputSignin.form-control(type='password' name='password' placeholder=' ')
 								label(for='pwdInputSignin') Contraseña
 								.invalid-feedback
 							button.btn(type='button' data-bs-target='#passwordresetModal' data-bs-toggle='modal') ¿Olvidaste tu contraseña?
-							button.btn(type='button' data-bs-target='#signupModal' data-bs-toggle='modal') ¿No tienes una cuenta? <b> Regístrate <b>
+							button.btn(type='button' data-bs-target='#signupModal' data-bs-toggle='modal') 
+								| ¿No tienes una cuenta? 
+								b Regístrate
 						.modal-footer
-							button.btn.btn-danger(type='reset' data-bs-dismiss='modal') Cancelar
+							button.btn.btn-danger.me-3(type='reset' data-bs-dismiss='modal') Cancelar
 							button.btn.btn-primary(type='submit') Iniciar sesión

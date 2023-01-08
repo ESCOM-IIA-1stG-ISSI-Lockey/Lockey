@@ -15,7 +15,7 @@
 			event.preventDefault();
 			event.stopPropagation();
 
-			let action = form.getAttribute('action'),
+			let action = form.getAttribute('action'), 
 					method = form.getAttribute('method'),
 					urlencoded = new URLSearchParams();
 					

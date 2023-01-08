@@ -1,0 +1,29 @@
+form(action='/crear-envio/remitente' method='POST' novalidate)
+	fieldset 
+		#contactModal.modal.fade(tabindex='-1' aria-labelledby='contactModalLabel' aria-hidden='true') 
+			.modal-dialog.modal-dialog-scrollable
+				.modal-content
+					.modal-header 
+						h1.modal-title.fs-5= choose=='sender' ? 'Datos del Remitente' : 'Datos del Destinatario'
+						button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close') 
+					.modal-body
+						.container-fluid
+							h6.container.text-center.fs-4.my-3 
+							.form-floating.mb-3
+								input#nameInputContact.form-control(type='text' name='name' placeholder=' ')
+								label.text_normal(for='nameInputContact')= choose=='sender' ? 'Nombre del Remitente' : 'Nombre del Destinatario'
+								.invalid-feedback
+							.form-floating.mb-3
+								input#emInputContact.form-control(type='email' name='email' placeholder=' ')
+								label.text_normal(for='emInputContact') Correo electrónico
+								.invalid-feedback
+							.form-floating.mb-3
+								input#telInputContact.form-control(type='tel' name='phone' placeholder=' ')
+								label.text_normal(for='telInputContact') Teléfono
+								.invalid-feedback
+					
+					.modal-footer
+						button.btn.btn-danger.me-3(type='reset' data-bs-dismiss='modal') Cancelar
+						button.btn.btn-primary(type='submit' ) Guardar
+
+

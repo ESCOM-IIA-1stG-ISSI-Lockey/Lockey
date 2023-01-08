@@ -8,31 +8,34 @@ form(action='/registro' method='POST' novalidate)
 							button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
 						.modal-body
 							.form-floating.mb-3
-								input#nmInputSignup.form-control(type='text' name='name')
+								input#nmInputSignup.form-control(type='text' name='name' placeholder=' ')
 								label.text_normal(for='nmInputSignup') Nombre
 								.invalid-feedback
 							.form-floating.mb-3
-								input#emInputSignup.form-control(type='email' name='email')
+								input#emInputSignup.form-control(type='email' name='email' placeholder=' ')
 								label.text_normal(for='emInputSignup') Correo electrónico
 								.invalid-feedback
 							.form-floating.mb-3
-								input#telInputSignup.form-control(type='tel' name='tel')
+								input#telInputSignup.form-control(type='tel' name='tel' placeholder=' ')
 								label.text_normal(for='telInputSignup') Teléfono
 								.invalid-feedback
 							.form-floating.mb-3
-								input#pwdInputSignup.form-control(type='password' name='password')
+								input#pwdInputSignup.form-control(type='password' name='password' placeholder=' ')
 								label.text_normal(for='pwdInputSignup') Contraseña
 								.invalid-feedback
 							.form-floating.mb-3
-								input#pwdvInputSignup.form-control(type='password' name='passwordConfirm')
+								input#pwdvInputSignup.form-control(type='password' name='passwordConfirm' placeholder=' ')
 								label.text_normal(for='pwdvInputSignup') Confirmar Contraseña
 								.invalid-feedback
 							.form-check.mb-3
-								input#termInputSignup.form-check-input(type='checkbox' name='terms')
-								label.text_normal.form-check-label(for='termInputSignup') Acepto los 
+								input#termInputSignup.form-check-input(type='checkbox' name='terms' placeholder=' ')
+								label.text_normal.form-check-label(for='termInputSignup') 
+									| Acepto los 
 									a(href="#") Términos y Condiciones
 								.invalid-feedback
-							button.btn(type='button' data-bs-target='#signinModal' data-bs-toggle='modal') ¿Ya tienes una cuenta? <b>Inicia sesión<b>
+							button.btn(type='button' data-bs-target='#signinModal' data-bs-toggle='modal') 
+								| ¿Ya tienes una cuenta? 
+								b Inicia sesión
 						.modal-footer
-							button.btn.btn-danger(type='reset' data-bs-dismiss='modal') Cancelar
+							button.btn.btn-danger.me-3(type='reset' data-bs-dismiss='modal') Cancelar
 							button.btn.btn-primary(type='submit') Crear Cuenta

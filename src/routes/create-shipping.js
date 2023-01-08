@@ -271,20 +271,4 @@ router.route('/tarjeta')
 		});
 	});
 
-
-
-// router.route('/tarjeta')
-// .get(Auth.onlyClients,
-// 	async (req, res, next) => {
-// 		let metodosDePagos = await db.getWalletsByUserId(req.session.user.id);
-// 		res.render('createShipping/choose/selectWallet', { 
-// 			title: 'sendiit - panel', 
-// 			path: req.path, 
-// 			user: req.session.user, 
-// 			metodosDePagos: metodosDePagos
-// 		});
-// 	})
-
-
-
 module.exports = router;
