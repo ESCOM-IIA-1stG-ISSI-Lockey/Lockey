@@ -21,17 +21,11 @@ block content
                             h5.fw-bold.m-0.p-0  AGREGAR DESTINATARIO
                 each contact in contacts
                     .col-sm-6.col-lg-4.mb-4
-                        //- .card.border-0
                         input.btn-check(id=contact.id_cont type='radio' value=contact.id_cont  name=choose  autocomplete='off')
                         label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center.w-100.h-100(for=contact.id_cont)
                             h5.fw-bold=contact.nm_cont
-                            small=contact.em_cont   
                             small=contact.tel_cont
-                        
-            //- .row.mt-3.float-right.ms-3
-            //-     .form-check
-            //-         input#exampleCheck1.form-check-input(type='checkbox')
-            //-         label.form-check-label(for='exampleCheck1') Recordar contacto
+                            small=contact.em_cont   
             .row
                 .col-6
                     a.text-decoration-none(href='/crear-envio')

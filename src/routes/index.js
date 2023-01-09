@@ -6,7 +6,6 @@ const db = require('../modules/MySQLConnection');
 const Auth = require('../modules/Auth');
 const Validator = require('../modules/Validator');
 const mailer = require('../modules/SendGmailV');
-const { verifycode } = require('../modules/MySQLConnection');
 const optionsl = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', dayPeriod: 'short', hour: '2-digit', minute: '2-digit', hour12: true,timeZone: 'America/Mexico_City'};
 const optionss = { dateStyle: 'short', timeStyle: 'short',timeZone: 'America/Mexico_City'};
 const formaterlong = new Intl.DateTimeFormat("es-MX",optionsl);
@@ -23,7 +22,7 @@ router.route('/identificacion')
 		let { email, password } = req.body;
 		password = crypto.createHash('sha256').update(password).digest('hex');
 
-		db.checkCredentials(email, password).then((results) => {
+		db.user.credential(email, password).then((results) => {
 			if (results.length) {
 				if (results[0].act_usr == 'ENABLED')
 					Auth.createSession(req, res, results[0]);
@@ -57,7 +56,7 @@ router.route('/registro')
 
 		password = crypto.createHash('sha256').update(password).digest('hex');
 
-		db.createUser(name, email, tel, password, token, db.ROLES.CLIENT).then((results) => {
+		db.user.create(name, email, tel, password, token, db.USER_ROLES.CLIENT).then((results) => {
 			if (results.affectedRows > 0)
 				return db.getUserById(results.insertId)	
 			else throw new Error('No se pudo crear el usuario');
@@ -100,7 +99,7 @@ router.route('/verificador')
 
 		debug(VerifyNumber);
 
-		db.verifycode(email, VerifyNumber).then((results) => {
+		db.user.verify(email, VerifyNumber).then((results) => {
 			console.log(results);
 			if (results.changedRows)
 				return db.getUserByEmail(email);
@@ -141,7 +140,7 @@ router.route('/envio/:tracking([0-9]{18})')
 	async (req, res, next) => {
 		console.log(req.params)
 		let traking = req.params.tracking,
-			shipping = await db.getshippingdetails(traking)
+			shipping = await db.shipping.getByTracking(traking)
 			if(shipping.length){
 				shipping[0].dtu_shpg=formaterlong.format(shipping[0].dtu_shpg)
 				shipping[0].dts_shpg=formaterlong.format(shipping[0].dts_shpg)

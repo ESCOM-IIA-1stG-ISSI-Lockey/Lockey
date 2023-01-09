@@ -5,21 +5,19 @@ block content
         .container            
             h2.fw-bold.m-0.p-2.text-primary Resumen de envío
     form 
-        .container.row.col-fluid-12.mt-3.mx-auto    
+        .row.container.col-fluid-12.mt-5.mx-auto
             .col-lg-6.col-md-6.mt-3
                 h3.fw-bold Método de pago
                 p.m-0 Elige una tarjeta de credito o débito
                 input#origen.btn-check(type='radio' name='options2' autocomplete='off' disabled=typeof(wallet)=='undefined'? '':null)
-                if typeof(wallet)=='undefined'
-                    label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center(for='origen')
+                label.btn.btn-secondary.place.my-4.d-flex.flex-column.align-items-center.justify-content-center(for='origen' class=(typeof(wallet)!='undefined') && 'bg-primary')
+                    if typeof(wallet)!='undefined'
+                        p.fs-3.fw-bold.pt-4.mb-0 #{wallet.nknm_wal}
+                        p.fs-6.m-0 #{wallet.nm_wal}
+                        p.fs-6 #{wallet.num_wal}
+                    else
                         i.h1.bi.bi-building-fill
                         p Sin tarjeta seleccionada
-                    // TODO: change wallet to wallet
-                else
-                    label.btn.btn-secondary.place.d-flex.flex-column.align-items-center.justify-content-center.bg-primary(for='origen')
-                        p.fw-bold #{wallet.nknm_wal} 
-                        p.m-0 #{wallet.nm_wal} 
-                        p.m-0(id='cardN' data-card=wallet.num_wal)
                 a.text-decoration-none(href='/crear-envio/tarjeta')
                     .row.d-flex.align-items-center.justify-content-center.btn.btn-secondary.p-3.ms-3.me-3.shadow.rounded-pill
                         h5.fw-bold.text-white.m-0.p-0 SELECCIONAR TARJETA
@@ -62,11 +60,14 @@ block content
                     .col-10.form-outline.mb-3(style='color: #A8A8A8; text-align: center;')
                         
             .row-12.d-flex.mb-4.mt-3
-                p
-                | *Una vez confirmado el envo se contará con 24 horas
+                | * Una vez confirmado el envo se contará con 24 horas
                 | para depositar el paquete en el locker, de lo contrario se
                 | cancelará la solicitud y no habrá devolución.
-            .row-12.d-flex.mb-4.mt-3
+                
+            .d-flex.mb-4.mt-3.p-0.justify-content-end.gap-3
+                a.col-5.col-md-3.fw-bold.fs-5.rounded-pill.p-3.btn.btn-danger(href='/crear-envio') REGRESAR
+                button.col-5.col-md-3.fw-bold.fs-5.rounded-pill.p-3.btn.btn-primary(type='submit') CONFIRMAR
+            //- .row-12.d-flex.mb-4.mt-3
                 a.col-6.text-decoration-none(href='/crear-envio')
                     center
                         h5.fw-bold.align-items-center.justify-content-center.btn.btn-warning.shadow.rounded-pill.textButton REGRESAR

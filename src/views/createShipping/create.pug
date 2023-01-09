@@ -5,7 +5,7 @@ block content
         .bg-secondary       
             .container            
                 h2.fw-bold.m-0.p-2.text-primary Crear envío                    
-        .container.row.col-fluid-12.mt-3.mx-auto    
+        .row.container.col-fluid-12.mt-3.mx-auto    
             .col-lg-6.col-md-6.mt-3
                 h3.fw-bold Lugar de origen
                 p.m-0 Elige un lugar de origen
@@ -36,7 +36,7 @@ block content
                 .container
                     a.btn.btn-secondary.shadow.rounded-pill.text-white.fw-bold.fs-5.p-3.mx-0.w-100(href='/crear-envio/destino')
                         | SELECCIONAR DESTINO
-        .row.container.row.col-fluid-12.mt-5.mx-auto
+        .row.container.col-fluid-12.mt-5.mx-auto
             .col-lg-6.col-md-6.mt-3
                 h3.fw-bold Remitente
                 p.m-0 Elige un remitente
@@ -44,7 +44,8 @@ block content
                 label.btn.btn-secondary.place.my-4.d-flex.flex-column.align-items-center.justify-content-center(for='origen' class=(typeof(sender)!='undefined') && 'bg-primary')
                     if typeof(sender)!='undefined'
                         p.fs-3.fw-bold.pt-4.mb-0 #{sender.nm_cont}
-                        p.fs-6.pb-3 #{sender.em_cont}
+                        p.fs-6.m-0 #{sender.tel_cont}
+                        p.fs-6 #{sender.em_cont}
                     else
                         i.h1.bi.bi-person-fill
                         p Sin remitente seleccionado
@@ -60,7 +61,8 @@ block content
                 label.btn.btn-secondary.place.my-4.d-flex.flex-column.align-items-center.justify-content-center(for='destino' class=(typeof(receiver)!='undefined') && 'bg-primary')
                     if typeof(receiver)!='undefined'
                         p.fs-3.fw-bold.pt-4.mb-0 #{receiver.nm_cont}
-                        p.fs-6.pb-3 #{receiver.em_cont}
+                        p.fs-6.m-0 #{receiver.tel_cont}
+                        p.fs-6 #{receiver.em_cont}
                     else
                         i.h1.bi.bi-person-fill
                         p Sin destinatario selecciona
@@ -127,7 +129,7 @@ block content
                                 p.m-0.p-0.fw-semibold Peso
                                 p.m-0.p-0 #{msyze.weight} kg
             .d-flex.mb-4.mt-3.p-0.justify-content-end.gap-3
-                button.col-5.col-md-3.fw-bold.fs-5.rounded-pill.p-3.btn.btn-danger(type='reset' onclick='history.back()') CANCELAR
+                a.col-5.col-md-3.fw-bold.fs-5.rounded-pill.p-3.btn.btn-danger(href='/') CANCELAR
                 button.col-5.col-md-3.fw-bold.fs-5.rounded-pill.p-3.btn.btn-primary(type='submit') PAGAR
                 //- a.col-6.text-decoration-none(href='/panel')
                 //-     center

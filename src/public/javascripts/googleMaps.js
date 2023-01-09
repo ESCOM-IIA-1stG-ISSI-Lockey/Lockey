@@ -2,7 +2,7 @@ const labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 let labelIndex = 0;
 
 console.log(addresses)
-var add =addresses.map(e =>e.dir_lkr)
+var add = addresses.map(e =>e.dir_lkr)
 var addnm =addresses.map(e =>e.nm_lkr)
 console.log(add)
 var geocoder;
@@ -13,7 +13,7 @@ function initMap() {
 
 
  var map = new google.maps.Map(document.getElementById('map'), {
-   zoom: 11,
+   zoom: 8,
    center: {lat:19.440744027382173, lng: -99.12751310305093}
  });
  tam =add.length
@@ -27,7 +27,6 @@ function initMap() {
 
 
  marker.addListener("click", () => {
-   console.log('me estoy ejecuntand')
    infoWindow.close();
    infoWindow.setContent(marker.getTitle());
    infoWindow.open(marker.getMap(), marker);

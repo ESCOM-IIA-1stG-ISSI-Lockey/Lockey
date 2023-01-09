@@ -1,0 +1,32 @@
+form(action='/crear-envio/tarjeta' method='POST' novalidate)
+    fieldset 
+        #walletModal.modal.fade(tabindex='-1' aria-labelledby='walletModalLabel' aria-hidden='true' data-bs-backdrop='static')
+            .modal-dialog.modal-dialog-scrollable
+                .modal-content
+                    .modal-header
+                        h5.container.text-center.fs-4 Agregar Tarjeta
+                        button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                    .modal-body
+                        .form-floating.mb-3
+                            input#nickInputWallet.form-control(type='text' name='nickName' placeholder=' ')
+                            label.text_normal(for='nickInputWallet') Alias
+                            .invalid-feedback
+                        .form-floating.mb-3
+                            input#nameInputWallet.form-control(type='text' name='cardName' placeholder=' ')
+                            label.text_normal(for='nameInputWallet') Nombre en la tarjeta
+                            .invalid-feedback
+                        .form-floating.mb-3
+                            input#numInputWallet.form-control(type='text' name='cardNumber' placeholder=' ')
+                            label.text_normal(for='numInputWallet') Número de tarjeta
+                            .invalid-feedback
+                        .form-floating.mb-3
+                            input#dateInputWallet.form-control(type='text' name='cardDate' placeholder=' ')
+                            label.text_normal(for='dateInputWallet') Fecha de expiración
+                            .invalid-feedback
+                        .form-floating.mb-3
+                            input#cvvInputWallet.form-control(type='text' name='cardCvv' placeholder=' ')
+                            label.text_normal(for='cvvInputWallet') CVV
+                            .invalid-feedback
+                    .modal-footer
+                        button.btn.btn-danger(type='reset' data-bs-dismiss='modal') Cancelar
+                        button.btn.btn-primary(type='submit') Agregar

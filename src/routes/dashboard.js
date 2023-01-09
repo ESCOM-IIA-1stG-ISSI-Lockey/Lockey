@@ -18,11 +18,12 @@ router.route('/')
 			case 'ADMIN':
 				break;
 			case 'DELIVERER':
-				params.stateRoute = await db.getLockersByUserId(req.session.user.id)
+				params.stateRoute = await db.route.getByUserId(req.session.user.id)
 				console.log(params.stateRoute)
 				break;
 			case 'CLIENT':
-				params.pedingShipings = await db.getPendingShippings(req.session.user.id)
+				params.pedingShipings = await db.shipping.getAllPendingByUserId
+				(req.session.user.id)
 				params.pedingShipings.map((shipping)=>{
 					shipping.dtu_shpg=formatershort.format(shipping.dtu_shpg)
 					shipping.dts_shpg=formatershort.format(shipping.dts_shpg)
@@ -47,7 +48,7 @@ router.route('/repartidor/lockersnm/:lockerid([a-z ^A-Z 0-9&,%.]{1,})')
 		let traking = req.params.lockerid;
 
 
-		db.getShippingdetailByUserId(req.session.user.id, traking).then((results) => {
+		db.route.getDetails(req.session.user.id, traking).then((results) => {
 			debug('results', results);
 			if (results.length) {
 				res.render('lockers', { title: 'sendiit - panel', path: req.path, user: req.session.user ,traking: traking, shippingDetails: results });
@@ -94,7 +95,7 @@ router.route('/repartidor/guia/report')
 	async (req, res, next) => {
 		let body = req.body;
 		console.log(req.body)
-		db.createReport(req.session.user.id, body.idDoorReport, body.traking, body.titleReport, body.detailsReport).then((results)=>{ 
+		db.report.create(req.session.user.id, body.idDoorReport, body.traking, body.titleReport, body.detailsReport).then((results)=>{ 
 			debug('results', results);
 			if (results.affectedRows) {
 				res.status(200).json({response: 'OK', redirect: '/panel/repartidor/guia/sendForm'})
@@ -124,7 +125,7 @@ router.route('/historial')
 			title: 'sendiit - panel', 
 			path: req.path, 
 			user: req.session.user,
-			pedingShipings: await db.getShippings(req.session.user.id)});
+			pedingShipings: await db.shipping.getAllByUserId(req.session.user.id)});
 	});
 
 router.route('/perfil')
@@ -141,7 +142,7 @@ router.route('/pc/:tracking([0-9]{18})')
 .get(Auth.onlyUsers,
 	async(req,res,next) =>{
 		let traking = req.params.tracking,
-		shipping = await db.getshippingdetails(traking)
+		shipping = await db.shipping.getByTracking(traking)
 		// if(shipping.length){
 		// 	shipping[0].dtu_shpg=formaterlong.format(shipping[0].dtu_shpg)
 		// 	shipping[0].dts_shpg=formaterlong.format(shipping[0].dts_shpg)
@@ -173,7 +174,7 @@ router.route('/actualizar')
 		console.log(states[idState])
 
 
-		db.updateShippingState(idState,tkr)
+		db.shipping.getByTracking(tkr, idState)
 		mailer.sendEmailStateShipping(res, user.email2, user.name, tkr, states[idState].state, states[idState].route)	//remitente
 		if(idState>2)
 			mailer.sendEmailStateShipping(res, email2, 'Daniel', tkr, states[idState].state, states[idState].route) //destinatario
@@ -193,7 +194,7 @@ router.route('/repartidor/guia/:guia([0-9]{18})')
 .get(Auth.onlyDeliverers,
 	async(req,res,next) =>{
 		let guia = req.params.guia,
-		shipping = (await db.getShippinguide(req.session.user.id, guia))[0]
+		shipping = (await db.route.getShipping(req.session.user.id, guia))[0]
 		console.log(shipping)
 		if (req.session.user) {
 			res.render('tracking_guide',{ title: 'sendiit - panel', path: req.path, user: req.session.user, shipping: shipping});
@@ -208,17 +209,16 @@ router.route('/repartidor/guia/:guia([0-9]{18})')
 	async(req,res,next) => {
 		let{name,tkr} =req.body;
 		console.log(name ,tkr)
-		db.updateShippingstroute(name ,tkr)
-		.then((result) => {
-			if (result.affectedRows > 0) {
-				console.log('actualizado')
-				res.json({
-					response: 'OK',
-					redirect:'/panel/repartidor/guia/shippingCollected'	
-				})
-			} else {
-				throw new Error('No se pudo actualizar')
-			}
+		db.shipping.updateS.then((result) => {
+		if (result.affectedRows > 0) {
+			console.log('actualizado')
+			res.json({
+				response: 'OK',
+				redirect:'/panel/repartidor/guia/shippingCollected'	
+			})
+		} else
+			throw new Error('No se pudo actualizar')
+		
 		}).catch((err) => {
 			console.log(err)
 			res.json({

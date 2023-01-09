@@ -26,21 +26,19 @@ router.route('/')
 		let params = {}
 
 		if (req.session.shipping.origin) 
-			params.origin = (await db.getLokerById(req.session.shipping.origin))[0]
+			params.origin = (await db.locker.getById(req.session.shipping.origin))[0]
 		
 		if (req.session.shipping.destination)
-			params.destination = (await db.getLokerById(req.session.shipping.destination))[0]
+			params.destination = (await db.locker.getById(req.session.shipping.destination))[0]
 
 		if (req.session.shipping.sender)
-			params.sender = (await db.getContactById(req.session.shipping.sender))[0]
+			params.sender = (await db.contact.getById(req.session.shipping.sender))[0]
 
 		if (req.session.shipping.receiver)
-			params.receiver = (await db.getContactById(req.session.shipping.receiver))[0]
+			params.receiver = (await db.contact.getById(req.session.shipping.receiver))[0]
 
 		if (req.session.shipping.size)
-			params.size = (await db.getSizeById(req.session.shipping.size))[0]
-
-		
+			params.size = (await db.locker.getDoorTypeById(req.session.shipping.size))[0]
 		
 		res.render('createShipping/create', {
 			title: 'sendiit - panel',
@@ -55,53 +53,49 @@ router.route('/')
 			req.session.shipping = {}
 
 		debug('req.body', req.body)
-		let { origin, destination, size, sender, receiver,url } = req.body
-			
+		let { origin, destination, size, sender, receiver, url } = req.body
 		// let { NameOrigen, NameDestino } = req.body
-		if (origin)
-			req.session.shipping.origin = origin
-
-		if (destination)
-			req.session.shipping.destination = destination
-
-		if (size)
-			req.session.shipping.size = size
-
-		if (sender)
-			req.session.shipping.sender = sender
-
-		if (receiver)
-			req.session.shipping.receiver = receiver
-
-		if (req.session.shipping.receiver==req.session.shipping.sender&&req.session.shipping.receiver!=undefined){
-			res.status(400).json({ response: 'ERROR', message: 'El destinatario y el remitente deben ser diferentes'});
-			return ;
 			
-		}
-		if (req.session.shipping.origin==req.session.shipping.destination&&req.session.shipping.origin!=undefined){
-			res.status(400).json({ response: 'ERROR', message: 'El destino y el origen deben ser diferentes'});
-			return ;
-		}
+		if (origin) req.session.shipping.origin = origin
+		if (destination) req.session.shipping.destination = destination
+		if (sender)req.session.shipping.sender = sender
+		if (receiver) req.session.shipping.receiver = receiver
+		if (size) req.session.shipping.size = size
 
-	
-		if (req.session.shipping.origin
-			&& req.session.shipping.destination
-			&& req.session.shipping.size
-			&& req.session.shipping.sender
-			&& req.session.shipping.receiver)
-			res.json({ response: 'OK', redirect: '/crear-envio/resumen' })
-		else if(!url){
-			res.status(400).json({ response: 'ERROR', message: 'Ingresa todos los datos'});
-
-		}
-
-		else{
-			
-			//res.status(400).json({ response: 'ERROR', message: 'Ingresa todos los datos'});
-			res.json({ response: 'OK', redirect: '/crear-envio'+req.path })
-
-		    //res.status(400).json({ response: 'ERROR', message: 'Ingresa todos los datos'});
-		}			
+		if (url && (!origin && !destination && !sender && !receiver))
+			res.status(400).json({ 
+				response: 'ERROR', 
+				message: 'Debes elegir un elemento'
+			});
+		else if (req.session.shipping.receiver && req.session.shipping.receiver==req.session.shipping.sender) 
+			res.status(400).json({ 
+				response: 'ERROR', 
+				message: 'El destinatario y el remitente deben ser diferentes'
+			});
+		else if (req.session.shipping.origin && req.session.shipping.origin==req.session.shipping.destination)
+			res.status(400).json({ 
+				response: 'ERROR', 
+				message: 'El destino y el origen deben ser diferentes'
+			});
+		else if (!url && (!req.session.shipping.origin
+			|| !req.session.shipping.destination
+			|| !req.session.shipping.size
+			|| !req.session.shipping.sender
+			|| !req.session.shipping.receiver))
+			res.status(400).json({ 
+				response: 'ERROR', 
+				message: 'Ingresa todos los datos'
+			});
+		else if(url)
+			res.json({ 
+				response: 'OK', 
+				redirect: '/crear-envio' 
+			})
+			else
+			res.json({ 
+				response: 'OK', 
+				redirect: '/crear-envio/resumen' 
+			})
 	});
 
 // Crear envio (remitente, destinatario, pago) y cobro
@@ -113,22 +107,17 @@ router.route('/resumen')
 		 */
 		let params = {}
 		if (req.session.shipping.sender)
-			params.sender = (await db.getContactById(req.session.shipping.sender))[0]
-
+			params.sender = (await db.contact.getById(req.session.shipping.sender))[0]
 		if (req.session.shipping.receiver)
-			params.receiver = (await db.getContactById(req.session.shipping.receiver))[0]
-		
+			params.receiver = (await db.contact.getById(req.session.shipping.receiver))[0]
 		if (req.session.shipping.wallet) 
-			params.wallet = (await db.getWalletById(req.session.shipping.wallet))[0]
-
+			params.wallet = (await db.wallet.getById(req.session.shipping.wallet))[0]
 		if (req.session.shipping.origin)
-			params.origin = (await db.getLokerById(req.session.shipping.origin))[0]
-		
+			params.origin = (await db.locker.getById(req.session.shipping.origin))[0]
 		if (req.session.shipping.destination)
-			params.destination= (await db.getLokerById(req.session.shipping.destination))[0]
-
+			params.destination= (await db.locker.getById(req.session.shipping.destination))[0]
 		if (req.session.shipping.size)
-			params.size = (await db.getSizeById(req.session.shipping.size))[0]
+			params.size = (await db.locker.getDoorTypeById(req.session.shipping.size))[0]
 
 		let num_guide;
 
@@ -183,7 +172,7 @@ router.route('/finalizado')
 router.route('/:choose(origen|destino)')
 .get(Auth.onlyClients,
 	async (req, res, next) => {
-		let lockers = await db.getlocations()
+		let lockers = await db.locker.getAll()
 		let choose = req.params.choose=='origen'?'origin':'destination'
 		res.render('createShipping/choose/location', {
 			title: 'sendiit - panel',
@@ -198,7 +187,7 @@ router.route('/:choose(origen|destino)')
 router.route('/:choose(remitente|destinatario)')
 .get(Auth.onlyClients,
 	async (req, res, next) => {
-		let contacts = await db.getContactsByUserId(req.session.user.id);
+		let contacts = await db.contact.getAllByUserId(req.session.user.id);
 		let choose = req.params.choose=='remitente'?'sender':'receiver'
 		console.log('contacts', contacts)
 		res.render('createShipping/choose/contact', {
@@ -212,7 +201,7 @@ router.route('/:choose(remitente|destinatario)')
 .post(Auth.onlyClients, Validator.contact,	
 	async (req, res, next) => {
 		let { name, email, phone} = req.body;
-		db.createContact(req.session.user.id, name, email, phone).then((results)=>{ 
+		db.contact.create(req.session.user.id, name, email, phone).then((results)=>{ 
 			//console.log(tel,"telefono")
 			debug('results', results);
 			if (results.affectedRows) {
@@ -238,7 +227,7 @@ router.route('/:choose(remitente|destinatario)')
 router.route('/tarjeta')
 .get(Auth.onlyClients,
 	async (req, res, next) => {
-		let metodosDePagos = await db.getWalletsByUserId(req.session.user.id);
+		let metodosDePagos = await db.wallet.getAllByUserId(req.session.user.id);
 		res.render('createShipping/choose/wallet', { 
 			title: 'sendiit - panel', 
 			path: req.path,
@@ -250,7 +239,7 @@ router.route('/tarjeta')
 	async (req, res, next) => {
 		let {nickName, cardName, cardNumber, cardDate} = req.body;
 		cardDate = "30/"+cardDate
-		db.createPayment(req.session.user.id, nickName, cardName, cardNumber, cardDate).then((results)=>{ 
+		db.wallet.create(req.session.user.id, nickName, cardName, cardNumber, cardDate).then((results)=>{ 
 			//console.log(tel,"telefono")
 			debug('results', results);
 			if (results.affectedRows) {
