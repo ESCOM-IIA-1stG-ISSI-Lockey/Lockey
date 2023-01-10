@@ -1,10 +1,11 @@
-const debug = require('debug')('lockey:router:dashboard');
+const debug = require('debug')('lockey:router:create-shipping');
 const express = require('express');
 const router = express.Router();
 const Auth = require('../modules/Auth');
 const db = require('../modules/MySQLConnection');
 const Validator = require('../modules/Validator');
-
+const ShippinUtils = require('../modules/ShippingUtils');
+const { shipping } = require('../modules/MySQLConnection');
 
 /* 
 	req.session.shipping = {
@@ -55,44 +56,48 @@ router.route('/')
 		debug('req.body', req.body)
 		let { origin, destination, size, sender, receiver, url } = req.body
 		// let { NameOrigen, NameDestino } = req.body
-			
+
+		if (url && (!origin && !destination && !sender && !receiver))
+			return res.status(400).json({ 
+				response: 'ERROR', 
+				message: 'Debes elegir un elemento'
+			});
+		else if ((origin && origin==req.session.shipping.destination) 
+				|| (destination && origin==req.session.shipping.origin))
+			return res.status(400).json({ 
+				response: 'ERROR', 
+				message: 'El destino y el origen deben ser diferentes'
+			});
+		else if ((sender && sender==req.session.shipping.receiver) 
+				|| (receiver && receiver==req.session.shipping.sender))
+			return res.status(400).json({ 
+				response: 'ERROR', 
+				message: 'El destinatario y el remitente deben ser diferentes'
+			});
+
 		if (origin) req.session.shipping.origin = origin
 		if (destination) req.session.shipping.destination = destination
 		if (sender)req.session.shipping.sender = sender
 		if (receiver) req.session.shipping.receiver = receiver
 		if (size) req.session.shipping.size = size
 
-		if (url && (!origin && !destination && !sender && !receiver))
-			res.status(400).json({ 
-				response: 'ERROR', 
-				message: 'Debes elegir un elemento'
-			});
-		else if (req.session.shipping.receiver && req.session.shipping.receiver==req.session.shipping.sender) 
-			res.status(400).json({ 
-				response: 'ERROR', 
-				message: 'El destinatario y el remitente deben ser diferentes'
-			});
-		else if (req.session.shipping.origin && req.session.shipping.origin==req.session.shipping.destination)
-			res.status(400).json({ 
-				response: 'ERROR', 
-				message: 'El destino y el origen deben ser diferentes'
-			});
-		else if (!url && (!req.session.shipping.origin
+
+		if (!url && (!req.session.shipping.origin
 			|| !req.session.shipping.destination
 			|| !req.session.shipping.size
 			|| !req.session.shipping.sender
 			|| !req.session.shipping.receiver))
-			res.status(400).json({ 
+			return res.status(400).json({ 
 				response: 'ERROR', 
 				message: 'Ingresa todos los datos'
 			});
 		else if(url)
-			res.json({ 
+			return res.json({ 
 				response: 'OK', 
 				redirect: '/crear-envio' 
 			})
-			else
-			res.json({ 
+		else
+			return res.json({ 
 				response: 'OK', 
 				redirect: '/crear-envio/resumen' 
 			})
@@ -103,7 +108,7 @@ router.route('/resumen')
 .get(Auth.onlyClients,
 	async (req, res, next) => {
 		/**
-		 * sender, receiver, wallet, origin, destination, size*
+		 * sender, receiver, wallet, origin, destination, size
 		 */
 		let params = {}
 		if (req.session.shipping.sender)
@@ -119,13 +124,14 @@ router.route('/resumen')
 		if (req.session.shipping.size)
 			params.size = (await db.locker.getDoorTypeById(req.session.shipping.size))[0]
 
-		let num_guide;
+		params.tracking = await (ShippinUtils.generateTrackingGuide(params.origin.id_lkr, params.destination.id_lkr))[0]
+		req.session.shipping.tracking = params.tracking
+		
+		let distance = await (ShippinUtils.getDistanceKm(params.origin.dir_lkr, params.destination.dir_lkr))[0]
+		params.price = Math.round(25.6*(distance/27.5)) + int(size.pr_drtype)
+		req.session.shipping.price = params.price
 
-		let distance = params.pre; // calcular precio usando la api de google maps
-		// despues usar la formula para calcular el precio
-
-
-		debug('req.session.shipping', req.session.shipping)
+		debug('params', params)
 		
 		res.render('createShipping/resume', {
 			title: 'sendiit - panel',
@@ -140,20 +146,55 @@ router.route('/resumen')
 			req.session.shipping = {}
 
 		debug('req.body', req.body)
-		let { wallet, cvv , sender, receiver, size, num_guide} = req.body 
+		let { wallet, url/* , cvv */ } = req.body 
 
-		if (wallet)
-			req.session.shipping.wallet = wallet
+		if (url && (!wallet /* && !cvv */))
+			return res.status(400).json({ 
+				response: 'ERROR', 
+				message: 'Debes elegir un elemento'
+			});
 
-		if (cvv)
-			req.session.shipping.cvv = cvv
+		if (wallet) req.session.shipping.wallet = wallet
+		// if (cvv) req.session.shipping.cvv = cvv
 
-
-		if (wallet && cvv)
-			// Realizar cobro y creacion del envio
-			res.json({ response: 'OK', message: 'Envio creado' })
-		else
-			res.json({ response: 'OK', redirect: '/crear-envio'+req.path })
+		if (!url && (!req.session.shipping.wallet
+			/* || !req.session.shipping.cvv */))
+			return res.status(400).json({ 
+				response: 'ERROR', 
+				message: 'Ingresa todos los datos'
+			});
+		else if(url)
+			return res.json({ 
+				response: 'OK', 
+				redirect: '/crear-envio/resumen' 
+			})
+		else {
+			req.session.qr = ShippinUtils.generateQr()
+			db.shipping.create(
+				req.session.user.id,
+				req.session.shipping.tracking,
+				req.session.shipping.size,
+				req.session.shipping.price,
+				req.session.shipping.wallet,
+				req.session.shipping.origin,
+				req.session.shipping.destination,
+				req.session.shipping.sender,
+				req.session.shipping.receiver, 
+				req.session.qr
+			).then((results) => {
+				if (results.length) {
+					req.session.shipping = undefined
+					return res.json({ 
+						response: 'OK', 
+						redirect: '/informacion',
+					})
+				}
+				else throw new Error('Error al crear el envío');		
+			}).catch((err) => {
+				debug(err);
+				res.status(400).json({ response: 'ERROR', message: err.message||err });
+			});
+		}
 });
 
 // Envio finalizado con exito
@@ -163,7 +204,8 @@ router.route('/finalizado')
 		res.render('createShipping/completed', {
 			title: 'sendiit - panel',
 			path: req.path,
-			user: req.session.user
+			user: req.session.user,
+			qr: req.session.qr
 		});
 	});
 

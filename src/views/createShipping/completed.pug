@@ -18,8 +18,7 @@ block content
                 .col-lg
                     center
                         //- importante: img, clase qr-img con data-text. Tambien importar los scripts de qrcode.js y qr.js en ese orden
-                        img.qr-img(width='300' height='300' data-text='aaaaaaaaaa')
-                        //- img.qr-img(width='300' height='300' data-text=trkg_shpg)
+                        img.qr-img(width='300' height='300' data-text=(qr||'123456789012345678'))
                 p
                 p
                 p

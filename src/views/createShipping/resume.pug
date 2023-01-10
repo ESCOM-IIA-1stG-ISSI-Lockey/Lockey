@@ -41,19 +41,23 @@ block content
                     .row
                         .col-5.form-outline.mb-3
                             p.text-secondary.mb-1.px-1.fw-bold Lugar de origen:
-                        .col.form-outline.mb-3(style='text-align: left;' id='origen_pp' data-mi-variable=origin.dir_lkr)= origin.dir_lkr
+                        .col.form-outline.mb-3(style='text-align: left;' id='origen_pp' data-mi-variable=origin.dir_lkr)
+                            p= origin.nm_lkr
+                            p= origin.dir_lkr
                         .form-outline.mb-3(id='origen_id' data-id=origin.id_lkr)
                     .row
                         .col-5.form-outline.mb-3
                             p.text-secondary.mb-1.px-1.fw-bold Lugar de destino:
-                        .col.form-outline.mb-3(style='text-align: left;' id='destino_pp' data-mi-variable=destination.dir_lkr)= destination.dir_lkr
+                        .col.form-outline.mb-3(style='text-align: left;' id='destino_pp' data-mi-variable=destination.dir_lkr)
+                            p= destination.nm_lkr
+                            p= destination.dir_lkr
                         .form-outline.mb-3(id='destino_id' data-id=destination.id_lkr)
                     .row
                         .col-4.form-outline.mb-3
                             .col-4.form-outline.mb-3
                                 h2.fw-bold(style='color: #CAA400;') Costo:
                         .col-4.form-outline.mb-3
-                            h1.fw-bold-secondary-left(id='response' data-mi-variable=size.pr_drtype)= "$"
+                            h1.fw-bold-secondary-left(id='response' data-mi-variable=size.pr_drtype)= "$"+price
                             //h1.fw-bold-secondary-left(id='guide') //Imprime guia (unicamente prueba)
                 .row
                     .col.form-outline.mb-3

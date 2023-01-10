@@ -39,6 +39,13 @@ const utils = {
 		+ orgLockerId.padStart(3, '0') 
 		+ dstLockerid.padStart(3, '0');
 	},
+
+	generateQr: () => {
+		return Math.floor(Math.random() * 1000000)// Random 6-digit number
+				.toString().padStart(6, '0'); 
+	}
 }
+
+module.exports = utils;
 
 // utils.getDistanceKm('Av. Miguel Othon de Mendizabal Ote. 343, Nueva Industrial Vallejo, Gustavo A. Madero, 07700 Ciudad de Mexico, CDMX','Vasco de Quiroga 3800, Santa Fe, Contadero, Cuajimalpa de Morelos, 05348 Ciudad de Mexico, CDMX')
