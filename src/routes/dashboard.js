@@ -194,7 +194,8 @@ router.route('/repartidor/guia/:guia([0-9]{18})')
 .get(Auth.onlyDeliverers,
 	async(req,res,next) =>{
 		let guia = req.params.guia,
-		shipping = (await db.route.getShipping(req.session.user.id, guia))[0]
+		shipping = (await db.route.getShipping(guia))[0]
+		console.log(guia)
 		console.log(shipping)
 		if (req.session.user) {
 			res.render('tracking_guide',{ title: 'sendiit - panel', path: req.path, user: req.session.user, shipping: shipping});
