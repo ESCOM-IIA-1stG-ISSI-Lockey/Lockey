@@ -64,14 +64,36 @@ block content
                         
                         else if n > 0
                             if key != 5
-                                .StepProgress-item.is-done
-                                    strong= num
-                                    -n-- 
-                                    if n == 0
-                                        p.bg-secondary.rounded Actualización
-                                        p.update Fecha y hora: #{shipping.dtu_shpg}  
+                                if key==1
+                                    .StepProgress-item.is-done.is-done-1
+                                        strong= num
+                                        -n-- 
+                                        if n == 0
+                                            p.bg-secondary.rounded Actualización
+                                            p.update Fecha y hora: #{shipping.dtu_shpg} 
+                                else if key==2
+                                    .StepProgress-item.is-done.is-done-2
+                                        strong= num
+                                        -n-- 
+                                        if n == 0
+                                            p.bg-secondary.rounded Actualización
+                                            p.update Fecha y hora: #{shipping.dtu_shpg} 
+                                else if key==3
+                                    .StepProgress-item.is-done.is-done-3
+                                        strong= num
+                                        -n-- 
+                                        if n == 0
+                                            p.bg-secondary.rounded Actualización
+                                            p.update Fecha y hora: #{shipping.dtu_shpg} 
+                                else if key==4
+                                    .StepProgress-item.is-done.is-done-4
+                                        strong= num
+                                        -n-- 
+                                        if n == 0
+                                            p.bg-secondary.rounded Actualización
+                                            p.update Fecha y hora: #{shipping.dtu_shpg}  
                             else
-                                .StepProgress-item.is-done.b-line
+                                .StepProgress-item.is-done.is-done-5.b-line
                                     strong= num
                                     -n-- 
                                     if n == 0
@@ -79,18 +101,25 @@ block content
                                         p.update Fecha y hora: #{shipping.dtu_shpg}  
 
                         else
-                            if n != 6 || n !=7
-                                .StepProgress-item.current.d-none
-                                    strong.d-none= num
-
                             if key<6
-                                if key==5 && n<4
-                                    .StepProgress-item.current.b-line
+                                if key==1
+                                    .StepProgress-item.current.is-current-1
                                         strong= num
-                                        -n-- 
-                                
-                                else
-                                    .StepProgress-item.current
+                                        -n--                                         
+                                else if key==2
+                                    .StepProgress-item.current.is-current-2
+                                        strong= num
+                                        -n--                                         
+                                else if key==3
+                                    .StepProgress-item.current.is-current-3
+                                        strong= num
+                                        -n--                     
+                                else if key==4
+                                    .StepProgress-item.current.is-current-4
+                                        strong= num
+                                        -n--                                         
+                                else if key==5
+                                    .StepProgress-item.current.is-current-5
                                         strong= num
                                         -n-- 
 

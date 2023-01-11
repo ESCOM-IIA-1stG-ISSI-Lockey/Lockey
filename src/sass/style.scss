@@ -11,6 +11,11 @@ $secondary: #212e46;
 $tertiary: #d4d4d4; 
 $warning: #db2e32;
 
+$state_1: "/images/img_states/img_state_1.png";
+$state_2: "/images/img_states/img_state_2.png";
+$state_3: "/images/img_states/img_state_3.png";
+$state_4: "/images/img_states/img_state_4.png";
+$state_5: "/images/img_states/img_state_5.png";
 
 // 3. Include remainder of required Bootstrap stylesheets
 @import "../../node_modules/bootstrap/scss/variables";
@@ -190,6 +195,8 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 	&-item {
 		position: relative;
 		counter-increment: list;
+		padding-left: 15px;
+		padding-top: 15px;
 		
 		&:not(:last-child) {
 			padding-bottom: 40px;
@@ -209,7 +216,7 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 			display: inline-block;
 			position: absolute;
 			top: 0;
-			left: -37px;
+			left: -45px;
 			width: 12px;
 			height: 12px;
 			border-radius: 50%;
@@ -221,34 +228,42 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 				border-left: 10px solid $primary;
 			}
 			&::after {
-				//   content: "✔";
-				font-size: 20px;
-				color: #FFF;
-				text-align: center;
-				border: 20px solid $primary;
+				background-size: 50px;
+				background-repeat: no-repeat;
+				background-position: center;
+				width: 60px;
+				height: 60px;
 				background-color: $primary;
 			}
 		}
+
+		&.is-done-1 {&::after {background-image: url(/images/img_states/img_state_1.png);}}
+		&.is-done-2 {&::after {background-image: url(/images/img_states/img_state_2.png);}}
+		&.is-done-3 {&::after {background-image: url(/images/img_states/img_state_3.png);}}
+		&.is-done-4 {&::after {background-image: url(/images/img_states/img_state_4.png);}}
+		&.is-done-5 {&::after {background-image: url(/images/img_states/img_state_5.png);}}
 		
 		&.is-cancel {
 			&::after {
-				//   content: "✔";
-				font-size: 20px;
-				color: #FFF;
-				text-align: center;
-				border: 20px solid #db2e32;
+				background-image: url(/images/img_states/img_state_7.png);
+				background-size: 50px;
+				background-repeat: no-repeat;
+				background-position: center;
+				width: 60px;
+				height: 60px;
 				background-color: #db2e32;
 			}
 		}
 		
 		&.is-store {
 			&::after {
-				//   content: "✔";
-				font-size: 20px;
-				color: #FFF;
-		  text-align: center;
-		  border: 20px solid #2e7cdb;
-		  background-color: #2e7cdb;
+				background-image: url(/images/img_states/img_state_6.png);
+				background-size: 50px;
+				background-repeat: no-repeat;
+				background-position: center;
+				width: 60px;
+				height: 60px;
+				background-color: #2e7cdb;
 		}
 	}
 	
@@ -258,18 +273,21 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 		}
 		
 		&::after {
-			//   content: counter(list);
-			padding-top: 1px;
-			width: 12px;
-			height: 12px;
-			top: 0px;
-			left: -37px;
-			font-size: 14px;
-			text-align: center;
-		  border: 20px solid rgb(182, 182, 182);
-		  background-color: white;
+			background-image: url(/images/img_states/img_state_1.png);
+			background-size: 50px;
+			background-repeat: no-repeat;
+			background-position: center;
+			width: 60px;
+			height: 60px;
+			background-color: rgb(182, 182, 182);;
 		}
 	}
+
+	&.is-current-1 {&::after {background-image: url(/images/img_states/img_state_1.png);}}
+	&.is-current-2 {&::after {background-image: url(/images/img_states/img_state_2.png);}}
+	&.is-current-3 {&::after {background-image: url(/images/img_states/img_state_3.png);}}
+	&.is-current-4 {&::after {background-image: url(/images/img_states/img_state_4.png);}}
+	&.is-current-5 {&::after {background-image: url(/images/img_states/img_state_5.png);}}
 }
 	strong {display: block; padding-left: 20px; font-size: 20px;}
 	p {display: block; padding-left: 20px; margin: 0; font-weight: bold; color: $primary; font-size: 18px;}
