@@ -127,7 +127,7 @@ router.route('/resumen')
 		params.tracking = await (ShippinUtils.generateTrackingGuide(params.origin.id_lkr, params.destination.id_lkr))
 		req.session.shipping.tracking = params.tracking
 		
-		let distance = await (ShippinUtils.getDistanceKm(params.origin.dir_lkr, params.destination.dir_lkr))
+		let distance = await (ShippinUtils.getDistanceKm(params.origin.dir_lkr, params.destination.dir_lkr).catch((err)=> 0))
 		params.price = Math.round(25.6*(distance/27.5)) + parseInt(params.size.pr_drtype)
 		req.session.shipping.price = params.price
 		

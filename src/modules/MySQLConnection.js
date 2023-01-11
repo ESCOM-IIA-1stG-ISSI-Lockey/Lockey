@@ -42,7 +42,7 @@ const db = {
 	user: {
 		exists: (email) => {
 			return new Promise((resolve, reject) => {
-				con.query('SELECT * FROM users WHERE email=?', [email], (err, results) => {
+				con.query('SELECT * FROM User WHERE em_usr=?', [email], (err, results) => {
 					if (err) reject(err);
 					else resolve(results[0]);
 				});

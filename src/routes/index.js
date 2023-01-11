@@ -58,7 +58,7 @@ router.route('/registro')
 
 		db.user.create(name, email, tel, password, token, db.USER_ROLES.CLIENT).then((results) => {
 			if (results.affectedRows > 0)
-				return db.getUserById(results.insertId)	
+				return db.user.getById(results.insertId)	
 			else throw new Error('No se pudo crear el usuario');
 		})
 		.then((results) => {
