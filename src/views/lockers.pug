@@ -8,21 +8,50 @@ block content
 
             .bg-primary.d-flex.p-2.pb-4.rounded.justify-content-center.mb-4(style="height: 70px;")
                 h1.title.text-center.fw-bold.m-0.pb-4.pt-2=traking
-            
-            div.detalles
-                each detail, index in shippingDetails
-                    .card.mr-5.ml-5.mb-2(style='width: 27rem;')
-                        .card-body
-                            .item.row.d-flex.align-items-center.-content-center(style='min-width: 40px;')
-                                .col-4.p-0
-                                    img(style='max-height: 100px;',src='/images/package-m.svg')
-                                .col-8.p-0
-                                    p Número de guía 
-                                        a(href="/panel/repartidor/guia/" + detail.trk_shpg) #{detail.trk_shpg}           
-
-                                    p Origen:
-                                        small.text-muted #{detail.nm_lkrorg}
-
-                                    p Destino:
-                                        small.text-muted #{detail.nm_lkrdst}
-
+        - let long = 1
+        .row
+            each detail, index in shippingDetails
+                -long=long+1
+                if long%2==0 
+                    .col-md-6.col-lg-6.col-xl-6.shippingHistory
+                        a.text-decoration-none(href="/panel/repartidor/guia/" + detail.trk_shpg)
+                            .item.row.d-flex.align-items-center.justify-content-center.align-content-center
+                                each num, key in  {2 : 'Recolectar', 3 : 'Entregar'}
+                                        if key == detail.stat_shpg
+                                            if key==2
+                                                .row.p-2.title_s.bg-secondary
+                                                    p.card-text.text-center.m-0.text-white=num
+                                            else if key==3
+                                                .row.p-2.title_s.bg-primary
+                                                    p.card-text.text-center.m-0.text-secondary=num
+                                .row.m-4
+                                    .col-4.p-1(style="text-align:center")
+                                        img(style='max-height: 100px;',src='/images/package-m.svg')
+                                    .col-8
+                                        
+                                        h6.card-title.card-text.text-center.text-blue= detail.trk_shpg
+                                        p.text-muted.text-center.mt-2.m-0 Origen: #{detail.nm_lkrorg}
+                                        p.text-muted.text-center.m-0 Destino: #{detail.nm_lkrdst}
+                                        
+                                        
+                if long%2==1 
+                    .col-md-6.col-lg-6.col-xl-6.shippingHistory
+                        a.text-decoration-none(href="/panel/repartidor/guia/" + detail.trk_shpg)
+                            .item.row.d-flex.align-items-center.justify-content-center.align-content-center
+                                each num, key in  {2 : 'Recolectar', 3 : 'Entregar'}
+                                        if key == detail.stat_shpg
+                                            if key==2
+                                                .row.p-2.title_s.bg-secondary
+                                                    p.card-text.text-center.m-0.text-white=num
+                                            else if key==3
+                                                .row.p-2.title_s.bg-primary
+                                                    p.card-text.text-center.m-0.text-secondary=num
+                                .row.m-4
+                                    .col-4.p-1(style="text-align:center")
+                                        img(style='max-height: 100px;',src='/images/package-m.svg')
+                                    .col-8
+                                        
+                                        h6.card-title.card-text.text-center.text-blue= detail.trk_shpg
+                                        p.text-muted.text-center.mt-2.m-0 Origen: #{detail.nm_lkrorg}
+                                        p.text-muted.text-center.m-0 Destino: #{detail.nm_lkrdst}
+                                        

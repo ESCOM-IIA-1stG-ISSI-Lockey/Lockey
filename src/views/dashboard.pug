@@ -29,27 +29,27 @@ block content
 				ul.pt-3.StepProgress.align-items-centerpb-3
 
 					each locker, i in stateRoute 
-						if i + 1 >= stateRoute.length
-							if locker.stat_rte == 1
-								.StepProgress-item.is-done.b-line
-									a.strong(href='/panel/repartidor/lockersnm/'+locker.nm_lkr) 
-										p.text-ruta=locker.nm_lkr
+						//- if i + 1 >= stateRoute.length
+						//- 	if locker.stat_rte == 1
+						//- 		.StepProgress-item.is-done.b-line
+						//- 			a.strong(href='/panel/repartidor/lockersnm/'+locker.nm_lkr) 
+						//- 				p.text-ruta=locker.nm_lkr
 											
-							else
-								.StepProgress-item.current.b-line
-									a.strong(href='/panel/repartidor/lockersnm/'+locker.nm_lkr) 
-										p.text-ruta=locker.nm_lkr
+							//- else
+							//- 	.StepProgress-item.current.b-line
+							//- 		a.strong(href='/panel/repartidor/lockersnm/'+locker.nm_lkr) 
+							//- 			p.text-ruta=locker.nm_lkr
 
 
-						else if locker.stat_rte == 1
+						if locker.stat_rte == 1
 							.StepProgress-item.is-done
 								a.strong(href='/panel/repartidor/lockersnm/'+locker.nm_lkr) 
 									p.text-ruta=locker.nm_lkr
-						else
-							.StepProgress-item.current.d-none
-								strong.d-none= locker.nm_lkr
-							.StepProgress-item.current
-								strong=locker.nm_lk
+						//- else
+						//- 	.StepProgress-item.current.d-none
+						//- 		strong.d-none= locker.nm_lkr
+						//- 	.StepProgress-item.current
+						//- 		strong=locker.nm_lk
 								
 
 							- lockerc++
