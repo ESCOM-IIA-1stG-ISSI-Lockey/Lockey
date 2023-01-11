@@ -1,9 +1,9 @@
 extends /layout
 
 block content
-	form(action='/crear-envio' method='Post')
-		input(type='hidden' name='url' value=path) 
-    	.container
+    form(action='/crear-envio' method='Post')
+        input(type='hidden' name='url' value=path) 
+        .container
             if choose=='origin'
                 h1.fw-bold Lugar de origen
                 p.mb-3 Selecciona un lugar de origen

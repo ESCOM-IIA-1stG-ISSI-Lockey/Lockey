@@ -63,7 +63,7 @@ router.route('/')
 				message: 'Debes elegir un elemento'
 			});
 		else if ((origin && origin==req.session.shipping.destination) 
-				|| (destination && origin==req.session.shipping.origin))
+				|| (destination && destination==req.session.shipping.origin))
 			return res.status(400).json({ 
 				response: 'ERROR', 
 				message: 'El destino y el origen deben ser diferentes'
@@ -127,11 +127,9 @@ router.route('/resumen')
 		params.tracking = await (ShippinUtils.generateTrackingGuide(params.origin.id_lkr, params.destination.id_lkr))[0]
 		req.session.shipping.tracking = params.tracking
 		
-		let distance = await (ShippinUtils.getDistanceKm(params.origin.dir_lkr, params.destination.dir_lkr))[0]
-		params.price = Math.round(25.6*(distance/27.5)) + int(size.pr_drtype)
+		let distance = await (ShippinUtils.getDistanceKm(params.origin.dir_lkr, params.destination.dir_lkr))
+		params.price = Math.round(25.6*(distance/27.5)) + parseInt(params.size.pr_drtype)
 		req.session.shipping.price = params.price
-
-		debug('params', params)
 		
 		res.render('createShipping/resume', {
 			title: 'sendiit - panel',
@@ -151,7 +149,7 @@ router.route('/resumen')
 		if (url && (!wallet /* && !cvv */))
 			return res.status(400).json({ 
 				response: 'ERROR', 
-				message: 'Debes elegir un elemento'
+				message: 'Debes elegir un elemento',
 			});
 
 		if (wallet) req.session.shipping.wallet = wallet

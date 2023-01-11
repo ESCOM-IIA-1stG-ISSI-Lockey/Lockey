@@ -36,8 +36,8 @@ const utils = {
 	generateTrackingGuide: (orgLockerId, dstLockerid) => {
 	console.log(new Date().toISOString().replace(/[-:]/g, ''))
 	return new Date().toISOString().replace(/[-:]/g, '').slice(2, 16) 
-		+ orgLockerId.padStart(3, '0') 
-		+ dstLockerid.padStart(3, '0');
+		+ `${orgLockerId}`.padStart(3, '0') 
+		+ `${dstLockerid}`.padStart(3, '0');
 	},
 
 	generateQr: () => {
