@@ -34,10 +34,13 @@ const utils = {
 	},
 
 	generateTrackingGuide: (orgLockerId, dstLockerid) => {
-	console.log(new Date().toISOString().replace(/[-:]/g, ''))
-	return new Date().toISOString().replace(/[-:]/g, '').slice(2, 16) 
+	let dt = new Date()
+	let foo = new Date(dt.getTime()-(dt.getTimezoneOffset()*1000*60)).toISOString().replace(/[-:T]/g, '').slice(0, 12) 
 		+ `${orgLockerId}`.padStart(3, '0') 
 		+ `${dstLockerid}`.padStart(3, '0');
+		console.log('iso', new Date(dt.getTime()-(dt.getTimezoneOffset()*1000*60)).toISOString())
+		console.log('foo', foo)
+		return foo;
 	},
 
 	generateQr: () => {

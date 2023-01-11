@@ -16,6 +16,7 @@ block content
                     .col-md-6.col-lg-6.col-xl-6.shippingHistory
                         a.text-decoration-none(href="/panel/repartidor/guia/" + detail.trk_shpg)
                             .item.row.d-flex.align-items-center.justify-content-center.align-content-center
+								
                                 each num, key in  {2 : 'Recolectar', 3 : 'Entregar'}
                                         if key == detail.stat_shpg
                                             if key==2

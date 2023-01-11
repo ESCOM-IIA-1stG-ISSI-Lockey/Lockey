@@ -330,7 +330,8 @@ CREATE OR REPLACE VIEW `ShippingDetail` AS
 		RIGHT JOIN (ShippingDoor AS Destination, Door as DestinationDoor, Locker as DestinationLocker, Contact as DestinationContact)
 				ON (Shipping.trk_shpg = Destination.trk_shpg AND DestinationDoor.id_door = Destination.id_door AND DestinationLocker.id_lkr = DestinationDoor.id_lkr AND DestinationContact.id_cont = Destination.id_cont)
 		WHERE      Origin.trk_shpg = Destination.trk_shpg
-				AND Origin.edge_shpgdr=1 AND Destination.edge_shpgdr=2;
+				AND Origin.edge_shpgdr=1 AND Destination.edge_shpgdr=2
+		ORDER BY Shipping.trk_shpg DESC;
 
 
 -- -----------------------------------------------------
@@ -352,7 +353,8 @@ CREATE OR REPLACE VIEW `RouteShipping` AS
 	NATURAL JOIN ShippingDoor 
 	INNER JOIN ShippingDetail 
 		ON ShippingDetail.trk_shpg=ShippingDoor.trk_shpg 
-	WHERE stat_rte=1 AND qr_shpgdr IS NOT NULL;
+	WHERE stat_rte=1 AND qr_shpgdr IS NOT NULL
+		AND (ShippingDetail.stat_shpg=2 OR ShippingDetail.stat_shpg=3);
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

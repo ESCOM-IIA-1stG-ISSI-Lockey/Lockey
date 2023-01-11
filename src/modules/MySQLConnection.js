@@ -137,14 +137,18 @@ const db = {
 				});
 			});
 		},
-		create: (userId, tracking, typeId, price, walletId, orgDoorId, dstDoorId, orgCntId, dstCntId, qr) => {
+		create: (userId, tracking, doorTypeId, price, walletId, orgDoorId, dstDoorId, orgCntId, dstCntId, qr) => {
 			return new Promise((resolve, reject) => {
 				if (!isConnected)
 					throw errorDBConnection;
-				con.query('INSERT INTO Shipping VALUES (?, ?, ?, DEFAULT, DEFAULT, DEFAULT, NULL, ?, ?)', [tracking, userId, typeId, price, walletId], (err, results) => {
+				console.log('\nuserId:', userId, '\ntracking:', tracking, '\ndoorTypeId:', doorTypeId, '\nprice:', price, '\nwalletId:', walletId, '\norgDoorId:', orgDoorId, '\ndstDoorId:', dstDoorId, '\norgCntId:', orgCntId, '\ndstCntId:', dstCntId, '\nqr:', qr);
+													/* Temporaly 1 because isnt enable express shipping */
+				con.query('INSERT INTO Shipping VALUES (?, ?, 1, DEFAULT, DEFAULT, DEFAULT, NULL, ?, ?)', [tracking, userId, /* doorTypeId, */ price, walletId], (err, results) => {
+					console.log('Created');
 					if (err) reject(err);
 					else
-						con.query('INSERT INTO ShippingDoor VALUES (DEFAULT, ?, ?, ?, 0, ?), (DEFAULT, ?, ?, ?, 1, NULL)', [orgDoorId, tracking, orgCntId, qr, dstDoorId, tracking, dstCntId], (err, results) => {
+						con.query('INSERT INTO ShippingDoor VALUES (DEFAULT, ?, ?, ?, 1, ?), (DEFAULT, ?, ?, ?, 2, NULL)', 
+							[orgDoorId, tracking, orgCntId, qr, dstDoorId, tracking, dstCntId], (err, results) => {
 							if (err) reject(err);
 							else resolve(results);
 						});
@@ -315,10 +319,7 @@ const db = {
 			return new Promise((resolve, reject) => {
 				if (!isConnected)
 					throw errorDBConnection;
-				con.query('SELECT * FROM Route \
-							NATURAL JOIN RouteDetail \
-							NATURAL JOIN Locker \
-							WHERE stat_rte=1 AND Route.id_usr=?', [userId], (err, results) => {
+				con.query('SELECT DISTINCT(RouteShipping.nm_lkr) FROM RouteShipping WHERE stat_rte=1 AND id_usr_rte=?', [userId], (err, results) => {
 					if (err) reject(err);
 					else resolve(results);
 				});

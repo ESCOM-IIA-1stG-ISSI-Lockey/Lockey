@@ -124,7 +124,7 @@ router.route('/resumen')
 		if (req.session.shipping.size)
 			params.size = (await db.locker.getDoorTypeById(req.session.shipping.size))[0]
 
-		params.tracking = await (ShippinUtils.generateTrackingGuide(params.origin.id_lkr, params.destination.id_lkr))[0]
+		params.tracking = await (ShippinUtils.generateTrackingGuide(params.origin.id_lkr, params.destination.id_lkr))
 		req.session.shipping.tracking = params.tracking
 		
 		let distance = await (ShippinUtils.getDistanceKm(params.origin.dir_lkr, params.destination.dir_lkr))
@@ -167,7 +167,9 @@ router.route('/resumen')
 				redirect: '/crear-envio/resumen' 
 			})
 		else {
+			console.log(req.session.shipping)
 			req.session.qr = ShippinUtils.generateQr()
+			req.session.tracking = req.session.shipping.tracking
 			db.shipping.create(
 				req.session.user.id,
 				req.session.shipping.tracking,
@@ -180,11 +182,12 @@ router.route('/resumen')
 				req.session.shipping.receiver, 
 				req.session.qr
 			).then((results) => {
-				if (results.length) {
+				console.log(results);
+				if (results.insertId) {
 					req.session.shipping = undefined
 					return res.json({ 
 						response: 'OK', 
-						redirect: '/informacion',
+						redirect: '/crear-envio/finalizado',
 					})
 				}
 				else throw new Error('Error al crear el envío');		
@@ -203,7 +206,8 @@ router.route('/finalizado')
 			title: 'sendiit - panel',
 			path: req.path,
 			user: req.session.user,
-			qr: req.session.qr
+			qr: req.session.qr,
+			tracking: req.session.tracking,
 		});
 	});
 
