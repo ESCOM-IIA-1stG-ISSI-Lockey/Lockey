@@ -11,14 +11,14 @@ block content
                     center
                         img.img-fluid(src='/images/check.jpeg' width='300' height='300')
             .row
-                center
-                    h1.fw-bold=traking
-                center
-                    h1.fw-bold Código QR del locker
-                    
-                p
+                .col-lg 
+                    center
+                        h5.fw-bold Número de Guía
+                        h3.fw-bold=tracking
+            .row
                 .col-lg
                     center
+                        h3.fw-bold Código QR del locker
                         //- importante: img, clase qr-img con data-text. Tambien importar los scripts de qrcode.js y qr.js en ese orden
                         img.qr-img(width='300' height='300' data-text=(qr||'123456789012345678'))
                 p
@@ -37,7 +37,7 @@ block content
                 .col-6.col-md-5.d-flex.align-items-center.justify-content-center.btn.btn-tertiary.p-3.ms-3.me-3.shadow.rounded-pill
                     a.text-decoration-none(href='/panel/informacion')
                         center
-                            h5.fw-bold.text-secondary.m-0.p-0 Ver Instrucciones
+                            h5.fw-bold.text-secondary.m-0.p-0 Instrucciones
                 .col
                 p
             .row

@@ -26,13 +26,13 @@ block content
                         small.text-muted #{shipping.dts_shpg}
                 div.detalles.col-sm-6.col-xs-12
                     p Altura del paquete: 
-                        small.text-muted #{shipping.hgt_shpg} cm
+                        small.text-muted #{shipping.hgt_drtype} cm
                     p Ancho del paquete: 
-                        small.text-muted #{shipping.wd_shpg} cm
+                        small.text-muted #{shipping.wd_drtype} cm
                     p Profundidad del paquete: 
-                        small.text-muted #{shipping.deep_shpg} cm
-                    p Peso del paquete: 
-                        small.text-muted #{shipping.wt_shpg} kg
+                        small.text-muted #{shipping.deep_drtype} cm
+                    //- p Peso del paquete: 
+                    //-     small.text-muted #{shipping.wt_drtype} kg
                     p Precio: 
                         small.text-muted $ #{shipping.pr_shpg} mx
                     p Método de pago: 
@@ -122,7 +122,11 @@ block content
                                     .StepProgress-item.current.is-current-5
                                         strong= num
                                         -n-- 
-
-                            
-
-        
+            if shipping.stat_shpg==1 || shipping.stat_shpg==4
+                .d-flex.justify-content-center.mt-5.mb-1
+                    h3.fw-bold Código QR
+                .d-flex.justify-content-center.mb-5.mt-1
+                    img.qr-img(width='300' height='300' data-text=(shipping.qr_org||shipping.qr_dst))
+block scripts
+    script(src='/javascripts/qrcode.js')    //- 1er script
+    script(src='/javascripts/qr.js')        //- 2do script

@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `lockey_db`.`User` (
   `tk_usr` INT(6) NULL,
   PRIMARY KEY (`id_usr`),
   UNIQUE INDEX `id_user_UNIQUE` (`id_usr` ASC) VISIBLE)
-ENGINE = InnoDB;
+ENGINE=InnoDB;
 
 
 -- -----------------------------------------------------
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `lockey_db`.`Wallet` (
     REFERENCES `lockey_db`.`User` (`id_usr`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE=InnoDB;
 
 
 -- -----------------------------------------------------
@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `lockey_db`.`ShippingType` (
   `nm_shpgtype` VARCHAR(16) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL,
   `time_shpgtype` TIME NOT NULL,
   PRIMARY KEY (`id_shpgtype`))
-ENGINE = InnoDB;
+ENGINE=InnoDB;
 
 
 -- -----------------------------------------------------
@@ -95,7 +95,7 @@ CREATE TABLE IF NOT EXISTS `lockey_db`.`Shipping` (
     REFERENCES `lockey_db`.`ShippingType` (`id_shpgtype`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE=InnoDB;
 
 
 -- -----------------------------------------------------
@@ -106,7 +106,7 @@ CREATE TABLE IF NOT EXISTS `lockey_db`.`Locker` (
   `nm_lkr` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL,
   `dir_lkr` VARCHAR(150) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL,
   PRIMARY KEY (`id_lkr`))
-ENGINE = InnoDB;
+ENGINE=InnoDB;
 
 
 -- -----------------------------------------------------
@@ -121,7 +121,7 @@ CREATE TABLE IF NOT EXISTS `lockey_db`.`DoorType` (
   `pr_drtype` DOUBLE NOT NULL,
   `wt_drtype` DOUBLE NULL,
   PRIMARY KEY (`id_drtype`))
-ENGINE = InnoDB;
+ENGINE=InnoDB;
 
 
 -- -----------------------------------------------------
@@ -146,7 +146,7 @@ CREATE TABLE IF NOT EXISTS `lockey_db`.`Door` (
     REFERENCES `lockey_db`.`DoorType` (`id_drtype`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE=InnoDB;
 
 
 -- -----------------------------------------------------
@@ -165,7 +165,7 @@ CREATE TABLE IF NOT EXISTS `lockey_db`.`Contact` (
     REFERENCES `lockey_db`.`User` (`id_usr`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE=InnoDB;
 
 
 -- -----------------------------------------------------
@@ -197,7 +197,7 @@ CREATE TABLE IF NOT EXISTS `lockey_db`.`ShippingDoor` (
     REFERENCES `lockey_db`.`Contact` (`id_cont`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE=InnoDB;
 
 
 -- -----------------------------------------------------
@@ -229,7 +229,7 @@ CREATE TABLE IF NOT EXISTS `lockey_db`.`Report` (
     REFERENCES `lockey_db`.`Shipping` (`trk_shpg`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE=InnoDB;
 
 
 -- -----------------------------------------------------
@@ -247,7 +247,7 @@ CREATE TABLE IF NOT EXISTS `lockey_db`.`Route` (
     REFERENCES `lockey_db`.`User` (`id_usr`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE=InnoDB;
 
 
 -- -----------------------------------------------------
@@ -271,7 +271,7 @@ CREATE TABLE IF NOT EXISTS `lockey_db`.`RouteDetail` (
     REFERENCES `lockey_db`.`Locker` (`id_lkr`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE=InnoDB;
 
 -- -----------------------------------------------------
 -- Placeholder table for view `lockey_db`.`vUser`
@@ -321,15 +321,18 @@ CREATE OR REPLACE VIEW `ShippingDetail` AS
 			WHEN 7 THEN 'Cancelado'
 			ELSE 'Desconocido'
 		END AS statnm_shpg,
-		nm_shpgtype, nm_wal, num_wal, OriginContact.nm_cont as nm_contorg, Origin.qr_shpgdr as qr_org, OriginDoor.nm_door as nm_drorg, OriginLocker.nm_lkr as nm_lkrorg, DestinationContact.nm_cont as nm_contdst, Destination.qr_shpgdr as qr_dst, DestinationDoor.nm_door as nm_drdst, DestinationLocker.nm_lkr as nm_lkrdst
+		nm_shpgtype, nm_wal, num_wal, 
+		OriginContact.nm_cont as nm_contorg, Origin.qr_shpgdr as qr_org, OriginDoor.nm_door as nm_drorg, OriginLocker.nm_lkr as nm_lkrorg, 
+		DestinationContact.nm_cont as nm_contdst, Destination.qr_shpgdr as qr_dst, DestinationDoor.nm_door as nm_drdst, DestinationLocker.nm_lkr as nm_lkrdst,
+		DoorType.nm_drtype, DoorType.hgt_drtype, DoorType.wd_drtype, DoorType.deep_drtype, DoorType.wt_drtype
 		FROM       Shipping
 		NATURAL JOIN Wallet
 		NATURAL JOIN ShippingType
-		RIGHT JOIN (ShippingDoor AS Origin, Door as OriginDoor, Locker as OriginLocker, Contact as OriginContact)
-				ON (Shipping.trk_shpg = Origin.trk_shpg AND OriginDoor.id_door = Origin.id_door AND OriginLocker.id_lkr = OriginDoor.id_lkr AND OriginContact.id_cont = Origin.id_cont)
+		RIGHT JOIN (ShippingDoor AS Origin, Door as OriginDoor, Locker as OriginLocker, Contact as OriginContact, DoorType)
+				ON (Shipping.trk_shpg=Origin.trk_shpg AND OriginDoor.id_door=Origin.id_door AND OriginLocker.id_lkr=OriginDoor.id_lkr AND OriginContact.id_cont=Origin.id_cont AND OriginDoor.id_drtype=DoorType.id_drtype)
 		RIGHT JOIN (ShippingDoor AS Destination, Door as DestinationDoor, Locker as DestinationLocker, Contact as DestinationContact)
-				ON (Shipping.trk_shpg = Destination.trk_shpg AND DestinationDoor.id_door = Destination.id_door AND DestinationLocker.id_lkr = DestinationDoor.id_lkr AND DestinationContact.id_cont = Destination.id_cont)
-		WHERE      Origin.trk_shpg = Destination.trk_shpg
+				ON (Shipping.trk_shpg=Destination.trk_shpg AND DestinationDoor.id_door=Destination.id_door AND DestinationLocker.id_lkr=DestinationDoor.id_lkr AND DestinationContact.id_cont=Destination.id_cont)
+		WHERE      Origin.trk_shpg=Destination.trk_shpg
 				AND Origin.edge_shpgdr=1 AND Destination.edge_shpgdr=2
 		ORDER BY Shipping.trk_shpg DESC;
 
