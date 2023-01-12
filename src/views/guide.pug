@@ -1,0 +1,49 @@
+head
+    title= title
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    link(rel='stylesheet' href='/stylesheets/style.css')
+    link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css")
+    script(src='/javascripts/bootstrap.bundle.min.js')
+    script(src='/javascripts/masonry.pkgd.min.js')
+
+block content
+    if typeof(shipping) == 'undefined'
+        include /include/not_found
+    else 
+        #content(style="border-width: 5px; border-style: dashed; border-color: black; transform: scale(0.6); ")   
+            .container.pt-3              
+                img.bi.me-2(src="/images/sendiit.svg" height='32' role='img' aria-label='Bootstrap')
+                h1.fw-bold.m-0.p-2.text-dark.text-center Guía de envío 
+            .container
+                .row.mt-3.mb-3
+                    h2.fw-bold.text-center #{shipping.trk_shpg}
+                    div.detalles.col-sm-6.col-xs-12
+                        p Remitente: 
+                            small.text-muted #{shipping.nm_contorg}
+                        p Destinatario: 
+                            small.text-muted #{shipping.nm_contdst}
+                        p Lugar de origen: 
+                            small.text-muted #{shipping.nm_lkrorg}
+                        p Lugar de destino: 
+                            small.text-muted #{shipping.nm_lkrdst}
+                        p Tipo de envío: 
+                            small.text-muted #{shipping.nm_shpgtype}
+                    div.detalles.col-sm-6.col-xs-12
+                        p Altura del paquete: 
+                            small.text-muted #{shipping.hgt_drtype} cm
+                        p Ancho del paquete: 
+                            small.text-muted #{shipping.wd_drtype} cm
+                        p Profundidad del paquete: 
+                            small.text-muted #{shipping.deep_drtype} cm
+                        p Fecha de creación: 
+                            small.text-muted #{shipping.dts_shpg}
+
+                .d-flex.justify-content-center.mt-5.mb-1
+                    h3.fw-bold Código QR
+                .d-flex.justify-content-center.mb-5.mt-1
+                    img.qr-img(width='300' height='300' data-text=(shipping.qr_org||shipping.qr_dst))
+block scripts
+    script(src='/javascripts/qrcode.js')    //- 1er script
+    script(src='/javascripts/qr.js')        //- 2do script
+    script(src="/javascripts/utilities.js")
+		
