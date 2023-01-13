@@ -76,28 +76,29 @@ block content
 					//- 			button.btn.btn-secondary(type="submit" onclick='search_shipping(event)' ) Buscar
 					//- 		.invalid-tooltip
 		.container
-
-			h4.pt-3.container Envíos en curso
-			.wrapper.container.wrapper2
-				each val in pedingShipings
-					a.text-decoration-none(href='/envio/'+val.trk_shpg)
-						.item.row.d-flex.align-items-center.justify-content-center.align-content-center(style='min-width: 380px;')
-							.col-4.p-0(style="text-align:center")
-								each num, key in  {1 : 'img_state_1', 2 : 'img_state_2', 3 : 'img_state_3', 4 : 'img_state_4', 5 : 'img_state_5', 6 : 'img_state_6', 7 : 'img_state_7'}
-									if key == val.stat_shpg
-										img(src="/images/img_states/"+num+".png" style="max-width: 100px")
-							.col-8.p-0
-								each num, key in  {1 : 'En espera de recolección', 2 : 'En espera de transportista', 3 : 'En tránsito', 4 : 'En espera de recepción', 5 : 'Completado', 6 : 'Almacén', 7 : 'Cancelado'}
-									if key == val.stat_shpg
-										p.card-text.text-center.m-0.text-status= num
-								h6.card-title.card-text.text-center.text-secondary= val.trk_shpg
-								small.text-muted Origen: #{val.nm_lkrorg}
-								br
-								small.text-muted Destino: #{val.nm_lkrdst} 
-								br
-								small.text-muted Última actualización: #{val.dtu_shpg}
-				else 
-					h4.pt-2.pb-2.container No hay envios en curso 
+			if typeof(pedingShipings)!='undefined'
+				h4.pt-3.container Envíos en curso
+				.wrapper.container.wrapper2
+					each val in pedingShipings
+						a.text-decoration-none(href='/envio/'+val.trk_shpg)
+							.item.row.d-flex.align-items-center.justify-content-center.align-content-center(style='min-width: 380px;')
+								.col-4.p-0(style="text-align:center")
+									each num, key in  {1 : 'img_state_1', 2 : 'img_state_2', 3 : 'img_state_3', 4 : 'img_state_4', 5 : 'img_state_5', 6 : 'img_state_6', 7 : 'img_state_7'}
+										if key == val.stat_shpg
+											img(src="/images/img_states/"+num+".png" style="max-width: 100px")
+								.col-8.p-0
+									each num, key in  {1 : 'En espera de recolección', 2 : 'En espera de transportista', 3 : 'En tránsito', 4 : 'En espera de recepción', 5 : 'Completado', 6 : 'Almacén', 7 : 'Cancelado'}
+										if key == val.stat_shpg
+											p.card-text.text-center.m-0.text-status= num
+									h6.card-title.card-text.text-center.text-secondary= val.trk_shpg
+									small.text-muted Origen: #{val.nm_lkrorg}
+									br
+									small.text-muted Destino: #{val.nm_lkrdst} 
+									br
+									small.text-muted Última actualización: #{val.dtu_shpg}
+			else 
+				center
+					img(src="/images/baner.png" style="width: 500px")
 
 
 			.container.align-items-center.justify-content-center
