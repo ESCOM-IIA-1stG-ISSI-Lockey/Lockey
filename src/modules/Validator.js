@@ -201,6 +201,17 @@ const Validator = {
 		validateResult
 	],	
 
+	update:[
+		v._fullname('name', 'El nombre'),
+		v._phone('tel', 'El teléfono'),
+		validateResult
+	],
+	updateC:[
+		v._password('password', 'La contraseña'),
+		v._passwordConfirm('passwordConfirm', 'La confirmación de la contraseña'),
+		validateResult
+	],
+
 	// Checkout
 	checkout: [
 

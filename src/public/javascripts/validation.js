@@ -41,15 +41,17 @@
 				})
 				.then(res => res.json())
 				.then(data => {
-					if (data.response == 'OK')
-						if (data.redirect)	// redirect to url
-							window.location.href = data.redirect;
-						else if(data.modal)	// switch modal
-							switchModal(data.modal.old, data.modal.new);
-						
+					if (data.response == 'OK'){
+						if (data.redirect){	// redirect to url
+							window.location.href = data.redirect;	
+							}
 						else {				// show toast
 							console.log(data.message);
 							toast(data.message, TOAST_TYPES.SUCCESS);
+						}
+						if(data.modal){	// switch modal
+							switchModal(data.modal.old, data.modal.new);
+							}
 						}
 					else if (data.response == 'ERROR') {
 						if (data.errors) {	// show errors

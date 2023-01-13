@@ -87,6 +87,26 @@ const db = {
 				}).catch(reject);
 			});
 		},
+		Modify: (name,  tel,emailA) => {
+			return new Promise((resolve, reject) => {
+				if (!isConnected)
+					throw errorDBConnection;
+				con.query('UPDATE User SET nm_usr=?, tel_usr=?  WHERE em_usr=? ', [name, tel,emailA], (err, results) => {
+						if (err) reject(err);
+						else resolve(results);
+					});
+			});
+		},
+		Modifycontra: (password,passwordConfirm,emaila) => {
+			return new Promise((resolve, reject) => {
+				if (!isConnected)
+					throw errorDBConnection;
+				con.query('UPDATE User SET pwd_usr=?  WHERE  em_usr=? ', [password,emaila], (err, results) => {
+						if (err) reject(err);
+						else resolve(results);
+					});
+			});
+		},
 		verify: (email, token) => {
 			return new Promise((resolve, reject) => {
 				if (!isConnected)
@@ -335,6 +355,7 @@ const db = {
 				});
 			});
 		},
+
 		getShipping: (traking) => {
 			return new Promise((resolve, reject) => {
 				if (!isConnected)

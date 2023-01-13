@@ -1,0 +1,24 @@
+form(action='/modify' method='POST' novalidate)
+	fieldset 
+		#modifyModal.modal.fade(tabindex='-1' aria-hidden='true')
+			.modal-dialog.modal-dialog-centered.modal-dialog-scrollable
+					.modal-content
+						.modal-header
+							h1.modal-title.fs-5 Modifica tus datos 
+							button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+						.modal-body
+							.form-floating.mb-3
+								input#pwdInputSignup.form-control(type='password' name='password' placeholder=' ')
+								label.text_normal(for='pwdInputSignup') Contraseña
+								.invalid-feedback
+							.form-floating.mb-3
+								input#pwdvInputSignup.form-control(type='password' name='passwordConfirm' placeholder=' ')
+								label.text_normal(for='pwdvInputSignup') Confirmar Contraseña
+								.invalid-feedback
+							.form-floating.mb-3
+								input#telInputSignup.form-control(type='hidden' name='emaila' value=user.email)
+								.invalid-feedback
+						.modal-footer
+							button.btn.btn-danger.me-3(type='reset' data-bs-dismiss='modal') Cancelar
+							button.btn.btn-secondary(onclick="stateAct()" type='button' data-bs-toggle='modal' data-bs-target='#newcontra') Cambiar contraseña
+							button.btn.btn-primary(type='submit') Confirmar

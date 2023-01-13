@@ -47,14 +47,21 @@ function toast(message, type=TOAST_TYPES.DANGER, duration=3000) {
 }
 
 function switchModal(oldModalStr, newModalStr) {
-	let oldModalElem = document.querySelector(oldModalStr);
-	let oldModal = bootstrap.Modal.getOrCreateInstance(oldModalElem);
-	let newModal = bootstrap.Modal.getOrCreateInstance(document.querySelector(newModalStr));
+	let newModal
+	if (newModalStr != 'none') 
+    	newModal = bootstrap.Modal.getOrCreateInstance(document.querySelector(newModalStr));
 
-	oldModalElem.addEventListener('hidden.bs.modal', (event) => {
-		newModal.show();
-	}, { once: true });
-	oldModal.hide()
+    if (oldModalStr == 'none') {
+        newModal?.show();
+        return;
+    }
+	
+    let oldModalElem = document.querySelector(oldModalStr);
+    let oldModal = bootstrap.Modal.getOrCreateInstance(oldModalElem);
+    oldModalElem.addEventListener('hidden.bs.modal', (event) => {
+		newModal?.show();
+    }, { once: true });
+    oldModal.hide();
 }
 
 function search_shipping(e){

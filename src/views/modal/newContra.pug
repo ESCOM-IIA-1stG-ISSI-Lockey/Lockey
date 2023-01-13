@@ -1,0 +1,23 @@
+form(action='/cambiodecontra' method='POST' novalidate)
+	fieldset 
+		#newcontra.modal.fade(tabindex='-1' aria-hidden='true')
+			.modal-dialog.modal-dialog-centered.modal-dialog-scrollable
+					.modal-content
+						.modal-header
+							h1.modal-title.fs-5 Crea una cuenta
+							button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+						.modal-body
+							.form-floating.mb-3
+								input#pwdInputSignup.form-control(type='password' name='password' placeholder=' ')
+								label.text_normal(for='pwdInputSignup') Contraseña
+								.invalid-feedback
+							.form-floating.mb-3
+								input#pwdvInputSignup.form-control(type='password' name='passwordConfirm' placeholder=' ')
+								label.text_normal(for='pwdvInputSignup') Confirmar Contraseña
+								.invalid-feedback
+							.form-floating.mb-3
+								input#telInputSignup.form-control(type='hidden' name='tel' value=user.email)
+								.invalid-feedback
+						.modal-footer
+							button.btn.btn-danger.me-3(type='reset' data-bs-dismiss='modal') Cancelar
+							button.btn.btn-primary(type='submit') Crear Cuenta

@@ -118,6 +118,7 @@ router.route('/informacion')
 			user: req.session.user});
 	});
 
+
 router.route('/historial')
 .get(Auth.onlyUsers,
 	async(req,res,next) =>{
@@ -136,7 +137,7 @@ router.route('/perfil')
 			path: req.path, 
 			user: req.session.user});
 	});
-	
+
 
 router.route('/pc/:tracking([0-9]{18})')
 .get(Auth.onlyUsers,

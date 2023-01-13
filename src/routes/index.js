@@ -124,6 +124,64 @@ router.route('/salir')
 		Auth.deleteSession(req, res)
 	);
 
+router.route('/modifyJ')
+	.post(Validator.update,
+		async (req, res, next) => {
+			let { name,tel,emaila} = req.body
+			
+			db.user.Modify(name,tel,emaila).then((results)=>{ 
+				debug('results', results);
+				if (results.affectedRows) {
+					req.session.user.name=name
+					req.session.user.tel=tel
+					res.json({
+						response: 'OK',
+						message: 'Tus datos se modificaron con exito',
+						//redirect: '/panel/perfil'
+					});
+				}
+				else {
+					throw new Error('Reporte no generado');
+				}
+			}).catch((err) => {
+				console.log("ERROR", err)
+				res.status(400).json({ response: 'ERROR', message: err.message||err });
+			});
+		});
+	
+	
+router.route('/modify')
+	.post(Validator.updateC,
+		async (req, res, next) => {
+			let { password,passwordConfirm,emaila} = req.body
+			password = crypto.createHash('sha256').update(password).digest('hex');
+			db.user.Modifycontra(password,passwordConfirm,emaila).then((results)=>{ 
+				debug('results', results);
+				if (results.affectedRows) {
+					req.session.user.password=password
+					
+					res.json({
+						response: 'OK',
+						message: 'La contraseña se modifico con exito',
+						modal: {
+							old: '#modifyModal',
+							new: 'none',
+						},
+						//redirect: '/',
+					});
+				}
+				else {
+					console.log('ola dsdfsd')
+					throw new Error('Reporte no generado');
+				}
+			}).catch((err) => {
+				console.log("ERROR", err)
+				res.status(400).json({ response: 'ERROR', message: err.message||err });
+			});
+			
+		
+		});
+	
 router.route('/envio')	//envios historicos (esto de momento no)
 .post(Validator.trackingNumber,
 		(req, res, next)=>{

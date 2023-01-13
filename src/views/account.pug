@@ -4,26 +4,51 @@ block content
     .bg-secondary       
         .container            
             h2.fw-bold.m-0.p-2.text-primary Datos personales
-    .container.mt-5.mb-5
-        .row.d-flex.align-items-center
-            .col-xs-12.col-sm.col-md-4.col-lg-4.col-xl-4
-                i.bi.bi-person-circle.icono_person
-            .col-xs-12.col-sm.col-md-8.col-lg-8.col-xl-8
-                label Nombre
-                input.form-control(type='text' placeholder=user.name readonly='')
-                label Correo
-                input.form-control(type='text' placeholder=user.email readonly='')
-                label Teléfono
-                input.form-control(type='text' placeholder=user.tel readonly='')
-            //- p=user.name
-            //- p=user.email
-            //- p=user.tel
-            //- p=user.password
-        .row.d-flex.mb-4.mt-5.container
-            a.col-6.text-decoration-none(href='/panel')
-                center
-                    h5.fw-bold.align-items-center.justify-content-center.btn.btn-warning.shadow.rounded-pill.textButton SALIR
-            .col-6.text-decoration-none
-                button.fw-bold.align-items-center.justify-content-center.btn.btn-secondary.shadow.rounded-pill.textButton(type='button' data-bs-toggle='modal' data-bs-target='#signupModal') MODIFICAR
+    form(action='/modifyJ' method='POST' novalidate)
+        .container.mt-5.mb-5
+            .row.d-flex.align-items-center
+                .col-xs-12.col-sm.col-md-4.col-lg-4.col-xl-4
+                    i.bi.bi-person-circle.icono_person
+                .col-xs-12.col-sm.col-md-8.col-lg-8.col-xl-8
+                    .form-floating.mb-3
+                        input#nmInputSignup.form-control(type='text' value=user.name  name='name' placeholder=' ')
+                        label.text_normal(for='nmInputSignup') Nombre
+                        .invalid-feedback
+                    .form-floating.mb-3
+                        input#emInputSignup.form-control(type='email'  value=user.email name='email' placeholder=' ' readonly='')
+                        label.text_normal(for='emInputSignup') Correo electrónico
+                        .invalid-feedback
+                    .form-floating.mb-3
+                        input#telInputSignup.form-control(type='tel' value=user.tel name='tel' placeholder=' ')
+                        label.text_normal(for='telInputSignup') Teléfono
+                        .invalid-feedback
+                    
 
-    include modal/signup
+                    input#telInputSignup.form-control(type='hidden' name='emaila' value=user.email)
+                    .invalid-feedback
+		
+                //- p=user.name
+                //- p=user.email
+                //- p=user.tel
+                //- p=user.password
+            
+                
+            .row.d-flex.mb-4.mt-5.container 
+                .col-6.text-decoration-none
+                    center
+                        button.fw-bold.align-items-center.justify-content-center.btn.btn-secondary.shadow.rounded-pill.textButton(type='button' data-bs-toggle='modal' data-bs-target='#modifyModal') MODIFICAR CONTRASEÑA
+                .col-6.text-decoration-none
+            
+            .row.d-flex.mb-4.mt-5.container        
+                a.col-6.text-decoration-none(href='/panel')
+                    center
+                        h5.fw-bold.align-items-center.justify-content-center.btn.btn-warning.shadow.rounded-pill.textButton SALIR
+                .col-6.text-decoration-none
+                    button.fw-bold.align-items-center.justify-content-center.btn.btn-secondary.shadow.rounded-pill.textButton(type='submit') MODIFICAR
+                
+
+    include modal/modify
+    include modal/emailRestcontra
+    include modal/newContra
+block scripts
+    script(src='/javascripts/validation.js')
