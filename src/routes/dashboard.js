@@ -98,7 +98,10 @@ router.route('/repartidor/guia/report')
 		db.report.create(req.session.user.id, body.idDoorReport, body.traking, body.titleReport, body.detailsReport).then((results)=>{ 
 			debug('results', results);
 			if (results.affectedRows) {
-				res.status(200).json({response: 'OK', redirect: '/panel/repartidor/guia/sendForm'})
+				res.status(200).json({
+					response: 'OK', 
+					redirect: '/panel/repartidor/guia/sendForm'
+				})
 			}
 			else {
 				throw new Error('Reporte no generado');
@@ -182,7 +185,10 @@ router.route('/repartidor/guia/sendForm')
 .get(Auth.onlyDeliverers,
 	async(req,res,next) =>{
 		if (req.session.user) {
-			res.render('sendForm',{ title: 'sendiit - panel', path: req.path, user: req.session.user});
+			res.render('sendForm',{ 
+				title: 'sendiit - panel', 
+				path: req.path, user: req.session.user
+			});
 		} else {
 			res.redirect('/');
 		}
