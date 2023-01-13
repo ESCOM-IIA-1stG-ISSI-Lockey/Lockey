@@ -281,9 +281,9 @@ router.route('/tarjeta')
 	})
 .post(Auth.onlyClients, Validator.creditCard,	
 	async (req, res, next) => {
-		let {nickName, cardName, cardNumber, cardDate} = req.body;
-		cardDate = "30/"+cardDate
-		db.wallet.create(req.session.user.id, nickName, cardName, cardNumber, cardDate).then((results)=>{ 
+		let {nickName, cardName, cardNumber, cardDatee} = req.body;
+		console.log(req.body)
+		db.wallet.create(req.session.user.id, nickName, cardName, cardNumber, cardDatee).then((results)=>{ 
 			//console.log(tel,"telefono")
 			debug('results', results);
 			if (results.affectedRows) {
