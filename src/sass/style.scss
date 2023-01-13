@@ -436,6 +436,10 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 	
 }
 
+.banner{
+	width: 100px
+}
+
 @media (min-width: 768px) {
 	.flex-md-equal > * {
 		flex: 1;
@@ -477,5 +481,12 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 	.nFound img{
 		width: 800px;
 	}
-
+	.banner{
+		background-image: url("/images/man_sendiit.png");
+		background-repeat: no-repeat;
+		background-size: 100% 100%;
+	}
+	.banner2{
+		max-height: 300px;
+	}
 }

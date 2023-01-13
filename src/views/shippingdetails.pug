@@ -35,8 +35,14 @@ block content
                     //-     small.text-muted #{shipping.wt_drtype} kg
                     p Precio: 
                         small.text-muted $ #{shipping.pr_shpg} mx
-                    p Método de pago: 
-                        small.text-muted #{shipping.num_wal}
+                    p.d-inline Método de pago: 
+                    each dig, index in shipping.num_wal
+                        if index%4==0
+                           small.inline.text-muted  
+                        if index<12
+                            small.inline.text-muted *
+                        else
+                            small.inline.text-muted=dig
 
             .d-flex.justify-content-center.bg-primary.rounded.p-2
                 h5.fw-bold.text-secondary.m-0 Trayectoria
