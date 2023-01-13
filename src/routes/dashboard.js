@@ -174,8 +174,7 @@ router.route('/actualizar')
 		} 
 		console.log(states[idState])
 
-
-		db.shipping.getByTracking(tkr)
+		db.shipping.updateState(idState, tkr)
 		mailer.sendEmailStateShipping(res, user.email2, user.name, tkr, states[idState].state, states[idState].route)	//remitente
 		if(idState>2)
 			mailer.sendEmailStateShipping(res, email2, 'Daniel', tkr, states[idState].state, states[idState].route) //destinatario
