@@ -181,8 +181,8 @@ const db = {
 		updateState: (tracking, state) => {
 			return new Promise((resolve, reject) => {
 				if (!isConnected)
-					throw errorDBConnection;
-				con.query('UPDATE Shipping SET stat_shpg=? WHERE trk_shpg=?', [state, tracking], (err, results) => {
+					throw errorDBConnection; 
+				con.query('UPDATE Shipping SET stat_shpg=?, dtu_shpg=DEFAULT WHERE trk_shpg=?', [state, tracking], (err, results) => {
 					if (err) reject(err);
 					else resolve(results);
 				});
@@ -247,7 +247,7 @@ const db = {
 			return new Promise((resolve, reject) => {
 				if (!isConnected)
 					throw errorDBConnection;
-				con.query('SELECT * FROM Wallet WHERE id_usr=? AND nm_wal=? AND num_wal=? AND exp_wal=?', [userId, name, number, date], (err, results) => {
+				con.query('SELECT * FROM Wallet WHERE id_usr=? AND num_wal=?', [userId, name, number, date], (err, results) => {
 					if (err) reject(err);
 					else resolve(results[0]);
 				});
@@ -280,7 +280,7 @@ const db = {
 				db.wallet.exists(userId, name, number, date).then((exists) => {
 					if (exists) reject('La tarjeta ya existe');
 					else {
-						con.query('INSERT INTO Wallet VALUES (DEFAULT, ?, ?, ?, ?, STR_TO_DATE(?,"%d/%m/%Y"))', [userId, nick, name, number, date], (err, results) => {
+						con.query('INSERT INTO Wallet VALUES (DEFAULT, ?, ?, ?, ?, ?)', [userId, nick, name, number, date], (err, results) => {
 							if (err) reject(err);
 							else resolve(results);
 						});

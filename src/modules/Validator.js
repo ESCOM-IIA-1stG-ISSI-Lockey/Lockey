@@ -107,7 +107,7 @@ const v = {
 			cardDate.setDate(cardDate.getDate() - 1)
 
 			// set the date
-			req.body.cardDate = cardDate.toISOString().split('T')[0]
+			req.body.cardDatee = cardDate.toISOString().split('T')[0]
 			
 			return cardDate > today
 		}).withMessage('La fecha de expiración no es valida')

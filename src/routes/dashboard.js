@@ -213,16 +213,16 @@ router.route('/repartidor/guia/:guia([0-9]{18})')
 }).post(Auth.onlyDeliverers,
 	async(req,res,next) => {
 		let{name,tkr} =req.body;
-		console.log(name ,tkr)
-		db.shipping.updateS.then((result) => {
-		if (result.affectedRows > 0) {
-			console.log('actualizado')
-			res.json({
-				response: 'OK',
-				redirect:'/panel/repartidor/guia/shippingCollected'	
-			})
-		} else
-			throw new Error('No se pudo actualizar')
+		db.shipping.updateStateIncrement(tkr, name)
+		.then((result) => {
+			if (result.affectedRows) {
+				console.log('actualizado')
+				res.json({
+					response: 'OK',
+					redirect:'/panel/repartidor/guia/shippingCollected'	
+				})
+			} else
+				throw new Error('No se pudo actualizar')
 		
 		}).catch((err) => {
 			console.log(err)

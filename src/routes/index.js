@@ -208,7 +208,26 @@ router.route('/envio/:tracking([0-9]{18})')
 			user: req.session.user,
 			shipping: shipping[0]
 		});
-	});
+}).post(async (req, res, next) => {
+	let{tracking, stat, url} = req.body;
+		db.shipping.updateStateIncrement(tracking, stat)
+		.then((result) => {
+			if (result.affectedRows) {
+				res.json({
+					response: 'OK',
+					redirect: url	
+				})
+			} else
+				throw new Error('No se pudo actualizar')
+		
+		}).catch((err) => {
+			console.log(err)
+			res.json({
+				response: 'ERROR',
+				message: err.message || 'No se pudo actualizar'
+			})
+		})
+});
 
 
 
