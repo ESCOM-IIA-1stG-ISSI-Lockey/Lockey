@@ -6,6 +6,7 @@ const db = require('../modules/MySQLConnection');
 const Validator = require('../modules/Validator');
 const ShippinUtils = require('../modules/ShippingUtils');
 const { shipping } = require('../modules/MySQLConnection');
+const mailer = require('../modules/SendGmailV');
 
 /* 
 	req.session.shipping = {
@@ -181,16 +182,26 @@ router.route('/resumen')
 				req.session.shipping.sender,
 				req.session.shipping.receiver, 
 				req.session.qr
-			).then((results) => {
-				console.log(results);
-				if (results.insertId) {
-					req.session.shipping = undefined
-					return res.json({ 
-						response: 'OK', 
-						redirect: '/crear-envio/finalizado',
-					})
-				}
-				else throw new Error('Error al crear el envío');		
+			).then((result) => {
+				if (!result.insertId)
+					throw new Error('No se pudo actualizar')
+	
+				return db.shipping.getByTracking(req.session.shipping.tracking)
+			}).then((result) => {
+				if (!result.length)
+					throw new Error('Error al obtener el envío')
+	
+				let shipping = result[0]
+				console.log(shipping)
+				console.log('emails: ', shipping.em_usr, shipping.em_contdst, shipping.em_contorg)
+				return mailer.sendEmailStateShipping(res, [shipping.em_usr, shipping.em_usr, shipping.em_contorg], shipping.nm_usr, shipping.trk_shpg, shipping.stat_shpg)
+			}).then((result) => {
+				console.log('actualizado')
+				req.session.shipping = undefined
+				res.json({
+					response: 'OK',
+					redirect: '/crear-envio/finalizado',
+				})
 			}).catch((err) => {
 				debug(err);
 				res.status(400).json({ response: 'ERROR', message: err.message||err });

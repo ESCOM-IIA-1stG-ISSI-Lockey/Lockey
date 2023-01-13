@@ -38,6 +38,7 @@
 	},
 	"nodemonConfig": {
 		"legacyWatch": true,
+		"verbose": false,
 		"delay": 1500,
 		"ignore": [
 			"node_modules/*",

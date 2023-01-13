@@ -212,14 +212,22 @@ router.route('/envio/:tracking([0-9]{18})')
 	let{tracking, stat, url} = req.body;
 		db.shipping.updateStateIncrement(tracking, stat)
 		.then((result) => {
-			if (result.affectedRows) {
-				res.json({
-					response: 'OK',
-					redirect: url	
-				})
-			} else
+			if (!result.affectedRows)
 				throw new Error('No se pudo actualizar')
-		
+
+			return db.shipping.getByTracking(tracking)
+		}).then((result) => {
+			if (!result.length)
+				throw new Error('Error al obtener el envío')
+
+			let shipping = result[0]
+			return mailer.sendEmailStateShipping(res, [shipping.em_usr, shipping.em_contdst, shipping.em_contorg], shipping.nm_usr, tracking, shipping.stat_shpg)
+		}).then((result) => {
+			console.log('actualizado')
+			res.json({
+				response: 'OK',
+				redirect: url	
+			})
 		}).catch((err) => {
 			console.log(err)
 			res.json({
