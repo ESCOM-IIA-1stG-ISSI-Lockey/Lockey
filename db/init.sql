@@ -322,12 +322,14 @@ CREATE OR REPLACE VIEW `ShippingDetail` AS
 			ELSE 'Desconocido'
 		END AS statnm_shpg,
 		nm_shpgtype, nm_wal, num_wal, 
-		OriginContact.nm_cont as nm_contorg, Origin.qr_shpgdr as qr_org, OriginDoor.nm_door as nm_drorg, OriginLocker.nm_lkr as nm_lkrorg, 
-		DestinationContact.nm_cont as nm_contdst, Destination.qr_shpgdr as qr_dst, DestinationDoor.nm_door as nm_drdst, DestinationLocker.nm_lkr as nm_lkrdst,
+		User.em_usr, User.nm_usr,
+		OriginContact.nm_cont as nm_contorg, OriginContact.em_cont as em_contorg, Origin.qr_shpgdr as qr_org, OriginDoor.nm_door as nm_drorg, OriginLocker.nm_lkr as nm_lkrorg, 
+		DestinationContact.nm_cont as nm_contdst, DestinationContact.em_cont as em_contdst, Destination.qr_shpgdr as qr_dst, DestinationDoor.nm_door as nm_drdst, DestinationLocker.nm_lkr as nm_lkrdst,
 		DoorType.nm_drtype, DoorType.hgt_drtype, DoorType.wd_drtype, DoorType.deep_drtype, DoorType.wt_drtype
 		FROM       Shipping
 		NATURAL JOIN Wallet
 		NATURAL JOIN ShippingType
+		NATURAL JOIN User
 		RIGHT JOIN (ShippingDoor AS Origin, Door as OriginDoor, Locker as OriginLocker, Contact as OriginContact, DoorType)
 				ON (Shipping.trk_shpg=Origin.trk_shpg AND OriginDoor.id_door=Origin.id_door AND OriginLocker.id_lkr=OriginDoor.id_lkr AND OriginContact.id_cont=Origin.id_cont AND OriginDoor.id_drtype=DoorType.id_drtype)
 		RIGHT JOIN (ShippingDoor AS Destination, Door as DestinationDoor, Locker as DestinationLocker, Contact as DestinationContact)

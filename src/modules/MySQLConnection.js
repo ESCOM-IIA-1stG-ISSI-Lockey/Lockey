@@ -208,6 +208,7 @@ const db = {
 								});
 							else if (state == 6 || state == 7)
 								reject('Intento de actualizar estado de envio Completado, En Álmacen, Cancelado')
+							else resolve(results);
 						});
 					}
 				});

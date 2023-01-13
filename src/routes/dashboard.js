@@ -159,27 +159,27 @@ router.route('/pc/:tracking([0-9]{18})')
 			shipping: shipping[0]});
 	});
 
-router.route('/actualizar')
-.post(Auth.onlyUsers,
-	(req, res, next) => {
-		let user = req.session.user
-		let {name: idState,tkr} = req.body
-		console.log(req.body)
-		let email2 = 'dannydvalle99139@gmail.com'
-		const states = {
-			1: {state: 'en espera de recolección, date prisa y lleva el paquete al lugar de origen', route: "https://lh3.google.com/u/2/d/1xu5cgIwQml_y6Lk4QF4CHKfNWdXNda-k=w1920-h973-iv1"},
-			2: {state: 'en espera de transportista, te notificaremos cuando tu envío esté en transito', route: "https://lh3.google.com/u/2/d/1SIePJdbDIr4DnjSFWYFW985ObhE58XV3=w2000-h4168-iv1"},
-			3: {state: 'en tránsito, pronto estará en el lugar de destino', route: "https://lh3.google.com/u/2/d/1Y5tV5o7NsPokLgqgprFYv4M7iFb0KTT3=w1920-h973-iv1"},
-			4: {state: 'en espera de recepción por el destinatario', route: "https://lh3.google.com/u/2/d/1MphskkmSf3g3oYJnuyN8oBhtODwmlLk3=w1920-h973-iv1"},
-			5: {state: 'completado, el paquete ha sido recibido por el destinatario con exito', route: "https://lh3.google.com/u/2/d/1vrYgKgWjTmjyZJ3GFuvZxyMZ6eKf76gQ=w1920-h973-iv1"},
-			6: {state: 'en almacén, ponte en contacto con soporte para tener más información', route: "https://lh3.google.com/u/2/d/19oEY1IN5m7n1slx_JJNgERTXq3qO9fjE=w1920-h973-iv1"},
-			7: {state: 'cancelado,  ponte en contacto con soporte si hay algún problema', route: "https://lh3.google.com/u/2/d/1PY7m26-54ohV11ygRBVQMx8D72LyCQnF=w1920-h973-iv1"},
-		} 
-		db.shipping.updateStateIncrement(idState, tkr)
-		mailer.sendEmailStateShipping(res, user.email, user.name, tkr, states[idState].state, states[idState].route)	//remitente
-		if(idState>2)
-			mailer.sendEmailStateShipping(res, email2, 'Daniel', tkr, states[idState].state, states[idState].route) //destinatario
-	});
+// router.route('/actualizar')
+// .post(Auth.onlyUsers,
+// 	(req, res, next) => {
+// 		let user = req.session.user
+// 		let {name: idState,tkr} = req.body
+// 		console.log(req.body)
+// 		let email2 = 'dannydvalle99139@gmail.com'
+// 		const states = {
+// 			1: {state: 'en espera de recolección, date prisa y lleva el paquete al lugar de origen', route: "https://lh3.google.com/u/2/d/1xu5cgIwQml_y6Lk4QF4CHKfNWdXNda-k=w1920-h973-iv1"},
+// 			2: {state: 'en espera de transportista, te notificaremos cuando tu envío esté en transito', route: "https://lh3.google.com/u/2/d/1SIePJdbDIr4DnjSFWYFW985ObhE58XV3=w2000-h4168-iv1"},
+// 			3: {state: 'en tránsito, pronto estará en el lugar de destino', route: "https://lh3.google.com/u/2/d/1Y5tV5o7NsPokLgqgprFYv4M7iFb0KTT3=w1920-h973-iv1"},
+// 			4: {state: 'en espera de recepción por el destinatario', route: "https://lh3.google.com/u/2/d/1MphskkmSf3g3oYJnuyN8oBhtODwmlLk3=w1920-h973-iv1"},
+// 			5: {state: 'completado, el paquete ha sido recibido por el destinatario con exito', route: "https://lh3.google.com/u/2/d/1vrYgKgWjTmjyZJ3GFuvZxyMZ6eKf76gQ=w1920-h973-iv1"},
+// 			6: {state: 'en almacén, ponte en contacto con soporte para tener más información', route: "https://lh3.google.com/u/2/d/19oEY1IN5m7n1slx_JJNgERTXq3qO9fjE=w1920-h973-iv1"},
+// 			7: {state: 'cancelado,  ponte en contacto con soporte si hay algún problema', route: "https://lh3.google.com/u/2/d/1PY7m26-54ohV11ygRBVQMx8D72LyCQnF=w1920-h973-iv1"},
+// 		} 
+// 		db.shipping.updateStateIncrement(idState, tkr)
+// 		mailer.sendEmailStateShipping(res, user.email, user.name, tkr, idState)	//remitente
+// 		if(idState>2)
+// 			mailer.sendEmailStateShipping(res, email2, 'Daniel', tkr, idState) //destinatario
+// 	});
 
 router.route('/repartidor/guia/sendForm')
 .get(Auth.onlyDeliverers,
@@ -215,15 +215,24 @@ router.route('/repartidor/guia/:guia([0-9]{18})')
 		let{name,tkr} =req.body;
 		db.shipping.updateStateIncrement(tkr, name)
 		.then((result) => {
-			if (result.affectedRows) {
-				console.log('actualizado')
-				res.json({
-					response: 'OK',
-					redirect:'/panel/repartidor/guia/shippingCollected'	
-				})
-			} else
+			if (!result.affectedRows)
 				throw new Error('No se pudo actualizar')
-		
+
+			return db.shipping.getByTracking(tkr)
+		}).then((result) => {
+			if (!result.length)
+				throw new Error('Error al obtener el envío')
+
+			let shipping = result[0]
+			console.log(shipping)
+			console.log('emails: ', shipping.em_usr, shipping.em_contdst, shipping.em_contorg)
+			return mailer.sendEmailStateShipping(res, [shipping.em_usr, shipping.em_contdst, shipping.em_contorg], shipping.nm_usr, tkr, shipping.stat_shpg)
+		}).then((result) => {
+			console.log('actualizado')
+			res.json({
+				response: 'OK',
+				redirect:'/panel/repartidor/guia/shippingCollected'	
+			})
 		}).catch((err) => {
 			console.log(err)
 			res.json({
