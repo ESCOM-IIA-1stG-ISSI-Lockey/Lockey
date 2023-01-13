@@ -100,13 +100,13 @@ router.route('/verificador')
 		db.user.verify(email, VerifyNumber).then((results) => {
 			console.log(results);
 			if (results.changedRows)
-				return db.getUserByEmail(email);
+				return db.user.exists(email)
 			else
 				throw new Error('Código Inválido');
 		})
 		.then((results) => {
-			if (results.length)
-				Auth.createSession(req, res, results[0]);
+			if (results)
+				Auth.createSession(req, res, results);
 			else
 				throw new Error('Usuario no encontrado');
 		})
