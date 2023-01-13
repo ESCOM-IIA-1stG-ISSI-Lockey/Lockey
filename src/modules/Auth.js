@@ -82,7 +82,6 @@ const Auth = {
 
 			res.json({
 				response: 'OK',
-				message: 'Usuario creado correctamente',
 				redirect: '/',
 			});
 		});

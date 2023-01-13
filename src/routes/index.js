@@ -30,7 +30,6 @@ router.route('/identificacion')
 					req.session.tmpemail = email;
 					res.json({
 						response: 'OK',
-						message: 'Usuario creado correctamente',
 						modal: {
 							old: '#signinModal',
 							new: '#mailverificationModal',
@@ -70,7 +69,6 @@ router.route('/registro')
 			req.session.tmpemail = email;
 			res.json({
 				response: 'OK',
-				message: 'Usuario creado correctamente',
 				modal: {
 					new: '#mailverificationModal',
 					old: '#signupModal'
@@ -190,7 +188,6 @@ router.route('/envio')	//envios historicos (esto de momento no)
 		console.log(req.body)
 		res.json({
 			response: 'OK',
-			message: 'Número de guía encontrado',
 			redirect: '/envio/'+req.body.tracking,
 		});
 	})

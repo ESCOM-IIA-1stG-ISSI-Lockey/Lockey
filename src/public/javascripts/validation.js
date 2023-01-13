@@ -45,7 +45,7 @@
 						if (data.redirect){	// redirect to url
 							window.location.href = data.redirect;	
 							}
-						else {				// show toast
+						else if (data.message) {				// show toast
 							console.log(data.message);
 							toast(data.message, TOAST_TYPES.SUCCESS);
 						}
@@ -78,6 +78,8 @@
 					
 				})
 				.catch(err => {
+					if (err.message == 'Failed to fetch')
+						err.message = 'Error al conectar con el servidor';
 					toast(err.message? err.message : 'Error al enviar la petición', TOAST_TYPES.ERROR);
 					console.log(err);
 				})

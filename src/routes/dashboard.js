@@ -98,7 +98,10 @@ router.route('/repartidor/guia/report')
 		db.report.create(req.session.user.id, body.idDoorReport, body.traking, body.titleReport, body.detailsReport).then((results)=>{ 
 			debug('results', results);
 			if (results.affectedRows) {
-				res.status(200).json({response: 'OK', redirect: '/panel/repartidor/guia/sendForm'})
+				res.status(200).json({
+					response: 'OK', 
+					redirect: '/panel/repartidor/guia/sendForm'
+				})
 			}
 			else {
 				throw new Error('Reporte no generado');
@@ -172,10 +175,8 @@ router.route('/actualizar')
 			6: {state: 'en almacén, ponte en contacto con soporte para tener más información', route: "https://lh3.google.com/u/2/d/19oEY1IN5m7n1slx_JJNgERTXq3qO9fjE=w1920-h973-iv1"},
 			7: {state: 'cancelado,  ponte en contacto con soporte si hay algún problema', route: "https://lh3.google.com/u/2/d/1PY7m26-54ohV11ygRBVQMx8D72LyCQnF=w1920-h973-iv1"},
 		} 
-		console.log(states[idState])
-
 		db.shipping.updateState(idState, tkr)
-		mailer.sendEmailStateShipping(res, user.email2, user.name, tkr, states[idState].state, states[idState].route)	//remitente
+		mailer.sendEmailStateShipping(res, user.email, user.name, tkr, states[idState].state, states[idState].route)	//remitente
 		if(idState>2)
 			mailer.sendEmailStateShipping(res, email2, 'Daniel', tkr, states[idState].state, states[idState].route) //destinatario
 	});
@@ -184,7 +185,10 @@ router.route('/repartidor/guia/sendForm')
 .get(Auth.onlyDeliverers,
 	async(req,res,next) =>{
 		if (req.session.user) {
-			res.render('sendForm',{ title: 'sendiit - panel', path: req.path, user: req.session.user});
+			res.render('sendForm',{ 
+				title: 'sendiit - panel', 
+				path: req.path, user: req.session.user
+			});
 		} else {
 			res.redirect('/');
 		}
