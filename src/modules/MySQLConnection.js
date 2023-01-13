@@ -43,16 +43,6 @@ const db = {
 		exists: (email) => {
 			return new Promise((resolve, reject) => {
 				console.log(email)
-				con.query('SELECT * FROM User WHERE em_usr=?', [email], (err, results) => {
-					console.log(results)
-					if (err) reject(err);
-					else resolve(results[0]);
-				});
-			});
-		},
-		exists1: (email) => {
-			return new Promise((resolve, reject) => {
-				console.log(email)
 				con.query('SELECT * FROM vUser WHERE em_usr=?', [email], (err, results) => {
 					console.log(results)
 					if (err) reject(err);

@@ -100,20 +100,18 @@ router.route('/verificador')
 		db.user.verify(email, VerifyNumber).then((results) => {
 			console.log(results);
 			if (results.changedRows)
-				db.user.exists1(email).then((results) => {
-					if (results)
-						Auth.createSession(req, res, results);
-					else
-						throw new Error('Usuario no encontrado');
-				}).catch((err) => {
-					debug(err);
-					res.status(400).json({ response: 'ERROR', message: err.message||err });
-				});
+				return db.user.exists(email)
 			else
 				throw new Error('Código Inválido');
 		})
+		.then((results) => {
+			if (results)
+				Auth.createSession(req, res, results);
+			else
+				throw new Error('Usuario no encontrado');
+		})
 		.catch((err) => {
-			debug(err);
+			debug(err); 
 			res.status(400).json({ response: 'ERROR', message: err.message||err });
 		});
 	});
