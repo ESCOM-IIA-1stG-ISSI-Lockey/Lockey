@@ -14,7 +14,14 @@ block content
                     if typeof(wallet)!='undefined'
                         p.fs-3.fw-bold.pt-4.mb-0 #{wallet.nknm_wal}
                         p.fs-6.m-0 #{wallet.nm_wal}
-                        p.fs-6 #{wallet.num_wal}
+                        p
+                            each dig, index in wallet.num_wal
+                                if index%4==0
+                                    small.inline.text-muted  
+                                if index<12
+                                    small.inline.text-muted *
+                                else
+                                    small.inline.text-muted=dig
                     else
                         i.h1.bi.bi-building-fill
                         p Sin tarjeta seleccionada
