@@ -170,7 +170,7 @@ const db = {
 					if (err) reject(err);
 					else
 						con.query('INSERT INTO ShippingDoor VALUES (DEFAULT, ?, ?, ?, 1, ?), (DEFAULT, ?, ?, ?, 2, NULL)', 
-							[orgDoorId, tracking, orgCntId, qr, dstDoorId, tracking, dstCntId], (err, results) => {
+							[orgDoorId*3, tracking, orgCntId, qr, dstDoorId*3, tracking, dstCntId], (err, results) => {
 							if (err) reject(err);
 							else resolve(results);
 						});
