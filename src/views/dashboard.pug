@@ -76,7 +76,7 @@ block content
 					//- 			button.btn.btn-secondary(type="submit" onclick='search_shipping(event)' ) Buscar
 					//- 		.invalid-tooltip
 		.container
-			if typeof(pedingShipings.trk_shpg)!='undefined'
+			if typeof(pedingShipings)!='undefined'
 				h4.pt-3.container Envíos en curso
 				.wrapper.container.wrapper2
 					each val in pedingShipings
@@ -99,6 +99,7 @@ block content
 			else 
 				center
 					h4.pt-3.container No hay envíos en curso
+					img(src="/images/baner.png" style="width: 400px")
 
 
 			.container.align-items-center.justify-content-center
