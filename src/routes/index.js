@@ -110,8 +110,8 @@ router.route('/verificador')
 			else
 				throw new Error('Usuario no encontrado');
 		})
-		.catch((err) => {fh
-			debug(err);
+		.catch((err) => {
+			debug(err); 
 			res.status(400).json({ response: 'ERROR', message: err.message||err });
 		});
 	});
