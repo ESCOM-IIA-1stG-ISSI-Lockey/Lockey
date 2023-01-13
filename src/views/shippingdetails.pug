@@ -131,7 +131,7 @@ block content
                         h3.fw-bold Código QR
                     .d-flex.justify-content-center.mb-0.mt-1
                         img.qr-img(width='300' height='300' data-text=(shipping.qr_org||shipping.qr_dst))
-                    //- .d-flex.justify-content-center.mb-5.mt-0
+                    .d-flex.justify-content-center.mb-5.mt-0
                         h5.fs-6.fw-bold.text-secondary.m-0 Código de envío: #{shipping.qr_org||shipping.qr_dst}
                     .d-flex.justify-content-center
                         button.btn.btn-secondary.btn-lg.active.mb-5(type='submit' aria-pressed='true')= shipping.stat_shpg!=1 ? 'Recolectar' : 'Entregar'

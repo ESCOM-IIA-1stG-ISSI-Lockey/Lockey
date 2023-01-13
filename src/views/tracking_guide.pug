@@ -17,18 +17,29 @@ block content
                     p Número De Guía : 
                         strong=shipping.trk_shpg
                     p Altura De Paquete : 
-                        strong #{shipping.pr_shpg} cm
+                        strong #{shipping.hgt_drtype} cm
                     p Ancho Del Paquete : 
-                        strong #{shipping.wd_shpg} cm
+                        strong #{shipping.wd_drtype} cm
             
                     p Profundidad Del Paquete : 
-                        strong #{shipping.deep_shpg} cm
+                        strong #{shipping.deep_drtype} cm
                     
                         
-                        
-                    
-                        img.qr-img.qr-imgrounded.mx-auto.d-block( width="350" VSPACE="30" alt="Responsive image" data-text= (shipping.qr_dst || shipping.qr_org))
-                    .text-center
+                    if shipping.stat_shpg==2 || shipping.stat_shpg==3
+                        .d-flex.justify-content-center.mb-0.mt-1
+                            img.qr-img(width='300' height='300' data-text=(shipping.qr_org||shipping.qr_dst))
+                        .d-flex.justify-content-center.mb-5.mt-0
+                            h5.fs-6.fw-bold.text-secondary.m-0 Código de envío: #{shipping.qr_org||shipping.qr_dst}
+                        .d-flex.justify-content-center
+                            button.btn.btn-secondary.btn-lg.active.mb-5(type='submit' aria-pressed='true')= shipping.stat_shpg==2 ? 'Recolectar' : 'Entregar'
+                    else 
+                        .d-flex.justify-content-center
+                            |Ninguna acción ha realizar
+
+                        //- img.qr-img.qr-imgrounded.mx-auto.d-block( width="350" VSPACE="30" alt="Responsive image" data-text= (shipping.qr_dst || shipping.qr_org))
+                            center 
+                            h5.fs-6.fw-bold.text-secondary.m-0 Código de envío: #{shipping.qr_org||shipping.qr_dst}
+                    //- .text-center
                     
                         if shipping.stat_shpg == 2
                             button.btn.btn-secondary.btn-lg.active.mb-5(type='submit' aria-pressed='true') Recolectar

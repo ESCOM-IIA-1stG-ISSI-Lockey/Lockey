@@ -184,7 +184,32 @@ const db = {
 					throw errorDBConnection; 
 				con.query('UPDATE Shipping SET stat_shpg=?, dtu_shpg=DEFAULT WHERE trk_shpg=?', [state, tracking], (err, results) => {
 					if (err) reject(err);
-					else resolve(results);
+					else {
+						console.log('Updated', state);
+						console.log('Updated', state==1);
+						console.log('Updated', state==2);
+						console.log('Updated', state==3);
+						console.log('Updated', state==4);
+						console.log('Updated', state==5);
+						// update ShippingDoor, setting both qr to null and setting the new qr to door with edge_shpgdr = 1 if state = {1,2} or to door with edge_shpgdr = 2 if state = {3,4}
+						con.query('UPDATE ShippingDoor SET qr_shpgdr=NULL WHERE trk_shpg=?', [tracking], (err, results) => {
+							let token = Math.floor(Math.random() * 1000000)// Random 6-digit number
+								.toString().padStart(6, '0'); 
+							if (err) reject(err);
+							else if (state == 1 || state == 2)
+								con.query('UPDATE ShippingDoor SET qr_shpgdr=? WHERE trk_shpg=? AND edge_shpgdr=1', [token, tracking], (err, results) => {
+									if (err) reject(err);
+									else resolve(results);
+								});
+							else if (state == 3 || state == 4)
+								con.query('UPDATE ShippingDoor SET qr_shpgdr=? WHERE trk_shpg=? AND edge_shpgdr=2', [token, tracking], (err, results) => {
+									if (err) reject(err);
+									else resolve(results);
+								});
+							else if (state == 6 || state == 7)
+								reject('Intento de actualizar estado de envio Completado, En Álmacen, Cancelado')
+						});
+					}
 				});
 			});
 		},
