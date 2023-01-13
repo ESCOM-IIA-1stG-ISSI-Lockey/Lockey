@@ -6,27 +6,17 @@ block content
         input(type="hidden" value=shipping.stat_shpg name='name' id='id')
         input(type="hidden" value=shipping.trk_shpg name='tkr' id='tkr')
 
-        button.btn.btn-primary.btn-lg(onclick="stateAct()") Estado actual
+        //- button.btn.btn-primary.btn-lg(onclick="stateAct()") Estado actual
         button.btn.btn-primary.btn-lg(onclick='senemail()') Siguiente estado
 
 block scripts
     script const user = !{JSON.stringify(user)}
     script(src='/javascripts/validation.js')
     script.
-        const array = {
-                1: "En espera de recolección",
-                2: "En espera de transportista",
-                3: "En tránsito",
-                4: "En espera de recepción",
-                5: "Completado",
-                6: "Almacén",
-                7: "Cancelado"
-            }
-        function stateAct() {
-            var num=parseInt(document.getElementById("id").value); 
-            alert(num);
-            document.querySelector("form").submit()
-        }
+        //- function stateAct() {
+        //-     var num=parseInt(document.getElementById("id").value); 
+        //-     alert(num);
+        //- }
 
         function senemail() {
             var num=parseInt(document.getElementById("id").value++); 
@@ -40,5 +30,5 @@ block scripts
             document.querySelector("form").submit()
         }
 
-        const mailer = require('../modules/SendGmailV');
+        //- const mailer = require('../modules/SendGmailV');
     //- return 
