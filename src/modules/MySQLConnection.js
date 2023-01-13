@@ -181,8 +181,8 @@ const db = {
 		updateState: (tracking, state) => {
 			return new Promise((resolve, reject) => {
 				if (!isConnected)
-					throw errorDBConnection;
-				con.query('UPDATE Shipping SET stat_shpg=? WHERE trk_shpg=?', [state, tracking], (err, results) => {
+					throw errorDBConnection; 
+				con.query('UPDATE Shipping SET stat_shpg=?, dtu_shpg=DEFAULT WHERE trk_shpg=?', [state, tracking], (err, results) => {
 					if (err) reject(err);
 					else resolve(results);
 				});
