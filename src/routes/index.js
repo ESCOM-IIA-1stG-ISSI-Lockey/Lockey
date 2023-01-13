@@ -102,17 +102,19 @@ router.route('/verificador')
 		db.user.verify(email, VerifyNumber).then((results) => {
 			console.log(results);
 			if (results.changedRows)
-				return db.getUserByEmail(email);
+				db.user.exists1(email).then((results) => {
+					if (results)
+						Auth.createSession(req, res, results);
+					else
+						throw new Error('Usuario no encontrado');
+				}).catch((err) => {
+					debug(err);
+					res.status(400).json({ response: 'ERROR', message: err.message||err });
+				});
 			else
 				throw new Error('Código Inválido');
 		})
-		.then((results) => {
-			if (results.length)
-				Auth.createSession(req, res, results[0]);
-			else
-				throw new Error('Usuario no encontrado');
-		})
-		.catch((err) => {fh
+		.catch((err) => {
 			debug(err);
 			res.status(400).json({ response: 'ERROR', message: err.message||err });
 		});

@@ -42,7 +42,19 @@ const db = {
 	user: {
 		exists: (email) => {
 			return new Promise((resolve, reject) => {
+				console.log(email)
 				con.query('SELECT * FROM User WHERE em_usr=?', [email], (err, results) => {
+					console.log(results)
+					if (err) reject(err);
+					else resolve(results[0]);
+				});
+			});
+		},
+		exists1: (email) => {
+			return new Promise((resolve, reject) => {
+				console.log(email)
+				con.query('SELECT * FROM vUser WHERE em_usr=?', [email], (err, results) => {
+					console.log(results)
 					if (err) reject(err);
 					else resolve(results[0]);
 				});
@@ -114,7 +126,7 @@ const db = {
 				con.query('SELECT * FROM vUser WHERE em_usr=? AND tk_usr=? LIMIT 1', [email,token], (err, results) => {
 					if (err) reject(err);
 					else if (results.length) {
-						con.query('UPDATE User SET tk_usr = NULL WHERE em_usr=?', [email], (err, results) => {
+						con.query('UPDATE User SET act_usr=1,  tk_usr = NULL WHERE em_usr=?', [email], (err, results) => {
 							if (err) reject(err);
 							else resolve(results);
 						});
